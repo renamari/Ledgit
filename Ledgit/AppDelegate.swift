@@ -8,15 +8,43 @@
 
 import UIKit
 import CoreData
+import Firebase
+import FBSDKLoginKit
+import FBSDKCoreKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
-
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        
+        FIRApp.configure()
+        FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
+        
+        self.window = UIWindow(frame: UIScreen.main.bounds)
+        
+        if Model.model.isUserAuthenticated(){
+            
+            Model.model.users.child(Model.model.auth.currentUser!.uid).observeSingleEvent(of: .value, with: { (snapshot) in
+                
+                if let snapshot = snapshot.value as? NSDictionary{
+                    Model.model.currentUser = User(dict: snapshot)
+                }
+            })
+            
+            let storyboard = UIStoryboard(name: "Trips", bundle: nil)
+            let navigationController = storyboard.instantiateViewController(withIdentifier: Constants.NavigationIdentifiers.trips)
+            self.window?.rootViewController = navigationController
+            
+        }else{
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let navigationController = storyboard.instantiateViewController(withIdentifier: Constants.NavigationIdentifiers.main)
+            self.window?.rootViewController = navigationController
+        }
+        
+        self.window?.makeKeyAndVisible()
+ 
         return true
     }
 

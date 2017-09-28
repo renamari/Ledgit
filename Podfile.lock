@@ -10,7 +10,7 @@ PODS:
   - Charts (3.0.2):
     - Charts/Core (= 3.0.2)
   - Charts/Core (3.0.2)
-  - Eureka (2.0.1)
+  - Eureka (3.1.0)
   - FacebookCore (0.2.0):
     - Bolts (~> 1.8)
     - FBSDKCoreKit (~> 4.15)
@@ -70,7 +70,9 @@ PODS:
     - GoogleToolboxForMac/NSString+URLArguments (= 2.1.1)
   - GoogleToolboxForMac/NSString+URLArguments (2.1.1)
   - GTMSessionFetcher/Core (1.1.9)
-  - NVActivityIndicatorView (3.6.0)
+  - NVActivityIndicatorView (3.7.0):
+    - NVActivityIndicatorView/Presenter (= 3.7.0)
+  - NVActivityIndicatorView/Presenter (3.7.0)
   - SteviaLayout (3.1.3)
   - SwiftDate (4.1.1)
 
@@ -78,7 +80,7 @@ DEPENDENCIES:
   - BetterSegmentedControl
   - BubbleTransition
   - Charts
-  - Eureka
+  - Eureka (from `https://github.com/xmartlabs/Eureka.git`, branch `feature/Xcode9-Swift4`)
   - FacebookCore
   - FacebookLogin
   - FacebookShare
@@ -86,16 +88,32 @@ DEPENDENCIES:
   - Firebase/Core
   - Firebase/Database
   - Firebase/Storage
-  - NVActivityIndicatorView
+  - NVActivityIndicatorView (from `https://github.com/ninjaprox/NVActivityIndicatorView.git`, branch `swift4`)
   - SteviaLayout
   - SwiftDate
+
+EXTERNAL SOURCES:
+  Eureka:
+    :branch: feature/Xcode9-Swift4
+    :git: https://github.com/xmartlabs/Eureka.git
+  NVActivityIndicatorView:
+    :branch: swift4
+    :git: https://github.com/ninjaprox/NVActivityIndicatorView.git
+
+CHECKOUT OPTIONS:
+  Eureka:
+    :commit: db1dd8105092f946fa5439cd5c1715f8e28daf53
+    :git: https://github.com/xmartlabs/Eureka.git
+  NVActivityIndicatorView:
+    :commit: 954b185ce3881171638049aa112d56b6ae98f53e
+    :git: https://github.com/ninjaprox/NVActivityIndicatorView.git
 
 SPEC CHECKSUMS:
   BetterSegmentedControl: 0b4dde1caac22de345820858a5e2789132378c1c
   Bolts: 8a7995239dbe724f9cba2248b766d48b7ebdd322
   BubbleTransition: bb24ed389ab672eecf3c87170d0a73f959a8e696
   Charts: 236d6ccdd0ce6feae151d89e829a7397381a21fd
-  Eureka: ae837bb1dfae0c07bc1bda7aeef87876eeb537c2
+  Eureka: 06695c5795c7be2ed84261d652c266228e19820d
   FacebookCore: 2cb3f0fbff218e9d3119cec84bae983b232412de
   FacebookLogin: c9d606504735780a9e3002465a615512e0a691a5
   FacebookShare: 8e9ee8ea06505e6a1d3d719b0cc63e840fb8aaeb
@@ -111,10 +129,10 @@ SPEC CHECKSUMS:
   FirebaseStorage: a5c55b23741a49a72af8f30f95b3bb5ddbeda12d
   GoogleToolboxForMac: 8e329f1b599f2512c6b10676d45736bcc2cbbeb0
   GTMSessionFetcher: 5c046c76a1f859bc9c187e918f18e4fc7bb57b5e
-  NVActivityIndicatorView: c7c1c4300b418bd9ed06459e78d4df859ddbe31f
+  NVActivityIndicatorView: 0222d44ebe29c6256ec493af79662745915b2eb8
   SteviaLayout: 807c742a8e4bcb94f47f018b23873a40f1f1cc1d
   SwiftDate: ae615078806a322183e5f64e02e80ca8d939bf48
 
-PODFILE CHECKSUM: 96079b1ec6cb5dc3e04d24f48f4f395429a4194d
+PODFILE CHECKSUM: 4661acf08e6d47554a8f9c34c0f8d714a8677224
 
-COCOAPODS: 1.1.1
+COCOAPODS: 1.3.1

@@ -37,7 +37,7 @@ extension UIViewController{
         let indicator = NVActivityIndicatorView(
             frame: CGRect(x: (self.view.frame.width - 60) / 2, y: (self.view.frame.height - 60) / 2, width: 60, height: 60),
             type: .ballClipRotatePulse,
-            color: .kColor308CF9,
+            color: .ledgitBlue,
             padding: 0)
         
         indicator.tag = loadingIndicatorTag
@@ -107,21 +107,17 @@ extension UIColor {
 
 //MARK:- String Extensions
 extension UIColor {
-    static var firstColor: UIColor  { return UIColor(red: 1, green: 0, blue: 0, alpha: 1) }
     static var kColor4990E2: UIColor { return UIColor(red: 73.0/255.0, green: 144.0/255.0, blue: 226.0/255.0, alpha: 1.0)}
     static var kColorFF7D7D: UIColor { return UIColor(red: 255.0/255.0, green: 125.0/255.0, blue: 125.0/255.0, alpha: 1.0)}
     static var kColorE3CC00: UIColor { return UIColor(red: 227.0/255.0, green: 204.0/255.0, blue: 0.0/255.0, alpha: 1.0)}
     static var kColor87BEFE: UIColor { return UIColor(red: 135.0/255.0, green: 190.0/255.0, blue: 254.0/255.0, alpha: 1.0)}
     static var kColorFDBFBF: UIColor { return UIColor(red: 253.0/255.0, green: 191.0/255.0, blue: 191.0/255.0, alpha: 1.0)}
     static var kColor4A4A4A: UIColor { return UIColor(red: 74.0/255.0, green: 74.0/255.0, blue: 74.0/255.0, alpha: 1.0)}
-    static var kColor4083FF: UIColor { return UIColor(red: 64.0/255.0, green: 131.0/255.0, blue: 255.0/255.0, alpha: 1.0)}
     
     // MARK:- Theme colors
-    
-    //Blue
-    static var kColor308CF9: UIColor { return UIColor(red: 48.0/255.0, green: 140.0/255.0, blue: 249.0/255.0, alpha: 1.0)}
-    //Pink
-    static var kColorEF7BC6: UIColor { return UIColor(red: 239.0/255.0, green: 123.0/255.0, blue: 198.0/255.0, alpha: 1.0)}
+    static let ledgitBlue: UIColor { return UIColor(red: 48.0/255.0, green: 140.0/255.0, blue: 249.0/255.0, alpha: 1.0)}
+    static let ledgitPink: UIColor { return UIColor(red: 239.0/255.0, green: 123.0/255.0, blue: 198.0/255.0, alpha: 1.0)}
+    static let ledgitAqua: UIColor { return UIColor(red: 31.0/255.0, green: 157.0/255.0, blue: 191.0/255.0, alpha: 1.0)}
     //Aqua Color
     static var kColor1F9DBF: UIColor { return UIColor(red: 31.0/255.0, green: 157.0/255.0, blue: 191.0/255.0, alpha: 1.0)}
     //Grey color
@@ -247,14 +243,18 @@ extension UIViewController {
 }
 
 extension UIView {
-    func createBorder(radius:CGFloat, color: UIColor?){
-        if let color = color{
-            self.layer.borderColor = color.cgColor
-            self.layer.borderWidth = 1
-        }
+    func createBorder(radius: CGFloat) {
         self.layer.cornerRadius = radius
         self.layer.masksToBounds = true
         self.clipsToBounds = true
+    }
+    
+    func createBorder(radius: CGFloat, color: UIColor){
+        self.layer.cornerRadius = radius
+        self.layer.masksToBounds = true
+        self.clipsToBounds = true
+        self.layer.borderColor = color.cgColor
+        self.layer.borderWidth = 1
     }
     
     func dashedBorder(withColor color: CGColor){

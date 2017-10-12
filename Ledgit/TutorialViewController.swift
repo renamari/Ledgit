@@ -14,16 +14,15 @@ class TutorialViewController: UIViewController {
     @IBOutlet weak var descriptionLabel: UILabel!
     
     var descriptionText: String?
-    var backgroundImageName: String?
+    var pageImage: UIImage?
     var titleText:String?
-    var backgroundColor: UIColor?
     var index:Int?
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // 1. Change description label text and image
-        backgroundImageView.image = UIImage(named: backgroundImageName!)
+        backgroundImageView.image = pageImage
         descriptionLabel.text = descriptionText
         
         // 2. Change title text

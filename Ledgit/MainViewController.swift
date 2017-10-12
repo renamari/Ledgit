@@ -19,7 +19,7 @@ class MainViewController: UIViewController {
     @IBOutlet weak var pageControl: UIPageControl!
     @IBOutlet weak var tutorialView: UIView!
     
-    var pageViewController:UIPageViewController?
+    private var pageViewController: UIPageViewController?
     var isSignUp:Bool?
     var currentIndex = 0
     
@@ -32,9 +32,9 @@ class MainViewController: UIViewController {
     
     fileprivate(set) lazy var pageColors:[UIColor] = {
         return [
-            .kColor4083FF,
-            .kColorEF7BC6,
-            .kColor1F9DBF]
+            .ledgitBlue,
+            .ledgitPink,
+            .ledgitAqua]
     }()
     
     fileprivate(set) lazy var pageDescriptions:[String] = {
@@ -44,14 +44,14 @@ class MainViewController: UIViewController {
             Constants.TutorialDescriptions.third]
     }()
     
-    fileprivate(set) lazy var backgroundImageNames:[String] = {
-        return ["tutorial-icon-0","tutorial-icon-1","tutorial-icon-2"]
+    fileprivate(set) lazy var pageImages:[UIImage] = {
+        return [#imageLiteral(resourceName: "tutorial-icon-0"),#imageLiteral(resourceName: "tutorial-icon-1"),#imageLiteral(resourceName: "tutorial-icon-2")]
     }()
     
     fileprivate(set) lazy var orderedViewControllers: [UIViewController] = {
-        return [self.newTutorialViewController(0),
-                self.newTutorialViewController(1),
-                self.newTutorialViewController(2)]
+        return [self.newTutorialViewController(with: 0),
+                self.newTutorialViewController(with: 1),
+                self.newTutorialViewController(with: 2)]
     }()
     
     override func viewDidLoad() {
@@ -62,36 +62,35 @@ class MainViewController: UIViewController {
     }
     
     func setupUI(){
-        signupButton.createBorder(radius: Constants.CornerRadius.button, color: nil)
-        signinButton.createBorder(radius: Constants.CornerRadius.button, color: .kColor308CF9)
-        
+        signupButton.createBorder(radius: Constants.CornerRadius.button)
+        signinButton.createBorder(radius: Constants.CornerRadius.button, color: .ledgitBlue)
     }
     
     func setupPageViewController(){
         
-        // 1. Assign first view controller
-        if let firstViewController = orderedViewControllers.first {
-            
-            // 2. Initialize new page view controller
-            pageViewController = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
-            pageViewController?.delegate = self
-            pageViewController?.dataSource = self
-            pageViewController?.setViewControllers([firstViewController], direction: .forward, animated: true, completion: nil)
-            pageViewController?.view.frame = CGRect(x: 0, y: 0, width: tutorialView.frame.width, height: tutorialView.frame.height)
-            tutorialView.addSubview((pageViewController?.view)!)
-        }
+        // 1. Retrieve first view controller from ordered array
+        guard let firstViewController = orderedViewControllers.first as? TutorialViewController else { return }
+        
+        // 2. Initialize new page view controller
+        pageViewController = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
+        pageViewController?.delegate = self
+        pageViewController?.dataSource = self
+        pageViewController?.setViewControllers([firstViewController], direction: .forward, animated: true, completion: nil)
+        pageViewController?.view.frame = CGRect(x: 0, y: 0, width: tutorialView.frame.width, height: tutorialView.frame.height)
+        
+        guard let view = pageViewController?.view else { return }
+        tutorialView.addSubview(view)
     }
     
-    fileprivate func newTutorialViewController(_ index: Int) -> UIViewController {
+    fileprivate func newTutorialViewController(with index: Int) -> UIViewController {
         
         // 1. Create a new tutorial view controller screen
         let tutorialViewController = TutorialViewController.instantiate(from: .main)
     
         // 2. Update its properties
-        tutorialViewController.backgroundImageName = backgroundImageNames[index]
+        tutorialViewController.pageImage = pageImages[index]
         tutorialViewController.descriptionText = pageDescriptions[index]
         tutorialViewController.titleText = pageTitles[index]
-        tutorialViewController.backgroundColor = pageColors[index]
         tutorialViewController.index = index
         
         // 3. Return tutorial screen
@@ -114,32 +113,29 @@ class MainViewController: UIViewController {
     
     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    
         if segue.identifier == Constants.SegueIdentifiers.authenticate{
-            if let authenticateViewController = segue.destination as? AuthenticateViewController{
-                authenticateViewController.isSignUp = isSignUp!
-                //authenticateViewController.isLoading = true
+            guard let authenticateViewController = segue.destination as? AuthenticateViewController else{
+                return
             }
+            
+            authenticateViewController.isSignUp = isSignUp!
+            //authenticateViewController.isLoading = true
         }
     }
-    
-
 }
 
 //MARK:- UIPageViewController Delegate Extensions
-extension MainViewController: UIPageViewControllerDelegate, UIPageViewControllerDataSource{
+extension MainViewController: UIPageViewControllerDataSource{
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController?{
         // 1. Check if there are any more view controllers to display
-        guard let viewControllerIndex = orderedViewControllers.index(of: viewController) else {
-            return nil
-        }
+        guard let viewControllerIndex = orderedViewControllers.index(of: viewController) else { return nil }
         // 2. If yes, decrease the index by one
         let previousIndex = viewControllerIndex - 1
         
         // 3. Make sure you are not at the first screen
-        guard previousIndex >= 0 else {
-            return nil
-        }
+        guard previousIndex >= 0 else { return nil }
         
         // 4. Return the view controller to display
         return orderedViewControllers[previousIndex]
@@ -147,23 +143,20 @@ extension MainViewController: UIPageViewControllerDelegate, UIPageViewController
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController?{
         // 1. Check if there are any more view controllers to display
-        guard let viewControllerIndex = orderedViewControllers.index(of: viewController) else {
-            return nil
-        }
+        guard let viewControllerIndex = orderedViewControllers.index(of: viewController) else { return nil }
         
         // 2. If yes, increase the index by one
         let nextIndex = viewControllerIndex + 1
         
         // 3. Make sure you are not at the first screen
-        guard orderedViewControllers.count != nextIndex else {
-            return nil
-        }
+        guard orderedViewControllers.count != nextIndex else { return nil }
         
         // 4. Return the view controller to display
         return orderedViewControllers[nextIndex]
     }
-    
-    
+}
+
+extension MainViewController: UIPageViewControllerDelegate {
     func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
         
         // 1. Check if screen has finished transition from one view to next
@@ -178,7 +171,8 @@ extension MainViewController: UIPageViewControllerDelegate, UIPageViewController
     func pageViewController(_ pageViewController: UIPageViewController, willTransitionTo pendingViewControllers: [UIViewController]) {
         
         // 1. Update the current index to the view controller index user will transition to
-        let itemController = pendingViewControllers.first as! TutorialViewController
-        currentIndex = itemController.index!
+        guard let controller = pendingViewControllers.first as? TutorialViewController, let index = controller.index else { return }
+        
+        currentIndex = index
     }
 }

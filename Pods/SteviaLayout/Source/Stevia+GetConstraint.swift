@@ -6,7 +6,7 @@
 //  Copyright © 2016 Sacha Durand Saint Omer. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 public extension UIView {
     
@@ -105,17 +105,48 @@ public extension UIView {
         return constraintForView(self, attribute: .width)
     }
     
+    /** Gets the trailing constraint if found.
+     
+     Example Usage for changing width property of a label :
+     
+     ```
+     label.trailingConstraint?.constant = 10
+     
+     // Animate if needed
+     UIView.animateWithDuration(0.3, animations:layoutIfNeeded)
+     ```
+     - Returns: The trailing NSLayoutConstraint if found.
+     */
+    public var trailingConstraint: NSLayoutConstraint? {
+        return constraintForView(self, attribute: .trailing)
+    }
+    
+    /** Gets the leading constraint if found.
+     
+     Example Usage for changing width property of a label :
+     
+     ```
+     label.leadingConstraint?.constant = 10
+     
+     // Animate if needed
+     UIView.animateWithDuration(0.3, animations:layoutIfNeeded)
+     ```
+     - Returns: The leading NSLayoutConstraint if found.
+     */
+    public var leadingConstraint: NSLayoutConstraint? {
+        return constraintForView(self, attribute: .leading)
+    }
+    
 }
 
 func constraintForView(_ v: UIView, attribute: NSLayoutAttribute) -> NSLayoutConstraint? {
-    if let spv = v.superview {
-        for c in spv.constraints {
-            if let fi = c.firstItem as? NSObject, fi == v && c.firstAttribute == attribute {
-                return c
-            }
-            if let si = c.secondItem as? NSObject, si == v && c.secondAttribute == attribute {
-                return c
-            }
+    let target = v.superview ?? v
+    for c in target.constraints {
+        if let fi = c.firstItem as? NSObject, fi == v && c.firstAttribute == attribute {
+            return c
+        }
+        if let si = c.secondItem as? NSObject, si == v && c.secondAttribute == attribute {
+            return c
         }
     }
     return nil

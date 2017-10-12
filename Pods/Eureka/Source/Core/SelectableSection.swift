@@ -73,8 +73,9 @@ extension SelectableSectionType where Self: Section {
      Returns the selected rows of this section. Should be used if selectionType is MultipleSelection
      */
     public func selectedRows() -> [SelectableRow] {
-        let selectedRows: [BaseRow] = self.filter { $0 is SelectableRow && $0.baseValue != nil }
-        return selectedRows.map { $0 as! SelectableRow }
+        return filter({ (row: BaseRow) -> Bool in
+            row is SelectableRow && row.baseValue != nil
+        }).map({ $0 as! SelectableRow})
     }
 
     /**

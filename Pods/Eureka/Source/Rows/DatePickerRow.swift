@@ -49,7 +49,6 @@ open class DatePickerCell: Cell<Date>, CellType {
         selectionStyle = .none
         accessoryType = .none
         editingAccessoryType =  .none
-        height = { UITableViewAutomaticDimension }
         datePicker.datePickerMode = datePickerMode()
         datePicker.addTarget(self, action: #selector(DatePickerCell.datePickerValueChanged(_:)), for: .valueChanged)
     }
@@ -72,7 +71,7 @@ open class DatePickerCell: Cell<Date>, CellType {
         }
     }
 
-    @objc func datePickerValueChanged(_ sender: UIDatePicker) {
+    func datePickerValueChanged(_ sender: UIDatePicker) {
         row?.value = sender.date
     }
 

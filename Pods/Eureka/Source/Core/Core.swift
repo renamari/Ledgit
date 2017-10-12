@@ -110,6 +110,18 @@ public enum ControllerProvider<VCType: UIViewController> {
 }
 
 /**
+ *  Responsible for the options passed to a selector view controller
+ */
+public struct DataProvider<T> where T: Equatable {
+
+    public let arrayData: [T]?
+
+    public init(arrayData: [T]) {
+        self.arrayData = arrayData
+    }
+}
+
+/**
  Defines how a controller should be presented.
  
  - Show?:           Shows the controller with `showViewController(...)`.
@@ -390,7 +402,7 @@ public struct InlineRowHideOptions: OptionSet {
 }
 
 /// View controller that shows a form.
-open class FormViewController: UIViewController, FormViewControllerProtocol, FormDelegate {
+open class FormViewController: UIViewController, FormViewControllerProtocol {
 
     @IBOutlet public var tableView: UITableView!
 
@@ -504,8 +516,8 @@ open class FormViewController: UIViewController, FormViewControllerProtocol, For
         NotificationCenter.default.addObserver(self, selector: #selector(FormViewController.keyboardWillHide(_:)), name: Notification.Name.UIKeyboardWillHide, object: nil)
     }
 
-    open override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
+    open override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
         NotificationCenter.default.removeObserver(self, name: Notification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.removeObserver(self, name: Notification.Name.UIKeyboardWillHide, object: nil)
     }
@@ -672,50 +684,6 @@ open class FormViewController: UIViewController, FormViewControllerProtocol, For
         if let inlineRow = row as? BaseInlineRowType, row._inlineRow != nil {
             inlineRow.collapseInlineRow()
         }
-    }
-    
-    // MARK: FormDelegate
-    
-    open func sectionsHaveBeenAdded(_ sections: [Section], at indexes: IndexSet) {
-        guard animateTableView else { return }
-        tableView?.beginUpdates()
-        tableView?.insertSections(indexes, with: insertAnimation(forSections: sections))
-        tableView?.endUpdates()
-    }
-    
-    open func sectionsHaveBeenRemoved(_ sections: [Section], at indexes: IndexSet) {
-        guard animateTableView else { return }
-        tableView?.beginUpdates()
-        tableView?.deleteSections(indexes, with: deleteAnimation(forSections: sections))
-        tableView?.endUpdates()
-    }
-    
-    open func sectionsHaveBeenReplaced(oldSections: [Section], newSections: [Section], at indexes: IndexSet) {
-        guard animateTableView else { return }
-        tableView?.beginUpdates()
-        tableView?.reloadSections(indexes, with: reloadAnimation(oldSections: oldSections, newSections: newSections))
-        tableView?.endUpdates()
-    }
-    
-    open func rowsHaveBeenAdded(_ rows: [BaseRow], at indexes: [IndexPath]) {
-        guard animateTableView else { return }
-        tableView?.beginUpdates()
-        tableView?.insertRows(at: indexes, with: insertAnimation(forRows: rows))
-        tableView?.endUpdates()
-    }
-    
-    open func rowsHaveBeenRemoved(_ rows: [BaseRow], at indexes: [IndexPath]) {
-        guard animateTableView else { return }
-        tableView?.beginUpdates()
-        tableView?.deleteRows(at: indexes, with: deleteAnimation(forRows: rows))
-        tableView?.endUpdates()
-    }
-    
-    open func rowsHaveBeenReplaced(oldRows: [BaseRow], newRows: [BaseRow], at indexes: [IndexPath]) {
-        guard animateTableView else { return }
-        tableView?.beginUpdates()
-        tableView?.reloadRows(at: indexes, with: reloadAnimation(oldRows: oldRows, newRows: newRows))
-        tableView?.endUpdates()
     }
 
     // MARK: Private
@@ -926,6 +894,52 @@ extension FormViewController : UITableViewDataSource {
     }
 }
 
+extension FormViewController: FormDelegate {
+
+    // MARK: FormDelegate
+
+    open func sectionsHaveBeenAdded(_ sections: [Section], at indexes: IndexSet) {
+        guard animateTableView else { return }
+        tableView?.beginUpdates()
+        tableView?.insertSections(indexes, with: insertAnimation(forSections: sections))
+        tableView?.endUpdates()
+    }
+
+    open func sectionsHaveBeenRemoved(_ sections: [Section], at indexes: IndexSet) {
+        guard animateTableView else { return }
+        tableView?.beginUpdates()
+        tableView?.deleteSections(indexes, with: deleteAnimation(forSections: sections))
+        tableView?.endUpdates()
+    }
+
+    open func sectionsHaveBeenReplaced(oldSections: [Section], newSections: [Section], at indexes: IndexSet) {
+        guard animateTableView else { return }
+        tableView?.beginUpdates()
+        tableView?.reloadSections(indexes, with: reloadAnimation(oldSections: oldSections, newSections: newSections))
+        tableView?.endUpdates()
+    }
+
+    open func rowsHaveBeenAdded(_ rows: [BaseRow], at indexes: [IndexPath]) {
+        guard animateTableView else { return }
+        tableView?.beginUpdates()
+        tableView?.insertRows(at: indexes, with: insertAnimation(forRows: rows))
+        tableView?.endUpdates()
+    }
+
+    open func rowsHaveBeenRemoved(_ rows: [BaseRow], at indexes: [IndexPath]) {
+        guard animateTableView else { return }
+        tableView?.beginUpdates()
+        tableView?.deleteRows(at: indexes, with: deleteAnimation(forRows: rows))
+        tableView?.endUpdates()
+    }
+
+    open func rowsHaveBeenReplaced(oldRows: [BaseRow], newRows: [BaseRow], at indexes: [IndexPath]) {
+        guard animateTableView else { return }
+        tableView?.beginUpdates()
+        tableView?.reloadRows(at: indexes, with: reloadAnimation(oldRows: oldRows, newRows: newRows))
+        tableView?.endUpdates()
+    }
+}
 
 extension FormViewController : UIScrollViewDelegate {
 
@@ -944,7 +958,7 @@ extension FormViewController {
     /**
      Called when the keyboard will appear. Adjusts insets of the tableView and scrolls it if necessary.
      */
-    @objc open func keyboardWillShow(_ notification: Notification) {
+    open func keyboardWillShow(_ notification: Notification) {
         guard let table = tableView, let cell = table.findFirstResponder()?.formCell() else { return }
         let keyBoardInfo = notification.userInfo!
         let endFrame = keyBoardInfo[UIKeyboardFrameEndUserInfoKey] as! NSValue
@@ -972,7 +986,7 @@ extension FormViewController {
     /**
      Called when the keyboard will disappear. Adjusts insets of the tableView.
      */
-    @objc open func keyboardWillHide(_ notification: Notification) {
+    open func keyboardWillHide(_ notification: Notification) {
         guard let table = tableView, let oldBottom = oldBottomInset else { return }
         let keyBoardInfo = notification.userInfo!
         var tableInsets = table.contentInset
@@ -995,11 +1009,11 @@ extension FormViewController {
 
     // MARK: Navigation Methods
 
-    @objc func navigationDone(_ sender: UIBarButtonItem) {
+    func navigationDone(_ sender: UIBarButtonItem) {
         tableView?.endEditing(true)
     }
 
-    @objc func navigationAction(_ sender: UIBarButtonItem) {
+    func navigationAction(_ sender: UIBarButtonItem) {
         navigateTo(direction: sender == navigationAccessoryView.previousButton ? .up : .down)
     }
 

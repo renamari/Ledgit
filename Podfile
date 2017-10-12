@@ -20,9 +20,9 @@ target 'Ledgit' do
   pod 'FacebookLogin'
   pod 'FacebookShare'
 
-  pod 'NVActivityIndicatorView', :git => 'https://github.com/ninjaprox/NVActivityIndicatorView.git', :branch => 'swift4'
+  pod 'NVActivityIndicatorView'
 
-  pod 'Eureka', :git => 'https://github.com/xmartlabs/Eureka.git', :branch => 'feature/Xcode9-Swift4'
+  pod 'Eureka', :git => 'https://github.com/xmartlabs/Eureka.git', :branch => 'Xcode9-Swift3_2'
 
   pod 'BubbleTransition'
 

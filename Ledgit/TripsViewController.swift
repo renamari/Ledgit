@@ -2,7 +2,7 @@
 //  TripsViewController.swift
 //  Ledgit
 //
-//  Created by Camden Madina on 8/15/17.
+//  Created by Marcos Ortiz on 8/15/17.
 //  Copyright © 2017 Camden Developers. All rights reserved.
 //
 
@@ -37,10 +37,10 @@ class TripsViewController: UIViewController, AddTripDelegate {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
-        self.navigationController?.navigationBar.shadowImage = UIImage()
-        self.navigationController?.navigationBar.isTranslucent = false
-        self.navigationController?.view.backgroundColor = .white
+        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        navigationController?.navigationBar.shadowImage = UIImage()
+        navigationController?.navigationBar.isTranslucent = false
+        navigationController?.view.backgroundColor = .white
     }
     
     func setupView(){
@@ -100,7 +100,6 @@ class TripsViewController: UIViewController, AddTripDelegate {
             }
         }
     }
-
 }
 
 extension TripsViewController: UITableViewDataSource{
@@ -112,21 +111,15 @@ extension TripsViewController: UITableViewDataSource{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.row == trips.count { //Is last index path
             let cell = tableView.dequeueReusableCell(withIdentifier: "AddTripCell", for: indexPath) as! AddTripTableViewCell
+            cell.configure()
             
-            cell.contentView.layoutIfNeeded()
             return cell
             
         }else{
             let cell = tableView.dequeueReusableCell(withIdentifier: "TripCell", for: indexPath) as! TripTableViewCell
             let trip = trips[indexPath.row]
+            cell.configure(with: trip)
             
-            cell.tripNameLabel.text = trip.name
-            cell.tripDateLabel.text = trip.startDate
-            cell.tripLocationLabel.text = "Paris, France"
-            cell.tripColorImageView.image = UIImage(named: cellImageNames[indexPath.row % 3])
-            
-            //cell.cascadeImages(with: trip.currencies)
-            cell.contentView.layoutIfNeeded()
             return cell
         }
     }
@@ -190,7 +183,6 @@ extension TripsViewController: UITableViewDelegate{
                     tableView.deleteRows(at: [indexPath], with: .fade)
                     tableView.endUpdates()
                    })
-                    
                 }
             }
         }
@@ -198,6 +190,6 @@ extension TripsViewController: UITableViewDelegate{
         alert.addAction(cancelAction)
         alert.addAction(deleteAction)
         
-        self.present(alert, animated: true, completion: nil)
+        present(alert, animated: true, completion: nil)
     }
 }

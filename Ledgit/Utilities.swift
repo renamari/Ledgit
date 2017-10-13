@@ -2,7 +2,7 @@
 //  Utilities.swift
 //  Ledgit
 //
-//  Created by Camden Madina on 8/12/17.
+//  Created by Marcos Ortiz on 8/12/17.
 //  Copyright © 2017 Camden Developers. All rights reserved.
 //
 
@@ -24,6 +24,11 @@ enum Storyboard: String {
     func initialViewController() -> UIViewController?{
         return instance.instantiateInitialViewController()
     }
+}
+
+enum AuthenticationMethod {
+    case signin
+    case signup
 }
 
 struct DateSection {

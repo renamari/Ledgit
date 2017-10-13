@@ -2,7 +2,7 @@
 //  SettingsViewController.swift
 //  Ledgit
 //
-//  Created by Camden Madina on 8/15/17.
+//  Created by Marcos Ortiz on 8/15/17.
 //  Copyright © 2017 Camden Developers. All rights reserved.
 //
 

@@ -2,7 +2,7 @@
 //  AuthenticateViewController.swift
 //  Ledgit
 //
-//  Created by Camden Madina on 8/12/17.
+//  Created by Marcos Ortiz on 8/12/17.
 //  Copyright © 2017 Camden Developers. All rights reserved.
 //
 
@@ -22,7 +22,7 @@ class AuthenticateViewController: UIViewController {
     @IBOutlet weak var facebookButton: UIButton!
     @IBOutlet weak var forgotPasswordButton: UIButton!
     
-    var isSignUp:Bool?
+    var method: AuthenticationMethod = .signin
     
     var isLoading:Bool = false{
         didSet{
@@ -50,22 +50,20 @@ class AuthenticateViewController: UIViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
+        // The labels update if the user goes back and selects a different authentication method (login/signup)
         setupLabels()
     }
     
     func setupLabels(){
-        guard isSignUp != nil else {
-            return
-        }
-        
-        switch isSignUp!{
-        case true:
+
+        switch method{
+        case .signup:
             titleLabel.text = Constants.AuthenticateText.signup
             authenticateButton.setTitle("Sign Up", for: .normal)
             descriptionLabel.text = Constants.AuthenticateText.signupDescription
             forgotPasswordButton.isHidden = true
             
-        default:
+        case .signin:
             titleLabel.text = Constants.AuthenticateText.signin
             authenticateButton.setTitle("Sign In", for: .normal)
             descriptionLabel.text = Constants.AuthenticateText.signinDescription
@@ -75,13 +73,11 @@ class AuthenticateViewController: UIViewController {
     
     func setupTextFields(){
         emailTextField.delegate = self
-    
         passwordTextField.delegate = self
     }
     
     func setupButtons(){
         authenticateButton.createBorder(radius: Constants.CornerRadius.button)
-        
         facebookButton.createBorder(radius: Constants.CornerRadius.button)
     }
     
@@ -91,7 +87,8 @@ class AuthenticateViewController: UIViewController {
     
     func setupRecognizers(){
         let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(screenTapped))
-        self.view.addGestureRecognizer(tapRecognizer)
+        
+        view.addGestureRecognizer(tapRecognizer)
     }
     
     @objc func screenTapped(){
@@ -100,27 +97,19 @@ class AuthenticateViewController: UIViewController {
     }
     
     @IBAction func authenticateButtonPressed(_ sender: Any) {
-        guard isSignUp != nil else {
-            return
-        }
-        
-        switch isSignUp! {
-        case true:
+        switch method {
+        case .signup:
             performFirebaseSignUp()
-        default:
+        case .signin:
             performFirebaseSignIn()
         }
     }
     
     @IBAction func facebookButtonPressed(_ sender: Any) {
-        guard isSignUp != nil else {
-            return
-        }
-        
-        switch isSignUp! {
-        case true:
+        switch method {
+        case .signup:
             performFacebookSignUp()
-        default:
+        case .signin:
             performFacebookSignIn()
         }
     }
@@ -134,34 +123,30 @@ class AuthenticateViewController: UIViewController {
     }
     
     func performFirebaseSignUp(){
+        isLoading = true
+        
         guard Reachability.isConnectedToNetwork() == true else{
+            isLoading = false
             showAlert(with: Constants.ClientErrorMessages.noNetworkConnection)
             return
         }
         
-        isLoading = true
-        
-        let email = emailTextField.text?.strip()
-        let password = passwordTextField.text?.strip()
-        
-        guard email?.isEmpty == false, password?.isEmpty == false else{
+        guard let email = emailTextField.text?.strip(), let password = passwordTextField.text?.strip(),
+        !email.isEmpty, !password.isEmpty else {
             isLoading = false
-            showAlert(with: Constants.ClientErrorMessages.emptyUserPasswordTextFields)
             return
         }
         
-        Model.model.createUser(with: email!, password: password!) { (result) in
+        Model.model.createUser(with: email, password: password) { (result) in
             self.isLoading = false
             
             switch result{
             case .failed(let code):
                 switch code {
                     
-                    /** Indicates the user's account is disabled on the server.*/
                 case .emailAlreadyInUse:
                     self.showAlert(with: Constants.AuthErrorMessages.emailAlreadyInUse)
                     
-                    /** Indicates the email is invalid.*/
                 case .invalidEmail:
                     self.showAlert(with: Constants.AuthErrorMessages.invalidEmail)
                     
@@ -176,31 +161,28 @@ class AuthenticateViewController: UIViewController {
                 
                 self.present(navigationController, animated: true, completion: nil)
                 
-            default:
-                print("Default case")
+            case .cancelled:
+                break
             }
         }
     }
     
     func performFirebaseSignIn(){
-    
+        isLoading = true
+        
         guard Reachability.isConnectedToNetwork() == true else{
+            isLoading = false
             showAlert(with: Constants.ClientErrorMessages.noNetworkConnection)
             return
         }
         
-        isLoading = true
-        
-        let email = emailTextField.text?.strip()
-        let password = passwordTextField.text?.strip()
-        
-        guard email?.isEmpty == false, password?.isEmpty == false else{
+        guard let email = emailTextField.text?.strip(), let password = passwordTextField.text?.strip(),
+        !email.isEmpty, !password.isEmpty else {
             isLoading = false
-            showAlert(with: Constants.ClientErrorMessages.emptyUserPasswordTextFields)
             return
         }
-        
-        Model.model.authenticateUser(with: email!, password: password!) { (result) in
+    
+        Model.model.authenticateUser(with: email, password: password) { (result) in
             self.isLoading = false
             
             switch result{
@@ -209,19 +191,15 @@ class AuthenticateViewController: UIViewController {
                 
                 switch code {
                     
-                    /** Indicates the user's account is disabled on the server.*/
                 case .userDisabled:
                     self.showAlert(with: Constants.AuthErrorMessages.userDisabled)
                     
-                    /** Indicates the email is invalid.*/
                 case .invalidEmail:
                     self.showAlert(with: Constants.AuthErrorMessages.invalidEmail)
                     
-                    /** Indicates the user attempted sign in with a wrong password.*/
                 case .wrongPassword:
                     self.showAlert(with: Constants.AuthErrorMessages.wrongPassword)
                     
-                    /** Indicates the user account was not found.*/
                 case .userNotFound:
                     self.showAlert(with: Constants.AuthErrorMessages.userNotFound)
                     
@@ -236,42 +214,37 @@ class AuthenticateViewController: UIViewController {
                 
                 self.present(navigationController, animated: true, completion: nil)
                 
-            default:
-                //self.addToFirebase()
-                print("Default case")
+            case .cancelled:
+                break
             }
         }
     }
     
     func performFacebookSignUp(){
+        isLoading = true
+        
         guard Reachability.isConnectedToNetwork() == true else{
+            isLoading = false
             showAlert(with: Constants.ClientErrorMessages.noNetworkConnection)
             return
         }
         
-        isLoading = true
-        
-        let email = emailTextField.text?.strip()
-        let password = passwordTextField.text?.strip()
-        
-        guard email?.isEmpty == false, password?.isEmpty == false else{
+        guard let email = emailTextField.text?.strip(), let password = passwordTextField.text?.strip(),
+        !email.isEmpty, !password.isEmpty else {
             isLoading = false
-            showAlert(with: Constants.ClientErrorMessages.emptyUserPasswordTextFields)
             return
         }
         
-        Model.model.createUser(with: email!, password: password!) {(result) in
+        Model.model.createUser(with: email, password: password) {(result) in
             self.isLoading = false
             
             switch result{
             case .failed(let code):
                 switch code {
                     
-                    /** Indicates the user's account is disabled on the server.*/
                 case .emailAlreadyInUse:
                     self.showAlert(with: Constants.AuthErrorMessages.emailAlreadyInUse)
                     
-                    /** Indicates the email is invalid.*/
                 case .invalidEmail:
                     self.showAlert(with: Constants.AuthErrorMessages.invalidEmail)
                     
@@ -286,26 +259,24 @@ class AuthenticateViewController: UIViewController {
                 
                 self.present(navigationController, animated: true, completion: nil)
                 
-            default:
-                print("Default case")
+            case .cancelled:
+                break
             }
         }
     }
     
     func performFacebookSignIn(){
+        isLoading = true
+        
         guard Reachability.isConnectedToNetwork() == true else{
+            isLoading = false
             showAlert(with: Constants.ClientErrorMessages.noNetworkConnection)
             return
         }
         
-        isLoading = true
-        
-        let email = emailTextField.text?.strip()
-        let password = passwordTextField.text?.strip()
-        
-        guard email?.isEmpty == false, password?.isEmpty == false else{
+        guard let email = emailTextField.text?.strip(), let password = passwordTextField.text?.strip(),
+        !email.isEmpty, !password.isEmpty else {
             isLoading = false
-            showAlert(with: Constants.ClientErrorMessages.emptyUserPasswordTextFields)
             return
         }
         
@@ -318,19 +289,15 @@ class AuthenticateViewController: UIViewController {
                 
                 switch code {
                     
-                    /** Indicates the user's account is disabled on the server.*/
                 case .userDisabled:
                     self.showAlert(with: Constants.AuthErrorMessages.userDisabled)
                     
-                    /** Indicates the email is invalid.*/
                 case .invalidEmail:
                     self.showAlert(with: Constants.AuthErrorMessages.invalidEmail)
                     
-                    /** Indicates the user attempted sign in with a wrong password.*/
                 case .wrongPassword:
                     self.showAlert(with: Constants.AuthErrorMessages.wrongPassword)
                     
-                    /** Indicates the user account was not found.*/
                 case .userNotFound:
                     self.showAlert(with: Constants.AuthErrorMessages.userNotFound)
                     
@@ -349,50 +316,6 @@ class AuthenticateViewController: UIViewController {
             }
         }
     }
-
-    func addToFirebase(){
-        /*
-        let entry: [String:Any] = [
-            "date": Date().toString(withFormat: nil),
-            "currency": "USD",
-            "location": "Waco",
-            "description": "Lunch",
-            "category": "Food",
-            "paidBy": FIRAuth.auth()?.currentUser!.uid,
-            "paymentType": "cash",
-            "cost": 13.54,
-            "owningTrip": Constants.ProjectID.sample
-        ]
-        let entry2: [String:Any] = [
-            "date": (Date() - 5.days).toString(withFormat: nil),
-            "currency": "USD",
-            "location": "San Antonio",
-            "description": "Lunch",
-            "category": "Food",
-            "paidBy": FIRAuth.auth()?.currentUser!.uid,
-            "paymentType": "cash",
-            "cost": 6.99,
-            "owningTrip": Constants.ProjectID.sample
-        ]
-        
-        let entry3: [String:Any] = [
-            "date": Date().toString(withFormat: nil),
-            "currency": "USD",
-            "location": "San Antonio",
-            "description": "Lunch",
-            "category": "Food",
-            "paidBy": FIRAuth.auth()?.currentUser!.uid,
-            "paymentType": "cash",
-            "cost": 14.99,
-            "owningTrip": Constants.ProjectID.sample
-        ]
-        
-        Model.model.entries.childByAutoId().setValue(entry)
-        Model.model.entries.childByAutoId().setValue(entry2)
-        Model.model.entries.childByAutoId().setValue(entry3)
-        */
-    }
- 
 }
 
 extension AuthenticateViewController: UITextFieldDelegate{

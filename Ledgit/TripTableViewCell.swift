@@ -2,7 +2,7 @@
 //  TripTableViewCell.swift
 //  Ledgit
 //
-//  Created by Camden Madina on 8/15/17.
+//  Created by Marcos Ortiz on 8/15/17.
 //  Copyright © 2017 Camden Developers. All rights reserved.
 //
 
@@ -14,15 +14,13 @@ class TripTableViewCell: UITableViewCell {
     @IBOutlet weak var tripDateLabel: UILabel!
     @IBOutlet weak var tripLocationLabel: UILabel!
 
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
+    func configure(with trip: Trip) {
+        tripNameLabel.text = trip.name
+        tripDateLabel.text = trip.startDate
+        tripLocationLabel.text = "Paris, France"
+        tripColorImageView.image = UIImage(named: cellImageNames[indexPath.row % 3])
+        
+        //cell.cascadeImages(with: trip.currencies)
+        contentView.layoutIfNeeded()
     }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
-    }
-
 }

@@ -2,7 +2,7 @@
 //  MainViewController.swift
 //  Ledgit
 //
-//  Created by Camden Madina on 8/12/17.
+//  Created by Marcos Ortiz on 8/12/17.
 //  Copyright © 2017 Camden Developers. All rights reserved.
 //
 
@@ -20,31 +20,31 @@ class MainViewController: UIViewController {
     @IBOutlet weak var tutorialView: UIView!
     
     private var pageViewController: UIPageViewController?
-    var isSignUp:Bool?
+    var method: AuthenticationMethod = .signin
     var currentIndex = 0
     
-    fileprivate(set) lazy var pageTitles:[String] = {
+    fileprivate(set) lazy var pageTitles: [String] = {
         return [
             Constants.TutorialTitles.first,
             Constants.TutorialTitles.second,
             Constants.TutorialTitles.third]
     }()
     
-    fileprivate(set) lazy var pageColors:[UIColor] = {
+    fileprivate(set) lazy var pageColors: [UIColor] = {
         return [
             .ledgitBlue,
             .ledgitPink,
             .ledgitAqua]
     }()
     
-    fileprivate(set) lazy var pageDescriptions:[String] = {
+    fileprivate(set) lazy var pageDescriptions: [String] = {
         return [
             Constants.TutorialDescriptions.first,
             Constants.TutorialDescriptions.second,
             Constants.TutorialDescriptions.third]
     }()
     
-    fileprivate(set) lazy var pageImages:[UIImage] = {
+    fileprivate(set) lazy var pageImages: [UIImage] = {
         return [#imageLiteral(resourceName: "tutorial-icon-0"),#imageLiteral(resourceName: "tutorial-icon-1"),#imageLiteral(resourceName: "tutorial-icon-2")]
     }()
     
@@ -98,12 +98,12 @@ class MainViewController: UIViewController {
     }
     
     @IBAction func signupButtonPressed(_ sender: Any) {
-        isSignUp = true
+        method = .signup
         performSegue(withIdentifier: Constants.SegueIdentifiers.authenticate, sender: nil)
     }
     
     @IBAction func signinButtonPressed(_ sender: Any) {
-        isSignUp = false
+        method = .signin
         performSegue(withIdentifier: Constants.SegueIdentifiers.authenticate, sender: nil)
     }
     
@@ -118,9 +118,7 @@ class MainViewController: UIViewController {
             guard let authenticateViewController = segue.destination as? AuthenticateViewController else{
                 return
             }
-            
-            authenticateViewController.isSignUp = isSignUp!
-            //authenticateViewController.isLoading = true
+            authenticateViewController.method = method
         }
     }
 }

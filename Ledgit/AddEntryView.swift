@@ -2,7 +2,7 @@
 //  AddEntryView.swift
 //  Ledgit
 //
-//  Created by Camden Madina on 9/17/17.
+//  Created by Marcos Ortiz on 9/17/17.
 //  Copyright © 2017 Camden Developers. All rights reserved.
 //
 

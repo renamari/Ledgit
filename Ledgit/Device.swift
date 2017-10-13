@@ -2,37 +2,31 @@
 //  Device.swift
 //  Ledgit
 //
-//  Created by Camden Madina on 8/12/17.
+//  Created by Marcos Ortiz on 8/12/17.
 //  Copyright © 2017 Camden Developers. All rights reserved.
 //
 
 import SystemConfiguration
 import UIKit
 
-enum UIUserInterfaceIdiom : Int {
-    case Unspecified
-    case Phone
-    case Pad
-}
-
-struct ScreenSize{
-    static let SCREEN_WIDTH         = UIScreen.main.bounds.size.width
-    static let SCREEN_HEIGHT        = UIScreen.main.bounds.size.height
-    static let SCREEN_MAX_LENGTH    = max(ScreenSize.SCREEN_WIDTH, ScreenSize.SCREEN_HEIGHT)
-    static let SCREEN_MIN_LENGTH    = min(ScreenSize.SCREEN_WIDTH, ScreenSize.SCREEN_HEIGHT)
+struct Screen{
+    static let width = UIScreen.main.bounds.size.width
+    static let height = UIScreen.main.bounds.size.height
+    static let maxLength = max(Screen.width, Screen.height)
+    static let minLength = min(Screen.width, Screen.height)
 }
 
 struct StatusBar{
-    static let HEIGHT = UIApplication.shared.statusBarFrame.height
-    static let WIDTH = UIApplication.shared.statusBarFrame.width
+    static let height = UIApplication.shared.statusBarFrame.height
+    static let width = UIApplication.shared.statusBarFrame.width
 }
 
-struct DeviceType{
-    static let IS_IPHONE_4_OR_LESS  = UIDevice.current.userInterfaceIdiom == .phone && ScreenSize.SCREEN_MAX_LENGTH < 568.0
-    static let IS_IPHONE_5          = UIDevice.current.userInterfaceIdiom == .phone && ScreenSize.SCREEN_MAX_LENGTH == 568.0
-    static let IS_IPHONE_6          = UIDevice.current.userInterfaceIdiom == .phone && ScreenSize.SCREEN_MAX_LENGTH == 667.0
-    static let IS_IPHONE_6P         = UIDevice.current.userInterfaceIdiom == .phone && ScreenSize.SCREEN_MAX_LENGTH == 736.0
-    static let IS_IPAD              = UIDevice.current.userInterfaceIdiom == .pad && ScreenSize.SCREEN_MAX_LENGTH == 1024.0
+struct Type{
+    static let iphone4 = UIDevice.current.userInterfaceIdiom == .phone && Screen.maxLength < 568.0
+    static let iphone5 = UIDevice.current.userInterfaceIdiom == .phone && Screen.maxLength == 568.0
+    static let iphone7 = UIDevice.current.userInterfaceIdiom == .phone && Screen.maxLength == 667.0
+    static let iphone7P = UIDevice.current.userInterfaceIdiom == .phone && Screen.maxLength == 736.0
+    static let ipad = UIDevice.current.userInterfaceIdiom == .pad && Screen.maxLength == 1024.0
 }
 
 struct Reachability {

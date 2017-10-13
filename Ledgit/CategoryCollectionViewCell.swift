@@ -2,7 +2,7 @@
 //  CategoryCollectionViewCell.swift
 //  Ledgit
 //
-//  Created by Camden Madina on 8/18/17.
+//  Created by Marcos Ortiz on 8/18/17.
 //  Copyright © 2017 Camden Developers. All rights reserved.
 //
 

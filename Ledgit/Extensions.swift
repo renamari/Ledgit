@@ -115,9 +115,9 @@ extension UIColor {
     static var kColor4A4A4A: UIColor { return UIColor(red: 74.0/255.0, green: 74.0/255.0, blue: 74.0/255.0, alpha: 1.0)}
     
     // MARK:- Theme colors
-    static let ledgitBlue: UIColor { return UIColor(red: 48.0/255.0, green: 140.0/255.0, blue: 249.0/255.0, alpha: 1.0)}
-    static let ledgitPink: UIColor { return UIColor(red: 239.0/255.0, green: 123.0/255.0, blue: 198.0/255.0, alpha: 1.0)}
-    static let ledgitAqua: UIColor { return UIColor(red: 31.0/255.0, green: 157.0/255.0, blue: 191.0/255.0, alpha: 1.0)}
+    static var ledgitBlue: UIColor { return UIColor(red: 48.0/255.0, green: 140.0/255.0, blue: 249.0/255.0, alpha: 1.0)}
+    static var ledgitPink: UIColor { return UIColor(red: 239.0/255.0, green: 123.0/255.0, blue: 198.0/255.0, alpha: 1.0)}
+    static var ledgitAqua: UIColor { return UIColor(red: 31.0/255.0, green: 157.0/255.0, blue: 191.0/255.0, alpha: 1.0)}
     //Aqua Color
     static var kColor1F9DBF: UIColor { return UIColor(red: 31.0/255.0, green: 157.0/255.0, blue: 191.0/255.0, alpha: 1.0)}
     //Grey color
@@ -293,5 +293,23 @@ extension UIView {
         UIView.transition(with: view2, duration: 0.5, options: transitionOptions, animations: {
             view2.isHidden = false
         })
+    }
+}
+
+extension UILayoutPriority: ExpressibleByFloatLiteral, ExpressibleByIntegerLiteral {
+    public init(floatLiteral value: Float) {
+        self.init(rawValue: value)
+    }
+    
+    public init(integerLiteral value: Int) {
+        self.init(rawValue: Float(value))
+    }
+    
+    public static func +(lhs: UILayoutPriority, rhs: UILayoutPriority) -> UILayoutPriority {
+        return UILayoutPriority(rawValue: lhs.rawValue + rhs.rawValue)
+    }
+    
+    public static func -(lhs: UILayoutPriority, rhs: UILayoutPriority) -> UILayoutPriority {
+        return UILayoutPriority(rawValue: lhs.rawValue - rhs.rawValue)
     }
 }

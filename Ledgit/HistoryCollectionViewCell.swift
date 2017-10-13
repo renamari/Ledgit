@@ -54,12 +54,12 @@ class HistoryCollectionViewCell: UICollectionViewCell {
     
     func setupSegmentedControl(){
         segmentedControl.layer.borderWidth = 1
-        segmentedControl.layer.borderColor = UIColor.kColor308CF9.cgColor
+        segmentedControl.layer.borderColor = UIColor.ledgitBlue.cgColor
         segmentedControl.titles = ["Date", "City"]
         segmentedControl.addTarget(self, action: #selector(segmentedControlChanged), for: .valueChanged)
     }
     
-    func segmentedControlChanged(control: BetterSegmentedControl){
+    @objc func segmentedControlChanged(control: BetterSegmentedControl){
         switch control.index {
         case 0:
             cityTableView.flipTransition(with: dayTableView)

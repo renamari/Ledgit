@@ -80,9 +80,9 @@ class AuthenticateViewController: UIViewController {
     }
     
     func setupButtons(){
-        authenticateButton.createBorder(radius: Constants.CornerRadius.button, color: nil)
+        authenticateButton.createBorder(radius: Constants.CornerRadius.button)
         
-        facebookButton.createBorder(radius: Constants.CornerRadius.button, color: nil)
+        facebookButton.createBorder(radius: Constants.CornerRadius.button)
     }
     
     func setupViews(){
@@ -94,7 +94,7 @@ class AuthenticateViewController: UIViewController {
         self.view.addGestureRecognizer(tapRecognizer)
     }
     
-    func screenTapped(){
+    @objc func screenTapped(){
         emailTextField.resignFirstResponder()
         passwordTextField.resignFirstResponder()
     }
@@ -158,11 +158,11 @@ class AuthenticateViewController: UIViewController {
                 switch code {
                     
                     /** Indicates the user's account is disabled on the server.*/
-                case .errorCodeEmailAlreadyInUse:
+                case .emailAlreadyInUse:
                     self.showAlert(with: Constants.AuthErrorMessages.emailAlreadyInUse)
                     
                     /** Indicates the email is invalid.*/
-                case .errorCodeInvalidEmail:
+                case .invalidEmail:
                     self.showAlert(with: Constants.AuthErrorMessages.invalidEmail)
                     
                 default:
@@ -210,19 +210,19 @@ class AuthenticateViewController: UIViewController {
                 switch code {
                     
                     /** Indicates the user's account is disabled on the server.*/
-                case .errorCodeUserDisabled:
+                case .userDisabled:
                     self.showAlert(with: Constants.AuthErrorMessages.userDisabled)
                     
                     /** Indicates the email is invalid.*/
-                case .errorCodeInvalidEmail:
+                case .invalidEmail:
                     self.showAlert(with: Constants.AuthErrorMessages.invalidEmail)
                     
                     /** Indicates the user attempted sign in with a wrong password.*/
-                case .errorCodeWrongPassword:
+                case .wrongPassword:
                     self.showAlert(with: Constants.AuthErrorMessages.wrongPassword)
                     
                     /** Indicates the user account was not found.*/
-                case .errorCodeUserNotFound:
+                case .userNotFound:
                     self.showAlert(with: Constants.AuthErrorMessages.userNotFound)
                     
                 default:
@@ -268,11 +268,11 @@ class AuthenticateViewController: UIViewController {
                 switch code {
                     
                     /** Indicates the user's account is disabled on the server.*/
-                case .errorCodeEmailAlreadyInUse:
+                case .emailAlreadyInUse:
                     self.showAlert(with: Constants.AuthErrorMessages.emailAlreadyInUse)
                     
                     /** Indicates the email is invalid.*/
-                case .errorCodeInvalidEmail:
+                case .invalidEmail:
                     self.showAlert(with: Constants.AuthErrorMessages.invalidEmail)
                     
                 default:
@@ -319,19 +319,19 @@ class AuthenticateViewController: UIViewController {
                 switch code {
                     
                     /** Indicates the user's account is disabled on the server.*/
-                case .errorCodeUserDisabled:
+                case .userDisabled:
                     self.showAlert(with: Constants.AuthErrorMessages.userDisabled)
                     
                     /** Indicates the email is invalid.*/
-                case .errorCodeInvalidEmail:
+                case .invalidEmail:
                     self.showAlert(with: Constants.AuthErrorMessages.invalidEmail)
                     
                     /** Indicates the user attempted sign in with a wrong password.*/
-                case .errorCodeWrongPassword:
+                case .wrongPassword:
                     self.showAlert(with: Constants.AuthErrorMessages.wrongPassword)
                     
                     /** Indicates the user account was not found.*/
-                case .errorCodeUserNotFound:
+                case .userNotFound:
                     self.showAlert(with: Constants.AuthErrorMessages.userNotFound)
                     
                 default:

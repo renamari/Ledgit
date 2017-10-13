@@ -153,7 +153,7 @@ class AddTripViewController: FormViewController {
         
     }
     
-    func multipleSelectorDone() { //_ item:UIBarButtonItem
+    @objc func multipleSelectorDone() { //_ item:UIBarButtonItem
         _ = navigationController?.popViewController(animated: true)
     }
     

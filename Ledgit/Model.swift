@@ -20,12 +20,12 @@ protocol modelDelegate {
 enum FirebaseLoginResult {
     case success(User)
     case cancelled
-    case failed(FIRAuthErrorCode)
+    case failed(AuthErrorCode)
 }
 
 enum FirebaseNewAccountResult {
     case success
-    case failed(FIRAuthErrorCode)
+    case failed(AuthErrorCode)
 }
 
 enum SignoutResult {
@@ -37,19 +37,19 @@ class Model {
     static let model = Model()
     
     //var storage = FIRStorage.storage()
-    var storage = FIRStorage.storage().reference()
-    var baseRef = FIRDatabase.database().reference()
-    var users = FIRDatabase.database().reference().child("users")
-    var trips = FIRDatabase.database().reference().child("trips")
-    var entries = FIRDatabase.database().reference().child("entries")
-    var auth = FIRAuth.auth()!
+    var storage = Storage.storage().reference()
+    var baseRef = Database.database().reference()
+    var users = Database.database().reference().child("users")
+    var trips = Database.database().reference().child("trips")
+    var entries = Database.database().reference().child("entries")
+    var auth = Auth.auth()
     var facebook = LoginManager()
     
     var delegate: modelDelegate?
     
     var currentUser: User?
     
-    var CURRENT_USER_REF:FIRDatabaseReference{
+    var CURRENT_USER_REF:DatabaseReference{
         let userID = UserDefaults.standard.value(forKey: Constants.UserDefaultKeys.uid) as! String
         let currentUser = users.child(userID)
         return currentUser
@@ -74,7 +74,7 @@ class Model {
     
     func authenticateUser(with email:String, password: String, completion: @escaping (FirebaseLoginResult) -> Void){
         auth.signIn(withEmail: email, password: password) { (user, error) in
-            if let error = error, let code = FIRAuthErrorCode(rawValue: error._code){
+            if let error = error, let code = AuthErrorCode(rawValue: error._code){
                 completion(.failed(code))
             }
             
@@ -92,11 +92,11 @@ class Model {
     }
     
     func authenticateUserWithFacebook(completion: @escaping (FirebaseLoginResult) -> Void){
-        facebook.logIn([ReadPermission.publicProfile,ReadPermission.email, ReadPermission.userFriends], viewController: nil) { [unowned self] (result) in
+        facebook.logIn(readPermissions: [ReadPermission.publicProfile,ReadPermission.email, ReadPermission.userFriends], viewController: nil) { (result) in
             switch result{
             case .failed(let error):
                 
-                if let code = FIRAuthErrorCode(rawValue: error._code){
+                if let code = AuthErrorCode(rawValue: error._code){
                     completion(.failed(code))
                 }
                 
@@ -104,10 +104,10 @@ class Model {
                 completion(.cancelled)
                 
             case .success( _,  _, let accessToken):
-                let credential = FIRFacebookAuthProvider.credential(withAccessToken: accessToken.authenticationToken)
+                let credential = FacebookAuthProvider.credential(withAccessToken: accessToken.authenticationToken)
                 
                 self.auth.signIn(with: credential, completion: { (user, error) in
-                    if let error = error, let code = FIRAuthErrorCode(rawValue: error._code){
+                    if let error = error, let code = AuthErrorCode(rawValue: error._code){
                         completion(.failed(code))
                     }
                     
@@ -127,7 +127,7 @@ class Model {
     
     func createUser(with email: String, password: String, completion: @escaping (FirebaseLoginResult) -> Void){
         auth.createUser(withEmail: email, password: password) { [unowned self] (user, error) in
-            if let error = error, let code = FIRAuthErrorCode(rawValue: error._code){
+            if let error = error, let code = AuthErrorCode(rawValue: error._code){
                 completion(.failed(code))
             }
             
@@ -150,11 +150,11 @@ class Model {
     }
     
     func createUserWithFacebook(completion: @escaping (FirebaseLoginResult) -> Void){
-        facebook.logIn([ReadPermission.publicProfile,ReadPermission.email, ReadPermission.userFriends], viewController: nil) { [unowned self] (result) in
+        facebook.logIn(readPermissions: [ReadPermission.publicProfile,ReadPermission.email, ReadPermission.userFriends], viewController: nil) { [unowned self] (result) in
             switch result{
             case .failed(let error):
                 
-                if let code = FIRAuthErrorCode(rawValue: error._code){
+                if let code = AuthErrorCode(rawValue: error._code){
                     completion(.failed(code))
                 }
                 
@@ -162,10 +162,10 @@ class Model {
                 completion(.cancelled)
                 
             case .success( _,  _, let accessToken):
-                let credential = FIRFacebookAuthProvider.credential(withAccessToken: accessToken.authenticationToken)
+                let credential = FacebookAuthProvider.credential(withAccessToken: accessToken.authenticationToken)
                 
                 self.auth.signIn(with: credential, completion: { (user, error) in
-                    if let error = error, let code = FIRAuthErrorCode(rawValue: error._code){
+                    if let error = error, let code = AuthErrorCode(rawValue: error._code){
                         completion(.failed(code))
                     }
                     
@@ -271,7 +271,7 @@ class Model {
     
     func updateUser(name: String, email:String, completion: @escaping(Bool) -> Void){
         
-        let changeRequest = auth.currentUser?.profileChangeRequest()
+        let changeRequest = auth.currentUser?.createProfileChangeRequest()
         changeRequest?.displayName = name
         changeRequest?.commitChanges { (error) in
             //MARK:CHANGE FOR REALEASE
@@ -282,7 +282,7 @@ class Model {
             self.CURRENT_USER_REF.child("name").setValue(name)
         }
         
-        auth.currentUser?.updateEmail(email, completion: { (error) in
+        auth.currentUser?.updateEmail(to: email, completion: { (error) in
             //MARK:-Change for release
             if let error = error{
                 print(error.localizedDescription)

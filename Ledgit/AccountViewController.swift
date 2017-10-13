@@ -78,7 +78,7 @@ class AccountViewController: UIViewController {
         view.addGestureRecognizer(tapGestureRecognizer)
     }
     
-    func screenTapped(){
+    @objc func screenTapped(){
         delegate?.cancelled()
         dismiss(animated: true, completion: nil)
     }
@@ -123,7 +123,7 @@ class AccountViewController: UIViewController {
         }
     }
     
-    func keyboardWillShow(notification: Notification) {
+    @objc func keyboardWillShow(notification: Notification) {
         guard let userInfo = notification.userInfo else{
             return
         }
@@ -153,7 +153,7 @@ class AccountViewController: UIViewController {
         }
     }
     
-    func keyboardWillHide(notification: Notification) {
+    @objc func keyboardWillHide(notification: Notification) {
         guard let frame = oldFrame else{
             return
         }

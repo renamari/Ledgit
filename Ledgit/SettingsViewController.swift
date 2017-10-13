@@ -2,7 +2,7 @@
 //  SettingsViewController.swift
 //  Ledgit
 //
-//  Created by Marcos Ortiz on 8/15/17.
+//  Created by Marcos Ortiz2 on 8/15/17.
 //  Copyright © 2017 Camden Developers. All rights reserved.
 //
 
@@ -15,8 +15,8 @@ class SettingsViewController: UIViewController {
     var actionViewBackground:UIView?
     var actionViewTag = 12345
     
-    fileprivate(set) lazy var settingsImageNames:[String] = {
-        return ["categories-icon","subscription-icon","account-icon", "about-icon"]
+    fileprivate(set) lazy var settingsImages:[UIImage] = {
+        return [#imageLiteral(resourceName: "categories-icon"),#imageLiteral(resourceName: "subscription-icon"),#imageLiteral(resourceName: "account-icon"), #imageLiteral(resourceName: "about-icon")]
     }()
     
     fileprivate(set) lazy var settingsTitleText:[String] = {
@@ -125,7 +125,7 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: Constants.CellIdentifiers.settings, for: indexPath) as! SettingsTableViewCell
         
-        cell.iconImageView.image = UIImage(named: settingsImageNames[indexPath.row])!
+        cell.iconImageView.image = settingsImages[indexPath.row]
         cell.titleLabel.text = settingsTitleText[indexPath.row]
         
         return cell

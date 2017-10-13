@@ -44,15 +44,15 @@ class TripsViewController: UIViewController, AddTripDelegate {
     }
     
     func setupView(){
-        if (UserDefaults.standard.value(forKey: Constants.UserDefaultKeys.sampleProject) as? Bool) == true{
-            Model.model.fetchSampleTrip(completion: { (trip) in
-                self.trips.insert(trip, at: 0)
-                
-                self.tripsTableView.beginUpdates()
-                self.tripsTableView.insertRows(at: [IndexPath(row: 0, section: 0)], with: .right)
-                self.tripsTableView.endUpdates()
-            })
-        }
+        guard (UserDefaults.standard.value(forKey: Constants.UserDefaultKeys.sampleProject) as? Bool)! else { return }
+        
+        Model.model.fetchSampleTrip(completion: { (trip) in
+            self.trips.insert(trip, at: 0)
+            
+            self.tripsTableView.beginUpdates()
+            self.tripsTableView.insertRows(at: [IndexPath(row: 0, section: 0)], with: .right)
+            self.tripsTableView.endUpdates()
+        })
     }
     
     func setupTableView(){

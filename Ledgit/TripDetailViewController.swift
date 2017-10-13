@@ -110,13 +110,11 @@ extension TripDetailViewController: UICollectionViewDataSource, UICollectionView
             return cell
         case 1:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.CellIdentifiers.category, for: indexPath) as! CategoryCollectionViewCell
-            
             cell.setupChart(with: entries)
             
             return cell
         default:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.CellIdentifiers.history, for: indexPath) as! HistoryCollectionViewCell
-            
             cell.updateTableViews(with: entries)
             
             return cell

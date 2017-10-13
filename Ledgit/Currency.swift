@@ -16,7 +16,6 @@ struct Currency {
 }
 
 extension Currency {
-    static var DEFAULT: Currency{ return Currency(name: "DEF", code: "DEF", symbol: "DEF", flagCode: "DEF")}
     static var AUD: Currency { return Currency(name: "Australian Dollar", code: "AUD", symbol: "A$", flagCode: "AU")}
     static var BGN: Currency { return Currency(name: "Bulgarian Lev", code: "BGN", symbol: "BGN", flagCode: "BG")}
     static var BRL: Currency { return Currency(name: "Brazilian Real", code: "BRL", symbol: "R$", flagCode: "BR")}

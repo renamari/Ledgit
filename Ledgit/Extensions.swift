@@ -71,37 +71,23 @@ extension UIFont {
 //MARK:- UIColor Extensions
 extension UIColor {
     
-    convenience init?(hex: String) {
-        var hexSanitized = hex.trimmingCharacters(in: .whitespacesAndNewlines)
-        hexSanitized = hexSanitized.replacingOccurrences(of: "#", with: "")
-        
-        var rgb: UInt32 = 0
-        
-        var r: CGFloat = 0.0
-        var g: CGFloat = 0.0
-        var b: CGFloat = 0.0
-        var a: CGFloat = 1.0
-        
-        let length = hexSanitized.characters.count
-        
-        guard Scanner(string: hexSanitized).scanHexInt32(&rgb) else { return nil }
-        
-        if length == 6 {
-            r = CGFloat((rgb & 0xFF0000) >> 16) / 255.0
-            g = CGFloat((rgb & 0x00FF00) >> 8) / 255.0
-            b = CGFloat(rgb & 0x0000FF) / 255.0
-            
-        } else if length == 8 {
-            r = CGFloat((rgb & 0xFF000000) >> 24) / 255.0
-            g = CGFloat((rgb & 0x00FF0000) >> 16) / 255.0
-            b = CGFloat((rgb & 0x0000FF00) >> 8) / 255.0
-            a = CGFloat(rgb & 0x000000FF) / 255.0
-            
+    private convenience init?(hex6: Int, alpha: Float) {
+        self.init(red:   CGFloat( (hex6 & 0xFF0000) >> 16 ) / 255.0,
+                  green: CGFloat( (hex6 & 0x00FF00) >> 8 ) / 255.0,
+                  blue:  CGFloat( (hex6 & 0x0000FF) >> 0 ) / 255.0, alpha: CGFloat(alpha))
+    }
+    
+    public convenience init?(hex: Int) {
+        self.init(hex: hex, alpha: 1.0)
+    }
+    
+    public convenience init?(hex: Int, alpha: Float) {
+        if (0x000000 ... 0xFFFFFF) ~= hex {
+            self.init(hex6: hex, alpha: alpha)
         } else {
+            self.init()
             return nil
         }
-        
-        self.init(red: r, green: g, blue: b, alpha: a)
     }
 }
 
@@ -115,19 +101,15 @@ extension UIColor {
     static var kColor4A4A4A: UIColor { return UIColor(red: 74.0/255.0, green: 74.0/255.0, blue: 74.0/255.0, alpha: 1.0)}
     
     // MARK:- Theme colors
-    static var ledgitBlue: UIColor { return UIColor(red: 48.0/255.0, green: 140.0/255.0, blue: 249.0/255.0, alpha: 1.0)}
-    static var ledgitPink: UIColor { return UIColor(red: 239.0/255.0, green: 123.0/255.0, blue: 198.0/255.0, alpha: 1.0)}
-    static var ledgitAqua: UIColor { return UIColor(red: 31.0/255.0, green: 157.0/255.0, blue: 191.0/255.0, alpha: 1.0)}
-    //Aqua Color
-    static var kColor1F9DBF: UIColor { return UIColor(red: 31.0/255.0, green: 157.0/255.0, blue: 191.0/255.0, alpha: 1.0)}
+    static var ledgitBlue: UIColor { return UIColor(hex: 0x308CF9)!}
+    static var ledgitPink: UIColor { return UIColor(hex: 0xEF7BC6)!}
+    static var ledgitAqua: UIColor { return UIColor(hex: 0x1F9DBF)!}
+    static var ledgitNavigationTextGray: UIColor { return UIColor(hex: 0x3F6072)!}
+    static var facbookBlue: UIColor { return UIColor(hex: 0x25479B)!}
     //Grey color
     static var kColor4E4E4E: UIColor { return UIColor(red: 78.0/255.0, green: 78.0/255.0, blue: 78.0/255.0, alpha: 1.0)}
     //Light Gray Color
     static var kColorEBEBEB: UIColor { return UIColor(red: 235.0/255.0, green: 235.0/255.0, blue: 235.0/255.0, alpha: 1.0)}
-    //Navigation Text Color
-    static var kColor3F6072: UIColor { return UIColor(red: 63.0/255.0, green: 96.0/255.0, blue: 114.0/255.0, alpha: 1.0)}
-    //Facebook Blue Color
-    static var kColor25479B: UIColor { return UIColor(red: 37.0/255.0, green: 71.0/255.0, blue: 155.0/255.0, alpha: 1.0)}
     //Separator Gray
     static var kColor9C9C9C: UIColor { return UIColor(red: 155.0/255.0, green: 155.0/255.0, blue: 155.0/255.0, alpha: 1.0)}
     //Text color gray

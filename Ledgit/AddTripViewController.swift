@@ -46,7 +46,6 @@ class AddTripViewController: FormViewController {
         tableView?.showsVerticalScrollIndicator = false
         tableView?.sectionHeaderHeight = 0
         tableView?.sectionFooterHeight = 0
-        //tableView?.createBorder(radius: 10, color: UIColor.kColorEBEBEB)
         tableFrameView.addSubview(tableView!)
     }
     

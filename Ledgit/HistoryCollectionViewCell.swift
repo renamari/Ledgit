@@ -18,7 +18,7 @@ class HistoryCollectionViewCell: UICollectionViewCell {
     var dateEntries:[DateSection] = []
     var cityEntries:[CitySection] = []
     
-    let HEADER_HEIGHT:CGFloat = 25
+    let headerHeight:CGFloat = 25
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -112,7 +112,7 @@ extension HistoryCollectionViewCell: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         switch tableView {
         case dayTableView:
-            return HEADER_HEIGHT
+            return headerHeight
         default:
             return 0
         }
@@ -129,7 +129,7 @@ extension HistoryCollectionViewCell: UITableViewDelegate, UITableViewDataSource{
             let view = UIView()
             view.backgroundColor = .kColorF2F5F7
         
-            let label = UILabel(frame: CGRect(x: 15, y: 0, width: dayTableView.frame.width, height: HEADER_HEIGHT))
+            let label = UILabel(frame: CGRect(x: 15, y: 0, width: dayTableView.frame.width, height: headerHeight))
             label.text = dateEntries[section].date.toString(withFormat: "MMM d, yyyy")
             label.font = .futuraMedium10
             label.textColor = .kColor3F6072

@@ -11,10 +11,6 @@ import UIKit
 class TripsViewController: UIViewController, AddTripDelegate {
     @IBOutlet weak var tripsTableView: UITableView!
     
-    fileprivate(set) lazy var cellImageNames:[String] = {
-        return ["circle-icon","heptagon-icon","triangle-icon"]
-    }()
-    
     var trips:[Trip] = []
     
     var isLoading:Bool = false{
@@ -44,7 +40,7 @@ class TripsViewController: UIViewController, AddTripDelegate {
     }
     
     func setupView(){
-        guard (UserDefaults.standard.value(forKey: Constants.UserDefaultKeys.sampleProject) as? Bool)! else { return }
+        guard (UserDefaults.standard.value(forKey: Constants.UserDefaultKeys.sampleProject) as? Bool) == true else { return }
         
         Model.model.fetchSampleTrip(completion: { (trip) in
             self.trips.insert(trip, at: 0)
@@ -118,7 +114,7 @@ extension TripsViewController: UITableViewDataSource{
         }else{
             let cell = tableView.dequeueReusableCell(withIdentifier: "TripCell", for: indexPath) as! TripTableViewCell
             let trip = trips[indexPath.row]
-            cell.configure(with: trip)
+            cell.configure(with: trip, at: indexPath)
             
             return cell
         }
@@ -138,7 +134,7 @@ extension TripsViewController: UITableViewDelegate{
     }
     
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        if indexPath.row == tableView.numberOfRows(inSection: 0) - 1 {
+        if indexPath.row == tableView.lastRow(at: 0) {
             //Cannot delete last row
             return false
         }else{
@@ -172,7 +168,7 @@ extension TripsViewController: UITableViewDelegate{
                 // 4. Delete item from Firebase with item key
                 let itemKey = item.key
                 
-                if selectedRow == 0 {
+                if selectedRow == 0 && (UserDefaults.standard.value(forKey: Constants.UserDefaultKeys.sampleProject) as? Bool) == true{
                     UserDefaults.standard.set(false, forKey: Constants.UserDefaultKeys.sampleProject)
                 }else{
                     

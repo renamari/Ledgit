@@ -13,12 +13,16 @@ class TripTableViewCell: UITableViewCell {
     @IBOutlet weak var tripColorImageView: UIImageView!
     @IBOutlet weak var tripDateLabel: UILabel!
     @IBOutlet weak var tripLocationLabel: UILabel!
+    
+    fileprivate(set) lazy var cellImages:[UIImage] = {
+        return [#imageLiteral(resourceName: "circle-icon"), #imageLiteral(resourceName: "heptagon-icon"), #imageLiteral(resourceName: "triangle-icon")]
+    }()
 
-    func configure(with trip: Trip) {
+    func configure(with trip: Trip, at indexPath: IndexPath) {
         tripNameLabel.text = trip.name
         tripDateLabel.text = trip.startDate
         tripLocationLabel.text = "Paris, France"
-        tripColorImageView.image = UIImage(named: cellImageNames[indexPath.row % 3])
+        tripColorImageView.image = cellImages[indexPath.row % 3]
         
         //cell.cascadeImages(with: trip.currencies)
         contentView.layoutIfNeeded()

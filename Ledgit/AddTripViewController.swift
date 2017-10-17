@@ -62,7 +62,7 @@ class AddTripViewController: FormViewController {
             +++ Section()
             <<< TextRow("name") {
                 $0.title = "Trip Name"
-                $0.cell.titleLabel?.textColor = .kColor3F6072
+                $0.cell.titleLabel?.textColor = .ledgitNavigationTextGray
                 $0.cell.titleLabel?.font = .futuraMedium15
                 $0.placeholder = "Mexico 2017"
             }
@@ -70,7 +70,7 @@ class AddTripViewController: FormViewController {
             
             <<< DateInlineRow("startDate") {
                 $0.title = "Trip Start Date"
-                $0.cell.textLabel?.textColor = .kColor3F6072
+                $0.cell.textLabel?.textColor = .ledgitNavigationTextGray
                 $0.cell.textLabel?.font = .futuraMedium15
                 $0.value = Date().addingTimeInterval(60*60*24)
                 $0.dateFormatter?.dateFormat = "MMMM dd, yyyy"
@@ -97,7 +97,7 @@ class AddTripViewController: FormViewController {
             
             <<< DateInlineRow("endDate"){
                 $0.title = "Trip End Date"
-                $0.cell.textLabel?.textColor = .kColor3F6072
+                $0.cell.textLabel?.textColor = .ledgitNavigationTextGray
                 $0.cell.textLabel?.font = .futuraMedium15
                 $0.value = Date().addingTimeInterval(60*60*25)
                 $0.dateFormatter?.dateFormat = "MMMM dd, yyyy"
@@ -130,7 +130,7 @@ class AddTripViewController: FormViewController {
                 formatter.zeroSymbol = Model.model.currentUser!.homeCurrency.symbol
                 formatter.currencySymbol = Model.model.currentUser!.homeCurrency.symbol
                 
-                $0.cell.textLabel?.textColor = .kColor3F6072
+                $0.cell.textLabel?.textColor = .ledgitNavigationTextGray
                 $0.cell.titleLabel?.font = .futuraMedium15
                 $0.title = "Daily Trip Budget"
                 $0.placeholder = "$50"
@@ -139,7 +139,7 @@ class AddTripViewController: FormViewController {
             
             <<< MultipleSelectorRow<String>("currencies") {
                 $0.title = "Currencies"
-                $0.cell.textLabel?.textColor = .kColor3F6072
+                $0.cell.textLabel?.textColor = .ledgitNavigationTextGray
                 $0.cell.textLabel?.font = .futuraMedium15
                 $0.options = Currency.allCodes
                 $0.value = ["USD"]

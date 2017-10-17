@@ -105,6 +105,7 @@ extension UIColor {
     static var ledgitPink: UIColor { return UIColor(hex: 0xEF7BC6)!}
     static var ledgitAqua: UIColor { return UIColor(hex: 0x1F9DBF)!}
     static var ledgitNavigationTextGray: UIColor { return UIColor(hex: 0x3F6072)!}
+    static var ledgitNavigationBarGray: UIColor { return UIColor(hex: 0xF2F5F7)!}
     static var facbookBlue: UIColor { return UIColor(hex: 0x25479B)!}
     //Grey color
     static var kColor4E4E4E: UIColor { return UIColor(red: 78.0/255.0, green: 78.0/255.0, blue: 78.0/255.0, alpha: 1.0)}
@@ -114,8 +115,6 @@ extension UIColor {
     static var kColor9C9C9C: UIColor { return UIColor(red: 155.0/255.0, green: 155.0/255.0, blue: 155.0/255.0, alpha: 1.0)}
     //Text color gray
     static var kColor587685: UIColor { return UIColor(red: 88.0/255.0, green: 118.0/255.0, blue: 133.0/255.0, alpha: 1.0)}
-    //Navigation bar gray color
-    static var kColorF2F5F7: UIColor { return UIColor(red: 242.0/255, green: 245.0/255.0, blue: 247.0/255, alpha: 1.0)}
     
     //MARK:- Pie Chart Colors
     static var kColor003559: UIColor {return UIColor(red: 0.0/255.0, green: 53.0/255.0, blue: 89.0/255.0, alpha: 1.0)}
@@ -293,5 +292,12 @@ extension UILayoutPriority: ExpressibleByFloatLiteral, ExpressibleByIntegerLiter
     
     public static func -(lhs: UILayoutPriority, rhs: UILayoutPriority) -> UILayoutPriority {
         return UILayoutPriority(rawValue: lhs.rawValue - rhs.rawValue)
+    }
+}
+
+// MARK:- Table View Extensions
+extension UITableView {
+    func lastRow(at section: Int) -> Int{
+        return self.numberOfRows(inSection: section) - 1
     }
 }

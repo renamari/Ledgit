@@ -69,6 +69,11 @@ struct Constants {
         static let signupDescription = "or sign up using"
     }
     
+    struct Scales {
+        static let cellWidth: CGFloat = 0.90
+        static let cellHeight: CGFloat = 0.98
+    }
+    
     struct CornerRadius {
         static let button: CGFloat  = 10
     }

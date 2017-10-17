@@ -15,10 +15,9 @@ class HistoryCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var cityTableView: UITableView!
     @IBOutlet weak var dayTableView: UITableView!
     
-    var dateEntries:[DateSection] = []
-    var cityEntries:[CitySection] = []
-    
-    let headerHeight:CGFloat = 25
+    var dateEntries: [DateSection] = []
+    var cityEntries: [CitySection] = []
+    let headerHeight: CGFloat = 25
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -127,12 +126,12 @@ extension HistoryCollectionViewCell: UITableViewDelegate, UITableViewDataSource{
             }
             
             let view = UIView()
-            view.backgroundColor = .kColorF2F5F7
+            view.backgroundColor = .ledgitNavigationBarGray
         
             let label = UILabel(frame: CGRect(x: 15, y: 0, width: dayTableView.frame.width, height: headerHeight))
             label.text = dateEntries[section].date.toString(withFormat: "MMM d, yyyy")
             label.font = .futuraMedium10
-            label.textColor = .kColor3F6072
+            label.textColor = .ledgitNavigationTextGray
             
             view.addSubview(label)
             

@@ -24,6 +24,8 @@ target 'Ledgit' do
 
   pod 'Eureka'
 
+  pod 'BubbleTransition'
+
   pod 'Charts'
   
   pod 'BetterSegmentedControl'

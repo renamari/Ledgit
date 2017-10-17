@@ -8,6 +8,7 @@
 
 import UIKit
 import SwiftDate
+import BubbleTransition
 
 class TripDetailViewController: UIViewController {
     @IBOutlet weak var actionButton: UIButton!
@@ -15,21 +16,24 @@ class TripDetailViewController: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var collectionViewFlowLayout: UICollectionViewFlowLayout!
     
-    fileprivate var entries:[Entry] = []
-    fileprivate var dayCost:Double = 0
-    fileprivate var totalCost:Double = 0
-    fileprivate var averageCost:Double = 0
-    fileprivate var daysSeen:[Date] = []
+    fileprivate var entries: [Entry] = []
+    fileprivate var dayCost: Double = 0
+    fileprivate var totalCost: Double = 0
+    fileprivate var averageCost: Double = 0
+    fileprivate var daysSeen: [Date] = []
     
-    let cellHeightScale:CGFloat = 0.98
-    let cellWidthScale:CGFloat = 0.90
+    let transition = BubbleTransition()
     
-    var currentTrip:Trip?
+    let cellHeightScale: CGFloat = Constants.Scales.cellHeight
+    let cellWidthScale: CGFloat = Constants.Scales.cellWidth
     
+    var currentTrip: Trip?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupButton()
+        
+        setupUI()
         
         setupNavigationBar()
         
@@ -38,6 +42,11 @@ class TripDetailViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         setupNavigationBar()
+    }
+    
+    func setupUI() {
+        
+      
     }
     
     func setupButton(){
@@ -53,12 +62,11 @@ class TripDetailViewController: UIViewController {
         fetchEntries()
     }
     
-    
     func setupNavigationBar(){
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         navigationController?.navigationBar.shadowImage = UIImage()
         navigationController?.navigationBar.isTranslucent = true
-        navigationController?.view.backgroundColor = .kColorF2F5F7
+        navigationController?.view.backgroundColor = .ledgitNavigationBarGray
     }
     
     func fetchEntries(){
@@ -91,6 +99,18 @@ class TripDetailViewController: UIViewController {
         }
         
         performSegue(withIdentifier: Constants.SegueIdentifiers.addEntry, sender: self)
+    
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == Constants.SegueIdentifiers.addEntry {
+            guard let addEntryViewController = segue.destination as? AddEntryViewController else {
+                return
+            }
+        
+            addEntryViewController.transitioningDelegate = self
+            addEntryViewController.modalPresentationStyle = .custom
+        }
     }
 }
 
@@ -165,5 +185,21 @@ extension TripDetailViewController: UICollectionViewDataSource, UICollectionView
         let point = CGPoint (x: CGFloat(newPage * pageWidth), y: targetContentOffset.pointee.y)
         targetContentOffset.pointee = point
  
+    }
+}
+
+extension TripDetailViewController: UIViewControllerTransitioningDelegate {
+    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        transition.transitionMode = .present
+        transition.startingPoint = actionButton.center
+        transition.bubbleColor = actionButton.backgroundColor!
+        return transition
+    }
+    
+    func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        transition.transitionMode = .dismiss
+        transition.startingPoint = actionButton.center
+        transition.bubbleColor = actionButton.backgroundColor!
+        return transition
     }
 }

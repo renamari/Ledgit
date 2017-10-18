@@ -124,13 +124,13 @@ class CategoryActionViewController: UIViewController {
         switch action! {
         case .add:
             
-            Model.model.addCategory(category: newCategory, completion: { [unowned self] (success) in
+            Service.shared.addCategory(category: newCategory, completion: { [unowned self] (success) in
                 self.delegate?.categoryAdded(category: newCategory)
                 self.dismiss(animated: true, completion: nil)
             })
             
         default:
-            Model.model.updateCategory(category: category!, with: newCategory, completion: { [unowned self] (success) in
+            Service.shared.updateCategory(category: category!, with: newCategory, completion: { [unowned self] (success) in
                 self.delegate?.categoryUpdated(category: newCategory)
                 self.dismiss(animated: true, completion: nil)
             })

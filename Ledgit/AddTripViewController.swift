@@ -127,8 +127,8 @@ class AddTripViewController: FormViewController {
                 let formatter = NumberFormatter()
                 formatter.numberStyle = .currency
                 formatter.nilSymbol = ""
-                formatter.zeroSymbol = Model.model.currentUser!.homeCurrency.symbol
-                formatter.currencySymbol = Model.model.currentUser!.homeCurrency.symbol
+                formatter.zeroSymbol = Service.shared.currentUser!.homeCurrency.symbol
+                formatter.currencySymbol = Service.shared.currentUser!.homeCurrency.symbol
                 
                 $0.cell.textLabel?.textColor = .ledgitNavigationTextGray
                 $0.cell.titleLabel?.font = .futuraMedium15
@@ -181,7 +181,7 @@ class AddTripViewController: FormViewController {
             return
         }
         
-        let key = Model.model.trips.childByAutoId().key
+        let key = Service.shared.trips.childByAutoId().key
         let owner = UserDefaults.standard.value(forKey: "uid") as! String
         
         let dict: NSDictionary = [

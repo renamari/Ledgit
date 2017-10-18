@@ -62,11 +62,11 @@ class AccountViewController: UIViewController {
         nameTextField.delegate = self
         emailTextField.delegate = self
         
-        if let name = Model.model.currentUser?.name {
+        if let name = Service.shared.currentUser?.name {
             nameTextField.text = name
         }
         
-        if let email = Model.model.currentUser?.email{
+        if let email = Service.shared.currentUser?.email{
             emailTextField.text = email
         }
     }
@@ -117,7 +117,7 @@ class AccountViewController: UIViewController {
         let newName = nameTextField.text!.strip()
         let newEmail = emailTextField.text!.strip()
         
-        Model.model.updateUser(name: newName, email: newEmail){ [unowned self] (success) in
+        Service.shared.updateUser(name: newName, email: newEmail){ [unowned self] (success) in
             self.delegate?.accountUpdated()
             self.dismiss(animated: true, completion: nil)
         }

@@ -31,7 +31,6 @@
 		8DA3B1CA1F3F875B00FC31AF /* LedgitUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA3B1C91F3F875B00FC31AF /* LedgitUITests.swift */; };
 		8DA3B1D81F3F880800FC31AF /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8DA3B1D71F3F880800FC31AF /* GoogleService-Info.plist */; };
 		8DA3B21B1F3FBCA500FC31AF /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA3B21A1F3FBCA500FC31AF /* Extensions.swift */; };
-		8DA3B21E1F3FBE6B00FC31AF /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA3B21D1F3FBE6B00FC31AF /* Model.swift */; };
 		8DA3B2201F3FBEF300FC31AF /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA3B21F1F3FBEF300FC31AF /* Utilities.swift */; };
 		8DA3B2231F3FC00500FC31AF /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA3B2221F3FC00500FC31AF /* MainViewController.swift */; };
 		8DA3B2251F3FC01000FC31AF /* AuthenticateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA3B2241F3FC01000FC31AF /* AuthenticateViewController.swift */; };
@@ -39,6 +38,7 @@
 		8DA3B2291F3FC3C600FC31AF /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA3B2281F3FC3C600FC31AF /* Constants.swift */; };
 		8DA3B22B1F4004EB00FC31AF /* Currency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA3B22A1F4004EB00FC31AF /* Currency.swift */; };
 		8DA3B22D1F40055700FC31AF /* Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA3B22C1F40055700FC31AF /* Device.swift */; };
+		8DBBDBDA1F97857700E7F8CF /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DBBDBD91F97857700E7F8CF /* Service.swift */; };
 		8DC243D61F43ADA400B3E080 /* TripsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DC243D51F43ADA400B3E080 /* TripsViewController.swift */; };
 		8DC243D81F43ADBB00B3E080 /* Trips.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8DC243D71F43ADBB00B3E080 /* Trips.storyboard */; };
 		8DC243DA1F43BE2B00B3E080 /* TripTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DC243D91F43BE2B00B3E080 /* TripTableViewCell.swift */; };
@@ -98,7 +98,6 @@
 		8DA3B1CB1F3F875B00FC31AF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8DA3B1D71F3F880800FC31AF /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		8DA3B21A1F3FBCA500FC31AF /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
-		8DA3B21D1F3FBE6B00FC31AF /* Model.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		8DA3B21F1F3FBEF300FC31AF /* Utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		8DA3B2221F3FC00500FC31AF /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		8DA3B2241F3FC01000FC31AF /* AuthenticateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthenticateViewController.swift; sourceTree = "<group>"; };
@@ -106,6 +105,7 @@
 		8DA3B2281F3FC3C600FC31AF /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		8DA3B22A1F4004EB00FC31AF /* Currency.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Currency.swift; sourceTree = "<group>"; };
 		8DA3B22C1F40055700FC31AF /* Device.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Device.swift; sourceTree = "<group>"; };
+		8DBBDBD91F97857700E7F8CF /* Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
 		8DC243D51F43ADA400B3E080 /* TripsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TripsViewController.swift; sourceTree = "<group>"; };
 		8DC243D71F43ADBB00B3E080 /* Trips.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Trips.storyboard; sourceTree = "<group>"; };
 		8DC243D91F43BE2B00B3E080 /* TripTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TripTableViewCell.swift; sourceTree = "<group>"; };
@@ -264,7 +264,7 @@
 			isa = PBXGroup;
 			children = (
 				8DA3B21A1F3FBCA500FC31AF /* Extensions.swift */,
-				8DA3B21D1F3FBE6B00FC31AF /* Model.swift */,
+				8DBBDBD91F97857700E7F8CF /* Service.swift */,
 				8DA3B21F1F3FBEF300FC31AF /* Utilities.swift */,
 				8DA3B22C1F40055700FC31AF /* Device.swift */,
 				8DA3B2281F3FC3C600FC31AF /* Constants.swift */,
@@ -600,6 +600,7 @@
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
 				"${BUILT_PRODUCTS_DIR}/NVActivityIndicatorView/NVActivityIndicatorView.framework",
+				"${BUILT_PRODUCTS_DIR}/SearchTextField/SearchTextField.framework",
 				"${BUILT_PRODUCTS_DIR}/SteviaLayout/Stevia.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftDate/SwiftDate.framework",
 				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
@@ -621,6 +622,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NVActivityIndicatorView.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SearchTextField.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Stevia.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftDate.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
@@ -687,7 +689,7 @@
 				8DC243DC1F43BE3900B3E080 /* AddTripTableViewCell.swift in Sources */,
 				8DDDD6B31F473EFA0053146B /* TripDetailViewController.swift in Sources */,
 				8DA3B2251F3FC01000FC31AF /* AuthenticateViewController.swift in Sources */,
-				8DA3B21E1F3FBE6B00FC31AF /* Model.swift in Sources */,
+				8DBBDBDA1F97857700E7F8CF /* Service.swift in Sources */,
 				8DA3B1A71F3F875B00FC31AF /* AppDelegate.swift in Sources */,
 				8D18DCB61F43E07100BD5EBA /* SettingsViewController.swift in Sources */,
 				8DA3B22B1F4004EB00FC31AF /* Currency.swift in Sources */,

@@ -74,7 +74,7 @@ class TripDetailViewController: UIViewController {
             return
         }
         
-        Model.model.fetchEntry(inTrip: currentTrip!) { [unowned self] (entry) in
+        Service.shared.fetchEntry(inTrip: currentTrip!) { [unowned self] (entry) in
             if !self.daysSeen.contains(entry.date){
                 self.daysSeen.append(entry.date)
             }
@@ -107,7 +107,8 @@ class TripDetailViewController: UIViewController {
             guard let addEntryViewController = segue.destination as? AddEntryViewController else {
                 return
             }
-        
+            
+            addEntryViewController.owningTrip = currentTrip
             addEntryViewController.transitioningDelegate = self
             addEntryViewController.modalPresentationStyle = .custom
         }

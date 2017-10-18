@@ -137,7 +137,7 @@ class AuthenticateViewController: UIViewController {
             return
         }
         
-        Model.model.createUser(with: email, password: password) { (result) in
+        Service.shared.createUser(with: email, password: password) { (result) in
             self.isLoading = false
             
             switch result{
@@ -155,7 +155,7 @@ class AuthenticateViewController: UIViewController {
                 }
             
             case .success(let user):
-                Model.model.currentUser = user
+                Service.shared.currentUser = user
                 let storyboard = UIStoryboard(name: "Trips", bundle: nil)
                 let navigationController = storyboard.instantiateViewController(withIdentifier: Constants.NavigationIdentifiers.trips) as! UINavigationController
                 
@@ -182,7 +182,7 @@ class AuthenticateViewController: UIViewController {
             return
         }
     
-        Model.model.authenticateUser(with: email, password: password) { (result) in
+        Service.shared.authenticateUser(with: email, password: password) { (result) in
             self.isLoading = false
             
             switch result{
@@ -208,7 +208,7 @@ class AuthenticateViewController: UIViewController {
                 }
                 
             case .success(let user):
-                Model.model.currentUser = user
+                Service.shared.currentUser = user
                 let storyboard = UIStoryboard(name: "Trips", bundle: nil)
                 let navigationController = storyboard.instantiateViewController(withIdentifier: Constants.NavigationIdentifiers.trips) as! UINavigationController
                 
@@ -235,7 +235,7 @@ class AuthenticateViewController: UIViewController {
             return
         }
         
-        Model.model.createUser(with: email, password: password) {(result) in
+        Service.shared.createUser(with: email, password: password) {(result) in
             self.isLoading = false
             
             switch result{
@@ -253,7 +253,7 @@ class AuthenticateViewController: UIViewController {
                 }
             
             case .success(let user):
-                Model.model.currentUser = user
+                Service.shared.currentUser = user
                 let storyboard = UIStoryboard(name: "Trips", bundle: nil)
                 let navigationController = storyboard.instantiateViewController(withIdentifier: Constants.NavigationIdentifiers.trips) as! UINavigationController
                 
@@ -280,7 +280,7 @@ class AuthenticateViewController: UIViewController {
             return
         }
         
-        Model.model.authenticateUserWithFacebook { [unowned self] (result) in
+        Service.shared.authenticateUserWithFacebook { [unowned self] (result) in
             self.isLoading = false
             
             switch result{
@@ -306,7 +306,7 @@ class AuthenticateViewController: UIViewController {
                 }
             
             case .success(let user):
-                Model.model.currentUser = user
+                Service.shared.currentUser = user
                 let storyboard = UIStoryboard(name: "Trips", bundle: nil)
                 let navigationController = storyboard.instantiateViewController(withIdentifier: Constants.NavigationIdentifiers.trips) as! UINavigationController
                 

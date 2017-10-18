@@ -108,7 +108,7 @@ class WeeklyCollectionViewCell: UICollectionViewCell, ChartViewDelegate {
         format.minimum = 0
         format.numberStyle = .currency
         format.allowsFloats = false
-        format.currencySymbol = Model.model.currentUser!.homeCurrency.symbol
+        format.currencySymbol = Service.shared.currentUser!.homeCurrency.symbol
         
         let xFormat = BarChartXAxisFormatter(labels: weekdays)
         
@@ -116,7 +116,7 @@ class WeeklyCollectionViewCell: UICollectionViewCell, ChartViewDelegate {
         dataFormat.numberStyle = .currency
         dataFormat.allowsFloats = false
         dataFormat.zeroSymbol = ""
-        dataFormat.currencySymbol = Model.model.currentUser!.homeCurrency.symbol
+        dataFormat.currencySymbol = Service.shared.currentUser!.homeCurrency.symbol
         let dataFormatter = DefaultValueFormatter(formatter: dataFormat)
         
         let xAxis: XAxis = weeklyChart.xAxis

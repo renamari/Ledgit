@@ -42,7 +42,7 @@ class TripsViewController: UIViewController, AddTripDelegate {
     func setupView(){
         guard (UserDefaults.standard.value(forKey: Constants.UserDefaultKeys.sampleProject) as? Bool) == true else { return }
         
-        Model.model.fetchSampleTrip(completion: { (trip) in
+        Service.shared.fetchSampleTrip(completion: { (trip) in
             self.trips.insert(trip, at: 0)
             
             self.tripsTableView.beginUpdates()
@@ -67,11 +67,11 @@ class TripsViewController: UIViewController, AddTripDelegate {
     }
     
     func addedTrip(dict: NSDictionary) {
-        Model.model.createNewTrip(trip: dict)
+        Service.shared.createNewTrip(trip: dict)
     }
     
     func fetchTrips(){
-        Model.model.fetchTrip { [unowned self] (trip) in
+        Service.shared.fetchTrip { [unowned self] (trip) in
             let numRows = self.tripsTableView.numberOfRows(inSection: 0)
             
             self.trips.append(trip)
@@ -172,7 +172,7 @@ extension TripsViewController: UITableViewDelegate{
                     UserDefaults.standard.set(false, forKey: Constants.UserDefaultKeys.sampleProject)
                 }else{
                     
-                   Model.model.removeTrip(withKey: itemKey, completion: { 
+                   Service.shared.removeTrip(withKey: itemKey, completion: { 
                     self.trips.remove(at: selectedRow)
                     
                     tableView.beginUpdates()

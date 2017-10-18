@@ -122,7 +122,7 @@ class CategoryCollectionViewCell: UICollectionViewCell, ChartViewDelegate {
         default:
             let format = NumberFormatter()
             format.numberStyle = .currency
-            format.currencySymbol = Model.model.currentUser!.homeCurrency.symbol
+            format.currencySymbol = Service.shared.currentUser!.homeCurrency.symbol
             let formatter = DefaultValueFormatter(formatter: format)
             
             pieChart.data?.setValueFormatter(formatter)

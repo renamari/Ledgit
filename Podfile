@@ -30,6 +30,8 @@ target 'Ledgit' do
   
   pod 'BetterSegmentedControl'
 
+  pod "SearchTextField"
+
   target 'LedgitTests' do
     inherit! :search_paths
     # Pods for testing

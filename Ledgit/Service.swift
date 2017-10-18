@@ -1,8 +1,8 @@
 //
-//  Model.swift
+//  Service.swift
 //  Ledgit
 //
-//  Created by Marcos Ortiz on 8/12/17.
+//  Created by Marcos Ortiz on 10/18/17.
 //  Copyright © 2017 Camden Developers. All rights reserved.
 //
 
@@ -11,16 +11,30 @@ import Firebase
 import FacebookCore
 import FacebookLogin
 
-protocol modelDelegate {
+protocol serviceDelegate {
     func errorUpdating(_ error: NSError)
     func modelUpdated()
     //func receivedEntry(entry: Entry)
 }
 
+enum FirebaseLoginResult {
+    case success(User)
+    case cancelled
+    case failed(AuthErrorCode)
+}
 
+enum FirebaseNewAccountResult {
+    case success
+    case failed(AuthErrorCode)
+}
 
-class Model {
-    static let model = Model()
+enum SignoutResult {
+    case success
+    case failure(NSError)
+}
+
+class Service {
+    static let shared = Service()
     
     //var storage = FIRStorage.storage()
     var storage = Storage.storage().reference()
@@ -46,7 +60,7 @@ class Model {
         guard Reachability.isConnectedToNetwork() == true else{
             return false
         }
-
+        
         guard auth.currentUser != nil else{
             return false
         }
@@ -204,7 +218,7 @@ class Model {
     
     func fetchTrip(completion: @escaping(Trip) -> Void){
         trips.queryOrdered(byChild: "owner").queryEqual(toValue: auth.currentUser!.uid).observe(.childAdded, with: { (snapshot) in
-        
+            
             if let snapshot = snapshot.value as? NSDictionary{
                 let trip = Trip(dict: snapshot)
                 
@@ -289,16 +303,3 @@ class Model {
         }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-

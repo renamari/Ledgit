@@ -29,7 +29,7 @@ class CategoriesViewController: UIViewController {
     }
     
     func fetchCategories(){
-        Model.model.fetchCategories{ [unowned self] (results) in
+        Service.shared.fetchCategories{ [unowned self] (results) in
             self.categories = results
             self.categoriesTableView.reloadData()
         }
@@ -129,7 +129,7 @@ extension CategoriesViewController: UITableViewDelegate, UITableViewDataSource{
             
             let category = categories[selectedRow]
             
-            Model.model.removeCategory(with: category){ [unowned self] (success) in
+            Service.shared.removeCategory(with: category){ [unowned self] (success) in
                 self.categories.remove(at: selectedRow)
                 
                 tableView.beginUpdates()

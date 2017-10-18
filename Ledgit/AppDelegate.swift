@@ -24,12 +24,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         self.window = UIWindow(frame: UIScreen.main.bounds)
         
-        if Model.model.isUserAuthenticated(){
+        if Service.shared.isUserAuthenticated(){
             
-            Model.model.users.child(Model.model.auth.currentUser!.uid).observeSingleEvent(of: .value, with: { (snapshot) in
+            Service.shared.users.child(Service.shared.auth.currentUser!.uid).observeSingleEvent(of: .value, with: { (snapshot) in
                 
                 if let snapshot = snapshot.value as? NSDictionary{
-                    Model.model.currentUser = User(dict: snapshot)
+                    Service.shared.currentUser = User(dict: snapshot)
                 }
             })
             

@@ -15,7 +15,7 @@ class DateTableViewCell: UITableViewCell {
     @IBOutlet weak var categoryLabel: UILabel!
     
     func updateLabels(amount: Double, description: String, category: String){
-        amountLabel.text = Model.model.currentUser!.homeCurrency.symbol + String(format: "%.2f", amount)
+        amountLabel.text = Service.shared.currentUser!.homeCurrency.symbol + String(format: "%.2f", amount)
         descriptionLabel.text = description
         categoryLabel.text = category
     }

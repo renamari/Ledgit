@@ -28,9 +28,14 @@ class AuthenticationManager {
 
 extension AuthenticationManager {
     
-    func performFirebaseSignUp(with email:String, password: String) {
+    func performFirebaseSignUp(with email: String, password: String) {
         guard Reachability.isConnectedToNetwork() == true else{
             self.delegate?.authenticationError(dict: Constants.ClientErrorMessages.noNetworkConnection)
+            return
+        }
+        
+        guard !email.isEmpty, !password.isEmpty else {
+            self.delegate?.authenticationError(dict: Constants.ClientErrorMessages.emptyTextFields)
             return
         }
         
@@ -71,6 +76,11 @@ extension AuthenticationManager {
     func performFirebaseSignIn(with email:String, password: String) {
         guard Reachability.isConnectedToNetwork() == true else{
             self.delegate?.authenticationError(dict: Constants.ClientErrorMessages.noNetworkConnection)
+            return
+        }
+        
+        guard !email.isEmpty, !password.isEmpty else {
+            self.delegate?.authenticationError(dict: Constants.ClientErrorMessages.emptyTextFields)
             return
         }
         

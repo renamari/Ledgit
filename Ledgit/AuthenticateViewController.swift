@@ -102,11 +102,8 @@ class AuthenticateViewController: UIViewController {
     @IBAction func authenticateButtonPressed(_ sender: Any) {
         isLoading = true
         
-        guard let email = emailTextField.text?.strip(), let password = passwordTextField.text?.strip(),
-            !email.isEmpty, !password.isEmpty else {
-                isLoading = false
-                return
-        }
+        let email = emailTextField.text?.strip() ?? ""
+        let password = passwordTextField.text?.strip() ?? ""
         
         presenter?.authenticateUser(platform: .firebase, method: method, email: email, password: password)
     }
@@ -114,11 +111,8 @@ class AuthenticateViewController: UIViewController {
     @IBAction func facebookButtonPressed(_ sender: Any) {
         isLoading = true
         
-        guard let email = emailTextField.text?.strip(), let password = passwordTextField.text?.strip(),
-            !email.isEmpty, !password.isEmpty else {
-                isLoading = false
-                return
-        }
+        let email = emailTextField.text?.strip() ?? ""
+        let password = passwordTextField.text?.strip() ?? ""
         
         presenter?.authenticateUser(platform: .facebook, method: method, email: email, password: password)
     }

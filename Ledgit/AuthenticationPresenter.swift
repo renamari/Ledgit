@@ -46,7 +46,5 @@ extension AuthenticationPresenter: AuthenticationManagerDelegate {
     func authenticationError(dict: ErrorDictionary) {
         delegate?.displayError(dict)
     }
-    
-    
 }
 

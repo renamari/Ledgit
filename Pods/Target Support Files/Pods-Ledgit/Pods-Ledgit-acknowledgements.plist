@@ -1051,6 +1051,26 @@ SOFTWARE.
 		</dict>
 		<dict>
 			<key>FooterText</key>
+			<string>See http://www.rollout.io/</string>
+			<key>License</key>
+			<string>Commercial</string>
+			<key>Title</key>
+			<string>ROX</string>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+		</dict>
+		<dict>
+			<key>FooterText</key>
+			<string>See http://www.rollout.io/</string>
+			<key>License</key>
+			<string>Commercial</string>
+			<key>Title</key>
+			<string>ROXCore</string>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+		</dict>
+		<dict>
+			<key>FooterText</key>
 			<string>Copyright (c) 2016 Alejandro Pasccon &lt;apasccon@gmail.com&gt;
 
 Permission is hereby granted, free of charge, to any person obtaining a copy

@@ -24,6 +24,9 @@ class AuthenticateViewController: UIViewController {
     
     var method: AuthenticationMethod = .signin
     
+    var presenter: AuthenticationPresenter?
+    var manager = AuthenticationManager()
+    
     var isLoading:Bool = false{
         didSet{
             switch isLoading{
@@ -37,21 +40,23 @@ class AuthenticateViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        setupPresenter()
         setupLabels()
-        
         setupTextFields()
-        
         setupButtons()
-        
         setupViews()
-        
         setupRecognizers()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         // The labels update if the user goes back and selects a different authentication method (login/signup)
         setupLabels()
+    }
+    
+    func setupPresenter(){
+        presenter = AuthenticationPresenter(manager: manager)
+        presenter?.delegate = self
     }
     
     func setupLabels(){
@@ -82,13 +87,11 @@ class AuthenticateViewController: UIViewController {
     }
     
     func setupViews(){
-        loginView.createBorder(radius: Constants.CornerRadius.button, color: .kColor9C9C9C)
+        loginView.createBorder(radius: Constants.CornerRadius.button, color: .ledgitSeparatorGray)
     }
     
     func setupRecognizers(){
-        let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(screenTapped))
-        
-        view.addGestureRecognizer(tapRecognizer)
+        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(screenTapped)))
     }
     
     @objc func screenTapped(){
@@ -97,21 +100,27 @@ class AuthenticateViewController: UIViewController {
     }
     
     @IBAction func authenticateButtonPressed(_ sender: Any) {
-        switch method {
-        case .signup:
-            performFirebaseSignUp()
-        case .signin:
-            performFirebaseSignIn()
+        isLoading = true
+        
+        guard let email = emailTextField.text?.strip(), let password = passwordTextField.text?.strip(),
+            !email.isEmpty, !password.isEmpty else {
+                isLoading = false
+                return
         }
+        
+        presenter?.authenticateUser(platform: .firebase, method: method, email: email, password: password)
     }
     
     @IBAction func facebookButtonPressed(_ sender: Any) {
-        switch method {
-        case .signup:
-            performFacebookSignUp()
-        case .signin:
-            performFacebookSignIn()
+        isLoading = true
+        
+        guard let email = emailTextField.text?.strip(), let password = passwordTextField.text?.strip(),
+            !email.isEmpty, !password.isEmpty else {
+                isLoading = false
+                return
         }
+        
+        presenter?.authenticateUser(platform: .facebook, method: method, email: email, password: password)
     }
     
     @IBAction func forgotPasswordButton(_ sender: Any) {
@@ -119,202 +128,22 @@ class AuthenticateViewController: UIViewController {
     }
     
     @IBAction func backButtonPressed(_ sender: Any) {
-        _ = navigationController?.popViewController(animated: true)
+        navigationController?.popViewController(animated: true)
+    }
+}
+
+extension AuthenticateViewController: AuthenticationPresenterDelegate {
+    func successfulAuthentication(of user: User) {
+        Service.shared.currentUser = user
+        let storyboard = UIStoryboard(name: "Trips", bundle: nil)
+        let navigationController = storyboard.instantiateViewController(withIdentifier: Constants.NavigationIdentifiers.trips) as! UINavigationController
+        
+        present(navigationController, animated: true, completion: nil)
     }
     
-    func performFirebaseSignUp(){
-        isLoading = true
-        
-        guard Reachability.isConnectedToNetwork() == true else{
-            isLoading = false
-            showAlert(with: Constants.ClientErrorMessages.noNetworkConnection)
-            return
-        }
-        
-        guard let email = emailTextField.text?.strip(), let password = passwordTextField.text?.strip(),
-        !email.isEmpty, !password.isEmpty else {
-            isLoading = false
-            return
-        }
-        
-        Service.shared.createUser(with: email, password: password) { (result) in
-            self.isLoading = false
-            
-            switch result{
-            case .failed(let code):
-                switch code {
-                    
-                case .emailAlreadyInUse:
-                    self.showAlert(with: Constants.AuthErrorMessages.emailAlreadyInUse)
-                    
-                case .invalidEmail:
-                    self.showAlert(with: Constants.AuthErrorMessages.invalidEmail)
-                    
-                default:
-                    self.showAlert(with: Constants.AuthErrorMessages.general)
-                }
-            
-            case .success(let user):
-                Service.shared.currentUser = user
-                let storyboard = UIStoryboard(name: "Trips", bundle: nil)
-                let navigationController = storyboard.instantiateViewController(withIdentifier: Constants.NavigationIdentifiers.trips) as! UINavigationController
-                
-                self.present(navigationController, animated: true, completion: nil)
-                
-            case .cancelled:
-                break
-            }
-        }
-    }
-    
-    func performFirebaseSignIn(){
-        isLoading = true
-        
-        guard Reachability.isConnectedToNetwork() == true else{
-            isLoading = false
-            showAlert(with: Constants.ClientErrorMessages.noNetworkConnection)
-            return
-        }
-        
-        guard let email = emailTextField.text?.strip(), let password = passwordTextField.text?.strip(),
-        !email.isEmpty, !password.isEmpty else {
-            isLoading = false
-            return
-        }
-    
-        Service.shared.authenticateUser(with: email, password: password) { (result) in
-            self.isLoading = false
-            
-            switch result{
-            
-            case .failed(let code):
-                
-                switch code {
-                    
-                case .userDisabled:
-                    self.showAlert(with: Constants.AuthErrorMessages.userDisabled)
-                    
-                case .invalidEmail:
-                    self.showAlert(with: Constants.AuthErrorMessages.invalidEmail)
-                    
-                case .wrongPassword:
-                    self.showAlert(with: Constants.AuthErrorMessages.wrongPassword)
-                    
-                case .userNotFound:
-                    self.showAlert(with: Constants.AuthErrorMessages.userNotFound)
-                    
-                default:
-                    self.showAlert(with: Constants.AuthErrorMessages.general)
-                }
-                
-            case .success(let user):
-                Service.shared.currentUser = user
-                let storyboard = UIStoryboard(name: "Trips", bundle: nil)
-                let navigationController = storyboard.instantiateViewController(withIdentifier: Constants.NavigationIdentifiers.trips) as! UINavigationController
-                
-                self.present(navigationController, animated: true, completion: nil)
-                
-            case .cancelled:
-                break
-            }
-        }
-    }
-    
-    func performFacebookSignUp(){
-        isLoading = true
-        
-        guard Reachability.isConnectedToNetwork() == true else{
-            isLoading = false
-            showAlert(with: Constants.ClientErrorMessages.noNetworkConnection)
-            return
-        }
-        
-        guard let email = emailTextField.text?.strip(), let password = passwordTextField.text?.strip(),
-        !email.isEmpty, !password.isEmpty else {
-            isLoading = false
-            return
-        }
-        
-        Service.shared.createUser(with: email, password: password) {(result) in
-            self.isLoading = false
-            
-            switch result{
-            case .failed(let code):
-                switch code {
-                    
-                case .emailAlreadyInUse:
-                    self.showAlert(with: Constants.AuthErrorMessages.emailAlreadyInUse)
-                    
-                case .invalidEmail:
-                    self.showAlert(with: Constants.AuthErrorMessages.invalidEmail)
-                    
-                default:
-                    self.showAlert(with: Constants.AuthErrorMessages.general)
-                }
-            
-            case .success(let user):
-                Service.shared.currentUser = user
-                let storyboard = UIStoryboard(name: "Trips", bundle: nil)
-                let navigationController = storyboard.instantiateViewController(withIdentifier: Constants.NavigationIdentifiers.trips) as! UINavigationController
-                
-                self.present(navigationController, animated: true, completion: nil)
-                
-            case .cancelled:
-                break
-            }
-        }
-    }
-    
-    func performFacebookSignIn(){
-        isLoading = true
-        
-        guard Reachability.isConnectedToNetwork() == true else{
-            isLoading = false
-            showAlert(with: Constants.ClientErrorMessages.noNetworkConnection)
-            return
-        }
-        
-        guard let email = emailTextField.text?.strip(), let password = passwordTextField.text?.strip(),
-        !email.isEmpty, !password.isEmpty else {
-            isLoading = false
-            return
-        }
-        
-        Service.shared.authenticateUserWithFacebook { [unowned self] (result) in
-            self.isLoading = false
-            
-            switch result{
-                
-            case .failed(let code):
-                
-                switch code {
-                    
-                case .userDisabled:
-                    self.showAlert(with: Constants.AuthErrorMessages.userDisabled)
-                    
-                case .invalidEmail:
-                    self.showAlert(with: Constants.AuthErrorMessages.invalidEmail)
-                    
-                case .wrongPassword:
-                    self.showAlert(with: Constants.AuthErrorMessages.wrongPassword)
-                    
-                case .userNotFound:
-                    self.showAlert(with: Constants.AuthErrorMessages.userNotFound)
-                    
-                default:
-                    self.showAlert(with: Constants.AuthErrorMessages.general)
-                }
-            
-            case .success(let user):
-                Service.shared.currentUser = user
-                let storyboard = UIStoryboard(name: "Trips", bundle: nil)
-                let navigationController = storyboard.instantiateViewController(withIdentifier: Constants.NavigationIdentifiers.trips) as! UINavigationController
-                
-                self.present(navigationController, animated: true, completion: nil)
-            default:
-                print("Default case")
-            }
-        }
+    func displayError(_ dict: ErrorDictionary) {
+        isLoading = false
+        showAlert(with: dict)
     }
 }
 

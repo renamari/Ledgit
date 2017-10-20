@@ -99,44 +99,27 @@ class AddEntryViewController: UIViewController {
     
     @IBAction func closeButtonPressed(_ sender: Any) {
         dismiss(animated: true, completion: nil)
-        
-        guard let date = dateTextField.text?.strip() else {
-            return
+    }
+    
+    @IBAction func saveButtonPressed(_ sender: Any) {
+        guard let date = dateTextField.text?.strip(),
+            let location = locationTextField.text?.strip(),
+            let description = descriptionTextField.text?.strip(),
+            let category = categoryTextField.text?.strip(),
+            let currency = currencyTextField.text?.strip(),
+            let amountString = amountTextField.text?.strip(),
+            let amount = Double(amountString),
+            let paymentType = paymentTypeSegmentedControl.titleForSegment(at: paymentTypeSegmentedControl.selectedSegmentIndex),
+            let owningTrip = owningTrip,
+            let name = Service.shared.currentUser?.key else {
+                showAlert(with: Constants.ClientErrorMessages.emptyTextFields)
+                return
         }
         
-        guard let location = locationTextField.text?.strip() else {
-            return
-        }
+        let key = Service.shared.entries.childByAutoId().key
         
-        guard let description = descriptionTextField.text?.strip() else {
-            return
-        }
-        
-        guard let category = categoryTextField.text?.strip() else {
-            return
-        }
-        
-        guard let currency = currencyTextField.text?.strip() else {
-            return
-        }
-        
-        guard let amount = amountTextField.text?.strip() else {
-            return
-        }
-        
-        guard let paymentType = paymentTypeSegmentedControl.titleForSegment(at: paymentTypeSegmentedControl.selectedSegmentIndex) else {
-            return
-        }
-        
-        guard let owningTrip = owningTrip else {
-            return
-        }
-        
-        guard let name = Service.shared.currentUser?.name else {
-            return
-        }
-        
-        let entryDictionary: NSDictionary = [
+        let entry: NSDictionary = [
+            "key":key,
             "date":date,
             "location":location,
             "description":description,
@@ -148,11 +131,8 @@ class AddEntryViewController: UIViewController {
             "owningTrip":owningTrip.key
         ]
         
+        Service.shared.createNew(entry: entry)
         
-        
-    }
-    
-    @IBAction func saveButtonPressed(_ sender: Any) {
         dismiss(animated: true, completion: nil)
     }
     

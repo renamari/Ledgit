@@ -67,7 +67,7 @@ class TripsViewController: UIViewController, AddTripDelegate {
     }
     
     func addedTrip(dict: NSDictionary) {
-        Service.shared.createNewTrip(trip: dict)
+        Service.shared.createNew(trip: dict)
     }
     
     func fetchTrips(){

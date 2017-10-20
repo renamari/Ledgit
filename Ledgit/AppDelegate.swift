@@ -11,6 +11,7 @@ import CoreData
 import Firebase
 import FBSDKLoginKit
 import FBSDKCoreKit
+import ROX
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -18,11 +19,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        
-        FirebaseApp.configure()
         FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
+        FirebaseApp.configure()
+        ROX.setup(withKey:"59e7e1a2832daa14ceb21736")
         
-        self.window = UIWindow(frame: UIScreen.main.bounds)
+        window = UIWindow(frame: UIScreen.main.bounds)
         
         if Service.shared.isUserAuthenticated(){
             

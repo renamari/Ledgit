@@ -36,16 +36,14 @@ enum SignoutResult {
 class Service {
     static let shared = Service()
     
-    //var storage = FIRStorage.storage()
     var storage = Storage.storage().reference()
-    var baseRef = Database.database().reference()
     var users = Database.database().reference().child("users")
     var trips = Database.database().reference().child("trips")
     var entries = Database.database().reference().child("entries")
     var auth = Auth.auth()
     var facebook = LoginManager()
     
-    var delegate: modelDelegate?
+    var delegate: serviceDelegate?
     
     var currentUser: User?
     
@@ -232,7 +230,7 @@ class Service {
         completion()
     }
     
-    func createNewTrip(trip: NSDictionary){
+    func createNew(trip: NSDictionary){
         
         let key = trip["key"] as! String
         
@@ -247,6 +245,12 @@ class Service {
                 completion(entry)
             }
         })
+    }
+    
+    func createNew(entry: NSDictionary) {
+        let key = entry["key"] as! String
+        
+        entries.child(key).setValue(entry)
     }
     
     func fetchCategories(completion: @escaping ([String]) -> Void){

@@ -64,6 +64,7 @@ extension Currency {
                                      KRW.code, MXN.code, MYR.code, NOK.code, NZD.code,
                                      PHP.code, PLN.code, RON.code, RUB.code, SEK.code,
                                      SGD.code, THB.code, TRY.code, USD.code, ZAR.code, EUR.code]
+    
 }
 
 extension Currency {
@@ -78,11 +79,11 @@ extension Currency {
         return currencies
     }
     
-    func getCurrency(withCode code: String) -> Currency{
+    static func getCurrency(withCode code: String) -> Currency?{
         let currency = Currency.all.first { (currency) -> Bool in
             
-            currency.code == code
+            currency.code == code || currency.name == code || currency.symbol == code || currency.flagCode == code
         }
-        return currency!
+        return currency
     }
 }

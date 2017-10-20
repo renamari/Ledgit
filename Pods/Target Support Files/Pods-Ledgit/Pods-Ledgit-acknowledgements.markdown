@@ -912,6 +912,14 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 
+## ROX
+
+See http://www.rollout.io/
+
+## ROXCore
+
+See http://www.rollout.io/
+
 ## SearchTextField
 
 Copyright (c) 2016 Alejandro Pasccon <apasccon@gmail.com>

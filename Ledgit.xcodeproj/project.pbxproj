@@ -10,6 +10,8 @@
 		0AEC39872D7A188B128C430A /* Pods_LedgitTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7EB21902AE594012FF148F96 /* Pods_LedgitTests.framework */; };
 		5FA2B0A65D5BA7817E8BA1AB /* Pods_Ledgit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 440E18801682C6FA72C78822 /* Pods_Ledgit.framework */; };
 		82E5542861F21775516C139F /* Pods_LedgitUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8521A36C51FB5EBE2134AD85 /* Pods_LedgitUITests.framework */; };
+		8D173EBF1F997B4100EC8527 /* AuthenticationPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D173EBE1F997B4100EC8527 /* AuthenticationPresenter.swift */; };
+		8D173EC31F99803400EC8527 /* AuthenticationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D173EC21F99803400EC8527 /* AuthenticationManager.swift */; };
 		8D18DCB61F43E07100BD5EBA /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D18DCB51F43E07100BD5EBA /* SettingsViewController.swift */; };
 		8D18DCB81F43E34B00BD5EBA /* SettingsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D18DCB71F43E34B00BD5EBA /* SettingsTableViewCell.swift */; };
 		8D18DCBB1F43E9DA00BD5EBA /* AddTripViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D18DCBA1F43E9D900BD5EBA /* AddTripViewController.swift */; };
@@ -71,6 +73,8 @@
 		440E18801682C6FA72C78822 /* Pods_Ledgit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Ledgit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7EB21902AE594012FF148F96 /* Pods_LedgitTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LedgitTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8521A36C51FB5EBE2134AD85 /* Pods_LedgitUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LedgitUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8D173EBE1F997B4100EC8527 /* AuthenticationPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationPresenter.swift; sourceTree = "<group>"; };
+		8D173EC21F99803400EC8527 /* AuthenticationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationManager.swift; sourceTree = "<group>"; };
 		8D18DCB51F43E07100BD5EBA /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		8D18DCB71F43E34B00BD5EBA /* SettingsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTableViewCell.swift; sourceTree = "<group>"; };
 		8D18DCBA1F43E9D900BD5EBA /* AddTripViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddTripViewController.swift; sourceTree = "<group>"; };
@@ -290,8 +294,10 @@
 			isa = PBXGroup;
 			children = (
 				8DA3B2221F3FC00500FC31AF /* MainViewController.swift */,
-				8DA3B2241F3FC01000FC31AF /* AuthenticateViewController.swift */,
 				8DA3B2261F3FC01B00FC31AF /* TutorialViewController.swift */,
+				8DA3B2241F3FC01000FC31AF /* AuthenticateViewController.swift */,
+				8D173EBE1F997B4100EC8527 /* AuthenticationPresenter.swift */,
+				8D173EC21F99803400EC8527 /* AuthenticationManager.swift */,
 				8DA3B1AA1F3F875B00FC31AF /* Main.storyboard */,
 			);
 			name = Login;
@@ -600,6 +606,8 @@
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
 				"${BUILT_PRODUCTS_DIR}/NVActivityIndicatorView/NVActivityIndicatorView.framework",
+				"${BUILT_PRODUCTS_DIR}/ROX/ROX.framework",
+				"${PODS_ROOT}/ROXCore/RoxSdk/ROXCore.framework",
 				"${BUILT_PRODUCTS_DIR}/SearchTextField/SearchTextField.framework",
 				"${BUILT_PRODUCTS_DIR}/SteviaLayout/Stevia.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftDate/SwiftDate.framework",
@@ -622,6 +630,8 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NVActivityIndicatorView.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ROX.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ROXCore.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SearchTextField.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Stevia.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftDate.framework",
@@ -675,6 +685,7 @@
 			files = (
 				8D6F4B681F4E8D100046847C /* SubscriptionViewController.swift in Sources */,
 				8D18DCBB1F43E9DA00BD5EBA /* AddTripViewController.swift in Sources */,
+				8D173EBF1F997B4100EC8527 /* AuthenticationPresenter.swift in Sources */,
 				8DA3B22D1F40055700FC31AF /* Device.swift in Sources */,
 				8D656AA31F94480800C85A0F /* AddEntryViewController.swift in Sources */,
 				8D6F4B661F4E8D050046847C /* AccountViewController.swift in Sources */,
@@ -688,6 +699,7 @@
 				8D6F4B641F4E8CFC0046847C /* CategoriesViewController.swift in Sources */,
 				8DC243DC1F43BE3900B3E080 /* AddTripTableViewCell.swift in Sources */,
 				8DDDD6B31F473EFA0053146B /* TripDetailViewController.swift in Sources */,
+				8D173EC31F99803400EC8527 /* AuthenticationManager.swift in Sources */,
 				8DA3B2251F3FC01000FC31AF /* AuthenticateViewController.swift in Sources */,
 				8DBBDBDA1F97857700E7F8CF /* Service.swift in Sources */,
 				8DA3B1A71F3F875B00FC31AF /* AppDelegate.swift in Sources */,

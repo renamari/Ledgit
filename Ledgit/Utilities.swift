@@ -42,7 +42,7 @@ struct CitySection {
 }
 
 enum PaymentType {
-    case creditCard
+    case credit
     case cash
 }
 
@@ -82,30 +82,57 @@ struct Trip {
 }
 
 struct Entry {
+    var key: String
     let date: Date
     let currency: Currency
     var location: String
     var description:String
     var category:String
     var paidBy: String
-    var paymentType: String
+    var paymentType: PaymentType
     var cost: Double
     var owningTrip: String
     
     init(dict: NSDictionary) {
-        self.date = (dict["date"] as! String).toDate(withFormat: nil)
-        self.description = dict["description"] as! String
-        self.currency = Currency.DEFAULT.getCurrency(withCode: dict["currency"] as! String)
-        self.location = dict["location"] as! String
-        self.category = dict["category"] as! String
-        self.paidBy = dict["paidBy"] as! String
-        self.paymentType = dict["paymentType"] as! String
-        self.cost = dict["cost"] as! Double
-        self.owningTrip = dict["owningTrip"] as! String
+        guard let key = dict["key"] as? String,
+        let date = (dict["date"] as? String)?.toDate(withFormat: nil),
+        let description = dict["description"] as? String,
+        let currency = Currency.getCurrency(withCode: dict["currency"] as! String),
+        let location = dict["location"] as? String,
+        let category = dict["category"] as? String,
+        let paidBy = dict["paidBy"] as? String,
+        let paymentType = dict["paymentType"] as? String,
+        let owningTrip = dict["owningTrip"] as? String,
+        let cost = dict["cost"] as? Double else {
+            
+            self.key = ""
+            self.date = Date()
+            self.description = ""
+            self.currency = Currency.USD
+            self.location = ""
+            self.category = ""
+            self.paidBy = ""
+            self.paymentType = .cash
+            self.cost = 0
+            self.owningTrip = ""
+            return
+        }
+        
+        self.key = key
+        self.date = date
+        self.description = description
+        self.currency = currency
+        self.location = location
+        self.category = category
+        self.paidBy = paidBy
+        self.cost = cost
+        self.owningTrip = owningTrip
+        self.paymentType = (paymentType == "Cash") ? .cash : .credit
     }
 }
 
 struct User {
+    var key: String
     var name: String?
     var email: String?
     var subscription: Subscription = .free
@@ -113,6 +140,8 @@ struct User {
     var homeCurrency : Currency = .USD
     
     init(dict: NSDictionary){
+        self.key = dict["uid"] as! String
+        
         if let name = dict["name"] as? String{
             self.name = name
         }

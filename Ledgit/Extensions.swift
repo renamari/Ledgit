@@ -102,18 +102,17 @@ extension UIColor {
     static var kColor4A4A4A: UIColor { return UIColor(red: 74.0/255.0, green: 74.0/255.0, blue: 74.0/255.0, alpha: 1.0)}
     
     // MARK:- Theme colors
-    static var ledgitBlue: UIColor { return UIColor(hex: 0x308CF9)!}
-    static var ledgitPink: UIColor { return UIColor(hex: 0xEF7BC6)!}
-    static var ledgitAqua: UIColor { return UIColor(hex: 0x1F9DBF)!}
-    static var ledgitNavigationTextGray: UIColor { return UIColor(hex: 0x3F6072)!}
-    static var ledgitNavigationBarGray: UIColor { return UIColor(hex: 0xF2F5F7)!}
+    static var ledgitBlue: UIColor { return UIColor(hex: 0x308CF9)! }
+    static var ledgitPink: UIColor { return UIColor(hex: 0xEF7BC6)! }
+    static var ledgitAqua: UIColor { return UIColor(hex: 0x1F9DBF)! }
+    static var ledgitNavigationTextGray: UIColor { return UIColor(hex: 0x3F6072)! }
+    static var ledgitNavigationBarGray: UIColor { return UIColor(hex: 0xF2F5F7)! }
+    static var ledgitSeparatorGray: UIColor { return UIColor(hex: 0x9C9C9C)! }
     static var facbookBlue: UIColor { return UIColor(hex: 0x25479B)!}
     //Grey color
     static var kColor4E4E4E: UIColor { return UIColor(red: 78.0/255.0, green: 78.0/255.0, blue: 78.0/255.0, alpha: 1.0)}
     //Light Gray Color
     static var kColorEBEBEB: UIColor { return UIColor(red: 235.0/255.0, green: 235.0/255.0, blue: 235.0/255.0, alpha: 1.0)}
-    //Separator Gray
-    static var kColor9C9C9C: UIColor { return UIColor(red: 155.0/255.0, green: 155.0/255.0, blue: 155.0/255.0, alpha: 1.0)}
     //Text color gray
     static var kColor587685: UIColor { return UIColor(red: 88.0/255.0, green: 118.0/255.0, blue: 133.0/255.0, alpha: 1.0)}
     
@@ -225,6 +224,12 @@ extension UIViewController {
 }
 
 extension UIView {
+    func addTapRecognizer(with action: Selector) {
+        let tapRecognizer = UITapGestureRecognizer(target: self, action: action)
+        
+        self.addGestureRecognizer(tapRecognizer)
+    }
+    
     func createBorder(radius: CGFloat) {
         self.layer.cornerRadius = radius
         self.layer.masksToBounds = true

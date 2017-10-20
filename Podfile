@@ -32,6 +32,8 @@ target 'Ledgit' do
 
   pod "SearchTextField"
 
+  pod 'ROX', '~> 1.1.1'
+
   target 'LedgitTests' do
     inherit! :search_paths
     # Pods for testing

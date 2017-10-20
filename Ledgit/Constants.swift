@@ -98,6 +98,7 @@ struct Constants {
     }
     
     struct AuthErrorMessages {
+        static let cancelled = ["title": "Hmmm...", "message": "It looks like you cancelled, try again or select another method."]
         static let general = ["title": "Could Not Sign In", "message": "Error getting your information. Please try again later."]
         static let userDisabled = ["title": "Could Not Sign In", "message": "Error getting your information. Please try again later."]
         static let operationNotAllowed = ["title": "Could Not Sign In", "message": "Error getting your information. Please try again later."]

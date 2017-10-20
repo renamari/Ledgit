@@ -176,6 +176,33 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		8D173EC41F99A4E200EC8527 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				8DA3B2221F3FC00500FC31AF /* MainViewController.swift */,
+				8DA3B2261F3FC01B00FC31AF /* TutorialViewController.swift */,
+				8DA3B2241F3FC01000FC31AF /* AuthenticateViewController.swift */,
+				8DA3B1AA1F3F875B00FC31AF /* Main.storyboard */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		8D173EC51F99A4FA00EC8527 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				8D173EC21F99803400EC8527 /* AuthenticationManager.swift */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		8D173EC61F99A50100EC8527 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				8D173EBE1F997B4100EC8527 /* AuthenticationPresenter.swift */,
+			);
+			name = Presenter;
+			sourceTree = "<group>";
+		};
 		8D18DCB91F43E68F00BD5EBA /* Settings */ = {
 			isa = PBXGroup;
 			children = (
@@ -235,7 +262,6 @@
 		8DA3B1A51F3F875B00FC31AF /* Ledgit */ = {
 			isa = PBXGroup;
 			children = (
-				8DA3B2311F40141600FC31AF /* Components */,
 				8DA3B22E1F40136C00FC31AF /* Login */,
 				8DC243D41F43AD8C00B3E080 /* Trips */,
 				8D2AEBC31F48912D00227FC6 /* Trip Detail */,
@@ -293,21 +319,11 @@
 		8DA3B22E1F40136C00FC31AF /* Login */ = {
 			isa = PBXGroup;
 			children = (
-				8DA3B2221F3FC00500FC31AF /* MainViewController.swift */,
-				8DA3B2261F3FC01B00FC31AF /* TutorialViewController.swift */,
-				8DA3B2241F3FC01000FC31AF /* AuthenticateViewController.swift */,
-				8D173EBE1F997B4100EC8527 /* AuthenticationPresenter.swift */,
-				8D173EC21F99803400EC8527 /* AuthenticationManager.swift */,
-				8DA3B1AA1F3F875B00FC31AF /* Main.storyboard */,
+				8D173EC51F99A4FA00EC8527 /* Model */,
+				8D173EC41F99A4E200EC8527 /* View */,
+				8D173EC61F99A50100EC8527 /* Presenter */,
 			);
 			name = Login;
-			sourceTree = "<group>";
-		};
-		8DA3B2311F40141600FC31AF /* Components */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Components;
 			sourceTree = "<group>";
 		};
 		8DC243D41F43AD8C00B3E080 /* Trips */ = {

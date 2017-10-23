@@ -25,7 +25,6 @@ class AuthenticateViewController: UIViewController {
     var method: AuthenticationMethod = .signin
     
     var presenter: AuthenticationPresenter?
-    var manager = AuthenticationManager()
     
     var isLoading:Bool = false{
         didSet{
@@ -55,6 +54,7 @@ class AuthenticateViewController: UIViewController {
     }
     
     func setupPresenter(){
+        let manager = AuthenticationManager()
         presenter = AuthenticationPresenter(manager: manager)
         presenter?.delegate = self
     }
@@ -128,10 +128,10 @@ class AuthenticateViewController: UIViewController {
 
 extension AuthenticateViewController: AuthenticationPresenterDelegate {
     func successfulAuthentication(of user: User) {
+        isLoading = false
         Service.shared.currentUser = user
-        let storyboard = UIStoryboard(name: "Trips", bundle: nil)
-        let navigationController = storyboard.instantiateViewController(withIdentifier: Constants.NavigationIdentifiers.trips) as! UINavigationController
         
+        let navigationController = TripsViewController.instantiate(from: .trips)
         present(navigationController, animated: true, completion: nil)
     }
     

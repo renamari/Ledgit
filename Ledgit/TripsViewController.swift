@@ -12,8 +12,9 @@ class TripsViewController: UIViewController, AddTripDelegate {
     @IBOutlet weak var tripsTableView: UITableView!
     
     var trips:[Trip] = []
+    var presenter: TripsPresenter?
     
-    var isLoading:Bool = false{
+    var isLoading: Bool = false{
         didSet{
             switch isLoading{
             case true:
@@ -27,9 +28,11 @@ class TripsViewController: UIViewController, AddTripDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setupView()
+        //setupView()
         
         setupTableView()
+        
+        setupPresenter()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -37,6 +40,14 @@ class TripsViewController: UIViewController, AddTripDelegate {
         navigationController?.navigationBar.shadowImage = UIImage()
         navigationController?.navigationBar.isTranslucent = false
         navigationController?.view.backgroundColor = .white
+    }
+    
+    func setupPresenter() {
+        let manager = TripsManager()
+        presenter = TripsPresenter(manager: manager)
+        presenter?.delegate = self
+        
+        presenter?.retrieveTrips()
     }
     
     func setupView(){
@@ -56,13 +67,12 @@ class TripsViewController: UIViewController, AddTripDelegate {
         tripsTableView.dataSource = self
         tripsTableView.rowHeight = 215
         
-        fetchTrips()
+        //fetchTrips()
     }
     
     @IBAction func settingsButtonPressed(_ sender: Any) {
-        let storyboard = UIStoryboard(name: "Settings", bundle: nil)
-        let navigationController = storyboard.instantiateViewController(withIdentifier: Constants.NavigationIdentifiers.settings) as! UINavigationController
-        
+        let navigationController = SettingsNavigationController.instantiate(from: .settings)
+
         present(navigationController, animated: true, completion: nil)
     }
     
@@ -101,11 +111,13 @@ class TripsViewController: UIViewController, AddTripDelegate {
 extension TripsViewController: UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return trips.count + 1
+        //return trips.count + 1
+        return presenter?.trips.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if indexPath.row == trips.count { //Is last index path
+        //if indexPath.row == trips.count { //Is last index path
+        if indexPath.row == presenter?.trips.count { //Is last index path
             let cell = tableView.dequeueReusableCell(withIdentifier: "AddTripCell", for: indexPath) as! AddTripTableViewCell
             cell.configure()
             
@@ -113,7 +125,8 @@ extension TripsViewController: UITableViewDataSource{
             
         }else{
             let cell = tableView.dequeueReusableCell(withIdentifier: "TripCell", for: indexPath) as! TripTableViewCell
-            let trip = trips[indexPath.row]
+            //let trip = trips[indexPath.row]
+            guard let trip = presenter?.trips[indexPath.row] else { return cell }
             cell.configure(with: trip, at: indexPath)
             
             return cell
@@ -123,7 +136,7 @@ extension TripsViewController: UITableViewDataSource{
 
 extension TripsViewController: UITableViewDelegate{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.row == tableView.numberOfRows(inSection: 0) - 1 {
+        if indexPath.row == tableView.lastRow(at: 0) {
             // Selected add trip cell
             performSegue(withIdentifier: Constants.SegueIdentifiers.add, sender: self)
         
@@ -143,7 +156,7 @@ extension TripsViewController: UITableViewDelegate{
     }
     
     func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
-        if indexPath.row == tableView.numberOfRows(inSection: 0) - 1 {
+        if indexPath.row == tableView.lastRow(at: 0) {
             return .none
         }else{
             return .delete
@@ -188,4 +201,21 @@ extension TripsViewController: UITableViewDelegate{
         
         present(alert, animated: true, completion: nil)
     }
+}
+
+extension TripsViewController: TripsPresenterDelegate {
+    func retrievedSampleTrip() {
+        self.tripsTableView.beginUpdates()
+        self.tripsTableView.insertRows(at: [IndexPath(row: 0, section: 0)], with: .right)
+        self.tripsTableView.endUpdates()
+    }
+    
+    func retrievedTrip() {
+        let numRows = self.tripsTableView.numberOfRows(inSection: 0)
+        self.tripsTableView.beginUpdates()
+        self.tripsTableView.insertRows(at: [IndexPath(row: numRows - 1, section: 0)], with: .right)
+        self.tripsTableView.endUpdates()
+    }
+    
+    
 }

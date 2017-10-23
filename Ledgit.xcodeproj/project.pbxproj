@@ -23,6 +23,10 @@
 		8D6F4B641F4E8CFC0046847C /* CategoriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D6F4B631F4E8CFC0046847C /* CategoriesViewController.swift */; };
 		8D6F4B661F4E8D050046847C /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D6F4B651F4E8D050046847C /* AccountViewController.swift */; };
 		8D6F4B681F4E8D100046847C /* SubscriptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D6F4B671F4E8D100046847C /* SubscriptionViewController.swift */; };
+		8D707B4A1F9D3B7F00CABA0F /* MainNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D707B491F9D3B7F00CABA0F /* MainNavigationController.swift */; };
+		8D707B4C1F9D3BAC00CABA0F /* TripsNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D707B4B1F9D3BAC00CABA0F /* TripsNavigationController.swift */; };
+		8D707B4E1F9D3EEE00CABA0F /* TripsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D707B4D1F9D3EEE00CABA0F /* TripsPresenter.swift */; };
+		8D707B501F9D3F9000CABA0F /* TripsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D707B4F1F9D3F9000CABA0F /* TripsManager.swift */; };
 		8D9778F41F4F5364008DD68C /* CategoryActionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9778F31F4F5364008DD68C /* CategoryActionViewController.swift */; };
 		8DA3B1A71F3F875B00FC31AF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA3B1A61F3F875B00FC31AF /* AppDelegate.swift */; };
 		8DA3B1AC1F3F875B00FC31AF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8DA3B1AA1F3F875B00FC31AF /* Main.storyboard */; };
@@ -40,6 +44,7 @@
 		8DA3B2291F3FC3C600FC31AF /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA3B2281F3FC3C600FC31AF /* Constants.swift */; };
 		8DA3B22B1F4004EB00FC31AF /* Currency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA3B22A1F4004EB00FC31AF /* Currency.swift */; };
 		8DA3B22D1F40055700FC31AF /* Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA3B22C1F40055700FC31AF /* Device.swift */; };
+		8DAD43E71F9D46270054EDD8 /* SettingsNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DAD43E61F9D46270054EDD8 /* SettingsNavigationController.swift */; };
 		8DBBDBDA1F97857700E7F8CF /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DBBDBD91F97857700E7F8CF /* Service.swift */; };
 		8DC243D61F43ADA400B3E080 /* TripsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DC243D51F43ADA400B3E080 /* TripsViewController.swift */; };
 		8DC243D81F43ADBB00B3E080 /* Trips.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8DC243D71F43ADBB00B3E080 /* Trips.storyboard */; };
@@ -86,6 +91,10 @@
 		8D6F4B631F4E8CFC0046847C /* CategoriesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoriesViewController.swift; sourceTree = "<group>"; };
 		8D6F4B651F4E8D050046847C /* AccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountViewController.swift; sourceTree = "<group>"; };
 		8D6F4B671F4E8D100046847C /* SubscriptionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubscriptionViewController.swift; sourceTree = "<group>"; };
+		8D707B491F9D3B7F00CABA0F /* MainNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainNavigationController.swift; sourceTree = "<group>"; };
+		8D707B4B1F9D3BAC00CABA0F /* TripsNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripsNavigationController.swift; sourceTree = "<group>"; };
+		8D707B4D1F9D3EEE00CABA0F /* TripsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripsPresenter.swift; sourceTree = "<group>"; };
+		8D707B4F1F9D3F9000CABA0F /* TripsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripsManager.swift; sourceTree = "<group>"; };
 		8D9778F31F4F5364008DD68C /* CategoryActionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryActionViewController.swift; sourceTree = "<group>"; };
 		8DA3B1A31F3F875B00FC31AF /* Ledgit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Ledgit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8DA3B1A61F3F875B00FC31AF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -109,6 +118,7 @@
 		8DA3B2281F3FC3C600FC31AF /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		8DA3B22A1F4004EB00FC31AF /* Currency.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Currency.swift; sourceTree = "<group>"; };
 		8DA3B22C1F40055700FC31AF /* Device.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Device.swift; sourceTree = "<group>"; };
+		8DAD43E61F9D46270054EDD8 /* SettingsNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsNavigationController.swift; sourceTree = "<group>"; };
 		8DBBDBD91F97857700E7F8CF /* Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
 		8DC243D51F43ADA400B3E080 /* TripsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TripsViewController.swift; sourceTree = "<group>"; };
 		8DC243D71F43ADBB00B3E080 /* Trips.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Trips.storyboard; sourceTree = "<group>"; };
@@ -179,6 +189,7 @@
 		8D173EC41F99A4E200EC8527 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				8D707B491F9D3B7F00CABA0F /* MainNavigationController.swift */,
 				8DA3B2221F3FC00500FC31AF /* MainViewController.swift */,
 				8DA3B2261F3FC01B00FC31AF /* TutorialViewController.swift */,
 				8DA3B2241F3FC01000FC31AF /* AuthenticateViewController.swift */,
@@ -207,6 +218,7 @@
 			isa = PBXGroup;
 			children = (
 				8D2AEC0C1F4AAFE400227FC6 /* Settings.storyboard */,
+				8DAD43E61F9D46270054EDD8 /* SettingsNavigationController.swift */,
 				8D9778F31F4F5364008DD68C /* CategoryActionViewController.swift */,
 				8D6F4B631F4E8CFC0046847C /* CategoriesViewController.swift */,
 				8D6F4B651F4E8D050046847C /* AccountViewController.swift */,
@@ -326,13 +338,40 @@
 			name = Login;
 			sourceTree = "<group>";
 		};
+		8DAD43E81F9D54D50054EDD8 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				8DDDD6BB1F47EFCF0053146B /* Table View Cell */,
+				8DC243D71F43ADBB00B3E080 /* Trips.storyboard */,
+				8D707B4B1F9D3BAC00CABA0F /* TripsNavigationController.swift */,
+				8DC243D51F43ADA400B3E080 /* TripsViewController.swift */,
+				8D18DCBA1F43E9D900BD5EBA /* AddTripViewController.swift */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		8DAD43E91F9D54DE0054EDD8 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				8D707B4D1F9D3EEE00CABA0F /* TripsPresenter.swift */,
+			);
+			name = Presenter;
+			sourceTree = "<group>";
+		};
+		8DAD43EA1F9D54E60054EDD8 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				8D707B4F1F9D3F9000CABA0F /* TripsManager.swift */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
 		8DC243D41F43AD8C00B3E080 /* Trips */ = {
 			isa = PBXGroup;
 			children = (
-				8DC243D71F43ADBB00B3E080 /* Trips.storyboard */,
-				8DC243D51F43ADA400B3E080 /* TripsViewController.swift */,
-				8D18DCBA1F43E9D900BD5EBA /* AddTripViewController.swift */,
-				8DDDD6BB1F47EFCF0053146B /* Table View Cell */,
+				8DAD43EA1F9D54E60054EDD8 /* Model */,
+				8DAD43E81F9D54D50054EDD8 /* View */,
+				8DAD43E91F9D54DE0054EDD8 /* Presenter */,
 			);
 			name = Trips;
 			sourceTree = "<group>";
@@ -712,11 +751,15 @@
 				8D2AEC1B1F4D147800227FC6 /* CityTableViewCell.swift in Sources */,
 				8DA3B2271F3FC01B00FC31AF /* TutorialViewController.swift in Sources */,
 				8DA3B2201F3FBEF300FC31AF /* Utilities.swift in Sources */,
+				8D707B4E1F9D3EEE00CABA0F /* TripsPresenter.swift in Sources */,
+				8DAD43E71F9D46270054EDD8 /* SettingsNavigationController.swift in Sources */,
 				8D6F4B641F4E8CFC0046847C /* CategoriesViewController.swift in Sources */,
+				8D707B4C1F9D3BAC00CABA0F /* TripsNavigationController.swift in Sources */,
 				8DC243DC1F43BE3900B3E080 /* AddTripTableViewCell.swift in Sources */,
 				8DDDD6B31F473EFA0053146B /* TripDetailViewController.swift in Sources */,
 				8D173EC31F99803400EC8527 /* AuthenticationManager.swift in Sources */,
 				8DA3B2251F3FC01000FC31AF /* AuthenticateViewController.swift in Sources */,
+				8D707B4A1F9D3B7F00CABA0F /* MainNavigationController.swift in Sources */,
 				8DBBDBDA1F97857700E7F8CF /* Service.swift in Sources */,
 				8DA3B1A71F3F875B00FC31AF /* AppDelegate.swift in Sources */,
 				8D18DCB61F43E07100BD5EBA /* SettingsViewController.swift in Sources */,
@@ -730,6 +773,7 @@
 				8DA3B21B1F3FBCA500FC31AF /* Extensions.swift in Sources */,
 				8DA3B2291F3FC3C600FC31AF /* Constants.swift in Sources */,
 				8DDDD6B51F47ECDD0053146B /* WeeklyCollectionViewCell.swift in Sources */,
+				8D707B501F9D3F9000CABA0F /* TripsManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

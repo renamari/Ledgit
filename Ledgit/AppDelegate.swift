@@ -34,13 +34,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 }
             })
             
-            let storyboard = UIStoryboard(name: "Trips", bundle: nil)
-            let navigationController = storyboard.instantiateViewController(withIdentifier: Constants.NavigationIdentifiers.trips)
+            let navigationController = TripsNavigationController.instantiate(from: .trips)
             self.window?.rootViewController = navigationController
             
         }else{
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let navigationController = storyboard.instantiateViewController(withIdentifier: Constants.NavigationIdentifiers.main)
+            let navigationController = MainNavigationController.instantiate(from: .main)
             self.window?.rootViewController = navigationController
         }
         

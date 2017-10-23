@@ -50,6 +50,31 @@ struct Constants {
         static let addEntry = "toAddEntryViewController"
     }
     
+    static let pageColors: [UIColor] = {
+        return [
+            .ledgitBlue,
+            .ledgitPink,
+            .ledgitAqua]
+    }()
+    
+    static let pageTitles: [String] = {
+        return [
+            "Create New Trips",
+            "Add Expenses Quickly",
+            "Analyze Your Budget"]
+    }()
+    
+    static let pageDescriptions: [String] = {
+        return [
+            "Get a unique ID and attach it to an item, and link it in the app",
+            "When you lose an item, mark it as lost through the app",
+            "When you find an item, report the ID to notify the owner"]
+    }()
+    
+    static let pageImages: [UIImage] = {
+        return [#imageLiteral(resourceName: "tutorial-icon-0"),#imageLiteral(resourceName: "tutorial-icon-1"),#imageLiteral(resourceName: "tutorial-icon-2")]
+    }()
+
     struct TutorialTitles {
         static let first = "Create New Trips"
         static let second = "Add Expenses Quickly"

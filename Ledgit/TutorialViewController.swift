@@ -12,20 +12,25 @@ class TutorialViewController: UIViewController {
     @IBOutlet weak var backgroundImageView: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
+    fileprivate var pageTitles: [String] = Constants.pageTitles
+    fileprivate var pageImages: [UIImage] = Constants.pageImages
+    fileprivate var pageDescriptions: [String] = Constants.pageDescriptions
     
-    var descriptionText: String?
-    var pageImage: UIImage?
-    var titleText:String?
-    var index:Int?
+    var index: Int?
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        configure()
+    }
+    
+    func configure() {
+        guard let index = index else { return }
+        
         // 1. Change description label text and image
-        backgroundImageView.image = pageImage
-        descriptionLabel.text = descriptionText
+        backgroundImageView.image = pageImages[index]
+        descriptionLabel.text = pageDescriptions[index]
         
         // 2. Change title text
-        titleLabel.text = titleText
+        titleLabel.text = pageTitles[index]
     }
 }

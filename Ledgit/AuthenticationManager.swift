@@ -21,15 +21,18 @@ protocol AuthenticationManagerDelegate: class {
 
 class AuthenticationManager {
     weak var delegate: AuthenticationManagerDelegate?
-    var users = Database.database().reference().child("users")
-    var auth = Auth.auth()
-    var facebook = LoginManager()
+    let users = Database.database().reference().child("users")
+    let facebook = LoginManager()
+    let auth = Auth.auth()
+    
+    var isConnected: Bool { return Reachability.isConnectedToNetwork() }
 }
 
 extension AuthenticationManager {
     
     func performFirebaseSignUp(with email: String, password: String) {
-        guard Reachability.isConnectedToNetwork() == true else{
+        
+        guard isConnected else {
             self.delegate?.authenticationError(dict: Constants.ClientErrorMessages.noNetworkConnection)
             return
         }
@@ -41,16 +44,7 @@ extension AuthenticationManager {
         
         auth.createUser(withEmail: email, password: password) { [unowned self] (user, error) in
             if let error = error, let code = AuthErrorCode(rawValue: error._code){
-                switch code {
-                case .emailAlreadyInUse:
-                    self.delegate?.authenticationError(dict: Constants.AuthErrorMessages.emailAlreadyInUse)
-                    
-                case .invalidEmail:
-                    self.delegate?.authenticationError(dict: Constants.AuthErrorMessages.invalidEmail)
-                    
-                default:
-                    self.delegate?.authenticationError(dict: Constants.AuthErrorMessages.general)
-                }
+                self.delegate?.authenticationError(dict: self.handleError(with: code))
             }
             
             guard let user = user else {
@@ -74,7 +68,7 @@ extension AuthenticationManager {
     }
     
     func performFirebaseSignIn(with email:String, password: String) {
-        guard Reachability.isConnectedToNetwork() == true else{
+        guard isConnected else {
             self.delegate?.authenticationError(dict: Constants.ClientErrorMessages.noNetworkConnection)
             return
         }
@@ -86,16 +80,7 @@ extension AuthenticationManager {
         
         auth.signIn(withEmail: email, password: password) { (user, error) in
             if let error = error, let code = AuthErrorCode(rawValue: error._code){
-                switch code {
-                case .emailAlreadyInUse:
-                    self.delegate?.authenticationError(dict: Constants.AuthErrorMessages.emailAlreadyInUse)
-                    
-                case .invalidEmail:
-                    self.delegate?.authenticationError(dict: Constants.AuthErrorMessages.invalidEmail)
-                    
-                default:
-                    self.delegate?.authenticationError(dict: Constants.AuthErrorMessages.general)
-                }
+                self.delegate?.authenticationError(dict: self.handleError(with: code))
             }
             
             guard let user = user else {
@@ -117,7 +102,7 @@ extension AuthenticationManager {
     }
     
     func peformFacebookSignUp() {
-        guard Reachability.isConnectedToNetwork() == true else{
+        guard isConnected else {
             self.delegate?.authenticationError(dict: Constants.ClientErrorMessages.noNetworkConnection)
             return
         }
@@ -127,22 +112,7 @@ extension AuthenticationManager {
             case .failed(let error):
                 
                 if let code = AuthErrorCode(rawValue: error._code){
-                    switch code {
-                    case .userDisabled:
-                        self.delegate?.authenticationError(dict: Constants.AuthErrorMessages.userDisabled)
-                        
-                    case .invalidEmail:
-                        self.delegate?.authenticationError(dict: Constants.AuthErrorMessages.invalidEmail)
-                        
-                    case .wrongPassword:
-                        self.delegate?.authenticationError(dict: Constants.AuthErrorMessages.wrongPassword)
-                        
-                    case .userNotFound:
-                        self.delegate?.authenticationError(dict: Constants.AuthErrorMessages.userNotFound)
-                        
-                    default:
-                        self.delegate?.authenticationError(dict: Constants.AuthErrorMessages.general)
-                    }
+                    self.delegate?.authenticationError(dict: self.handleError(with: code))
                 }
                 
             case .cancelled:
@@ -153,22 +123,7 @@ extension AuthenticationManager {
                 
                 self.auth.signIn(with: credential, completion: { (user, error) in
                     if let error = error, let code = AuthErrorCode(rawValue: error._code){
-                        switch code {
-                        case .userDisabled:
-                            self.delegate?.authenticationError(dict: Constants.AuthErrorMessages.userDisabled)
-                            
-                        case .invalidEmail:
-                            self.delegate?.authenticationError(dict: Constants.AuthErrorMessages.invalidEmail)
-                            
-                        case .wrongPassword:
-                            self.delegate?.authenticationError(dict: Constants.AuthErrorMessages.wrongPassword)
-                            
-                        case .userNotFound:
-                            self.delegate?.authenticationError(dict: Constants.AuthErrorMessages.userNotFound)
-                            
-                        default:
-                            self.delegate?.authenticationError(dict: Constants.AuthErrorMessages.general)
-                        }
+                        self.delegate?.authenticationError(dict: self.handleError(with: code))
                     }
                     
                     guard let user = user else {
@@ -195,7 +150,7 @@ extension AuthenticationManager {
     }
     
     func performFacebookSignIn() {
-        guard Reachability.isConnectedToNetwork() == true else{
+        guard isConnected else {
             self.delegate?.authenticationError(dict: Constants.ClientErrorMessages.noNetworkConnection)
             return
         }
@@ -205,22 +160,7 @@ extension AuthenticationManager {
             case .failed(let error):
                 
                 if let code = AuthErrorCode(rawValue: error._code){
-                    switch code {
-                    case .userDisabled:
-                        self.delegate?.authenticationError(dict: Constants.AuthErrorMessages.userDisabled)
-                        
-                    case .invalidEmail:
-                        self.delegate?.authenticationError(dict: Constants.AuthErrorMessages.invalidEmail)
-                        
-                    case .wrongPassword:
-                        self.delegate?.authenticationError(dict: Constants.AuthErrorMessages.wrongPassword)
-                        
-                    case .userNotFound:
-                        self.delegate?.authenticationError(dict: Constants.AuthErrorMessages.userNotFound)
-                        
-                    default:
-                        self.delegate?.authenticationError(dict: Constants.AuthErrorMessages.general)
-                    }
+                    self.delegate?.authenticationError(dict: self.handleError(with: code))
                 }
                 
             case .cancelled:
@@ -231,16 +171,7 @@ extension AuthenticationManager {
                 
                 self.auth.signIn(with: credential, completion: { (user, error) in
                     if let error = error, let code = AuthErrorCode(rawValue: error._code){
-                        switch code {
-                        case .emailAlreadyInUse:
-                            self.delegate?.authenticationError(dict: Constants.AuthErrorMessages.emailAlreadyInUse)
-                            
-                        case .invalidEmail:
-                            self.delegate?.authenticationError(dict: Constants.AuthErrorMessages.invalidEmail)
-                            
-                        default:
-                            self.delegate?.authenticationError(dict: Constants.AuthErrorMessages.general)
-                        }
+                        self.delegate?.authenticationError(dict: self.handleError(with: code))
                     }
                     
                     guard let user = user else {
@@ -257,6 +188,29 @@ extension AuthenticationManager {
                     })
                 })
             }
+        }
+    }
+    
+    func handleError(with code: AuthErrorCode) -> ErrorDictionary {
+        switch code {
+            
+        case .emailAlreadyInUse:
+            return Constants.AuthErrorMessages.emailAlreadyInUse
+            
+        case .userDisabled:
+            return Constants.AuthErrorMessages.userDisabled
+            
+        case .invalidEmail:
+            return Constants.AuthErrorMessages.invalidEmail
+            
+        case .wrongPassword:
+            return Constants.AuthErrorMessages.wrongPassword
+            
+        case .userNotFound:
+            return Constants.AuthErrorMessages.userNotFound
+            
+        default:
+            return Constants.AuthErrorMessages.general
         }
     }
 }

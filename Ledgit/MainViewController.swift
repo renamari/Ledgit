@@ -18,35 +18,12 @@ class MainViewController: UIViewController {
     @IBOutlet weak var exploreButton: UIButton!
     @IBOutlet weak var pageControl: UIPageControl!
     @IBOutlet weak var tutorialView: UIView!
-    
     private var pageViewController: UIPageViewController?
+
     var method: AuthenticationMethod = .signin
     var currentIndex = 0
     
-    fileprivate(set) lazy var pageTitles: [String] = {
-        return [
-            Constants.TutorialTitles.first,
-            Constants.TutorialTitles.second,
-            Constants.TutorialTitles.third]
-    }()
-    
-    fileprivate(set) lazy var pageColors: [UIColor] = {
-        return [
-            .ledgitBlue,
-            .ledgitPink,
-            .ledgitAqua]
-    }()
-    
-    fileprivate(set) lazy var pageDescriptions: [String] = {
-        return [
-            Constants.TutorialDescriptions.first,
-            Constants.TutorialDescriptions.second,
-            Constants.TutorialDescriptions.third]
-    }()
-    
-    fileprivate(set) lazy var pageImages: [UIImage] = {
-        return [#imageLiteral(resourceName: "tutorial-icon-0"),#imageLiteral(resourceName: "tutorial-icon-1"),#imageLiteral(resourceName: "tutorial-icon-2")]
-    }()
+    fileprivate lazy var pageColors: [UIColor] = Constants.pageColors
     
     fileprivate(set) lazy var orderedViewControllers: [UIViewController] = {
         return [self.newTutorialViewController(with: 0),
@@ -86,11 +63,8 @@ class MainViewController: UIViewController {
         
         // 1. Create a new tutorial view controller screen
         let tutorialViewController = TutorialViewController.instantiate(from: .main)
-    
+        
         // 2. Update its properties
-        tutorialViewController.pageImage = pageImages[index]
-        tutorialViewController.descriptionText = pageDescriptions[index]
-        tutorialViewController.titleText = pageTitles[index]
         tutorialViewController.index = index
         
         // 3. Return tutorial screen

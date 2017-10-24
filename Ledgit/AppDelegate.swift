@@ -25,18 +25,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         window = UIWindow(frame: UIScreen.main.bounds)
         
-        if Service.shared.isUserAuthenticated(){
+        if Service.shared.isUserAuthenticated(), let currentUserKey = UserDefaults.standard.value(forKey: Constants.UserDefaultKeys.uid) as? String{
             
-            Service.shared.users.child(Service.shared.auth.currentUser!.uid).observeSingleEvent(of: .value, with: { (snapshot) in
+            Service.shared.users.child(currentUserKey).observeSingleEvent(of: .value, with: { (snapshot) in
                 
                 if let snapshot = snapshot.value as? NSDictionary{
                     Service.shared.currentUser = User(dict: snapshot)
+                    
                 }
             })
             
             let navigationController = TripsNavigationController.instantiate(from: .trips)
             self.window?.rootViewController = navigationController
-            
+        
         }else{
             let navigationController = MainNavigationController.instantiate(from: .main)
             self.window?.rootViewController = navigationController

@@ -20,9 +20,6 @@ class AddTripViewController: FormViewController {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var createButton: UIButton!
     @IBOutlet weak var tableFrameView: UIView!
-    private var H_PADDING:CGFloat = 20
-    private var V_PADDING:CGFloat = 20
-    private var BTN_HEIGHT:CGFloat = 40
     var delegate: AddTripDelegate?
     
     override func viewDidLoad() {

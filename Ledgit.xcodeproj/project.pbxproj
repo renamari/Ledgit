@@ -46,6 +46,7 @@
 		8DA3B22D1F40055700FC31AF /* Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA3B22C1F40055700FC31AF /* Device.swift */; };
 		8DAD43E71F9D46270054EDD8 /* SettingsNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DAD43E61F9D46270054EDD8 /* SettingsNavigationController.swift */; };
 		8DBBDBDA1F97857700E7F8CF /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DBBDBD91F97857700E7F8CF /* Service.swift */; };
+		8DBFF02A1F9ED6B20069FB3A /* TripsPresenterMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DBFF0291F9ED6B20069FB3A /* TripsPresenterMock.swift */; };
 		8DC243D61F43ADA400B3E080 /* TripsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DC243D51F43ADA400B3E080 /* TripsViewController.swift */; };
 		8DC243D81F43ADBB00B3E080 /* Trips.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8DC243D71F43ADBB00B3E080 /* Trips.storyboard */; };
 		8DC243DA1F43BE2B00B3E080 /* TripTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DC243D91F43BE2B00B3E080 /* TripTableViewCell.swift */; };
@@ -120,6 +121,7 @@
 		8DA3B22C1F40055700FC31AF /* Device.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Device.swift; sourceTree = "<group>"; };
 		8DAD43E61F9D46270054EDD8 /* SettingsNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsNavigationController.swift; sourceTree = "<group>"; };
 		8DBBDBD91F97857700E7F8CF /* Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
+		8DBFF0291F9ED6B20069FB3A /* TripsPresenterMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripsPresenterMock.swift; sourceTree = "<group>"; };
 		8DC243D51F43ADA400B3E080 /* TripsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TripsViewController.swift; sourceTree = "<group>"; };
 		8DC243D71F43ADBB00B3E080 /* Trips.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Trips.storyboard; sourceTree = "<group>"; };
 		8DC243D91F43BE2B00B3E080 /* TripTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TripTableViewCell.swift; sourceTree = "<group>"; };
@@ -287,6 +289,7 @@
 		8DA3B1BD1F3F875B00FC31AF /* LedgitTests */ = {
 			isa = PBXGroup;
 			children = (
+				8DBFF0261F9ED67B0069FB3A /* Trips Mocks */,
 				8DA3B1BE1F3F875B00FC31AF /* LedgitTests.swift */,
 				8DA3B1C01F3F875B00FC31AF /* Info.plist */,
 			);
@@ -364,6 +367,14 @@
 				8D707B4F1F9D3F9000CABA0F /* TripsManager.swift */,
 			);
 			name = Model;
+			sourceTree = "<group>";
+		};
+		8DBFF0261F9ED67B0069FB3A /* Trips Mocks */ = {
+			isa = PBXGroup;
+			children = (
+				8DBFF0291F9ED6B20069FB3A /* TripsPresenterMock.swift */,
+			);
+			path = "Trips Mocks";
 			sourceTree = "<group>";
 		};
 		8DC243D41F43AD8C00B3E080 /* Trips */ = {
@@ -782,6 +793,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8DA3B1BF1F3F875B00FC31AF /* LedgitTests.swift in Sources */,
+				8DBFF02A1F9ED6B20069FB3A /* TripsPresenterMock.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

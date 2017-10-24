@@ -13,10 +13,10 @@ protocol TripsManagerDelegate: class {
     func retrievedSampleTrip(_ trip: Trip)
     func retrievedTrip(_ trip: Trip)
     func addedTrip()
-    func removedTrip()
 }
 
 class TripsManager {
+    var auth = Auth.auth()
     weak var delegate: TripsManagerDelegate?
     let trips = Database.database().reference().child("trips")
     
@@ -36,9 +36,9 @@ extension TripsManager {
     }
     
     func fetchTrip(){
-        guard let currentUser = Service.shared.currentUser else { return }
+        guard let currentUserKey = auth.currentUser?.uid else { return }
         
-        trips.queryOrdered(byChild: "owner").queryEqual(toValue: currentUser.key).observe(.childAdded, with: { (snapshot) in
+        trips.queryOrdered(byChild: "owner").queryEqual(toValue: currentUserKey).observe(.childAdded, with: { (snapshot) in
             if let snapshot = snapshot.value as? NSDictionary{
                 let trip = Trip(dict: snapshot)
                 
@@ -49,13 +49,12 @@ extension TripsManager {
     
     func removeTrip(withKey key: String){
         trips.child(key).removeValue()
-        self.delegate?.removedTrip()
     }
     
     func createNew(trip: NSDictionary){
         let key = trip["key"] as! String
         
         trips.child(key).setValue(trip)
-        self.delegate?.addedTrip()
+        delegate?.addedTrip()
     }
 }

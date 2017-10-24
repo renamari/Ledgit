@@ -27,6 +27,16 @@ class TripsPresenter {
         manager.fetchSampleTrip()
         manager.fetchTrip()
     }
+    
+    func removeTrip(at index: Int) {
+        let key = trips[index].key
+        trips.remove(at: index)
+        manager.removeTrip(withKey: key)
+    }
+    
+    func createNew(trip dict: NSDictionary) {
+        manager.createNew(trip: dict)
+    }
 }
 
 extension TripsPresenter: TripsManagerDelegate{
@@ -41,10 +51,6 @@ extension TripsPresenter: TripsManagerDelegate{
     }
     
     func addedTrip() {
-        
-    }
-    
-    func removedTrip() {
         
     }
 }

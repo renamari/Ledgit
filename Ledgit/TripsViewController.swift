@@ -11,8 +11,7 @@ import UIKit
 class TripsViewController: UIViewController, AddTripDelegate {
     @IBOutlet weak var tripsTableView: UITableView!
     
-    var trips:[Trip] = []
-    var presenter: TripsPresenter?
+    var presenter = TripsPresenter(manager: TripsManager())
     
     var isLoading: Bool = false{
         didSet{
@@ -27,9 +26,6 @@ class TripsViewController: UIViewController, AddTripDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        //setupView()
-        
         setupTableView()
         
         setupPresenter()
@@ -43,31 +39,14 @@ class TripsViewController: UIViewController, AddTripDelegate {
     }
     
     func setupPresenter() {
-        let manager = TripsManager()
-        presenter = TripsPresenter(manager: manager)
-        presenter?.delegate = self
-        
-        presenter?.retrieveTrips()
-    }
-    
-    func setupView(){
-        guard (UserDefaults.standard.value(forKey: Constants.UserDefaultKeys.sampleProject) as? Bool) == true else { return }
-        
-        Service.shared.fetchSampleTrip(completion: { (trip) in
-            self.trips.insert(trip, at: 0)
-            
-            self.tripsTableView.beginUpdates()
-            self.tripsTableView.insertRows(at: [IndexPath(row: 0, section: 0)], with: .right)
-            self.tripsTableView.endUpdates()
-        })
+        presenter.delegate = self
+        presenter.retrieveTrips()
     }
     
     func setupTableView(){
         tripsTableView.delegate = self
         tripsTableView.dataSource = self
         tripsTableView.rowHeight = 215
-        
-        //fetchTrips()
     }
     
     @IBAction func settingsButtonPressed(_ sender: Any) {
@@ -77,33 +56,19 @@ class TripsViewController: UIViewController, AddTripDelegate {
     }
     
     func addedTrip(dict: NSDictionary) {
-        Service.shared.createNew(trip: dict)
+        presenter.createNew(trip: dict)
     }
-    
-    func fetchTrips(){
-        Service.shared.fetchTrip { [unowned self] (trip) in
-            let numRows = self.tripsTableView.numberOfRows(inSection: 0)
-            
-            self.trips.append(trip)
-            
-            self.tripsTableView.beginUpdates()
-            self.tripsTableView.insertRows(at: [IndexPath(row: numRows - 1, section: 0)], with: .right)
-            self.tripsTableView.endUpdates()
-        }
-    }
-    
+
     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == Constants.SegueIdentifiers.add{
-            if let destinationViewController = segue.destination as? AddTripViewController{
-                destinationViewController.delegate = self
-            }
+            guard let destinationViewController = segue.destination as? AddTripViewController else { return }
+            destinationViewController.delegate = self
+            
         }else if segue.identifier == Constants.SegueIdentifiers.detail{
-            if let destinationViewController = segue.destination as? TripDetailViewController{
-                if let selectedRow = tripsTableView.indexPathForSelectedRow?.row{
-                    destinationViewController.currentTrip = trips[selectedRow]
-                }
-            }
+            guard  let destinationViewController = segue.destination as? TripDetailViewController else { return }
+            guard let selectedRow = tripsTableView.indexPathForSelectedRow?.row else { return }
+            destinationViewController.currentTrip = presenter.trips[selectedRow]
         }
     }
 }
@@ -111,13 +76,11 @@ class TripsViewController: UIViewController, AddTripDelegate {
 extension TripsViewController: UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        //return trips.count + 1
-        return presenter?.trips.count ?? 0
+        return presenter.trips.count + 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        //if indexPath.row == trips.count { //Is last index path
-        if indexPath.row == presenter?.trips.count { //Is last index path
+        if indexPath.row == presenter.trips.count { //Is last index path
             let cell = tableView.dequeueReusableCell(withIdentifier: "AddTripCell", for: indexPath) as! AddTripTableViewCell
             cell.configure()
             
@@ -125,8 +88,7 @@ extension TripsViewController: UITableViewDataSource{
             
         }else{
             let cell = tableView.dequeueReusableCell(withIdentifier: "TripCell", for: indexPath) as! TripTableViewCell
-            //let trip = trips[indexPath.row]
-            guard let trip = presenter?.trips[indexPath.row] else { return cell }
+            let trip = presenter.trips[indexPath.row]
             cell.configure(with: trip, at: indexPath)
             
             return cell
@@ -137,18 +99,15 @@ extension TripsViewController: UITableViewDataSource{
 extension TripsViewController: UITableViewDelegate{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.row == tableView.lastRow(at: 0) {
-            // Selected add trip cell
             performSegue(withIdentifier: Constants.SegueIdentifiers.add, sender: self)
         
         }else{
-            //Create trip detail view controller
             performSegue(withIdentifier: Constants.SegueIdentifiers.detail, sender: self)
         }
     }
     
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        if indexPath.row == tableView.lastRow(at: 0) {
-            //Cannot delete last row
+        if indexPath.row == tableView.lastRow(at: 0) { //Cannot delete last row
             return false
         }else{
             return true
@@ -175,24 +134,14 @@ extension TripsViewController: UITableViewDelegate{
                 // 2. Create local variables for the section and selected row
                 let selectedRow = indexPath.row
                 
-                // 3. Retrieve item info in selected cell
-                let item = self.trips[selectedRow]
-                
-                // 4. Delete item from Firebase with item key
-                let itemKey = item.key
-                
                 if selectedRow == 0 && (UserDefaults.standard.value(forKey: Constants.UserDefaultKeys.sampleProject) as? Bool) == true{
                     UserDefaults.standard.set(false, forKey: Constants.UserDefaultKeys.sampleProject)
-                }else{
-                    
-                   Service.shared.removeTrip(withKey: itemKey, completion: { 
-                    self.trips.remove(at: selectedRow)
-                    
-                    tableView.beginUpdates()
-                    tableView.deleteRows(at: [indexPath], with: .fade)
-                    tableView.endUpdates()
-                   })
                 }
+                
+                tableView.beginUpdates()
+                self.presenter.removeTrip(at: selectedRow)
+                tableView.deleteRows(at: [indexPath], with: .fade)
+                tableView.endUpdates()
             }
         }
         
@@ -205,17 +154,28 @@ extension TripsViewController: UITableViewDelegate{
 
 extension TripsViewController: TripsPresenterDelegate {
     func retrievedSampleTrip() {
-        self.tripsTableView.beginUpdates()
-        self.tripsTableView.insertRows(at: [IndexPath(row: 0, section: 0)], with: .right)
-        self.tripsTableView.endUpdates()
+        tripsTableView.beginUpdates()
+        tripsTableView.insertRows(at: [IndexPath(row: 0, section: 0)], with: .right)
+        tripsTableView.endUpdates()
     }
     
     func retrievedTrip() {
-        let numRows = self.tripsTableView.numberOfRows(inSection: 0)
-        self.tripsTableView.beginUpdates()
-        self.tripsTableView.insertRows(at: [IndexPath(row: numRows - 1, section: 0)], with: .right)
-        self.tripsTableView.endUpdates()
+        let numRows = tripsTableView.numberOfRows(inSection: 0)
+        tripsTableView.beginUpdates()
+        tripsTableView.insertRows(at: [IndexPath(row: numRows - 1, section: 0)], with: .right)
+        tripsTableView.endUpdates()
+        
+        tripsTableView.visibleCells.forEach { cell in
+            cell.transform = CGAffineTransform(translationX: 0, y: tripsTableView.bounds.size.height)
+        }
+
+        var index: Double = 0
+        tripsTableView.visibleCells.forEach { cell in
+            UIView.animate(withDuration: 1.5, delay: 0.05 * index, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: .allowAnimatedContent, animations: {
+                cell.transform = CGAffineTransform(translationX: 0, y: 0)
+            }, completion: nil)
+            
+            index += 1
+        }
     }
-    
-    
 }

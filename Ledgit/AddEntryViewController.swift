@@ -7,18 +7,13 @@
 //
 
 import UIKit
+import Eureka
 import SearchTextField
 
-class AddEntryViewController: UIViewController {
+class AddEntryViewController: FormViewController {
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var closeButton: UIButton!
-    @IBOutlet weak var dateTextField: UITextField!
-    @IBOutlet weak var locationTextField: UITextField!
-    @IBOutlet weak var descriptionTextField: UITextField!
-    @IBOutlet weak var categoryTextField: SearchTextField!
-    @IBOutlet weak var currencyTextField: SearchTextField!
-    @IBOutlet weak var paymentTypeSegmentedControl: UISegmentedControl!
-    @IBOutlet weak var amountTextField: UITextField!
+    @IBOutlet weak var tableFrameView: UIView!
     
     var owningTrip: Trip?
     
@@ -26,9 +21,9 @@ class AddEntryViewController: UIViewController {
         super.viewDidLoad()
         setupButton()
         
-        setupTextFields()
+        setupLayout()
         
-        setupNotifications()
+        setupForm()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -40,9 +35,77 @@ class AddEntryViewController: UIViewController {
         UIApplication.shared.statusBarStyle = .default
     }
     
-    func setupNotifications(){
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name:NSNotification.Name.UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name:NSNotification.Name.UIKeyboardWillHide, object: nil)
+    func setupLayout(){
+        tableView?.frame = CGRect(x: 0, y: 0, width: tableFrameView.frame.width, height: tableFrameView.frame.height)
+        tableView?.backgroundColor = .clear
+        tableView?.rowHeight = tableFrameView.frame.height / 6
+        tableView?.bounces = false
+        tableView?.isScrollEnabled = false
+        tableView?.showsVerticalScrollIndicator = false
+        tableView?.sectionHeaderHeight = 0
+        tableView?.sectionFooterHeight = 0
+        tableView?.separatorColor = .clear
+        tableFrameView.addSubview(tableView!)
+    }
+    
+    func setupForm() {
+        DateRow.defaultCellSetup = {cell, row in cell.textLabel?.textColor = .white}
+        
+        form
+            +++ Section()
+            
+            <<< DateRow("entryDate") {
+                let formatter = DateFormatter()
+                formatter.locale = .current
+                formatter.dateStyle = .long
+                $0.dateFormatter = formatter
+                $0.title = "Date:"
+                $0.value = Date()
+                
+                }.onCellSelection { (cell, row) in
+                    cell.textLabel?.textColor = .white
+                    
+                }.cellUpdate { (cell, row) in
+                    cell.selectionStyle = .blue
+                    cell.backgroundColor = .clear
+                    cell.textLabel?.textColor = .white
+                    cell.textLabel?.font = .futuraMedium17
+                    cell.detailTextLabel?.textColor = .white
+                    cell.detailTextLabel?.font = .futuraMedium17
+                }
+            
+            <<< TextRow("location"){
+                $0.title = "City:"
+                $0.placeholder = "Paris"
+                
+                }.cellUpdate { (cell, row) in
+                    cell.selectionStyle = .blue
+                    cell.backgroundColor = .clear
+                    cell.textLabel?.textColor = .white
+                    cell.textLabel?.font = .futuraMedium17
+                    cell.textField.textColor = .white
+                    cell.textField.font = .futuraMedium17
+                }
+
+            <<< AlertRow<String>() {
+                $0.title = "Currencies:"
+                $0.selectorTitle = "Select a currency"
+                $0.options = Currency.all.map { $0.name }
+                $0.value = Currency.USD.name
+                }.onChange { row in
+                    print(row.value ?? "No Value")
+                }
+                .onPresent{ _, to in
+                    to.view.tintColor = .ledgitBlue
+                }.cellUpdate { (cell, row) in
+                    cell.selectionStyle = .blue
+                    cell.backgroundColor = .clear
+                    cell.textLabel?.textColor = .white
+                    cell.textLabel?.font = .futuraMedium17
+                    //cell.detailTextLabel?.textColor = .white
+                    cell.detailTextLabel?.font = .futuraMedium17
+                }
+    
     }
     
     func setupButton() {
@@ -52,56 +115,12 @@ class AddEntryViewController: UIViewController {
         closeButton.clipsToBounds = true
     }
     
-    func setupTextFields() {
-        guard let user = Service.shared.currentUser else { return }
-
-        dateTextField.delegate = self
-        
-        locationTextField.delegate = self
-        
-        descriptionTextField.delegate = self
-        
-        categoryTextField.theme.cellHeight = 44
-        categoryTextField.theme.bgColor = UIColor.black.withAlphaComponent(0.8)
-        categoryTextField.theme.separatorColor = UIColor.black.withAlphaComponent(0.9)
-        categoryTextField.theme.separatorColor = .clear
-        categoryTextField.font = .futuraMedium17
-        categoryTextField.theme.fontColor = .white
-        categoryTextField.startVisible = true
-        categoryTextField.comparisonOptions = [.caseInsensitive]
-        categoryTextField.filterStrings(user.categories)
-        categoryTextField.delegate = self
-        categoryTextField.itemSelectionHandler = { filteredResults, itemPosition in
-            let item = filteredResults[itemPosition]
-            self.categoryTextField.text = item.title
-            self.categoryTextField.resignFirstResponder()
-        }
-        
-        currencyTextField.theme.cellHeight = 44
-        currencyTextField.theme.bgColor = UIColor.black.withAlphaComponent(0.8)
-        currencyTextField.theme.separatorColor = UIColor.black.withAlphaComponent(0.9)
-        currencyTextField.theme.separatorColor = .clear
-        currencyTextField.font = .futuraMedium17
-        currencyTextField.theme.fontColor = .white
-        currencyTextField.startVisible = true
-        currencyTextField.comparisonOptions = [.caseInsensitive]
-        currencyTextField.startVisible = true
-        currencyTextField.filterStrings(Currency.all.map{ $0.name })
-        currencyTextField.delegate = self
-        currencyTextField.itemSelectionHandler = { filteredResults, itemPosition in
-            let item = filteredResults[itemPosition]
-            self.currencyTextField.text = item.title
-            self.currencyTextField.resignFirstResponder()
-        }
-        
-        amountTextField.delegate = self
-    }
-    
     @IBAction func closeButtonPressed(_ sender: Any) {
         dismiss(animated: true, completion: nil)
     }
     
     @IBAction func saveButtonPressed(_ sender: Any) {
+        /*
         guard let date = dateTextField.text?.strip(),
             let location = locationTextField.text?.strip(),
             let description = descriptionTextField.text?.strip(),
@@ -134,43 +153,6 @@ class AddEntryViewController: UIViewController {
         Service.shared.createNew(entry: entry)
         
         dismiss(animated: true, completion: nil)
-    }
-    
-    @objc func keyboardWillShow(notification:NSNotification){
-        var userInfo = notification.userInfo!
-        var keyboardFrame:CGRect = (userInfo[UIKeyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
-        keyboardFrame = self.view.convert(keyboardFrame, from: nil)
-        
-        var contentInset:UIEdgeInsets = scrollView.contentInset
-        contentInset.bottom = keyboardFrame.size.height
-        scrollView.contentInset = contentInset
-    }
-    
-    @objc func keyboardWillHide(notification:NSNotification){
-        let contentInset:UIEdgeInsets = UIEdgeInsets.zero
-        scrollView.contentInset = contentInset
-    }
-}
-
-extension AddEntryViewController: UITextFieldDelegate {
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        switch textField {
-        case dateTextField:
-            locationTextField.becomeFirstResponder()
-            
-        case locationTextField:
-            descriptionTextField.becomeFirstResponder()
-            
-        case descriptionTextField:
-            descriptionTextField.resignFirstResponder()
-        
-        case amountTextField:
-            amountTextField.resignFirstResponder()
-            
-        default:
-            break
-        }
-        
-        return true
+ */
     }
 }

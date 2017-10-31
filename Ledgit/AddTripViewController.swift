@@ -37,12 +37,13 @@ class AddTripViewController: FormViewController {
     
         tableView?.frame = CGRect(x: 0, y: 0, width: tableFrameView.frame.width, height: tableFrameView.frame.height)
         tableView?.backgroundColor = .clear
-        tableView?.rowHeight = tableFrameView.frame.height / 5
+        tableView?.rowHeight = tableFrameView.frame.height / 6
         tableView?.bounces = false
         tableView?.isScrollEnabled = false
         tableView?.showsVerticalScrollIndicator = false
         tableView?.sectionHeaderHeight = 0
         tableView?.sectionFooterHeight = 0
+        tableView?.separatorColor = .clear
         tableFrameView.addSubview(tableView!)
     }
     
@@ -53,54 +54,45 @@ class AddTripViewController: FormViewController {
     }
     
     func setupForm(){
-        DateRow.defaultRowInitializer = { row in row.minimumDate = Date() }
-        
+    
         form
             +++ Section()
             <<< TextRow("name") {
-                $0.title = "Trip Name"
+                $0.title = "Name"
                 $0.cell.titleLabel?.textColor = .ledgitNavigationTextGray
                 $0.cell.titleLabel?.font = .futuraMedium15
                 $0.placeholder = "Mexico 2017"
             }
             
-            
-            <<< DateInlineRow("startDate") {
-                $0.title = "Trip Start Date"
+            <<< DateRow("startDate"){
+                $0.title = "Start Date"
                 $0.cell.textLabel?.textColor = .ledgitNavigationTextGray
                 $0.cell.textLabel?.font = .futuraMedium15
-                $0.value = Date().addingTimeInterval(60*60*24)
-                $0.dateFormatter?.dateFormat = "MMMM dd, yyyy"
-                }
-                .onChange { row in
-                    let endRow: DateInlineRow! = self.form.rowBy(tag: "endDate")
+                $0.value = Date()
+                let formatter = DateFormatter()
+                formatter.locale = .current
+                formatter.dateStyle = .long
+                $0.dateFormatter = formatter
+                }.onChange{ [weak self] row in
+                    let endRow: DateRow! = self?.form.rowBy(tag: "endDate")
                     if row.value?.compare(endRow.value!) == .orderedDescending {
-                        endRow.value = Date(timeInterval: 60*60*24, since: row.value!)
+                        endRow.value = row.value!.add(components: 1.day)//Date(timeInterval: 60*60*24, since: row.value!)
                         endRow.cell!.backgroundColor = .white
                         endRow.updateCell()
                     }
                 }
-                .onExpandInlineRow { cell, row, inlineRow in
-                    inlineRow.cellUpdate() { cell, row in
-                        cell.datePicker.datePickerMode = .date
-                    }
-                    let color = cell.detailTextLabel?.textColor
-                    row.onCollapseInlineRow { cell, _, _ in
-                        cell.detailTextLabel?.textColor = color
-                    }
-                    cell.detailTextLabel?.textColor = cell.tintColor
-            }
             
-            
-            <<< DateInlineRow("endDate"){
-                $0.title = "Trip End Date"
+            <<< DateRow("endDate"){
+                $0.title = "End Date"
                 $0.cell.textLabel?.textColor = .ledgitNavigationTextGray
                 $0.cell.textLabel?.font = .futuraMedium15
-                $0.value = Date().addingTimeInterval(60*60*25)
-                $0.dateFormatter?.dateFormat = "MMMM dd, yyyy"
-                }
-                .onChange { [weak self] row in
-                    let startRow: DateInlineRow! = self?.form.rowBy(tag: "startDate")
+                $0.value = Date().add(components: 1.day)
+                let formatter = DateFormatter()
+                formatter.locale = .current
+                formatter.dateStyle = .long
+                $0.dateFormatter = formatter
+                }.onChange{ [weak self] row in
+                    let startRow: DateRow! = self?.form.rowBy(tag: "startDate")
                     if row.value?.compare(startRow.value!) == .orderedAscending {
                         row.cell!.backgroundColor = .red
                     }
@@ -109,16 +101,17 @@ class AddTripViewController: FormViewController {
                     }
                     row.updateCell()
                 }
-                .onExpandInlineRow { cell, row, inlineRow in
-                    inlineRow.cellUpdate { cell, dateRow in
-                        cell.datePicker.datePickerMode = .date
-                    }
-                    let color = cell.detailTextLabel?.textColor
-                    row.onCollapseInlineRow { cell, _, _ in
-                        cell.detailTextLabel?.textColor = color
-                    }
-                    cell.detailTextLabel?.textColor = cell.tintColor
-            }
+            
+            <<< SegmentedRow<String>("period") {
+                $0.options = ["Daily", "Monthly", "Trip"]
+                $0.cell.segmentedControl.tintColor = .ledgitNavigationTextGray
+                $0.value = $0.options?.first
+                }.onChange{ [weak self] row in
+                    let budgetRow: DecimalRow! = self?.form.rowBy(tag: "budget")
+                    guard let period = row.value else { return }
+                    budgetRow.title = "\(period) Budget"
+                    budgetRow.updateCell()
+                }
             
             <<< DecimalRow("budget"){
                 let formatter = NumberFormatter()
@@ -129,8 +122,8 @@ class AddTripViewController: FormViewController {
                 
                 $0.cell.textLabel?.textColor = .ledgitNavigationTextGray
                 $0.cell.titleLabel?.font = .futuraMedium15
-                $0.title = "Daily Trip Budget"
-                $0.placeholder = "$50"
+                $0.title = "Daily Budget"
+                $0.placeholder = "$40"
                 $0.formatter = formatter
             }
             
@@ -138,7 +131,7 @@ class AddTripViewController: FormViewController {
                 $0.title = "Currencies"
                 $0.cell.textLabel?.textColor = .ledgitNavigationTextGray
                 $0.cell.textLabel?.font = .futuraMedium15
-                $0.options = Currency.allCodes
+                $0.options = Currency.all.map { $0.code }
                 $0.value = ["USD"]
                 }
                 .onPresent { from, to in
@@ -150,33 +143,27 @@ class AddTripViewController: FormViewController {
     }
     
     @objc func multipleSelectorDone() { //_ item:UIBarButtonItem
-        _ = navigationController?.popViewController(animated: true)
+        navigationController?.popViewController(animated: true)
     }
     
     @IBAction func createButtonPressed(_ sender: Any) {
         let results = form.values()
         
-        guard let name = results["name"] as? String else{
+        guard let name = results["name"] as? String else {
             showAlert(with: Constants.ClientErrorMessages.emptyTextFields)
             return
         }
         
-        guard let budget = results["budget"] as? Double else{
+        guard let budget = results["budget"] as? Double else {
             showAlert(with: Constants.ClientErrorMessages.emptyTextFields)
             return
         }
         
-        guard let currencies = results["currencies"] as? NSSet else{
-            return
-        }
+        guard let currencies = results["currencies"] as? NSSet else { return }
         
-        guard let start = results["startDate"] as? Date else{
-            return
-        }
+        guard let start = results["startDate"] as? Date else { return }
         
-        guard let end = results["endDate"] as? Date else{
-            return
-        }
+        guard let end = results["endDate"] as? Date else { return }
         
         let key = Service.shared.trips.childByAutoId().key
         let owner = UserDefaults.standard.value(forKey: "uid") as! String
@@ -193,7 +180,7 @@ class AddTripViewController: FormViewController {
             "owner": owner
         ]
         
-        self.delegate?.addedTrip(dict: dict)
-        self.navigationController?.popViewController(animated: true)
+        delegate?.addedTrip(dict: dict)
+        navigationController?.popViewController(animated: true)
     }
 }

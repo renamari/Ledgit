@@ -32,6 +32,11 @@ enum AuthenticationMethod {
     case signup
 }
 
+enum TripActionMethod {
+    case add
+    case edit
+}
+
 struct DateSection {
     var date:Date
     var entries:[Entry]
@@ -72,7 +77,7 @@ struct Trip {
         self.users = dict["users"] as! String
         self.owner = dict["owner"] as! String
         self.budget = dict["dailyBudget"] as! Double
-        if let dict = dict["currencies"] as? [String]{
+        if let dict = dict["currencies"] as? [String] {
             for item in dict {
                 if let currency = Currency.all.first(where: { $0.code == item}) {
                     self.currencies.append(currency)
@@ -190,7 +195,7 @@ class CurrencyFormatter : NumberFormatter, FormatterProtocol {
     }
     
     func getNewPosition(forPosition position: UITextPosition, inTextInput textInput: UITextInput, oldValue: String?, newValue: String?) -> UITextPosition {
-        return textInput.position(from: position, offset:((newValue?.characters.count ?? 0) - (oldValue?.characters.count ?? 0))) ?? position
+        return textInput.position(from: position, offset:((newValue?.count ?? 0) - (oldValue?.count ?? 0))) ?? position
     }
 }
 

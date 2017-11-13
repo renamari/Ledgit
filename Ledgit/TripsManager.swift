@@ -39,11 +39,10 @@ extension TripsManager {
         guard let currentUserKey = auth.currentUser?.uid else { return }
         
         trips.queryOrdered(byChild: "owner").queryEqual(toValue: currentUserKey).observe(.childAdded, with: { (snapshot) in
-            if let snapshot = snapshot.value as? NSDictionary{
-                let trip = Trip(dict: snapshot)
-                
-                self.delegate?.retrievedTrip(trip)
-            }
+            guard let snapshot = snapshot.value as? NSDictionary else { return }
+            let trip = Trip(dict: snapshot)
+            
+            self.delegate?.retrievedTrip(trip)
         })
     }
     
@@ -52,7 +51,7 @@ extension TripsManager {
     }
     
     func createNew(trip: NSDictionary){
-        let key = trip["key"] as! String
+        guard let key = trip["key"] as? String else { return }
         
         trips.child(key).setValue(trip)
         delegate?.addedTrip()

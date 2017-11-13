@@ -23,27 +23,28 @@ class MainViewController: UIViewController {
     var method: AuthenticationMethod = .signin
     var currentIndex = 0
     
-    fileprivate lazy var pageColors: [UIColor] = Constants.pageColors
+    lazy var pageColors: [UIColor] = Constants.pageColors
     
-    fileprivate(set) lazy var orderedViewControllers: [UIViewController] = {
-        return [self.newTutorialViewController(with: 0),
-                self.newTutorialViewController(with: 1),
-                self.newTutorialViewController(with: 2)]
+    lazy var orderedViewControllers: [UIViewController] = {
+        return [createNewTutorialViewController(with: 0),
+                createNewTutorialViewController(with: 1),
+                createNewTutorialViewController(with: 2)]
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         setupUI()
         
         setupPageViewController()
     }
     
-    func setupUI(){
+    func setupUI() {
         signupButton.createBorder(radius: Constants.CornerRadius.button)
         signinButton.createBorder(radius: Constants.CornerRadius.button, color: .ledgitBlue)
     }
     
-    func setupPageViewController(){
+    func setupPageViewController() {
         
         // 1. Retrieve first view controller from ordered array
         guard let firstViewController = orderedViewControllers.first as? TutorialViewController else { return }
@@ -59,7 +60,7 @@ class MainViewController: UIViewController {
         tutorialView.addSubview(view)
     }
     
-    fileprivate func newTutorialViewController(with index: Int) -> UIViewController {
+    fileprivate func createNewTutorialViewController(with index: Int) -> UIViewController {
         
         // 1. Create a new tutorial view controller screen
         let tutorialViewController = TutorialViewController.instantiate(from: .main)
@@ -71,6 +72,7 @@ class MainViewController: UIViewController {
         return tutorialViewController
     }
     
+    // MARK: - IBActions
     @IBAction func signupButtonPressed(_ sender: Any) {
         method = .signup
         performSegue(withIdentifier: Constants.SegueIdentifiers.authenticate, sender: nil)
@@ -84,12 +86,10 @@ class MainViewController: UIViewController {
     @IBAction func exploreButtonPressed(_ sender: Any) {
     }
 
-    
     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-    
-        if segue.identifier == Constants.SegueIdentifiers.authenticate{
-            guard let authenticateViewController = segue.destination as? AuthenticateViewController else{
+        if segue.identifier == Constants.SegueIdentifiers.authenticate {
+            guard let authenticateViewController = segue.destination as? AuthenticateViewController else {
                 return
             }
             authenticateViewController.method = method
@@ -98,7 +98,7 @@ class MainViewController: UIViewController {
 }
 
 //MARK:- UIPageViewController Delegate Extensions
-extension MainViewController: UIPageViewControllerDataSource{
+extension MainViewController: UIPageViewControllerDataSource {
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController?{
         // 1. Check if there are any more view controllers to display
@@ -132,12 +132,11 @@ extension MainViewController: UIPageViewControllerDelegate {
     func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
         
         // 1. Check if screen has finished transition from one view to next
-        if completed {
+        guard completed == true else { return }
             
-            // 2. If yes, update the page control current indicator to change to index
-            pageControl.currentPage = currentIndex
-            pageControl.currentPageIndicatorTintColor = pageColors[currentIndex]
-        }
+        // 2. If yes, update the page control current indicator to change to index
+        pageControl.currentPage = currentIndex
+        pageControl.currentPageIndicatorTintColor = pageColors[currentIndex]
     }
     
     func pageViewController(_ pageViewController: UIPageViewController, willTransitionTo pendingViewControllers: [UIViewController]) {

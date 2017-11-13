@@ -56,6 +56,26 @@ extension UIViewController{
         // user can interact again with the app
         UIApplication.shared.endIgnoringInteractionEvents()
     }
+    
+    func presentDetail(_ viewControllerToPresent: UIViewController) {
+        let transition = CATransition()
+        transition.duration = 0.25
+        transition.type = kCATransitionPush
+        transition.subtype = kCATransitionFromLeft
+        self.view.window!.layer.add(transition, forKey: kCATransition)
+        
+        present(viewControllerToPresent, animated: false)
+    }
+    
+    func dismissDetail() {
+        let transition = CATransition()
+        transition.duration = 0.25
+        transition.type = kCATransitionPush
+        transition.subtype = kCATransitionFromRight
+        self.view.window!.layer.add(transition, forKey: kCATransition)
+        
+        dismiss(animated: false)
+    }
 }
 
 //MARK: UIFont Extension
@@ -105,6 +125,7 @@ extension UIColor {
     static var ledgitBlue: UIColor { return UIColor(hex: 0x308CF9)! }
     static var ledgitPink: UIColor { return UIColor(hex: 0xEF7BC6)! }
     static var ledgitAqua: UIColor { return UIColor(hex: 0x1F9DBF)! }
+    static var ledgitYellow: UIColor { return UIColor(hex: 0xFFBA00)! }
     static var ledgitNavigationTextGray: UIColor { return UIColor(hex: 0x3F6072)! }
     static var ledgitNavigationBarGray: UIColor { return UIColor(hex: 0xF2F5F7)! }
     static var ledgitSeparatorGray: UIColor { return UIColor(hex: 0x9C9C9C)! }
@@ -162,64 +183,22 @@ extension String{
     
     func isNumeric() -> Bool{
         let scanner = Scanner(string: self)
-        scanner.locale = NSLocale.current
+        scanner.locale = Locale.current
+        
         return scanner.scanDecimal(nil) && scanner.isAtEnd
     }
     
     func toDate(withFormat format:String?) -> Date {
-        let dateFormatter = DateFormatter()
+        let formatter = DateFormatter()
         
-        if format == nil{
-            dateFormatter.dateFormat = "MMMM dd, yyyy"
-        }else{
-            dateFormatter.dateFormat = format
-        }
+        if let format = format { formatter.dateFormat = format }
+        else { formatter.dateFormat = "MMMM dd, yyyy" }
         
-        return dateFormatter.date(from: self)!
+        return formatter.date(from: self)!
     }
     
     func strip() -> String{
         return self.trimmingCharacters(in: .whitespacesAndNewlines)
-    }
-}
-
-// MARK:- String Extensions
-extension String.CharacterView{
-    /// This method makes it easier extract a substring by character index where a character is viewed as a human-readable character (grapheme cluster).
-    internal func substring(start: Int, offsetBy: Int) -> String? {
-        guard let substringStartIndex = self.index(startIndex, offsetBy: start, limitedBy: endIndex) else {
-            return nil
-        }
-        
-        guard let substringEndIndex = self.index(startIndex, offsetBy: start + offsetBy, limitedBy: endIndex) else {
-            return nil
-        }
-        
-        return String(self[substringStartIndex ..< substringEndIndex])
-    }
-}
-
-// MARK:- View Extensions
-extension UIViewController {
-    
-    func presentDetail(_ viewControllerToPresent: UIViewController) {
-        let transition = CATransition()
-        transition.duration = 0.25
-        transition.type = kCATransitionPush
-        transition.subtype = kCATransitionFromLeft
-        self.view.window!.layer.add(transition, forKey: kCATransition)
-        
-        present(viewControllerToPresent, animated: false)
-    }
-    
-    func dismissDetail() {
-        let transition = CATransition()
-        transition.duration = 0.25
-        transition.type = kCATransitionPush
-        transition.subtype = kCATransitionFromRight
-        self.view.window!.layer.add(transition, forKey: kCATransition)
-        
-        dismiss(animated: false)
     }
 }
 

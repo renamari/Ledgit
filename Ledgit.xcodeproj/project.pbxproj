@@ -14,7 +14,8 @@
 		8D173EC31F99803400EC8527 /* AuthenticationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D173EC21F99803400EC8527 /* AuthenticationManager.swift */; };
 		8D18DCB61F43E07100BD5EBA /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D18DCB51F43E07100BD5EBA /* SettingsViewController.swift */; };
 		8D18DCB81F43E34B00BD5EBA /* SettingsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D18DCB71F43E34B00BD5EBA /* SettingsTableViewCell.swift */; };
-		8D18DCBB1F43E9DA00BD5EBA /* AddTripViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D18DCBA1F43E9D900BD5EBA /* AddTripViewController.swift */; };
+		8D29168C1FB8EA2F008ED9F2 /* CurrencySelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D29168B1FB8EA2F008ED9F2 /* CurrencySelectionViewController.swift */; };
+		8D29168E1FB8EA42008ED9F2 /* CurrencyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D29168D1FB8EA42008ED9F2 /* CurrencyTableViewCell.swift */; };
 		8D2AEC0D1F4AAFE400227FC6 /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8D2AEC0C1F4AAFE400227FC6 /* Settings.storyboard */; };
 		8D2AEC0F1F4AB2F300227FC6 /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D2AEC0E1F4AB2F300227FC6 /* AboutViewController.swift */; };
 		8D2AEC191F4D146900227FC6 /* DateTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D2AEC181F4D146900227FC6 /* DateTableViewCell.swift */; };
@@ -45,6 +46,7 @@
 		8DA3B22B1F4004EB00FC31AF /* Currency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA3B22A1F4004EB00FC31AF /* Currency.swift */; };
 		8DA3B22D1F40055700FC31AF /* Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA3B22C1F40055700FC31AF /* Device.swift */; };
 		8DAD43E71F9D46270054EDD8 /* SettingsNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DAD43E61F9D46270054EDD8 /* SettingsNavigationController.swift */; };
+		8DBBB5F81FAFC99F002D0984 /* TripActionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DBBB5F71FAFC99F002D0984 /* TripActionViewController.swift */; };
 		8DBBDBDA1F97857700E7F8CF /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DBBDBD91F97857700E7F8CF /* Service.swift */; };
 		8DBFF02A1F9ED6B20069FB3A /* TripsPresenterMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DBFF0291F9ED6B20069FB3A /* TripsPresenterMock.swift */; };
 		8DC243D61F43ADA400B3E080 /* TripsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DC243D51F43ADA400B3E080 /* TripsViewController.swift */; };
@@ -83,7 +85,8 @@
 		8D173EC21F99803400EC8527 /* AuthenticationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationManager.swift; sourceTree = "<group>"; };
 		8D18DCB51F43E07100BD5EBA /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		8D18DCB71F43E34B00BD5EBA /* SettingsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTableViewCell.swift; sourceTree = "<group>"; };
-		8D18DCBA1F43E9D900BD5EBA /* AddTripViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddTripViewController.swift; sourceTree = "<group>"; };
+		8D29168B1FB8EA2F008ED9F2 /* CurrencySelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencySelectionViewController.swift; sourceTree = "<group>"; };
+		8D29168D1FB8EA42008ED9F2 /* CurrencyTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyTableViewCell.swift; sourceTree = "<group>"; };
 		8D2AEC0C1F4AAFE400227FC6 /* Settings.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Settings.storyboard; sourceTree = "<group>"; };
 		8D2AEC0E1F4AB2F300227FC6 /* AboutViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
 		8D2AEC181F4D146900227FC6 /* DateTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateTableViewCell.swift; sourceTree = "<group>"; };
@@ -120,6 +123,7 @@
 		8DA3B22A1F4004EB00FC31AF /* Currency.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Currency.swift; sourceTree = "<group>"; };
 		8DA3B22C1F40055700FC31AF /* Device.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Device.swift; sourceTree = "<group>"; };
 		8DAD43E61F9D46270054EDD8 /* SettingsNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsNavigationController.swift; sourceTree = "<group>"; };
+		8DBBB5F71FAFC99F002D0984 /* TripActionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripActionViewController.swift; sourceTree = "<group>"; };
 		8DBBDBD91F97857700E7F8CF /* Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
 		8DBFF0291F9ED6B20069FB3A /* TripsPresenterMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripsPresenterMock.swift; sourceTree = "<group>"; };
 		8DC243D51F43ADA400B3E080 /* TripsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TripsViewController.swift; sourceTree = "<group>"; };
@@ -346,9 +350,10 @@
 			children = (
 				8DDDD6BB1F47EFCF0053146B /* Table View Cell */,
 				8DC243D71F43ADBB00B3E080 /* Trips.storyboard */,
+				8D29168B1FB8EA2F008ED9F2 /* CurrencySelectionViewController.swift */,
 				8D707B4B1F9D3BAC00CABA0F /* TripsNavigationController.swift */,
 				8DC243D51F43ADA400B3E080 /* TripsViewController.swift */,
-				8D18DCBA1F43E9D900BD5EBA /* AddTripViewController.swift */,
+				8DBBB5F71FAFC99F002D0984 /* TripActionViewController.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -403,6 +408,7 @@
 			children = (
 				8DC243D91F43BE2B00B3E080 /* TripTableViewCell.swift */,
 				8DC243DB1F43BE3900B3E080 /* AddTripTableViewCell.swift */,
+				8D29168D1FB8EA42008ED9F2 /* CurrencyTableViewCell.swift */,
 			);
 			name = "Table View Cell";
 			sourceTree = "<group>";
@@ -675,6 +681,7 @@
 				"${BUILT_PRODUCTS_DIR}/ROX/ROX.framework",
 				"${PODS_ROOT}/ROXCore/RoxSdk/ROXCore.framework",
 				"${BUILT_PRODUCTS_DIR}/SearchTextField/SearchTextField.framework",
+				"${BUILT_PRODUCTS_DIR}/SkyFloatingLabelTextField/SkyFloatingLabelTextField.framework",
 				"${BUILT_PRODUCTS_DIR}/SteviaLayout/Stevia.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftDate/SwiftDate.framework",
 				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
@@ -699,6 +706,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ROX.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ROXCore.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SearchTextField.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SkyFloatingLabelTextField.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Stevia.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftDate.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
@@ -749,11 +757,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8D29168C1FB8EA2F008ED9F2 /* CurrencySelectionViewController.swift in Sources */,
 				8D6F4B681F4E8D100046847C /* SubscriptionViewController.swift in Sources */,
-				8D18DCBB1F43E9DA00BD5EBA /* AddTripViewController.swift in Sources */,
 				8D173EBF1F997B4100EC8527 /* AuthenticationPresenter.swift in Sources */,
 				8DA3B22D1F40055700FC31AF /* Device.swift in Sources */,
+				8DBBB5F81FAFC99F002D0984 /* TripActionViewController.swift in Sources */,
 				8D656AA31F94480800C85A0F /* AddEntryViewController.swift in Sources */,
+				8D29168E1FB8EA42008ED9F2 /* CurrencyTableViewCell.swift in Sources */,
 				8D6F4B661F4E8D050046847C /* AccountViewController.swift in Sources */,
 				8D2AEC191F4D146900227FC6 /* DateTableViewCell.swift in Sources */,
 				8D2AEC0F1F4AB2F300227FC6 /* AboutViewController.swift in Sources */,

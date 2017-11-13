@@ -24,7 +24,6 @@ class TripTableViewCell: UITableViewCell {
         tripLocationLabel.text = "Paris, France"
         tripColorImageView.image = cellImages[indexPath.row % 3]
         
-        //cell.cascadeImages(with: trip.currencies)
         contentView.layoutIfNeeded()
     }
 }

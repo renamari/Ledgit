@@ -20,17 +20,15 @@ class TutorialViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         configure()
     }
     
     func configure() {
         guard let index = index else { return }
         
-        // 1. Change description label text and image
-        backgroundImageView.image = pageImages[index]
-        descriptionLabel.text = pageDescriptions[index]
-        
-        // 2. Change title text
         titleLabel.text = pageTitles[index]
+        backgroundImageView.image = pageImages[index]
+        descriptionLabel.text = pageDescriptions[index]        
     }
 }

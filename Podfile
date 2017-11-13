@@ -31,6 +31,7 @@ target 'Ledgit' do
   pod 'BetterSegmentedControl'
 
   pod "SearchTextField"
+  pod 'SkyFloatingLabelTextField'
 
   pod 'ROX', '~> 1.1.1'
 

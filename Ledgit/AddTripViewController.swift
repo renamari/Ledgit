@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Stevia
 import Eureka
 import Firebase
 
@@ -19,7 +18,6 @@ class AddTripViewController: FormViewController {
     @IBOutlet weak var mapIconImageView: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var createButton: UIButton!
-    @IBOutlet weak var tableFrameView: UIView!
     var delegate: AddTripDelegate?
     
     override func viewDidLoad() {
@@ -34,7 +32,8 @@ class AddTripViewController: FormViewController {
     
     func setupLayout(){
         title = "Create Trip"
-    
+        
+        /*
         tableView?.frame = CGRect(x: 0, y: 0, width: tableFrameView.frame.width, height: tableFrameView.frame.height)
         tableView?.backgroundColor = .clear
         tableView?.rowHeight = tableFrameView.frame.height / 6
@@ -45,6 +44,7 @@ class AddTripViewController: FormViewController {
         tableView?.sectionFooterHeight = 0
         tableView?.separatorColor = .clear
         tableFrameView.addSubview(tableView!)
+         */
     }
     
     func setupButton(){
@@ -54,7 +54,7 @@ class AddTripViewController: FormViewController {
     }
     
     func setupForm(){
-    
+        /*
         form
             +++ Section()
             <<< TextRow("name") {
@@ -137,9 +137,9 @@ class AddTripViewController: FormViewController {
                 .onPresent { from, to in
                     from.navigationController?.navigationBar.isHidden = false
                     to.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: from, action: #selector(AddTripViewController.multipleSelectorDone))
-                    //multipleSelectorDone(_:)
-        }
-        
+
+                }
+        */
     }
     
     @objc func multipleSelectorDone() { //_ item:UIBarButtonItem

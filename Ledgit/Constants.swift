@@ -28,6 +28,7 @@ struct Constants {
         static let city = "CityCell"
         static let date = "DateCell"
         static let categoryName = "CategoryNameCell"
+        static let currency = "CurrencyCell"
     }
     
     struct NavigationIdentifiers{
@@ -41,6 +42,7 @@ struct Constants {
         static let trips = "toTripsViewController"
         static let settings = "toSettingsViewController"
         static let add = "toAddTripViewController"
+        static let action = "toTripActionViewController"
         static let detail = "toTripDetailViewController"
         static let category = "toCategoriesViewController"
         static let subscription = "toSubscriptionViewController"
@@ -48,6 +50,7 @@ struct Constants {
         static let about = "toAboutViewController"
         static let categoryAction = "toCategoryActionViewController"
         static let addEntry = "toAddEntryViewController"
+        static let currencySelection = "toCurrencySelectionViewController"
     }
     
     static let pageColors: [UIColor] = {
@@ -120,6 +123,7 @@ struct Constants {
         static let authenticationError = ["title":"Error", "message":"Something went wrong with Facebook authentication. Please try again."]
         static let resetInstructionsSent = ["title":"Hooray", "message":"We sent you an email to reset your password."]
         static let cannotAddEntriesToSample = ["title":"Not So Fast","message":"You can't add entries to this sample project. Go back and create one if you haven't done so already."]
+        static let errorGettingTrip = ["title":"Please Excuse Us","message":"We had some trouble getting your trip details. Try again later."]
     }
     
     struct AuthErrorMessages {

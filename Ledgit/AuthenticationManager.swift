@@ -155,22 +155,21 @@ extension AuthenticationManager {
             return
         }
         
-        facebook.logIn(readPermissions: [ReadPermission.publicProfile,ReadPermission.email, ReadPermission.userFriends], viewController: nil) { [unowned self] (result) in
-            switch result{
+        facebook.logIn(readPermissions: [.publicProfile, .email, .userFriends], viewController: nil) { [unowned self] (result) in
+            switch result {
             case .failed(let error):
                 
-                if let code = AuthErrorCode(rawValue: error._code){
-                    self.delegate?.authenticationError(dict: self.handleError(with: code))
-                }
-                
+                guard let code = AuthErrorCode(rawValue: error._code) else { return }
+                self.delegate?.authenticationError(dict: self.handleError(with: code))
+            
             case .cancelled:
-                self.delegate?.authenticationError(dict: Constants.AuthErrorMessages.general)
+                self.delegate?.authenticationError(dict: Constants.AuthErrorMessages.cancelled)
                 
-            case .success( _,  _, let accessToken):
-                let credential = FacebookAuthProvider.credential(withAccessToken: accessToken.authenticationToken)
+            case .success( _,  _, let result):
+                let credential = FacebookAuthProvider.credential(withAccessToken: result.authenticationToken)
                 
                 self.auth.signIn(with: credential, completion: { (user, error) in
-                    if let error = error, let code = AuthErrorCode(rawValue: error._code){
+                    if let error = error, let code = AuthErrorCode(rawValue: error._code) {
                         self.delegate?.authenticationError(dict: self.handleError(with: code))
                     }
                     
@@ -180,11 +179,10 @@ extension AuthenticationManager {
                     }
                     
                     self.users.child(user.uid).observeSingleEvent(of: .value, with: { (snapshot) in
-                        if let snapshot = snapshot.value as? NSDictionary{
-                            UserDefaults.standard.set(user.uid, forKey: Constants.UserDefaultKeys.uid)
-                            
-                            self.delegate?.userAuthenticated(User(dict: snapshot))
-                        }
+                        guard let snapshot = snapshot.value as? NSDictionary else { return }
+                        UserDefaults.standard.set(user.uid, forKey: Constants.UserDefaultKeys.uid)
+                        
+                        self.delegate?.userAuthenticated(User(dict: snapshot))
                     })
                 })
             }

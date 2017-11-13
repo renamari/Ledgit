@@ -35,7 +35,7 @@ class AddEntryViewController: FormViewController {
         UIApplication.shared.statusBarStyle = .default
     }
     
-    func setupLayout(){
+    func setupLayout() {
         tableView?.frame = CGRect(x: 0, y: 0, width: tableFrameView.frame.width, height: tableFrameView.frame.height)
         tableView?.backgroundColor = .clear
         tableView?.rowHeight = tableFrameView.frame.height / 6
@@ -46,6 +46,13 @@ class AddEntryViewController: FormViewController {
         tableView?.sectionFooterHeight = 0
         tableView?.separatorColor = .clear
         tableFrameView.addSubview(tableView!)
+    }
+    
+    func setupButton() {
+        closeButton.transform = CGAffineTransform(rotationAngle: CGFloat.pi / 4)
+        closeButton.layer.cornerRadius = 25
+        closeButton.layer.masksToBounds = true
+        closeButton.clipsToBounds = true
     }
     
     func setupForm() {
@@ -72,7 +79,7 @@ class AddEntryViewController: FormViewController {
                     cell.textLabel?.font = .futuraMedium17
                     cell.detailTextLabel?.textColor = .white
                     cell.detailTextLabel?.font = .futuraMedium17
-                }
+            }
             
             <<< TextRow("location"){
                 $0.title = "City:"
@@ -85,8 +92,9 @@ class AddEntryViewController: FormViewController {
                     cell.textLabel?.font = .futuraMedium17
                     cell.textField.textColor = .white
                     cell.textField.font = .futuraMedium17
-                }
-
+            }
+            
+            /*
             <<< AlertRow<String>() {
                 $0.title = "Currencies:"
                 $0.selectorTitle = "Select a currency"
@@ -102,17 +110,71 @@ class AddEntryViewController: FormViewController {
                     cell.backgroundColor = .clear
                     cell.textLabel?.textColor = .white
                     cell.textLabel?.font = .futuraMedium17
-                    //cell.detailTextLabel?.textColor = .white
+                    cell.detailTextLabel?.textColor = .white
+                    cell.detailTextLabel?.font = .futuraMedium17
+            }
+            */
+            <<< MultipleSelectorRow<String>("currencies") {
+                $0.title = "Currencies"
+                $0.cell.textLabel?.textColor = .ledgitNavigationTextGray
+                $0.cell.textLabel?.font = .futuraMedium15
+                $0.options = Currency.all.map{ $0.name }
+                $0.value = Set([Currency.USD.name])
+                }.onPresent { from, to in
+                    from.navigationController?.navigationBar.isHidden = false
+            
+                    to.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: to, action: #selector(AddEntryViewController.multipleSelectorDone))
+                }.cellUpdate { (cell, row) in
+                    cell.selectionStyle = .blue
+                    cell.backgroundColor = .clear
+                    cell.textLabel?.textColor = .white
+                    cell.textLabel?.font = .futuraMedium17
+                    cell.detailTextLabel?.textColor = .white
                     cell.detailTextLabel?.font = .futuraMedium17
                 }
     
+            <<< DecimalRow("budget"){
+                let formatter = NumberFormatter()
+                formatter.numberStyle = .currency
+                formatter.nilSymbol = ""
+                formatter.zeroSymbol = Service.shared.currentUser!.homeCurrency.symbol
+                formatter.currencySymbol = Service.shared.currentUser!.homeCurrency.symbol
+                
+                $0.cell.textLabel?.textColor = .ledgitNavigationTextGray
+                $0.cell.titleLabel?.font = .futuraMedium15
+                $0.title = "Amount"
+                $0.placeholder = "$40"
+                $0.formatter = formatter
+                }.cellUpdate{ (cell, row) in
+                    cell.selectionStyle = .blue
+                    cell.backgroundColor = .clear
+                    cell.textLabel?.textColor = .white
+                    cell.textLabel?.font = .futuraMedium17
+                }
+        
+            <<< AlertRow<String>("paymentType") {
+                $0.title = "Payment Type"
+                $0.selectorTitle = "What did you use?"
+                $0.options = ["Cash", "Credit"]
+                $0.value = "Cash"
+                }.onChange { row in
+                    print(row.value ?? "No Value")
+                }
+                .onPresent{ _, to in
+                    to.view.tintColor = .ledgitNavigationTextGray
+                }.cellUpdate{ (cell, row) in
+                    cell.selectionStyle = .blue
+                    cell.backgroundColor = .clear
+                    cell.textLabel?.textColor = .white
+                    cell.textLabel?.font = .futuraMedium17
+                    cell.detailTextLabel?.textColor = .white
+                    cell.detailTextLabel?.font = .futuraMedium17
+
+            }
     }
     
-    func setupButton() {
-        closeButton.transform = CGAffineTransform(rotationAngle: CGFloat.pi / 4)
-        closeButton.layer.cornerRadius = 25
-        closeButton.layer.masksToBounds = true
-        closeButton.clipsToBounds = true
+    @objc func multipleSelectorDone() {
+        navigationController?.popViewController(animated: true)
     }
     
     @IBAction func closeButtonPressed(_ sender: Any) {

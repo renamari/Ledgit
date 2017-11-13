@@ -26,12 +26,12 @@ class AuthenticateViewController: UIViewController {
     
     var presenter: AuthenticationPresenter?
     
-    var isLoading:Bool = false{
-        didSet{
-            switch isLoading{
+    var isLoading:Bool = false {
+        didSet {
+            switch isLoading {
             case true:
                 startLoading()
-            default:
+            case false:
                 stopLoading()
             }
         }
@@ -40,12 +40,12 @@ class AuthenticateViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setupPresenter()
-        setupLabels()
-        setupTextFields()
-        setupButtons()
-        setupViews()
         setupRecognizers()
+        setupTextFields()
+        setupPresenter()
+        setupButtons()
+        setupLabels()
+        setupViews()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -53,15 +53,14 @@ class AuthenticateViewController: UIViewController {
         setupLabels()
     }
     
-    func setupPresenter(){
-        let manager = AuthenticationManager()
-        presenter = AuthenticationPresenter(manager: manager)
+    func setupPresenter() {
+        presenter = AuthenticationPresenter(manager: AuthenticationManager())
         presenter?.delegate = self
     }
     
-    func setupLabels(){
+    func setupLabels() {
 
-        switch method{
+        switch method {
         case .signup:
             titleLabel.text = Constants.AuthenticateText.signup
             authenticateButton.setTitle("Sign Up", for: .normal)
@@ -102,8 +101,8 @@ class AuthenticateViewController: UIViewController {
     @IBAction func authenticateButtonPressed(_ sender: Any) {
         isLoading = true
         
-        let email = emailTextField.text?.strip() ?? ""
-        let password = passwordTextField.text?.strip() ?? ""
+        guard let email = emailTextField.text?.strip() else { return }
+        guard let password = passwordTextField.text?.strip() else { return }
         
         presenter?.authenticateUser(platform: .firebase, method: method, email: email, password: password)
     }
@@ -111,8 +110,8 @@ class AuthenticateViewController: UIViewController {
     @IBAction func facebookButtonPressed(_ sender: Any) {
         isLoading = true
         
-        let email = emailTextField.text?.strip() ?? ""
-        let password = passwordTextField.text?.strip() ?? ""
+        guard let email = emailTextField.text?.strip() else { return }
+        guard let password = passwordTextField.text?.strip() else { return }
         
         presenter?.authenticateUser(platform: .facebook, method: method, email: email, password: password)
     }
@@ -131,7 +130,7 @@ extension AuthenticateViewController: AuthenticationPresenterDelegate {
         isLoading = false
         Service.shared.currentUser = user
         
-        let navigationController = TripsViewController.instantiate(from: .trips)
+        let navigationController = TripsNavigationController.instantiate(from: .trips)
         present(navigationController, animated: true, completion: nil)
     }
     
@@ -141,9 +140,9 @@ extension AuthenticateViewController: AuthenticationPresenterDelegate {
     }
 }
 
-extension AuthenticateViewController: UITextFieldDelegate{
+extension AuthenticateViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        switch textField{
+        switch textField {
         case emailTextField:
             passwordTextField.becomeFirstResponder()
         default:

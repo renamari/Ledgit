@@ -8,24 +8,23 @@
 
 import UIKit
 
-class TripsViewController: UIViewController, AddTripDelegate {
+class TripsViewController: UIViewController {
     @IBOutlet weak var tripsTableView: UITableView!
+
+    private let presenter = TripsPresenter(manager: TripsManager())
     
-    var presenter = TripsPresenter(manager: TripsManager())
-    
-    var isLoading: Bool = false{
-        didSet{
-            switch isLoading{
-            case true:
-                startLoading()
-            default:
-                stopLoading()
+    var isLoading: Bool = false {
+        didSet {
+            switch isLoading {
+            case true: startLoading()
+            case false: stopLoading()
             }
         }
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         setupTableView()
         
         setupPresenter()
@@ -54,22 +53,37 @@ class TripsViewController: UIViewController, AddTripDelegate {
 
         present(navigationController, animated: true, completion: nil)
     }
-    
-    func addedTrip(dict: NSDictionary) {
-        presenter.createNew(trip: dict)
-    }
 
     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == Constants.SegueIdentifiers.add{
-            guard let destinationViewController = segue.destination as? AddTripViewController else { return }
+        if segue.identifier == Constants.SegueIdentifiers.action{
+            guard let destinationViewController = segue.destination as? TripActionViewController else { return }
+            guard let selectedRow = sender as? Int else { return }
             destinationViewController.delegate = self
             
-        }else if segue.identifier == Constants.SegueIdentifiers.detail{
+            if selectedRow == tripsTableView.lastRow(at: 0) {
+                destinationViewController.method = .add
+                
+            } else {
+                destinationViewController.method = .edit
+                destinationViewController.trip = presenter.trips[selectedRow]
+            }
+            
+        } else if segue.identifier == Constants.SegueIdentifiers.detail {
             guard  let destinationViewController = segue.destination as? TripDetailViewController else { return }
             guard let selectedRow = tripsTableView.indexPathForSelectedRow?.row else { return }
             destinationViewController.currentTrip = presenter.trips[selectedRow]
         }
+    }
+}
+
+extension TripsViewController: TripActionDelegate {
+    func addedTrip(dict: NSDictionary) {
+        presenter.createNew(trip: dict)
+    }
+    
+    func editedTrip(at index: Int) {
+        
     }
 }
 
@@ -81,13 +95,13 @@ extension TripsViewController: UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.row == presenter.trips.count { //Is last index path
-            let cell = tableView.dequeueReusableCell(withIdentifier: "AddTripCell", for: indexPath) as! AddTripTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: Constants.CellIdentifiers.add, for: indexPath) as! AddTripTableViewCell
             cell.configure()
             
             return cell
             
-        }else{
-            let cell = tableView.dequeueReusableCell(withIdentifier: "TripCell", for: indexPath) as! TripTableViewCell
+        } else {
+            let cell = tableView.dequeueReusableCell(withIdentifier: Constants.CellIdentifiers.trip, for: indexPath) as! TripTableViewCell
             let trip = presenter.trips[indexPath.row]
             cell.configure(with: trip, at: indexPath)
             
@@ -99,7 +113,7 @@ extension TripsViewController: UITableViewDataSource{
 extension TripsViewController: UITableViewDelegate{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.row == tableView.lastRow(at: 0) {
-            performSegue(withIdentifier: Constants.SegueIdentifiers.add, sender: self)
+            performSegue(withIdentifier: Constants.SegueIdentifiers.action, sender: indexPath.row)
         
         }else{
             performSegue(withIdentifier: Constants.SegueIdentifiers.detail, sender: self)
@@ -107,31 +121,26 @@ extension TripsViewController: UITableViewDelegate{
     }
     
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        if indexPath.row == tableView.lastRow(at: 0) { //Cannot delete last row
-            return false
-        }else{
-            return true
-        }
-    }
-    
-    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
-        if indexPath.row == tableView.lastRow(at: 0) {
-            return .none
-        }else{
-            return .delete
-        }
-    }
-    
-    // Override to support editing the table view.
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        guard indexPath.row != tableView.lastRow(at: 0) else { return false } //Cannot delete last row
         
-        let alert = UIAlertController(title: "Warning", message: "Are you sure you want to delete this trip?", preferredStyle: .alert)
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-        let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { (action) in
-            // 1. If user swipes to delete
-            if editingStyle == .delete {
+        return true
+    }
+ 
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        guard indexPath.row != tableView.lastRow(at: 0) else { return nil }
+        
+        let edit = UITableViewRowAction(style: .normal, title: "Edit") { [unowned self] (row, index) in
+            self.performSegue(withIdentifier: Constants.SegueIdentifiers.action, sender: indexPath.row)
+        }
+        
+        edit.backgroundColor = .ledgitYellow
+        
+        let delete = UITableViewRowAction(style: .destructive, title: "Delete") { [unowned self] (row, index) in
+            
+            let alert = UIAlertController(title: "Warning", message: "Are you sure you want to delete this trip?", preferredStyle: .alert)
+            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+            let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { (action) in
                 
-                // 2. Create local variables for the section and selected row
                 let selectedRow = indexPath.row
                 
                 if selectedRow == 0 && (UserDefaults.standard.value(forKey: Constants.UserDefaultKeys.sampleProject) as? Bool) == true{
@@ -142,13 +151,16 @@ extension TripsViewController: UITableViewDelegate{
                 self.presenter.removeTrip(at: selectedRow)
                 tableView.deleteRows(at: [indexPath], with: .fade)
                 tableView.endUpdates()
+                
             }
+            
+            alert.addAction(cancelAction)
+            alert.addAction(deleteAction)
+            
+            self.present(alert, animated: true, completion: nil)
         }
         
-        alert.addAction(cancelAction)
-        alert.addAction(deleteAction)
-        
-        present(alert, animated: true, completion: nil)
+        return [delete, edit]
     }
 }
 
@@ -160,17 +172,14 @@ extension TripsViewController: TripsPresenterDelegate {
     }
     
     func retrievedTrip() {
-        let numRows = tripsTableView.numberOfRows(inSection: 0)
         tripsTableView.beginUpdates()
-        tripsTableView.insertRows(at: [IndexPath(row: numRows - 1, section: 0)], with: .right)
+        tripsTableView.insertRows(at: [IndexPath(row: tripsTableView.lastRow(at: 0), section: 0)], with: .right)
         tripsTableView.endUpdates()
         
-        tripsTableView.visibleCells.forEach { cell in
-            cell.transform = CGAffineTransform(translationX: 0, y: tripsTableView.bounds.size.height)
-        }
-
         var index: Double = 0
         tripsTableView.visibleCells.forEach { cell in
+            cell.transform = CGAffineTransform(translationX: 0, y: tripsTableView.bounds.size.height)
+            
             UIView.animate(withDuration: 1.5, delay: 0.05 * index, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: .allowAnimatedContent, animations: {
                 cell.transform = CGAffineTransform(translationX: 0, y: 0)
             }, completion: nil)

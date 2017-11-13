@@ -13,7 +13,7 @@ enum Action {
     case edit
 }
 
-protocol CategoryActionDelegate {
+protocol CategoryActionDelegate: class {
     func categoryUpdated(category: String)
     func cancelled()
     func categoryAdded(category:String)
@@ -26,10 +26,9 @@ class CategoryActionViewController: UIViewController {
     @IBOutlet weak var categoryTextField: UITextField!
     @IBOutlet weak var validationLabel: UILabel!
     
-    
+    weak var delegate:CategoryActionDelegate?
     var action:Action?
     var category:String?
-    var delegate:CategoryActionDelegate?
     var oldFrame:CGRect?
     let padding:CGFloat = 20
     

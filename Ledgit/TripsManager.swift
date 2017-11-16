@@ -30,8 +30,9 @@ extension TripsManager {
         trips.child(Constants.ProjectID.sample).observeSingleEvent(of: .value, with: { [unowned self] (snapshot) in
             guard let dict = snapshot.value as? NSDictionary else { return }
             
-            let trip = Trip(dict: dict)
-            self.delegate?.retrievedSampleTrip(trip)
+            if let trip = Trip(dict: dict) {
+                self.delegate?.retrievedSampleTrip(trip)
+            }
         })
     }
     
@@ -40,9 +41,10 @@ extension TripsManager {
         
         trips.queryOrdered(byChild: "owner").queryEqual(toValue: currentUserKey).observe(.childAdded, with: { (snapshot) in
             guard let snapshot = snapshot.value as? NSDictionary else { return }
-            let trip = Trip(dict: snapshot)
             
-            self.delegate?.retrievedTrip(trip)
+            if let trip = Trip(dict: snapshot) {
+                self.delegate?.retrievedTrip(trip)
+            }
         })
     }
     

@@ -57,6 +57,12 @@ enum Subscription {
     case paid
 }
 
+enum BudgetSelection {
+    case daily
+    case monthly
+    case trip
+}
+
 struct Trip {
     var key: String
     var name: String
@@ -67,21 +73,46 @@ struct Trip {
     var users: String
     var owner: String
     var budget: Double
+    var budgetSelection: BudgetSelection
     
-    init(dict: NSDictionary){
-        self.name = dict["name"] as! String
-        self.key = dict["key"] as! String
-        self.startDate = dict["startDate"] as! String
-        self.endDate = dict["endDate"] as! String
+    init?(dict: NSDictionary){
+        guard
+            let name = dict["name"] as? String,
+            let key = dict["key"] as? String,
+            let startDate = dict["startDate"] as? String,
+            let endDate = dict["endDate"] as? String,
+            let users = dict["users"] as? String,
+            let owner = dict["owner"] as? String,
+            let budget = dict["budget"] as? Double,
+            let budgetSelection = dict["budgetSelection"] as? String,
+            let currencyStrings = dict["currencies"] as? [String]
+        else {
+                return nil
+        }
+        
+        self.name = name
+        self.key = key
+        self.startDate = startDate
+        self.endDate = endDate
         //self.image = UIImage(named: dict["image"] as! String)!
-        self.users = dict["users"] as! String
-        self.owner = dict["owner"] as! String
-        self.budget = dict["dailyBudget"] as! Double
-        if let dict = dict["currencies"] as? [String] {
-            for item in dict {
-                if let currency = Currency.all.first(where: { $0.code == item}) {
-                    self.currencies.append(currency)
-                }
+        self.users = users
+        self.owner = owner
+        self.budget = budget
+        
+        switch budgetSelection {
+        case "Daily":
+            self.budgetSelection = .daily
+        case "Monthly":
+            self.budgetSelection = .monthly
+        case "Trip":
+            self.budgetSelection = .trip
+        default:
+            self.budgetSelection = .daily
+        }
+        
+        for item in currencyStrings {
+            if let currency = Currency.all.first(where: { $0.code == item}) {
+                self.currencies.append(currency)
             }
         }
     }

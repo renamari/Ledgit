@@ -208,9 +208,9 @@ class Service {
                 return
             }
             
-            let trip = Trip(dict: dict)
-            
-            completion(trip)
+            if let trip = Trip(dict: dict) {
+                completion(trip)
+            }
         })
     }
     
@@ -218,9 +218,9 @@ class Service {
         trips.queryOrdered(byChild: "owner").queryEqual(toValue: auth.currentUser!.uid).observe(.childAdded, with: { (snapshot) in
             
             if let snapshot = snapshot.value as? NSDictionary{
-                let trip = Trip(dict: snapshot)
-                
-                completion(trip)
+                if let trip = Trip(dict: snapshot) {
+                    completion(trip)
+                }
             }
         })
     }

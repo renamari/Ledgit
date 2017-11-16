@@ -16,10 +16,6 @@ protocol TripActionDelegate {
     func editedTrip(at index: Int)
 }
 
-enum BudgetSelection {
-    case daily, monthly, trip
-}
-
 class TripActionViewController: UIViewController {
     @IBOutlet weak var mapIconImageView: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
@@ -34,13 +30,15 @@ class TripActionViewController: UIViewController {
     @IBOutlet weak var budgetPickerDailyButton: UIButton!
     @IBOutlet weak var budgetPickerMonthlyButton: UIButton!
     @IBOutlet weak var budgetPickerTripButton: UIButton!
+    
     let budgetPickerButtonHeight: CGFloat = 20
     var activeTextField = UITextField()
     var delegate: TripActionDelegate?
     var method: TripActionMethod = .add
     var trip: Trip?
     var selectedCurrencies: [Currency] = []
-
+    var datePicker: UIDatePicker?
+    
     var isLoading:Bool = false {
         didSet {
             switch isLoading {
@@ -50,17 +48,9 @@ class TripActionViewController: UIViewController {
         }
     }
     
-    var datePicker: UIDatePicker {
-        let picker = UIDatePicker()
-        picker.datePickerMode = .date
-        picker.backgroundColor = .white
-        picker.addTarget(self, action: #selector(datePickerValueChanged), for: .valueChanged)
-        return picker
-    }
-    
     var formatter: DateFormatter {
         let formatter = DateFormatter()
-        formatter.dateStyle = .medium
+        formatter.dateFormat = "MMMM dd, yyyy"
         return formatter
     }
     
@@ -106,6 +96,7 @@ class TripActionViewController: UIViewController {
             title = "Create Trip"
             titleLabel.text = "Enter some details of your trip"
             actionButton.setTitle("Create Trip", for: .normal)
+            
         case .edit:
             title = "Edit Trip"
             titleLabel.text = "Change the details of your trip"
@@ -119,19 +110,20 @@ class TripActionViewController: UIViewController {
     
     func setupTextFields() {
         if method == .edit {
-            guard let trip = trip else {
-                guard let rootViewController = navigationController?.viewControllers.first as? TripsViewController else { return }
+
+            guard let trip = trip, let user = Service.shared.currentUser else {
                 navigationController?.popViewController(animated: true)
-                rootViewController.showAlert(with: Constants.ClientErrorMessages.errorGettingTrip)
+                showAlert(with: Constants.ClientErrorMessages.errorGettingTrip)
                 return
             }
             
             nameTextField.text = trip.name
             startDateTextField.text = trip.startDate
             endDateTextField.text = trip.endDate
-            budgetTextField.text = "\(trip.budget)"
+            budgetTextField.text = "\(user.homeCurrency.symbol) \(trip.budget)"
             currenciesTextField.text = trip.currencies.map{ $0.code }.joined(separator: ",")
             selectedCurrencies = trip.currencies
+            budgetSelection = trip.budgetSelection
         }
         
         nameTextField.delegate = self
@@ -145,8 +137,6 @@ class TripActionViewController: UIViewController {
         budgetPickerDailyButton.createBorder(radius: budgetPickerButtonHeight / 2, color: .ledgitNavigationTextGray)
         budgetPickerMonthlyButton.createBorder(radius: budgetPickerButtonHeight / 2, color: .ledgitNavigationTextGray)
         budgetPickerTripButton.createBorder(radius: budgetPickerButtonHeight / 2, color: .ledgitNavigationTextGray)
-        
-        budgetSelection = .daily
     }
     
     func setupBars(){
@@ -223,19 +213,40 @@ extension TripActionViewController: UITextFieldDelegate {
         activeTextField = textField
         
         if textField == startDateTextField || textField == endDateTextField {
+            datePicker = UIDatePicker()
+            datePicker?.datePickerMode = .date
+            datePicker?.backgroundColor = .white
+            datePicker?.addTarget(self, action: #selector(datePickerValueChanged), for: .valueChanged)
+            
             textField.inputView = datePicker
             textField.inputAccessoryView = createToolbar()
             
-            if let dateString = textField.text, !dateString.isEmpty {
+            if let dateString = (textField == startDateTextField) ? trip?.startDate : trip?.endDate {
                 let date = dateString.toDate(withFormat: nil)
-                datePicker.setDate(date, animated: true)
+                datePicker?.setDate(date, animated: false)
             }
-            
+    
         } else if textField == currenciesTextField {
             performSegue(withIdentifier: Constants.SegueIdentifiers.currencySelection, sender: self)
             
         } else if textField == budgetTextField {
             textField.inputAccessoryView = createToolbar()
+            
+            if let text = textField.text {
+                textField.text = text.components(separatedBy: CharacterSet.decimalDigits.inverted).joined(separator: "")
+            }
+        }
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        if textField == budgetTextField {
+            if let text = textField.text {
+                if let user = Service.shared.currentUser {
+                    textField.text = "\(user.homeCurrency.symbol) \(text)"
+                } else {
+                    textField.text = "\(text)"
+                }
+            }
         }
     }
     
@@ -243,6 +254,7 @@ extension TripActionViewController: UITextFieldDelegate {
         switch textField {
         case nameTextField, budgetTextField, currenciesTextField:
             textField.resignFirstResponder()
+            
         default: break
         }
         return true
@@ -260,6 +272,7 @@ extension TripActionViewController: UITextFieldDelegate {
 extension TripActionViewController: CurrencySelectionDelegate {
     func selected(_ currencies: [Currency]) {
         selectedCurrencies = currencies
-        currenciesTextField.text = currencies.map{ $0.code }.joined(separator: ",")
+        currenciesTextField.text = currencies.map{ $0.code }.joined(separator: ", ")
+        currenciesTextField.resignFirstResponder()
     }
 }

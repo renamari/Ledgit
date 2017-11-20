@@ -16,7 +16,7 @@ class TripDetailViewController: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var collectionViewFlowLayout: UICollectionViewFlowLayout!
     
-    fileprivate var entries: [Entry] = []
+    fileprivate var entries: [LedgitEntry] = []
     fileprivate var dayCost: Double = 0
     fileprivate var totalCost: Double = 0
     fileprivate var averageCost: Double = 0
@@ -27,7 +27,7 @@ class TripDetailViewController: UIViewController {
     let cellHeightScale: CGFloat = Constants.Scales.cellHeight
     let cellWidthScale: CGFloat = Constants.Scales.cellWidth
     
-    var currentTrip: Trip?
+    var currentTrip: LedgitTrip?
     
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -39,7 +39,7 @@ class SettingsViewController: UIViewController {
     }
 
     @IBAction func signoutButtonPressed(_ sender: Any) {
-        Service.shared.signout { [unowned self] (result) in
+        AuthenticationManager.shared.signout { [unowned self] (result) in
             switch result{
             case .success:
                 let storyboard = UIStoryboard(name: "Main", bundle: nil)

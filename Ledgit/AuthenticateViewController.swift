@@ -126,9 +126,9 @@ class AuthenticateViewController: UIViewController {
 }
 
 extension AuthenticateViewController: AuthenticationPresenterDelegate {
-    func successfulAuthentication(of user: User) {
+    func successfulAuthentication(of user: LedgitUser) {
         isLoading = false
-        Service.shared.currentUser = user
+        LedgitUser.current = user
         
         let navigationController = TripsNavigationController.instantiate(from: .trips)
         present(navigationController, animated: true, completion: nil)

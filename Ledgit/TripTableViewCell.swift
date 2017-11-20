@@ -18,7 +18,7 @@ class TripTableViewCell: UITableViewCell {
         return [#imageLiteral(resourceName: "circle-icon"), #imageLiteral(resourceName: "heptagon-icon"), #imageLiteral(resourceName: "triangle-icon")]
     }()
 
-    func configure(with trip: Trip, at indexPath: IndexPath) {
+    func configure(with trip: LedgitTrip, at indexPath: IndexPath) {
         tripNameLabel.text = trip.name
         tripDateLabel.text = trip.startDate
         tripLocationLabel.text = "Paris, France"

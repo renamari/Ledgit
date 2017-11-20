@@ -15,16 +15,16 @@ typealias ErrorDictionary = [String:String]
 
 protocol AuthenticationManagerDelegate: class {
     // MANAGER -> INTERACTOR
-    func userAuthenticated(_ user: User)
+    func userAuthenticated(_ user: LedgitUser)
     func authenticationError(dict: ErrorDictionary)
 }
 
 class AuthenticationManager {
+    static let shared = AuthenticationManager()
     weak var delegate: AuthenticationManagerDelegate?
     let users = Database.database().reference().child("users")
     let facebook = LoginManager()
     let auth = Auth.auth()
-    
     var isConnected: Bool { return Reachability.isConnectedToNetwork() }
 }
 
@@ -62,8 +62,9 @@ extension AuthenticationManager {
             self.users.child(user.uid).setValue(data)
             UserDefaults.standard.set(user.uid, forKey: Constants.UserDefaultKeys.uid)
             UserDefaults.standard.set(true, forKey: Constants.UserDefaultKeys.sampleProject)
-            
-            self.delegate?.userAuthenticated(User(dict: data))
+            guard let authenticatedUser = LedgitUser(dict: data) else { return }
+            LedgitUser.current = authenticatedUser
+            self.delegate?.userAuthenticated(authenticatedUser)
         }
     }
     
@@ -95,8 +96,9 @@ extension AuthenticationManager {
                 }
                 
                 UserDefaults.standard.set(user.uid, forKey: Constants.UserDefaultKeys.uid)
-                
-                self.delegate?.userAuthenticated(User(dict: snapshot))
+                guard let authenticatedUser = LedgitUser(dict: snapshot) else { return }
+                LedgitUser.current = authenticatedUser
+                self.delegate?.userAuthenticated(authenticatedUser)
             })
         }
     }
@@ -142,8 +144,9 @@ extension AuthenticationManager {
                     self.users.child(user.uid).setValue(data)
                     UserDefaults.standard.set(user.uid, forKey: Constants.UserDefaultKeys.uid)
                     UserDefaults.standard.set(true, forKey: Constants.UserDefaultKeys.sampleProject)
-                    
-                    self.delegate?.userAuthenticated(User(dict: data))
+                    guard let authenticatedUser = LedgitUser(dict: data) else { return }
+                    LedgitUser.current = authenticatedUser
+                    self.delegate?.userAuthenticated(authenticatedUser)
                 })
             }
         }
@@ -180,9 +183,10 @@ extension AuthenticationManager {
                     
                     self.users.child(user.uid).observeSingleEvent(of: .value, with: { (snapshot) in
                         guard let snapshot = snapshot.value as? NSDictionary else { return }
+                        guard let authenticatedUser = LedgitUser(dict: snapshot) else { return }
                         UserDefaults.standard.set(user.uid, forKey: Constants.UserDefaultKeys.uid)
-                        
-                        self.delegate?.userAuthenticated(User(dict: snapshot))
+                        LedgitUser.current = authenticatedUser
+                        self.delegate?.userAuthenticated(authenticatedUser)
                     })
                 })
             }
@@ -209,6 +213,63 @@ extension AuthenticationManager {
             
         default:
             return Constants.AuthErrorMessages.general
+        }
+    }
+}
+
+extension AuthenticationManager {
+    func isAuthenticated() -> Bool{
+        guard auth.currentUser != nil else{ return false }
+        
+        guard UserDefaults.standard.value(forKey: Constants.UserDefaultKeys.uid) != nil else { return false }
+        
+        return true
+    }
+    
+    func updateUser(name: String, email:String, completion: @escaping(Bool) -> Void){
+        
+        let changeRequest = auth.currentUser?.createProfileChangeRequest()
+        changeRequest?.displayName = name
+        changeRequest?.commitChanges { (error) in
+            //MARK:CHANGE FOR REALEASE
+            if let error = error {
+                print(error.localizedDescription)
+            }
+            
+            if var user = LedgitUser.current  {
+                user.name = name
+                self.users.child(user.key).child("name").setValue(name)
+            }
+        }
+        
+        auth.currentUser?.updateEmail(to: email, completion: { (error) in
+            //MARK:-Change for release
+            if let error = error{
+                print(error.localizedDescription)
+            }
+            
+            if var user = LedgitUser.current  {
+                user.email = email
+                self.users.child(user.key).child("email").setValue(email)
+            }
+        })
+        
+        completion(true)
+    }
+    
+    func signout(completion: @escaping (SignoutResult) -> Void){
+        do {
+            try auth.signOut()
+            
+            UserDefaults.standard.set(nil, forKey: Constants.UserDefaultKeys.uid)
+            
+            LedgitUser.current = nil
+            
+            completion(.success)
+            
+        } catch let error as NSError {
+            
+            completion(.failure(error))
         }
     }
 }

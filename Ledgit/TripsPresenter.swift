@@ -16,7 +16,7 @@ protocol TripsPresenterDelegate: class {
 class TripsPresenter {
     weak var delegate: TripsPresenterDelegate?
     var manager: TripsManager!
-    var trips:[Trip] = []
+    var trips:[LedgitTrip] = []
     
     init(manager: TripsManager) {
         self.manager = manager
@@ -40,12 +40,12 @@ class TripsPresenter {
 }
 
 extension TripsPresenter: TripsManagerDelegate{
-    func retrievedSampleTrip(_ trip: Trip) {
+    func retrievedSampleTrip(_ trip: LedgitTrip) {
         trips.insert(trip, at: 0)
         delegate?.retrievedSampleTrip()
     }
     
-    func retrievedTrip(_ trip: Trip) {
+    func retrievedTrip(_ trip: LedgitTrip) {
         trips.append(trip)
         delegate?.retrievedTrip()
     }

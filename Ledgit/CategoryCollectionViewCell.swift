@@ -36,7 +36,7 @@ class CategoryCollectionViewCell: UICollectionViewCell, ChartViewDelegate {
         layer.shadowPath = UIBezierPath(roundedRect:bounds, cornerRadius:contentView.layer.cornerRadius).cgPath
     }
     
-    func setupChart(with data: [Entry]){
+    func setupChart(with data: [LedgitEntry]){
         guard !data.isEmpty else{
             return
         }
@@ -122,7 +122,7 @@ class CategoryCollectionViewCell: UICollectionViewCell, ChartViewDelegate {
         default:
             let format = NumberFormatter()
             format.numberStyle = .currency
-            format.currencySymbol = Service.shared.currentUser!.homeCurrency.symbol
+            format.currencySymbol = LedgitUser.current!.homeCurrency.symbol
             let formatter = DefaultValueFormatter(formatter: format)
             
             pieChart.data?.setValueFormatter(formatter)

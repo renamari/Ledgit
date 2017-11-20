@@ -18,7 +18,7 @@ protocol serviceDelegate {
 }
 
 enum FirebaseLoginResult {
-    case success(User)
+    case success(LedgitUser)
     case cancelled
     case failed(AuthErrorCode)
 }
@@ -45,27 +45,18 @@ class Service {
     
     var delegate: serviceDelegate?
     
-    var currentUser: User?
+    var currentUser: LedgitUser?
     
-    var CURRENT_USER_REF:DatabaseReference{
+    var CURRENT_USER_REF:DatabaseReference {
         let userID = UserDefaults.standard.value(forKey: Constants.UserDefaultKeys.uid) as! String
         let currentUser = users.child(userID)
         return currentUser
-        
     }
     
     func isUserAuthenticated() -> Bool{
-        guard Reachability.isConnectedToNetwork() == true else{
-            return false
-        }
+        guard auth.currentUser != nil else{ return false }
         
-        guard auth.currentUser != nil else{
-            return false
-        }
-        
-        guard UserDefaults.standard.value(forKey: Constants.UserDefaultKeys.uid) != nil else{
-            return false
-        }
+        guard UserDefaults.standard.value(forKey: Constants.UserDefaultKeys.uid) != nil else { return false }
         
         return true
     }
@@ -76,16 +67,14 @@ class Service {
                 completion(.failed(code))
             }
             
-            if let user = user {
-                self.users.child(user.uid).observeSingleEvent(of: .value, with: { (snapshot) in
-                    
-                    if let snapshot = snapshot.value as? NSDictionary{
-                        UserDefaults.standard.set(user.uid, forKey: Constants.UserDefaultKeys.uid)
-                        
-                        completion(.success(User(dict: snapshot)))
-                    }
-                })
-            }
+            guard let user = user else { return }
+            self.users.child(user.uid).observeSingleEvent(of: .value, with: { (snapshot) in
+                guard let snapshot = snapshot.value as? NSDictionary else { return }
+                guard let authenticatedUser = LedgitUser(dict: snapshot) else { return }
+                UserDefaults.standard.set(authenticatedUser.key, forKey: Constants.UserDefaultKeys.uid)
+                
+                completion(.success(authenticatedUser))
+            })
         }
     }
     
@@ -113,8 +102,8 @@ class Service {
                         self.users.child(user.uid).observeSingleEvent(of: .value, with: { (snapshot) in
                             if let snapshot = snapshot.value as? NSDictionary{
                                 UserDefaults.standard.set(user.uid, forKey: Constants.UserDefaultKeys.uid)
-                                
-                                completion(.success(User(dict: snapshot)))
+                                guard let authenticatedUser = LedgitUser(dict: snapshot) else { return }
+                                completion(.success(authenticatedUser))
                             }
                         })
                     }
@@ -130,7 +119,7 @@ class Service {
             }
             
             if let user = user {
-                let data: [String : Any] = [
+                let data: NSDictionary = [
                     "provider": user.providerID,
                     "email": email,
                     "uid": user.uid,
@@ -141,8 +130,8 @@ class Service {
                 UserDefaults.standard.set(user.uid, forKey: Constants.UserDefaultKeys.uid)
                 UserDefaults.standard.set(true, forKey: Constants.UserDefaultKeys.sampleProject)
                 
-                let returnUser = User(dict: data as NSDictionary)
-                completion(.success(returnUser))
+                guard let authenticatedUser = LedgitUser(dict: data) else { return }
+                completion(.success(authenticatedUser))
             }
         }
     }
@@ -168,7 +157,7 @@ class Service {
                     }
                     
                     if let user = user {
-                        let data: [String : Any] = [
+                        let data: NSDictionary = [
                             "provider": user.providerID,
                             "email": user.email!,
                             "name": user.displayName!,
@@ -180,16 +169,16 @@ class Service {
                         UserDefaults.standard.set(user.uid, forKey: Constants.UserDefaultKeys.uid)
                         UserDefaults.standard.set(true, forKey: Constants.UserDefaultKeys.sampleProject)
                         
-                        let returnUser = User(dict: data as NSDictionary)
-                        completion(.success(returnUser))
+                        guard let authenticatedUser = LedgitUser(dict: data) else { return }
+                        completion(.success(authenticatedUser))
                     }
                 })
             }
         }
     }
     
-    func signout(completion: @escaping (SignoutResult) -> Void){
-        do{
+    func signout(completion: @escaping (SignoutResult) -> Void) {
+        do {
             try auth.signOut()
             
             UserDefaults.standard.set(nil, forKey: Constants.UserDefaultKeys.uid)
@@ -202,23 +191,23 @@ class Service {
         }
     }
     
-    func fetchSampleTrip(completion: @escaping(Trip) -> Void){
+    func fetchSampleTrip(completion: @escaping(LedgitTrip) -> Void){
         trips.child(Constants.ProjectID.sample).observeSingleEvent(of: .value, with: { (snapshot) in
             guard let dict = snapshot.value as? NSDictionary else{
                 return
             }
             
-            if let trip = Trip(dict: dict) {
+            if let trip = LedgitTrip(dict: dict) {
                 completion(trip)
             }
         })
     }
     
-    func fetchTrip(completion: @escaping(Trip) -> Void){
+    func fetchTrip(completion: @escaping(LedgitTrip) -> Void){
         trips.queryOrdered(byChild: "owner").queryEqual(toValue: auth.currentUser!.uid).observe(.childAdded, with: { (snapshot) in
             
             if let snapshot = snapshot.value as? NSDictionary{
-                if let trip = Trip(dict: snapshot) {
+                if let trip = LedgitTrip(dict: snapshot) {
                     completion(trip)
                 }
             }
@@ -237,11 +226,11 @@ class Service {
         trips.child(key).setValue(trip)
     }
     
-    func fetchEntry(inTrip trip: Trip, completion: @escaping(Entry) -> Void){
+    func fetchEntry(inTrip trip: LedgitTrip, completion: @escaping(LedgitEntry) -> Void){
         entries.queryOrdered(byChild: "owningTrip").queryEqual(toValue: trip.key).observe(.childAdded, with: { (snapshot) in
             if let snapshot = snapshot.value as? NSDictionary{
-                let entry = Entry(dict: snapshot)
-                
+                guard let entry = LedgitEntry(dict: snapshot) else { return }
+
                 completion(entry)
             }
         })

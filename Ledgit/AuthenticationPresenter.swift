@@ -14,7 +14,7 @@ enum Platform {
 }
 
 protocol AuthenticationPresenterDelegate: class {
-    func successfulAuthentication(of user: User)
+    func successfulAuthentication(of user: LedgitUser)
     func displayError(_ dict: ErrorDictionary)
 }
 
@@ -39,7 +39,7 @@ class AuthenticationPresenter {
 }
 
 extension AuthenticationPresenter: AuthenticationManagerDelegate {
-    func userAuthenticated(_ user: User) {
+    func userAuthenticated(_ user: LedgitUser) {
         delegate?.successfulAuthentication(of: user)
     }
     

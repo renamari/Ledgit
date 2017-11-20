@@ -10,10 +10,12 @@ import XCTest
 @testable import Ledgit
 
 class LedgitTests: XCTestCase {
+    let service = Service()
     
     override func setUp() {
         super.setUp()
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+        service.currentUser = LedgitUser(dict: userData)
+        
     }
     
     override func tearDown() {

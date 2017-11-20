@@ -10,8 +10,8 @@ import Foundation
 import Firebase
 
 protocol TripsManagerDelegate: class {
-    func retrievedSampleTrip(_ trip: Trip)
-    func retrievedTrip(_ trip: Trip)
+    func retrievedSampleTrip(_ trip: LedgitTrip)
+    func retrievedTrip(_ trip: LedgitTrip)
     func addedTrip()
 }
 
@@ -30,7 +30,7 @@ extension TripsManager {
         trips.child(Constants.ProjectID.sample).observeSingleEvent(of: .value, with: { [unowned self] (snapshot) in
             guard let dict = snapshot.value as? NSDictionary else { return }
             
-            if let trip = Trip(dict: dict) {
+            if let trip = LedgitTrip(dict: dict) {
                 self.delegate?.retrievedSampleTrip(trip)
             }
         })
@@ -42,7 +42,7 @@ extension TripsManager {
         trips.queryOrdered(byChild: "owner").queryEqual(toValue: currentUserKey).observe(.childAdded, with: { (snapshot) in
             guard let snapshot = snapshot.value as? NSDictionary else { return }
             
-            if let trip = Trip(dict: snapshot) {
+            if let trip = LedgitTrip(dict: snapshot) {
                 self.delegate?.retrievedTrip(trip)
             }
         })
@@ -57,5 +57,9 @@ extension TripsManager {
         
         trips.child(key).setValue(trip)
         delegate?.addedTrip()
+    }
+    
+    func update(_ trip: LedgitTrip) {
+        
     }
 }

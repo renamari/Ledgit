@@ -25,12 +25,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         window = UIWindow(frame: UIScreen.main.bounds)
         
-        if Service.shared.isUserAuthenticated(), let currentUserKey = UserDefaults.standard.value(forKey: Constants.UserDefaultKeys.uid) as? String{
+        if AuthenticationManager.shared.isAuthenticated(), let currentUserKey = UserDefaults.standard.value(forKey: Constants.UserDefaultKeys.uid) as? String{
             
-            Service.shared.users.child(currentUserKey).observeSingleEvent(of: .value, with: { (snapshot) in
+            AuthenticationManager.shared.users.child(currentUserKey).observeSingleEvent(of: .value, with: { (snapshot) in
                 
                 if let snapshot = snapshot.value as? NSDictionary{
-                    Service.shared.currentUser = User(dict: snapshot)
+                    LedgitUser.current = LedgitUser(dict: snapshot)
                     
                 }
             })

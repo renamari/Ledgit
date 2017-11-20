@@ -12,8 +12,8 @@ import Firebase
 import SkyFloatingLabelTextField
 
 protocol TripActionDelegate {
-    func addedTrip(dict: NSDictionary)
-    func editedTrip(at index: Int)
+    func added(trip dict: NSDictionary)
+    func edited(_ trip: LedgitTrip)
 }
 
 class TripActionViewController: UIViewController {
@@ -31,12 +31,13 @@ class TripActionViewController: UIViewController {
     @IBOutlet weak var budgetPickerMonthlyButton: UIButton!
     @IBOutlet weak var budgetPickerTripButton: UIButton!
     
+    var presenter: TripsPresenter?
     let budgetPickerButtonHeight: CGFloat = 20
     var activeTextField = UITextField()
     var delegate: TripActionDelegate?
     var method: TripActionMethod = .add
-    var trip: Trip?
-    var selectedCurrencies: [Currency] = []
+    var trip: LedgitTrip?
+    var selectedCurrencies: [Currency] = [.USD]
     var datePicker: UIDatePicker?
     
     var isLoading:Bool = false {
@@ -111,7 +112,7 @@ class TripActionViewController: UIViewController {
     func setupTextFields() {
         if method == .edit {
 
-            guard let trip = trip, let user = Service.shared.currentUser else {
+            guard let trip = trip, let user = LedgitUser.current else {
                 navigationController?.popViewController(animated: true)
                 showAlert(with: Constants.ClientErrorMessages.errorGettingTrip)
                 return
@@ -137,6 +138,18 @@ class TripActionViewController: UIViewController {
         budgetPickerDailyButton.createBorder(radius: budgetPickerButtonHeight / 2, color: .ledgitNavigationTextGray)
         budgetPickerMonthlyButton.createBorder(radius: budgetPickerButtonHeight / 2, color: .ledgitNavigationTextGray)
         budgetPickerTripButton.createBorder(radius: budgetPickerButtonHeight / 2, color: .ledgitNavigationTextGray)
+        
+        if method == .edit {
+            guard let trip = trip else {
+                navigationController?.popViewController(animated: true)
+                showAlert(with: Constants.ClientErrorMessages.errorGettingTrip)
+                return
+            }
+            
+            budgetSelection = trip.budgetSelection
+        } else {
+            budgetSelection = .daily
+        }
     }
     
     func setupBars(){
@@ -161,6 +174,64 @@ class TripActionViewController: UIViewController {
         return toolBar
     }
     
+    func performSaveAction() {
+        guard
+            let name = nameTextField.text,
+            let startDate = startDateTextField.text,
+            let endDate = endDateTextField.text,
+            let budget = budgetTextField.text
+        else {
+            showAlert(with: Constants.ClientErrorMessages.emptyTextFields)
+            return
+        }
+        
+        guard
+            let key = presenter?.manager.trips.childByAutoId().key,
+            let owner = LedgitUser.current?.key
+        else {
+            showAlert(with: Constants.ClientErrorMessages.authenticationError)
+            return
+        }
+         
+         let dict: NSDictionary = [
+         "name": name,
+         "startDate": startDate,
+         "endDate": endDate,
+         "currencies": selectedCurrencies.map{ $0.code },
+         "dailyBudget": Double(budget.components(separatedBy: CharacterSet.decimalDigits.inverted).joined(separator: ""))!,
+         "image": "rome-icon",
+         "users": "",
+         "key": key,
+         "owner": owner
+         ]
+        delegate?.added(trip: dict)
+        navigationController?.popViewController(animated: true)
+    }
+    
+    func performUpdateAction() {
+        guard
+            let name = nameTextField.text,
+            let startDate = startDateTextField.text,
+            let endDate = endDateTextField.text,
+            let budget = budgetTextField.text
+        else {
+            showAlert(with: Constants.ClientErrorMessages.emptyTextFields)
+            return
+        }
+        
+        if var trip = trip {
+            trip.name = name
+            trip.startDate = startDate
+            trip.endDate = endDate
+            trip.budget = Double(budget.components(separatedBy: CharacterSet.decimalDigits.inverted).joined(separator: ""))!
+            trip.currencies = selectedCurrencies
+            trip.budgetSelection = budgetSelection
+            
+            delegate?.edited(trip)
+            navigationController?.popViewController(animated: true)
+        }
+    }
+    
     @IBAction func budgetPickerDailyButtonPressed(_ sender: Any) {
         budgetSelection = .daily
     }
@@ -175,25 +246,12 @@ class TripActionViewController: UIViewController {
     
     @IBAction func actionButtonPressed(_ sender: Any) {
         
-        /*
-        let key = Service.shared.trips.childByAutoId().key
-        let owner = UserDefaults.standard.value(forKey: "uid") as! String
-        
-        let dict: NSDictionary = [
-            "name": name,
-            "startDate": start.toString(withFormat: nil),
-            "endDate": end.toString(withFormat: nil),
-            "currencies": Array(currencies),
-            "dailyBudget": budget,
-            "image": "rome-icon",
-            "users": "",
-            "key": key,
-            "owner": owner
-        ]
-        
-        delegate?.addedTrip(dict: dict)
-        navigationController?.popViewController(animated: true)
-        */
+        switch method {
+        case .edit:
+            performUpdateAction()
+        case .add:
+            performSaveAction()
+        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -241,7 +299,7 @@ extension TripActionViewController: UITextFieldDelegate {
     func textFieldDidEndEditing(_ textField: UITextField) {
         if textField == budgetTextField {
             if let text = textField.text {
-                if let user = Service.shared.currentUser {
+                if let user = LedgitUser.current {
                     textField.text = "\(user.homeCurrency.symbol) \(text)"
                 } else {
                     textField.text = "\(text)"

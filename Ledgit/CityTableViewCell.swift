@@ -14,6 +14,6 @@ class CityTableViewCell: UITableViewCell {
     
     func updateLabels(city:String, amount:Double){
         cityLabel.text = city
-        amountLabel.text = Service.shared.currentUser!.homeCurrency.symbol + String(format: "%.2f", amount)
+        amountLabel.text = LedgitUser.current!.homeCurrency.symbol + String(format: "%.2f", amount)
     }
 }

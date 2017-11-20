@@ -67,7 +67,7 @@ class HistoryCollectionViewCell: UICollectionViewCell {
         }
     }
     
-    func updateTableViews(with data:[Entry]){
+    func updateTableViews(with data:[LedgitEntry]){
         guard !data.isEmpty else{
             return
         }
@@ -129,7 +129,7 @@ extension HistoryCollectionViewCell: UITableViewDelegate, UITableViewDataSource{
             view.backgroundColor = .ledgitNavigationBarGray
         
             let label = UILabel(frame: CGRect(x: 15, y: 0, width: dayTableView.frame.width, height: headerHeight))
-            label.text = dateEntries[section].date.toString(withFormat: "MMM d, yyyy")
+            label.text = dateEntries[section].date.toString(style: .medium)
             label.font = .futuraMedium10
             label.textColor = .ledgitNavigationTextGray
             

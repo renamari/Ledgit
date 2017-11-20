@@ -12,6 +12,7 @@ class TripsViewController: UIViewController {
     @IBOutlet weak var tripsTableView: UITableView!
 
     private let presenter = TripsPresenter(manager: TripsManager())
+    private var selectedIndexPath = IndexPath()
     
     var isLoading: Bool = false {
         didSet {
@@ -56,10 +57,11 @@ class TripsViewController: UIViewController {
 
     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == Constants.SegueIdentifiers.action{
+        if segue.identifier == Constants.SegueIdentifiers.action {
             guard let destinationViewController = segue.destination as? TripActionViewController else { return }
             guard let selectedRow = sender as? Int else { return }
             destinationViewController.delegate = self
+            destinationViewController.presenter = presenter
             
             if selectedRow == tripsTableView.lastRow(at: 0) {
                 destinationViewController.method = .add
@@ -78,12 +80,17 @@ class TripsViewController: UIViewController {
 }
 
 extension TripsViewController: TripActionDelegate {
-    func addedTrip(dict: NSDictionary) {
+    func added(trip dict: NSDictionary) {
         presenter.createNew(trip: dict)
     }
     
-    func editedTrip(at index: Int) {
-        
+    func edited(_ trip: LedgitTrip) {
+        if let index = presenter.trips.index(where: { $0.key == trip.key }) {
+            presenter.trips.remove(at: index)
+            presenter.trips.insert(trip, at: index)
+            
+            tripsTableView.reloadData()
+        }
     }
 }
 
@@ -112,6 +119,8 @@ extension TripsViewController: UITableViewDataSource{
 
 extension TripsViewController: UITableViewDelegate{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        selectedIndexPath = indexPath
+        
         if indexPath.row == tableView.lastRow(at: 0) {
             performSegue(withIdentifier: Constants.SegueIdentifiers.action, sender: indexPath.row)
         

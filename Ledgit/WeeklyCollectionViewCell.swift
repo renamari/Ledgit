@@ -19,12 +19,12 @@ class WeeklyCollectionViewCell: UICollectionViewCell, ChartViewDelegate {
     @IBOutlet weak var averageLabel: UILabel!
     
     var weekdays:[String] = [
-        (Date() - 6.day).toString(withFormat: "E"),
-        (Date() - 5.day).toString(withFormat: "E"),
-        (Date() - 4.day).toString(withFormat: "E"),
-        (Date() - 3.day).toString(withFormat: "E"),
-        (Date() - 2.day).toString(withFormat: "E"),
-        (Date() - 1.day).toString(withFormat: "E"),
+        (Date() - 6.day).toString(style: .day),
+        (Date() - 5.day).toString(style: .day),
+        (Date() - 4.day).toString(style: .day),
+        (Date() - 3.day).toString(style: .day),
+        (Date() - 2.day).toString(style: .day),
+        (Date() - 1.day).toString(style: .day),
         "Today"
     ]
     
@@ -58,14 +58,14 @@ class WeeklyCollectionViewCell: UICollectionViewCell, ChartViewDelegate {
         let averageAmount = String(format: "%.2f", averageAmount)
         
         
-        dayLabel.text = Date().toString(withFormat: "EEEE, MMM d")
+        dayLabel.text = Date().toString(style: .long)
         dayCostLabel.text =  dayAmount
         budgetLabel.text =  budgetAmount
         remainingLabel.text =  remainingAmount
         averageLabel.text =  averageAmount
     }
     
-    func setupChart(with data: [Entry]){
+    func setupChart(with data: [LedgitEntry]){
         guard !data.isEmpty else{
             return
         }
@@ -108,7 +108,7 @@ class WeeklyCollectionViewCell: UICollectionViewCell, ChartViewDelegate {
         format.minimum = 0
         format.numberStyle = .currency
         format.allowsFloats = false
-        format.currencySymbol = Service.shared.currentUser!.homeCurrency.symbol
+        format.currencySymbol = LedgitUser.current!.homeCurrency.symbol
         
         let xFormat = BarChartXAxisFormatter(labels: weekdays)
         
@@ -116,7 +116,7 @@ class WeeklyCollectionViewCell: UICollectionViewCell, ChartViewDelegate {
         dataFormat.numberStyle = .currency
         dataFormat.allowsFloats = false
         dataFormat.zeroSymbol = ""
-        dataFormat.currencySymbol = Service.shared.currentUser!.homeCurrency.symbol
+        dataFormat.currencySymbol = LedgitUser.current!.homeCurrency.symbol
         let dataFormatter = DefaultValueFormatter(formatter: dataFormat)
         
         let xAxis: XAxis = weeklyChart.xAxis

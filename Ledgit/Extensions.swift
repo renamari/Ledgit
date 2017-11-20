@@ -147,16 +147,10 @@ extension UIColor {
 
 //MARK:- Date Extensions
 extension Date {
-    func toString(withFormat format:String?) -> String {
-        let dateFormatter = DateFormatter()
-        
-        if format == nil{
-            dateFormatter.dateFormat = "MMMM dd, yyyy"
-        }else{
-            dateFormatter.dateFormat = format
-        }
-        
-        return dateFormatter.string(from: self)
+    func toString(style format: LedgitDateStyle) -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = format.rawValue
+        return formatter.string(from: self)
     }
 }
 
@@ -203,6 +197,7 @@ extension String{
 }
 
 extension UIView {
+    
     func addTapRecognizer(with action: Selector) {
         let tapRecognizer = UITapGestureRecognizer(target: self, action: action)
         

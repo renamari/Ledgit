@@ -15,7 +15,7 @@ class AddEntryViewController: FormViewController {
     @IBOutlet weak var closeButton: UIButton!
     @IBOutlet weak var tableFrameView: UIView!
     
-    var owningTrip: Trip?
+    var owningTrip: LedgitTrip?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -137,8 +137,8 @@ class AddEntryViewController: FormViewController {
                 let formatter = NumberFormatter()
                 formatter.numberStyle = .currency
                 formatter.nilSymbol = ""
-                formatter.zeroSymbol = Service.shared.currentUser!.homeCurrency.symbol
-                formatter.currencySymbol = Service.shared.currentUser!.homeCurrency.symbol
+                formatter.zeroSymbol = LedgitUser.current!.homeCurrency.symbol
+                formatter.currencySymbol = LedgitUser.current!.homeCurrency.symbol
                 
                 $0.cell.textLabel?.textColor = .ledgitNavigationTextGray
                 $0.cell.titleLabel?.font = .futuraMedium15
@@ -192,7 +192,7 @@ class AddEntryViewController: FormViewController {
             let amount = Double(amountString),
             let paymentType = paymentTypeSegmentedControl.titleForSegment(at: paymentTypeSegmentedControl.selectedSegmentIndex),
             let owningTrip = owningTrip,
-            let name = Service.shared.currentUser?.key else {
+            let name = LedgitUser.current?.key else {
                 showAlert(with: Constants.ClientErrorMessages.emptyTextFields)
                 return
         }

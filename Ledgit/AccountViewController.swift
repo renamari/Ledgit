@@ -62,11 +62,11 @@ class AccountViewController: UIViewController {
         nameTextField.delegate = self
         emailTextField.delegate = self
         
-        if let name = Service.shared.currentUser?.name {
+        if let name = LedgitUser.current?.name {
             nameTextField.text = name
         }
         
-        if let email = Service.shared.currentUser?.email{
+        if let email = LedgitUser.current?.email{
             emailTextField.text = email
         }
     }
@@ -117,7 +117,7 @@ class AccountViewController: UIViewController {
         let newName = nameTextField.text!.strip()
         let newEmail = emailTextField.text!.strip()
         
-        Service.shared.updateUser(name: newName, email: newEmail){ [unowned self] (success) in
+        AuthenticationManager.shared.updateUser(name: newName, email: newEmail){ [unowned self] (success) in
             self.delegate?.accountUpdated()
             self.dismiss(animated: true, completion: nil)
         }

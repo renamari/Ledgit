@@ -46,9 +46,12 @@
 		8DA3B22B1F4004EB00FC31AF /* Currency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA3B22A1F4004EB00FC31AF /* Currency.swift */; };
 		8DA3B22D1F40055700FC31AF /* Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA3B22C1F40055700FC31AF /* Device.swift */; };
 		8DAD43E71F9D46270054EDD8 /* SettingsNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DAD43E61F9D46270054EDD8 /* SettingsNavigationController.swift */; };
+		8DB4679B1FC0B4A800E44863 /* MockData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB4679A1FC0B4A800E44863 /* MockData.swift */; };
+		8DB4679D1FC1F16700E44863 /* LedgitUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB4679C1FC1F16700E44863 /* LedgitUser.swift */; };
+		8DB4679F1FC1F2FA00E44863 /* LedgitEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB4679E1FC1F2FA00E44863 /* LedgitEntry.swift */; };
+		8DB467A11FC1F3A500E44863 /* LedgitTrip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB467A01FC1F3A500E44863 /* LedgitTrip.swift */; };
 		8DBBB5F81FAFC99F002D0984 /* TripActionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DBBB5F71FAFC99F002D0984 /* TripActionViewController.swift */; };
 		8DBBDBDA1F97857700E7F8CF /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DBBDBD91F97857700E7F8CF /* Service.swift */; };
-		8DBFF02A1F9ED6B20069FB3A /* TripsPresenterMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DBFF0291F9ED6B20069FB3A /* TripsPresenterMock.swift */; };
 		8DC243D61F43ADA400B3E080 /* TripsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DC243D51F43ADA400B3E080 /* TripsViewController.swift */; };
 		8DC243D81F43ADBB00B3E080 /* Trips.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8DC243D71F43ADBB00B3E080 /* Trips.storyboard */; };
 		8DC243DA1F43BE2B00B3E080 /* TripTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DC243D91F43BE2B00B3E080 /* TripTableViewCell.swift */; };
@@ -123,9 +126,12 @@
 		8DA3B22A1F4004EB00FC31AF /* Currency.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Currency.swift; sourceTree = "<group>"; };
 		8DA3B22C1F40055700FC31AF /* Device.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Device.swift; sourceTree = "<group>"; };
 		8DAD43E61F9D46270054EDD8 /* SettingsNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsNavigationController.swift; sourceTree = "<group>"; };
+		8DB4679A1FC0B4A800E44863 /* MockData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockData.swift; sourceTree = "<group>"; };
+		8DB4679C1FC1F16700E44863 /* LedgitUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LedgitUser.swift; sourceTree = "<group>"; };
+		8DB4679E1FC1F2FA00E44863 /* LedgitEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LedgitEntry.swift; sourceTree = "<group>"; };
+		8DB467A01FC1F3A500E44863 /* LedgitTrip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LedgitTrip.swift; sourceTree = "<group>"; };
 		8DBBB5F71FAFC99F002D0984 /* TripActionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripActionViewController.swift; sourceTree = "<group>"; };
 		8DBBDBD91F97857700E7F8CF /* Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
-		8DBFF0291F9ED6B20069FB3A /* TripsPresenterMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripsPresenterMock.swift; sourceTree = "<group>"; };
 		8DC243D51F43ADA400B3E080 /* TripsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TripsViewController.swift; sourceTree = "<group>"; };
 		8DC243D71F43ADBB00B3E080 /* Trips.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Trips.storyboard; sourceTree = "<group>"; };
 		8DC243D91F43BE2B00B3E080 /* TripTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TripTableViewCell.swift; sourceTree = "<group>"; };
@@ -239,7 +245,10 @@
 		8D2AEBC31F48912D00227FC6 /* Trip Detail */ = {
 			isa = PBXGroup;
 			children = (
+				8DB467A41FC226C400E44863 /* Presenter */,
+				8DB467A31FC226BE00E44863 /* View */,
 				8DDDD6B21F473EFA0053146B /* TripDetailViewController.swift */,
+				8DB467A21FC226B600E44863 /* Model */,
 				8D656AA21F94480800C85A0F /* AddEntryViewController.swift */,
 				8DDDD6BA1F47ED100053146B /* Collection View Cells */,
 			);
@@ -295,6 +304,7 @@
 			children = (
 				8DBFF0261F9ED67B0069FB3A /* Trips Mocks */,
 				8DA3B1BE1F3F875B00FC31AF /* LedgitTests.swift */,
+				8DB4679A1FC0B4A800E44863 /* MockData.swift */,
 				8DA3B1C01F3F875B00FC31AF /* Info.plist */,
 			);
 			path = LedgitTests;
@@ -318,6 +328,9 @@
 				8DA3B22C1F40055700FC31AF /* Device.swift */,
 				8DA3B2281F3FC3C600FC31AF /* Constants.swift */,
 				8DA3B22A1F4004EB00FC31AF /* Currency.swift */,
+				8DB4679C1FC1F16700E44863 /* LedgitUser.swift */,
+				8DB4679E1FC1F2FA00E44863 /* LedgitEntry.swift */,
+				8DB467A01FC1F3A500E44863 /* LedgitTrip.swift */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -374,10 +387,30 @@
 			name = Model;
 			sourceTree = "<group>";
 		};
+		8DB467A21FC226B600E44863 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		8DB467A31FC226BE00E44863 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		8DB467A41FC226C400E44863 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Presenter;
+			sourceTree = "<group>";
+		};
 		8DBFF0261F9ED67B0069FB3A /* Trips Mocks */ = {
 			isa = PBXGroup;
 			children = (
-				8DBFF0291F9ED6B20069FB3A /* TripsPresenterMock.swift */,
 			);
 			path = "Trips Mocks";
 			sourceTree = "<group>";
@@ -741,9 +774,18 @@
 			files = (
 			);
 			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-LedgitTests/Pods-LedgitTests-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
+				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -764,6 +806,7 @@
 				8DBBB5F81FAFC99F002D0984 /* TripActionViewController.swift in Sources */,
 				8D656AA31F94480800C85A0F /* AddEntryViewController.swift in Sources */,
 				8D29168E1FB8EA42008ED9F2 /* CurrencyTableViewCell.swift in Sources */,
+				8DB4679F1FC1F2FA00E44863 /* LedgitEntry.swift in Sources */,
 				8D6F4B661F4E8D050046847C /* AccountViewController.swift in Sources */,
 				8D2AEC191F4D146900227FC6 /* DateTableViewCell.swift in Sources */,
 				8D2AEC0F1F4AB2F300227FC6 /* AboutViewController.swift in Sources */,
@@ -788,10 +831,12 @@
 				8D18DCB81F43E34B00BD5EBA /* SettingsTableViewCell.swift in Sources */,
 				8DA3B1AF1F3F875B00FC31AF /* Ledgit.xcdatamodeld in Sources */,
 				8DC243DA1F43BE2B00B3E080 /* TripTableViewCell.swift in Sources */,
+				8DB4679D1FC1F16700E44863 /* LedgitUser.swift in Sources */,
 				8DC243D61F43ADA400B3E080 /* TripsViewController.swift in Sources */,
 				8DDDD6B71F47ECF00053146B /* CategoryCollectionViewCell.swift in Sources */,
 				8D9778F41F4F5364008DD68C /* CategoryActionViewController.swift in Sources */,
 				8DA3B21B1F3FBCA500FC31AF /* Extensions.swift in Sources */,
+				8DB467A11FC1F3A500E44863 /* LedgitTrip.swift in Sources */,
 				8DA3B2291F3FC3C600FC31AF /* Constants.swift in Sources */,
 				8DDDD6B51F47ECDD0053146B /* WeeklyCollectionViewCell.swift in Sources */,
 				8D707B501F9D3F9000CABA0F /* TripsManager.swift in Sources */,
@@ -803,7 +848,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8DA3B1BF1F3F875B00FC31AF /* LedgitTests.swift in Sources */,
-				8DBFF02A1F9ED6B20069FB3A /* TripsPresenterMock.swift in Sources */,
+				8DB4679B1FC0B4A800E44863 /* MockData.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

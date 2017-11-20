@@ -9,19 +9,19 @@
 import SystemConfiguration
 import UIKit
 
-struct Screen{
+struct Screen {
     static let width = UIScreen.main.bounds.size.width
     static let height = UIScreen.main.bounds.size.height
     static let maxLength = max(Screen.width, Screen.height)
     static let minLength = min(Screen.width, Screen.height)
 }
 
-struct StatusBar{
+struct StatusBar {
     static let height = UIApplication.shared.statusBarFrame.height
     static let width = UIApplication.shared.statusBarFrame.width
 }
 
-struct Type{
+struct Type {
     static let iphone4 = UIDevice.current.userInterfaceIdiom == .phone && Screen.maxLength < 568.0
     static let iphone5 = UIDevice.current.userInterfaceIdiom == .phone && Screen.maxLength == 568.0
     static let iphone7 = UIDevice.current.userInterfaceIdiom == .phone && Screen.maxLength == 667.0

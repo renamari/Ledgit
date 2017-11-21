@@ -50,6 +50,7 @@
 		8DB4679D1FC1F16700E44863 /* LedgitUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB4679C1FC1F16700E44863 /* LedgitUser.swift */; };
 		8DB4679F1FC1F2FA00E44863 /* LedgitEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB4679E1FC1F2FA00E44863 /* LedgitEntry.swift */; };
 		8DB467A11FC1F3A500E44863 /* LedgitTrip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB467A01FC1F3A500E44863 /* LedgitTrip.swift */; };
+		8DB467F51FC3E01900E44863 /* SettingsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB467F41FC3E01900E44863 /* SettingsPresenter.swift */; };
 		8DBBB5F81FAFC99F002D0984 /* TripActionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DBBB5F71FAFC99F002D0984 /* TripActionViewController.swift */; };
 		8DBBDBDA1F97857700E7F8CF /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DBBDBD91F97857700E7F8CF /* Service.swift */; };
 		8DC243D61F43ADA400B3E080 /* TripsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DC243D51F43ADA400B3E080 /* TripsViewController.swift */; };
@@ -130,6 +131,7 @@
 		8DB4679C1FC1F16700E44863 /* LedgitUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LedgitUser.swift; sourceTree = "<group>"; };
 		8DB4679E1FC1F2FA00E44863 /* LedgitEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LedgitEntry.swift; sourceTree = "<group>"; };
 		8DB467A01FC1F3A500E44863 /* LedgitTrip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LedgitTrip.swift; sourceTree = "<group>"; };
+		8DB467F41FC3E01900E44863 /* SettingsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsPresenter.swift; sourceTree = "<group>"; };
 		8DBBB5F71FAFC99F002D0984 /* TripActionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripActionViewController.swift; sourceTree = "<group>"; };
 		8DBBDBD91F97857700E7F8CF /* Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
 		8DC243D51F43ADA400B3E080 /* TripsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TripsViewController.swift; sourceTree = "<group>"; };
@@ -229,15 +231,9 @@
 		8D18DCB91F43E68F00BD5EBA /* Settings */ = {
 			isa = PBXGroup;
 			children = (
-				8D2AEC0C1F4AAFE400227FC6 /* Settings.storyboard */,
-				8DAD43E61F9D46270054EDD8 /* SettingsNavigationController.swift */,
-				8D9778F31F4F5364008DD68C /* CategoryActionViewController.swift */,
-				8D6F4B631F4E8CFC0046847C /* CategoriesViewController.swift */,
-				8D6F4B651F4E8D050046847C /* AccountViewController.swift */,
-				8D6F4B671F4E8D100046847C /* SubscriptionViewController.swift */,
-				8D18DCB51F43E07100BD5EBA /* SettingsViewController.swift */,
-				8D18DCB71F43E34B00BD5EBA /* SettingsTableViewCell.swift */,
-				8D2AEC0E1F4AB2F300227FC6 /* AboutViewController.swift */,
+				8DB467F31FC3DFD900E44863 /* Presenter */,
+				8DB467F21FC3DFD300E44863 /* Model */,
+				8DB467F11FC3DFC500E44863 /* View */,
 			);
 			name = Settings;
 			sourceTree = "<group>";
@@ -404,6 +400,37 @@
 		8DB467A41FC226C400E44863 /* Presenter */ = {
 			isa = PBXGroup;
 			children = (
+			);
+			name = Presenter;
+			sourceTree = "<group>";
+		};
+		8DB467F11FC3DFC500E44863 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				8D2AEC0C1F4AAFE400227FC6 /* Settings.storyboard */,
+				8DAD43E61F9D46270054EDD8 /* SettingsNavigationController.swift */,
+				8D18DCB51F43E07100BD5EBA /* SettingsViewController.swift */,
+				8D9778F31F4F5364008DD68C /* CategoryActionViewController.swift */,
+				8D6F4B631F4E8CFC0046847C /* CategoriesViewController.swift */,
+				8D6F4B651F4E8D050046847C /* AccountViewController.swift */,
+				8D6F4B671F4E8D100046847C /* SubscriptionViewController.swift */,
+				8D18DCB71F43E34B00BD5EBA /* SettingsTableViewCell.swift */,
+				8D2AEC0E1F4AB2F300227FC6 /* AboutViewController.swift */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		8DB467F21FC3DFD300E44863 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		8DB467F31FC3DFD900E44863 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				8DB467F41FC3E01900E44863 /* SettingsPresenter.swift */,
 			);
 			name = Presenter;
 			sourceTree = "<group>";
@@ -840,6 +867,7 @@
 				8DA3B2291F3FC3C600FC31AF /* Constants.swift in Sources */,
 				8DDDD6B51F47ECDD0053146B /* WeeklyCollectionViewCell.swift in Sources */,
 				8D707B501F9D3F9000CABA0F /* TripsManager.swift in Sources */,
+				8DB467F51FC3E01900E44863 /* SettingsPresenter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

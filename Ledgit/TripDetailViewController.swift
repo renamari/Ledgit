@@ -23,7 +23,6 @@ class TripDetailViewController: UIViewController {
     fileprivate var daysSeen: [Date] = []
     
     let transition = BubbleTransition()
-    
     let cellHeightScale: CGFloat = Constants.Scales.cellHeight
     let cellWidthScale: CGFloat = Constants.Scales.cellWidth
     

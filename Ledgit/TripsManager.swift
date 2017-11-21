@@ -61,5 +61,18 @@ extension TripsManager {
     
     func update(_ trip: LedgitTrip) {
         
+        let newData: NSDictionary = [
+            "budget": trip.budget,
+            "budgetSelection": trip.budgetSelection.rawValue,
+            "currencies": trip.currencies.map{ $0.code },
+            "endDate": trip.endDate,
+            "startDate": trip.startDate,
+            "key": trip.key,
+            "name": trip.name,
+            "owner": trip.owner,
+            "users": trip.users
+        ]
+        
+        trips.child(trip.key).setValue(newData)
     }
 }

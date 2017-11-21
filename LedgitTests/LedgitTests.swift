@@ -10,11 +10,11 @@ import XCTest
 @testable import Ledgit
 
 class LedgitTests: XCTestCase {
-    let service = Service()
+    //let service = Service()
     
     override func setUp() {
         super.setUp()
-        service.currentUser = LedgitUser(dict: userData)
+        //service.currentUser = LedgitUser(dict: userData)
         
     }
     

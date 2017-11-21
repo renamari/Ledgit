@@ -88,13 +88,13 @@ extension TripsViewController: TripActionDelegate {
         if let index = presenter.trips.index(where: { $0.key == trip.key }) {
             presenter.trips.remove(at: index)
             presenter.trips.insert(trip, at: index)
-            
+            presenter.edited(trip)
             tripsTableView.reloadData()
         }
     }
 }
 
-extension TripsViewController: UITableViewDataSource{
+extension TripsViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return presenter.trips.count + 1

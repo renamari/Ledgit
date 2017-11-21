@@ -10,6 +10,6 @@ import Foundation
 @testable import Ledgit
 
 class TripsPresenterMock: TripsPresenter {
-    weak var delegate: TripsPresenterDelegate?
+    //weak var delegate: TripsPresenterDelegate?
 }
 

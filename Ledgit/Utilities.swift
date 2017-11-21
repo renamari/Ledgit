@@ -53,8 +53,10 @@ enum Subscription {
     case free, paid
 }
 
-enum BudgetSelection {
-    case daily, monthly, trip
+enum BudgetSelection: String {
+    case daily = "Daily"
+    case monthly = "Monthly"
+    case trip = "Trip"
 }
 
 enum LedgitDateStyle: String {

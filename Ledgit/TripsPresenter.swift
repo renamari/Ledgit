@@ -37,6 +37,10 @@ class TripsPresenter {
     func createNew(trip dict: NSDictionary) {
         manager.createNew(trip: dict)
     }
+    
+    func edited(_ trip: LedgitTrip) {
+        manager.update(trip)
+    }
 }
 
 extension TripsPresenter: TripsManagerDelegate{

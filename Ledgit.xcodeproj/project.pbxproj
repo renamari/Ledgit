@@ -20,6 +20,7 @@
 		8D2AEC0F1F4AB2F300227FC6 /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D2AEC0E1F4AB2F300227FC6 /* AboutViewController.swift */; };
 		8D2AEC191F4D146900227FC6 /* DateTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D2AEC181F4D146900227FC6 /* DateTableViewCell.swift */; };
 		8D2AEC1B1F4D147800227FC6 /* CityTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D2AEC1A1F4D147800227FC6 /* CityTableViewCell.swift */; };
+		8D39F94B1FC51B470055BA4E /* SettingsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D39F94A1FC51B470055BA4E /* SettingsManager.swift */; };
 		8D656AA31F94480800C85A0F /* AddEntryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D656AA21F94480800C85A0F /* AddEntryViewController.swift */; };
 		8D6F4B641F4E8CFC0046847C /* CategoriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D6F4B631F4E8CFC0046847C /* CategoriesViewController.swift */; };
 		8D6F4B661F4E8D050046847C /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D6F4B651F4E8D050046847C /* AccountViewController.swift */; };
@@ -61,6 +62,7 @@
 		8DDDD6B51F47ECDD0053146B /* WeeklyCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDDD6B41F47ECDD0053146B /* WeeklyCollectionViewCell.swift */; };
 		8DDDD6B71F47ECF00053146B /* CategoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDDD6B61F47ECF00053146B /* CategoryCollectionViewCell.swift */; };
 		8DDDD6B91F47ECFD0053146B /* HistoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDDD6B81F47ECFD0053146B /* HistoryCollectionViewCell.swift */; };
+		8DFAE8991FCA930000B4734B /* CategoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DFAE8981FCA930000B4734B /* CategoryTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -95,6 +97,7 @@
 		8D2AEC0E1F4AB2F300227FC6 /* AboutViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
 		8D2AEC181F4D146900227FC6 /* DateTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateTableViewCell.swift; sourceTree = "<group>"; };
 		8D2AEC1A1F4D147800227FC6 /* CityTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CityTableViewCell.swift; sourceTree = "<group>"; };
+		8D39F94A1FC51B470055BA4E /* SettingsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsManager.swift; sourceTree = "<group>"; };
 		8D656AA21F94480800C85A0F /* AddEntryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEntryViewController.swift; sourceTree = "<group>"; };
 		8D6F4B631F4E8CFC0046847C /* CategoriesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoriesViewController.swift; sourceTree = "<group>"; };
 		8D6F4B651F4E8D050046847C /* AccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountViewController.swift; sourceTree = "<group>"; };
@@ -142,6 +145,7 @@
 		8DDDD6B41F47ECDD0053146B /* WeeklyCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeeklyCollectionViewCell.swift; sourceTree = "<group>"; };
 		8DDDD6B61F47ECF00053146B /* CategoryCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryCollectionViewCell.swift; sourceTree = "<group>"; };
 		8DDDD6B81F47ECFD0053146B /* HistoryCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryCollectionViewCell.swift; sourceTree = "<group>"; };
+		8DFAE8981FCA930000B4734B /* CategoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryTableViewCell.swift; sourceTree = "<group>"; };
 		93C41B92AC4C35C569819F18 /* Pods-LedgitUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LedgitUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-LedgitUITests/Pods-LedgitUITests.release.xcconfig"; sourceTree = "<group>"; };
 		AA493BC4D136EA66D5B690DD /* Pods-LedgitUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LedgitUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LedgitUITests/Pods-LedgitUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		CD08D377859521F30867A19F /* Pods-LedgitTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LedgitTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-LedgitTests/Pods-LedgitTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -407,14 +411,14 @@
 		8DB467F11FC3DFC500E44863 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				8DFAE8971FCA902D00B4734B /* Cells */,
 				8D2AEC0C1F4AAFE400227FC6 /* Settings.storyboard */,
 				8DAD43E61F9D46270054EDD8 /* SettingsNavigationController.swift */,
 				8D18DCB51F43E07100BD5EBA /* SettingsViewController.swift */,
-				8D9778F31F4F5364008DD68C /* CategoryActionViewController.swift */,
 				8D6F4B631F4E8CFC0046847C /* CategoriesViewController.swift */,
+				8D9778F31F4F5364008DD68C /* CategoryActionViewController.swift */,
 				8D6F4B651F4E8D050046847C /* AccountViewController.swift */,
 				8D6F4B671F4E8D100046847C /* SubscriptionViewController.swift */,
-				8D18DCB71F43E34B00BD5EBA /* SettingsTableViewCell.swift */,
 				8D2AEC0E1F4AB2F300227FC6 /* AboutViewController.swift */,
 			);
 			name = View;
@@ -423,6 +427,7 @@
 		8DB467F21FC3DFD300E44863 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				8D39F94A1FC51B470055BA4E /* SettingsManager.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -471,6 +476,15 @@
 				8D29168D1FB8EA42008ED9F2 /* CurrencyTableViewCell.swift */,
 			);
 			name = "Table View Cell";
+			sourceTree = "<group>";
+		};
+		8DFAE8971FCA902D00B4734B /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				8D18DCB71F43E34B00BD5EBA /* SettingsTableViewCell.swift */,
+				8DFAE8981FCA930000B4734B /* CategoryTableViewCell.swift */,
+			);
+			path = Cells;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -826,6 +840,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8D39F94B1FC51B470055BA4E /* SettingsManager.swift in Sources */,
 				8D29168C1FB8EA2F008ED9F2 /* CurrencySelectionViewController.swift in Sources */,
 				8D6F4B681F4E8D100046847C /* SubscriptionViewController.swift in Sources */,
 				8D173EBF1F997B4100EC8527 /* AuthenticationPresenter.swift in Sources */,
@@ -864,6 +879,7 @@
 				8D9778F41F4F5364008DD68C /* CategoryActionViewController.swift in Sources */,
 				8DA3B21B1F3FBCA500FC31AF /* Extensions.swift in Sources */,
 				8DB467A11FC1F3A500E44863 /* LedgitTrip.swift in Sources */,
+				8DFAE8991FCA930000B4734B /* CategoryTableViewCell.swift in Sources */,
 				8DA3B2291F3FC3C600FC31AF /* Constants.swift in Sources */,
 				8DDDD6B51F47ECDD0053146B /* WeeklyCollectionViewCell.swift in Sources */,
 				8D707B501F9D3F9000CABA0F /* TripsManager.swift in Sources */,

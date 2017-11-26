@@ -18,7 +18,7 @@ class MainViewController: UIViewController {
     @IBOutlet weak var exploreButton: UIButton!
     @IBOutlet weak var pageControl: UIPageControl!
     @IBOutlet weak var tutorialView: UIView!
-    private var pageViewController: UIPageViewController?
+    private var pageViewController = UIPageViewController()
 
     var method: AuthenticationMethod = .signin
     var currentIndex = 0
@@ -45,19 +45,17 @@ class MainViewController: UIViewController {
     }
     
     func setupPageViewController() {
-        
         // 1. Retrieve first view controller from ordered array
-        guard let firstViewController = orderedViewControllers.first as? TutorialViewController else { return }
+        guard let firstViewController = orderedViewControllers.first else { return }
         
         // 2. Initialize new page view controller
         pageViewController = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
-        pageViewController?.delegate = self
-        pageViewController?.dataSource = self
-        pageViewController?.setViewControllers([firstViewController], direction: .forward, animated: true, completion: nil)
-        pageViewController?.view.frame = CGRect(x: 0, y: 0, width: tutorialView.frame.width, height: tutorialView.frame.height)
+        pageViewController.delegate = self
+        pageViewController.dataSource = self
+        pageViewController.setViewControllers([firstViewController], direction: .forward, animated: true, completion: nil)
+        pageViewController.view.frame = CGRect(x: 0, y: 0, width: tutorialView.frame.width, height: tutorialView.frame.height)
         
-        guard let view = pageViewController?.view else { return }
-        tutorialView.addSubview(view)
+        tutorialView.addSubview(pageViewController.view)
     }
     
     fileprivate func createNewTutorialViewController(with index: Int) -> UIViewController {
@@ -89,9 +87,7 @@ class MainViewController: UIViewController {
     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == Constants.SegueIdentifiers.authenticate {
-            guard let authenticateViewController = segue.destination as? AuthenticateViewController else {
-                return
-            }
+            guard let authenticateViewController = segue.destination as? AuthenticateViewController else { return }
             authenticateViewController.method = method
         }
     }
@@ -143,7 +139,6 @@ extension MainViewController: UIPageViewControllerDelegate {
         
         // 1. Update the current index to the view controller index user will transition to
         guard let controller = pendingViewControllers.first as? TutorialViewController, let index = controller.index else { return }
-        
         currentIndex = index
     }
 }

@@ -11,32 +11,30 @@ import UIKit
 class CategoriesViewController: UIViewController {
     @IBOutlet weak var addButton: UIButton!
     @IBOutlet weak var categoriesTableView: UITableView!
-    var categories:[String] = []
+    weak var presenter: SettingsPresenter?
+    var selectedIndexPath = IndexPath()
+    var displayedInformationLabel: Bool = false
     var actionViewBackground:UIView?
     var actionViewTag = 1234
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        setupPresenter()
         setupTableView()
     }
+    
+    func setupPresenter() {
+        presenter?.categoryDelegate = self
+        presenter?.fetchCategories()
+    }
 
-    func setupTableView(){
+    func setupTableView() {
         categoriesTableView.delegate = self
         categoriesTableView.dataSource = self
-        
-        fetchCategories()
-    }
-    
-    func fetchCategories(){
-        Service.shared.fetchCategories{ [unowned self] (results) in
-            self.categories = results
-            self.categoriesTableView.reloadData()
-        }
     }
     
     @IBAction func backButtonPressed(_ sender: Any) {
-        _ = navigationController?.popViewController(animated: true)
+        navigationController?.popViewController(animated: true)
     }
     
     @IBAction func addButtonPressed(_ sender: Any) {
@@ -44,116 +42,62 @@ class CategoriesViewController: UIViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let categoryActionViewController = segue.destination as? CategoryActionViewController{
-            UIView.animate(withDuration: 0.25, animations: {
-                self.actionViewBackground = UIView(frame: self.view.frame)
-                self.actionViewBackground?.alpha = 0.7
-                self.actionViewBackground?.backgroundColor = .black
-                self.actionViewBackground?.tag = self.actionViewTag
-                self.view.addSubview(self.actionViewBackground!)
-            })
-            
-            if let action = sender as? Action{
-                switch action {
-                case .add:
-                    categoryActionViewController.delegate = self
-                    categoryActionViewController.action = action
-                default:
-                    categoryActionViewController.delegate = self
-                    categoryActionViewController.action = action
-                    categoryActionViewController.category = categories[categoriesTableView.indexPathForSelectedRow!.row]
-                }
-            }
-        }
+        guard let categoryActionViewController = segue.destination as? CategoryActionViewController else { return }
+        guard let action = sender as? Action else { return }
+        
+        categoryActionViewController.action = action
+        categoryActionViewController.presenter = presenter
+        categoryActionViewController.category = action == .edit ? presenter?.categories[selectedIndexPath.row] : nil
     }
 }
 
-extension CategoriesViewController: CategoryActionDelegate{
-    func dismissAnimation(){
-        if let actionView = view.viewWithTag(actionViewTag){
-            UIView.animate(withDuration: 0.45, animations: {
-                actionView.alpha = 0
-            }, completion: { (successful) in
-                if successful{
-                    actionView.removeFromSuperview()
-                }
-            })
-        }
-    }
-    
-    func categoryAdded(category: String) {
-        let numRows = categoriesTableView.numberOfRows(inSection: 0)
-        categories.append(category)
-        
+extension CategoriesViewController: SettingsPresenterCategoryDelegate {
+    func addedCategory() {
         categoriesTableView.beginUpdates()
-        categoriesTableView.insertRows(at: [IndexPath(row: numRows, section: 0)], with: .left)
+        categoriesTableView.insertRows(at: [IndexPath(row: categoriesTableView.numberOfRows(inSection: 0), section: 0)], with: .left)
         categoriesTableView.endUpdates()
-        
-        dismissAnimation()
     }
     
-    func categoryUpdated(category: String) {
-        let selectedIndexPath = categoriesTableView.indexPathForSelectedRow!
-        
-        categoriesTableView.beginUpdates()
-        let cell = categoriesTableView.cellForRow(at: selectedIndexPath)!
-        cell.textLabel?.text = category
-        categoriesTableView.endUpdates()
-        
-        dismissAnimation()
+    func updatedCategory() {
+        categoriesTableView.reloadRows(at: [selectedIndexPath], with: .fade)
     }
     
-    func cancelled(){
-        dismissAnimation()
+    func retrievedCategories() {
+        categoriesTableView.reloadData()
     }
 }
 
 extension CategoriesViewController: UITableViewDelegate, UITableViewDataSource{
-    
-    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        return true
-    }
-    
-    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
-        return .delete
-    }
-    
-    // Override to support editing the table view.
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        selectedIndexPath = indexPath
         
-        // 1. If user swipes to delete
-        if editingStyle == .delete {
-            
-            // 2. Create local variables for the section and selected row
-            let selectedRow = indexPath.row
-            
-            let category = categories[selectedRow]
-            
-            Service.shared.removeCategory(with: category){ [unowned self] (success) in
-                self.categories.remove(at: selectedRow)
-                
-                tableView.beginUpdates()
-                tableView.deleteRows(at: [indexPath], with: .fade)
-                tableView.endUpdates()
-            }
+        let edit = UITableViewRowAction(style: .destructive, title: "Edit") { (action, path) in
+           self.performSegue(withIdentifier: Constants.SegueIdentifiers.categoryAction, sender: Action.edit)
         }
+        edit.backgroundColor = .ledgitYellow
+        
+        let delete = UITableViewRowAction(style: .destructive, title: "Delete") { (action, path) in
+            self.presenter?.remove(at: indexPath.row)
+            tableView.beginUpdates()
+            tableView.deleteRows(at: [indexPath], with: .fade)
+            tableView.endUpdates()
+        }
+        return [delete, edit]
     }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        performSegue(withIdentifier: Constants.SegueIdentifiers.categoryAction, sender: Action.edit)
-    }
-    
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return categories.count
+        return presenter?.categories.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: Constants.CellIdentifiers.categoryName, for: indexPath) 
-        let category = categories[indexPath.row]
+        let cell = tableView.dequeueReusableCell(withIdentifier: Constants.CellIdentifiers.categoryName, for: indexPath) as! CategoryTableViewCell
+        cell.titleLabel.text = presenter?.categories[indexPath.row]
         
-        cell.textLabel?.text = category
-        
+        if indexPath.row == 0 && !displayedInformationLabel {
+            cell.displayInformationLabel()
+            displayedInformationLabel = true
+        }
         return cell
     }
 }

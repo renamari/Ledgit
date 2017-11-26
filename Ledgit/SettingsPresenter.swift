@@ -9,45 +9,78 @@
 import Foundation
 import Firebase
 
+protocol SettingsPresenterDelegate: class {
+    func signedout()
+}
+
+protocol SettingsPresenterCategoryDelegate: class {
+    func retrievedCategories()
+    func addedCategory()
+    func updatedCategory()
+}
+
 class SettingsPresenter {
-    let users = Database.database().reference().child("users")
-    let auth = Auth.auth()
+    let manager: SettingsManager!
+    weak var delegate: SettingsPresenterDelegate?
+    weak var categoryDelegate: SettingsPresenterCategoryDelegate?
+    var categories:[String] = []
+    
+    init(manager: SettingsManager){
+        self.manager = manager
+        self.manager.delegate = self
+    }
 }
 
 extension SettingsPresenter {
-    func signout(completion: @escaping (SignoutResult) -> Void) {
-        do {
-            try auth.signOut()
-            
-            UserDefaults.standard.set(nil, forKey: Constants.UserDefaultKeys.uid)
-            
-            completion(.success)
-            
-        } catch let error as NSError {
-            
-            completion(.failure(error))
+    func signout() {
+        manager.signout()
+    }
+    
+    func fetchCategories() {
+        manager.fetchCategories()
+    }
+    
+    func update(_ category: String, to newCategory: String) {
+        manager.updateCategory(to: newCategory, from: category)
+    }
+    
+    func add(_ category: String) {
+        manager.add(category: category)
+    }
+    
+    func remove(at index: Int) {
+        let category = categories[index]
+        categories.remove(at: index)
+        manager.remove(category)
+    }
+    
+    func updateUser(name: String, email: String) {
+        manager.updateUser(name: name, email: email)
+    }
+}
+
+extension SettingsPresenter: SettingsManagerDelegate {
+    func signedout(_ result: SignoutResult) {
+        switch result {
+        case .success:
+            delegate?.signedout()
+        case .failure(let error):
+            print("Error signing out: ", error.localizedDescription)
         }
     }
     
-    func fetchCategories(completion: @escaping ([String]) -> Void){
-        guard let categories = LedgitUser.current?.categories else { return }
-        
-        completion(categories)
+    func retrieved(_ categories: [String]) {
+        self.categories = categories
+        categoryDelegate?.retrievedCategories()
     }
     
-    func addCategory(category: String, completion: @escaping (Bool) -> Void){
-        guard var currentUser = LedgitUser.current else { return }
-        currentUser.categories.append(category)
-        users.child(currentUser.key).setValue(currentUser.categories)
-        completion(true)
+    func added(_ category: String) {
+        categories.append(category)
+        categoryDelegate?.addedCategory()
     }
     
-    func updateCategory(category: String, with newCategory: String, completion:@escaping (Bool) -> Void){
-        guard var currentUser = LedgitUser.current else { return }
-        if let index = currentUser.categories.index(where: {$0 == category}){
-            currentUser.categories[index] = newCategory
-        }
-        users.child(currentUser.key).child("categories").setValue(currentUser.categories)
-        completion(true)
+    func updated(_ categories: [String]) {
+        self.categories = categories
+        categoryDelegate?.updatedCategory()
     }
 }

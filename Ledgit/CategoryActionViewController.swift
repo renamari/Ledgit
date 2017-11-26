@@ -7,30 +7,23 @@
 //
 
 import UIKit
+import SkyFloatingLabelTextField
 
 enum Action {
     case add
     case edit
 }
 
-protocol CategoryActionDelegate: class {
-    func categoryUpdated(category: String)
-    func cancelled()
-    func categoryAdded(category:String)
-}
-
 class CategoryActionViewController: UIViewController {
     @IBOutlet weak var cardView: UIView!
     @IBOutlet weak var saveButton: UIButton!
     @IBOutlet weak var cardTitleLabel: UILabel!
-    @IBOutlet weak var categoryTextField: UITextField!
-    @IBOutlet weak var validationLabel: UILabel!
-    
-    weak var delegate:CategoryActionDelegate?
-    var action:Action?
-    var category:String?
-    var oldFrame:CGRect?
-    let padding:CGFloat = 20
+    @IBOutlet weak var categoryTextField: SkyFloatingLabelTextField!
+    weak var presenter: SettingsPresenter?
+    var action: Action = .add
+    var category: String?
+    var previousFrame: CGRect?
+    let padding: CGFloat = 20
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,31 +41,22 @@ class CategoryActionViewController: UIViewController {
         super.viewWillAppear(animated)
         setupKeyboardNotifications()
         
-        guard action != nil else{
-            return
-        }
-        
-        switch action! {
-        case .add:
-            cardTitleLabel.text = "Add New Category"
-        default:
-            cardTitleLabel.text = "Edit Category"
-            categoryTextField.text = category
-        }
+        setupLabels()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        
-        // 2. Remove observers for keyboard
-        NotificationCenter.default.removeObserver(self, name: .UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.removeObserver(self, name: .UIKeyboardWillHide, object: nil)
+        removeKeyboardNotifications()
     }
     
-    func setupKeyboardNotifications(){
-        // 1. Add notification obeservers that will alert app when keyboard displays
+    func setupKeyboardNotifications() {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name:.UIKeyboardWillShow, object: self.view.window)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name:.UIKeyboardWillHide, object: self.view.window)
+    }
+    
+    func removeKeyboardNotifications() {
+        NotificationCenter.default.removeObserver(self, name: .UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.removeObserver(self, name: .UIKeyboardWillHide, object: nil)
     }
     
     func setupTextFields(){
@@ -80,101 +64,71 @@ class CategoryActionViewController: UIViewController {
     }
     
     func setupRecognizers(){
-        
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(screenTapped))
         tapGestureRecognizer.delegate = self
         view.addGestureRecognizer(tapGestureRecognizer)
     }
     
-    @objc func screenTapped(){
-        delegate?.cancelled()
+    @objc func screenTapped() {
         dismiss(animated: true, completion: nil)
+    }
+    
+    func setupLabels() {
+        switch action {
+        case .add:
+            cardTitleLabel.text = "Add New Category"
+            
+        case .edit:
+            cardTitleLabel.text = "Edit Category"
+            categoryTextField.text = category
+        }
     }
 
     func setupView(){
-        cardView.layer.cornerRadius = 10
-        cardView.layer.masksToBounds = false
+        view.backgroundColor = UIColor.black.withAlphaComponent(0.7)
+        cardView.createBorder(radius: 10)
     }
     
     func setupButton(){
-        saveButton.layer.cornerRadius = 10
-        saveButton.layer.masksToBounds = false
+        saveButton.createBorder(radius: 10)
     }
 
     @IBAction func closeButtonPressed(_ sender: Any) {
-        delegate?.cancelled()
         dismiss(animated: true, completion: nil)
     }
     
     @IBAction func saveButtonPressed(_ sender: Any) {
-        guard action != nil else{
+        guard let text = categoryTextField.text, !text.isEmpty else {
+            categoryTextField.errorMessage = "Cannot leave this empty"
             return
         }
         
-        guard categoryTextField.text != "" else{
-            UIView.animate(withDuration: 0.25, animations: {
-                self.validationLabel.isHidden = false
-            })
-            return
-        }
-        
-        let newCategory = categoryTextField.text!.strip()
-        
-        switch action! {
+        let newCategory = text.strip()
+        switch action {
         case .add:
-            
-            Service.shared.addCategory(category: newCategory, completion: { [unowned self] (success) in
-                self.delegate?.categoryAdded(category: newCategory)
-                self.dismiss(animated: true, completion: nil)
-            })
-            
-        default:
-            Service.shared.updateCategory(category: category!, with: newCategory, completion: { [unowned self] (success) in
-                self.delegate?.categoryUpdated(category: newCategory)
-                self.dismiss(animated: true, completion: nil)
-            })
+            presenter?.add(newCategory)
+        case .edit:
+            guard let category = category else { return }
+            presenter?.update(category, to: newCategory)
         }
+        dismiss(animated: true, completion: nil)
     }
     
     @objc func keyboardWillShow(notification: Notification) {
-        guard let userInfo = notification.userInfo else{
-            return
-        }
+        guard let userInfo = notification.userInfo else { return }
+        guard let keyboardSize = userInfo[UIKeyboardFrameEndUserInfoKey] as? CGRect else { return }
+        let availableScreen = view.frame.height - keyboardSize.height
+        previousFrame = cardView.frame
         
-        guard let keyboardSize = userInfo[UIKeyboardFrameEndUserInfoKey] as? CGRect else{
-            return
-        }
-        
-        oldFrame = cardView.frame
-        let remainingScreen = view.frame.height - keyboardSize.height
-        
-        if cardView.frame.maxY > remainingScreen{
-            let difference = cardView.frame.maxY - remainingScreen
-            var newFrame = CGRect()
-            
-            if cardView.frame.height > remainingScreen{ // If the card height is bigger than the available screen after the keyboard shows, then modify
-                let newHeight = remainingScreen - 2 * padding
-                newFrame = CGRect(x: oldFrame!.origin.x, y: padding, width: oldFrame!.width, height: newHeight)
-                
-            }else{ // Of not, just shift the card up
-                newFrame = CGRect(x: oldFrame!.origin.x, y: oldFrame!.origin.y - difference - padding, width: oldFrame!.width, height: oldFrame!.height)
-            }
-            
-            UIView.animate(withDuration: 0.25, animations: {
-                self.cardView.frame = newFrame
-            })
-        }
+        UIView.animate(withDuration: 0.25, animations: {
+            self.cardView.frame.size.height = availableScreen - (2 * self.padding)
+            self.cardView.frame.origin.y = self.padding
+        })
     }
     
     @objc func keyboardWillHide(notification: Notification) {
-        guard let frame = oldFrame else{
-            return
-        }
-        
-        guard categoryTextField.text != "" else {
-            return
-        }
-        
+        guard let frame = previousFrame else { return }
+
         UIView.animate(withDuration: 0.25, animations: {
             self.cardView.frame = frame
         })
@@ -190,18 +144,7 @@ extension CategoryActionViewController: UIGestureRecognizerDelegate{
 extension CategoryActionViewController: UITextFieldDelegate{
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        if let text = categoryTextField.text, !text.isEmpty {
-            UIView.animate(withDuration: 0.25, animations: { 
-                self.validationLabel.isHidden = true
-                self.categoryTextField.resignFirstResponder()
-            })
-        
-            return true
-        }else{
-            UIView.animate(withDuration: 0.25, animations: {
-                self.validationLabel.isHidden = false
-            })
-            return false
-        }
+        categoryTextField.resignFirstResponder()
+        return true
     }
 }

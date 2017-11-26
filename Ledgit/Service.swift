@@ -12,7 +12,7 @@ import FacebookCore
 import FacebookLogin
 
 protocol serviceDelegate {
-    func errorUpdating(_ error: NSError)
+    func errorUpdating(_ error: Error)
     func modelUpdated()
     //func receivedEntry(entry: Entry)
 }
@@ -30,7 +30,7 @@ enum FirebaseNewAccountResult {
 
 enum SignoutResult {
     case success
-    case failure(NSError)
+    case failure(Error)
 }
 
 class Service {

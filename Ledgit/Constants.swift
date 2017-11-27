@@ -51,6 +51,7 @@ struct Constants {
         static let categoryAction = "toCategoryActionViewController"
         static let addEntry = "toAddEntryViewController"
         static let currencySelection = "toCurrencySelectionViewController"
+        static let categorySelection = "toCategorySelectionViewController"
     }
     
     static let pageColors: [UIColor] = {

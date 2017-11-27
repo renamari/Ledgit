@@ -104,9 +104,7 @@ class TripActionViewController: UIViewController {
             actionButton.setTitle("Save", for: .normal)
         }
         
-        actionButton.layer.cornerRadius = 10
-        actionButton.layer.masksToBounds = true
-        actionButton.clipsToBounds = true
+        actionButton.createBorder(radius: 10)
     }
     
     func setupTextFields() {

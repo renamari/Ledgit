@@ -16,6 +16,7 @@ class CurrencySelectionViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     weak var delegate: CurrencySelectionDelegate?
     lazy var currencies: [Currency] = []
+    var allowsMultipleSelection = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,7 +31,7 @@ class CurrencySelectionViewController: UIViewController {
     func setupTableView() {
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.allowsMultipleSelection = true
+        tableView.allowsMultipleSelection = allowsMultipleSelection
     }
 }
 
@@ -58,14 +59,21 @@ extension CurrencySelectionViewController: UITableViewDelegate, UITableViewDataS
         let cell = tableView.cellForRow(at: indexPath) as! CurrencyTableViewCell
         let selectedCurrency = Currency.all[indexPath.row]
         
-        if cell.accessoryType == .none {
+        if allowsMultipleSelection == false {
             currencies.append(selectedCurrency)
-            cell.accessoryType = .checkmark
+            delegate?.selected(currencies)
+            dismiss(animated: true, completion: nil)
+            
         } else {
-            guard let index = currencies.index(of: selectedCurrency) else { return }
-            currencies.remove(at: index)
-            cell.accessoryType = .none
+            if cell.accessoryType == .none {
+                currencies.append(selectedCurrency)
+                cell.accessoryType = .checkmark
+            } else {
+                guard let index = currencies.index(of: selectedCurrency) else { return }
+                currencies.remove(at: index)
+                cell.accessoryType = .none
+            }
+            tableView.deselectRow(at: indexPath, animated: true)
         }
-        tableView.deselectRow(at: indexPath, animated: true)
     }
 }

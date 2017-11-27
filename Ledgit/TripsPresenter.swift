@@ -16,7 +16,7 @@ protocol TripsPresenterDelegate: class {
 class TripsPresenter {
     weak var delegate: TripsPresenterDelegate?
     var manager: TripsManager!
-    var trips:[LedgitTrip] = []
+    var trips: [LedgitTrip] = []
     
     init(manager: TripsManager) {
         self.manager = manager

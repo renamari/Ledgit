@@ -22,7 +22,7 @@ class CategoryTableViewCell: UITableViewCell {
             self.informationLabel.isHidden = false
         }) { (success) in
             
-            let delay = DispatchTime.now() + 5
+            let delay = DispatchTime.now() + 2
             DispatchQueue.main.asyncAfter(deadline: delay) {
                 self.informationLabel.isHidden = true
             }

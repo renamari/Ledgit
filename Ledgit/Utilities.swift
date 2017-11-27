@@ -45,8 +45,9 @@ struct CitySection {
     var amount: Double
 }
 
-enum PaymentType {
-    case credit, cash
+enum PaymentType: String {
+    case credit = "Credit"
+    case cash = "Cash"
 }
 
 enum Subscription {
@@ -68,7 +69,6 @@ enum LedgitDateStyle: String {
     case day = "E"
     case year = "yyyy"
 }
-
 
 public protocol FormatterProtocol {
     func getNewPosition(forPosition: UITextPosition, inTextInput textInput: UITextInput, oldValue: String?, newValue: String?) -> UITextPosition

@@ -16,10 +16,9 @@ protocol TripsManagerDelegate: class {
 }
 
 class TripsManager {
-    var auth = Auth.auth()
     weak var delegate: TripsManagerDelegate?
+    let auth = Auth.auth()
     let trips = Database.database().reference().child("trips")
-    
     var isConnected: Bool { return Reachability.isConnectedToNetwork() }
 }
 
@@ -72,7 +71,6 @@ extension TripsManager {
             "owner": trip.owner,
             "users": trip.users
         ]
-        
         trips.child(trip.key).setValue(newData)
     }
 }

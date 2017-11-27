@@ -15,27 +15,18 @@ class TripDetailViewController: UIViewController {
     @IBOutlet weak var pageControl: UIPageControl!
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var collectionViewFlowLayout: UICollectionViewFlowLayout!
-    
-    fileprivate var entries: [LedgitEntry] = []
-    fileprivate var dayCost: Double = 0
-    fileprivate var totalCost: Double = 0
-    fileprivate var averageCost: Double = 0
-    fileprivate var daysSeen: [Date] = []
-    
     let transition = BubbleTransition()
     let cellHeightScale: CGFloat = Constants.Scales.cellHeight
     let cellWidthScale: CGFloat = Constants.Scales.cellWidth
     
     var currentTrip: LedgitTrip?
+    var presenter: TripDetailPresenter?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupButton()
-        
-        setupUI()
-        
+        setupPresenter()
         setupNavigationBar()
-        
         setupCollectionView()
     }
     
@@ -43,22 +34,24 @@ class TripDetailViewController: UIViewController {
         setupNavigationBar()
     }
     
-    func setupUI() {
-        
-      
+    func setupPresenter() {
+        guard let trip = currentTrip else {
+            showAlert(with: Constants.ClientErrorMessages.errorGettingTrip)
+            dismiss(animated: true, completion: nil)
+            return
+        }
+        presenter = TripDetailPresenter(manager: TripDetailManager(), and: trip)
+        presenter?.delegate = self
+        presenter?.fetchEntries()
     }
     
     func setupButton(){
-        actionButton.layer.cornerRadius = actionButton.frame.height / 2
-        actionButton.layer.masksToBounds = true
-        actionButton.clipsToBounds = true
+        actionButton.createBorder(radius: actionButton.frame.height / 2)
     }
     
     func setupCollectionView(){
         collectionView.delegate = self
         collectionView.dataSource = self
-        
-        fetchEntries()
     }
     
     func setupNavigationBar(){
@@ -68,37 +61,12 @@ class TripDetailViewController: UIViewController {
         navigationController?.view.backgroundColor = .ledgitNavigationBarGray
     }
     
-    func fetchEntries(){
-        guard currentTrip != nil else{
-            return
-        }
-        
-        Service.shared.fetchEntry(inTrip: currentTrip!) { [unowned self] (entry) in
-            if !self.daysSeen.contains(entry.date){
-                self.daysSeen.append(entry.date)
-            }
-            
-            if entry.date.isToday{
-                self.dayCost += entry.cost
-                
-            }
-            
-            self.totalCost += entry.cost
-            self.averageCost = self.totalCost / Double(self.daysSeen.count)
-            
-            self.entries.append(entry)
-            self.collectionView.reloadData()
-        }
-    }
-    
     @IBAction func actionButtonPressed(_ sender: Any) {
         guard currentTrip?.key != Constants.ProjectID.sample else {
             showAlert(with: Constants.ClientErrorMessages.cannotAddEntriesToSample)
             return
         }
-        
         performSegue(withIdentifier: Constants.SegueIdentifiers.addEntry, sender: self)
-    
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -106,16 +74,20 @@ class TripDetailViewController: UIViewController {
             guard let addEntryViewController = segue.destination as? AddEntryViewController else {
                 return
             }
-            
-            addEntryViewController.owningTrip = currentTrip
+            addEntryViewController.presenter = presenter
             addEntryViewController.transitioningDelegate = self
             addEntryViewController.modalPresentationStyle = .custom
         }
     }
 }
 
+extension TripDetailViewController: TripDetailPresenterDelegate {
+    func retrieveEntry() {
+        collectionView.reloadData()
+    }
+}
+
 extension TripDetailViewController: UICollectionViewDataSource, UICollectionViewDelegate, UIScrollViewDelegate,UICollectionViewDelegateFlowLayout{
-    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 3
     }
@@ -124,19 +96,18 @@ extension TripDetailViewController: UICollectionViewDataSource, UICollectionView
         switch indexPath.row {
         case 0:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.CellIdentifiers.weekly, for: indexPath) as! WeeklyCollectionViewCell
-            cell.setupChart(with: entries)
-            cell.updateLabels(dayAmount: dayCost, budgetAmount: currentTrip!.budget, remainingAmount: currentTrip!.budget - dayCost, averageAmount: averageCost)
-            
+            if let presenter = presenter {
+                cell.setupChart(with: presenter.entries)
+                cell.updateLabels(dayAmount: presenter.costToday, budgetAmount: presenter.trip.budget, remainingAmount: presenter.trip.budget - presenter.costToday, averageAmount: presenter.averageCost)
+            }
             return cell
         case 1:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.CellIdentifiers.category, for: indexPath) as! CategoryCollectionViewCell
-            cell.setupChart(with: entries)
-            
+            if let presenter = presenter { cell.setupChart(with: presenter.entries) }
             return cell
         default:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.CellIdentifiers.history, for: indexPath) as! HistoryCollectionViewCell
-            cell.updateTableViews(with: entries)
-            
+            if let presenter = presenter { cell.updateTableViews(with: presenter.entries) }
             return cell
         }
     }
@@ -147,24 +118,18 @@ extension TripDetailViewController: UICollectionViewDataSource, UICollectionView
         return CGSize(width: width, height: height)
     }
     
-    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        
         let cellWidth:CGFloat = collectionView.frame.width * cellWidthScale
         let inset = (collectionView.frame.width - cellWidth) / 2
-        
         return UIEdgeInsetsMake(0, inset, 0, inset)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         let cellWidth:CGFloat = collectionView.frame.width * 0.90
-        
         return collectionView.frame.width - cellWidth
     }
- 
     
     func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
-        
         let pageWidth = Float(collectionView!.frame.width * 0.90)
         let targetXContentOffset = Float(targetContentOffset.pointee.x)
         let contentWidth = Float(collectionView!.contentSize.width)
@@ -184,7 +149,6 @@ extension TripDetailViewController: UICollectionViewDataSource, UICollectionView
         pageControl.currentPage = Int(newPage)
         let point = CGPoint (x: CGFloat(newPage * pageWidth), y: targetContentOffset.pointee.y)
         targetContentOffset.pointee = point
- 
     }
 }
 

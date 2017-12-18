@@ -14,18 +14,24 @@ protocol CurrencySelectionDelegate: class {
 
 class CurrencySelectionViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var searchBar: UISearchBar!
     weak var delegate: CurrencySelectionDelegate?
     lazy var currencies: [Currency] = []
+    lazy var filteredCurrencies: [Currency] = []
     var allowsMultipleSelection = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         setupTableView()
+        setupSearchBar()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         delegate?.selected(currencies)
+    }
+    
+    func setupSearchBar() {
+        searchBar.delegate = self
     }
     
     func setupTableView() {
@@ -35,14 +41,28 @@ class CurrencySelectionViewController: UIViewController {
     }
 }
 
+extension CurrencySelectionViewController: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        filteredCurrencies = Currency.all.filter {
+            $0.code.lowercased().contains(searchText.lowercased()) ||
+            $0.name.lowercased().contains(searchText.lowercased())
+        }
+        tableView.reloadData()
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
+    }
+}
+
 extension CurrencySelectionViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return Currency.all.count
+        return !filteredCurrencies.isEmpty ? filteredCurrencies.count : Currency.all.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: Constants.CellIdentifiers.currency) as! CurrencyTableViewCell
-        let currency = Currency.all[indexPath.row]
+        let cell = tableView.dequeueReusableCell(withIdentifier: Constants.cellIdentifiers.currency) as! CurrencyTableViewCell
+        let currency = !filteredCurrencies.isEmpty ? filteredCurrencies[indexPath.row] : Currency.all[indexPath.row]
 
         cell.configure(with: currency)
         
@@ -57,7 +77,7 @@ extension CurrencySelectionViewController: UITableViewDelegate, UITableViewDataS
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let cell = tableView.cellForRow(at: indexPath) as! CurrencyTableViewCell
-        let selectedCurrency = Currency.all[indexPath.row]
+        let selectedCurrency = !filteredCurrencies.isEmpty ? filteredCurrencies[indexPath.row] : Currency.all[indexPath.row]
         
         if allowsMultipleSelection == false {
             currencies.append(selectedCurrency)

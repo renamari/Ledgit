@@ -19,8 +19,8 @@ struct LedgitUser {
     init?(dict: NSDictionary){
         guard
             let key = dict["uid"] as? String
-            else {
-                return nil
+        else {
+            return nil
         }
         
         self.key = key

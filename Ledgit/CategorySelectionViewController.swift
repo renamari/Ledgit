@@ -14,35 +14,55 @@ protocol CategorySelectionDelegate: class {
 
 class CategorySelectionViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var searchBar: UISearchBar!
     weak var delegate: CategorySelectionDelegate?
+    lazy var filteredCategories: [String] = []
+    var categories: [String] {
+        if let categories = LedgitUser.current?.categories {
+            return categories
+        }
+        return []
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.delegate = self
         tableView.dataSource = self
+        searchBar.delegate = self
+    }
+}
+
+extension CategorySelectionViewController: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        filteredCategories = categories.filter {
+            $0.lowercased().contains(searchText.lowercased())
+        }
+        tableView.reloadData()
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
     }
 }
 
 extension CategorySelectionViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return LedgitUser.current?.categories.count ?? 0
+        return !filteredCategories.isEmpty ? filteredCategories.count : categories.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CategorySelectionCell", for: indexPath)
-
-        if let categories = LedgitUser.current?.categories {
-            cell.textLabel?.text = categories[indexPath.row]
-        }
+        let category = !filteredCategories.isEmpty ? filteredCategories[indexPath.row] : categories[indexPath.row]
+        
+        cell.textLabel?.text = category
         
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if let categories = LedgitUser.current?.categories {
-            let category = categories[indexPath.row]
-            delegate?.selected(category)
-            dismiss(animated: true, completion: nil)
-        }
+        
+        let category = !filteredCategories.isEmpty ? filteredCategories[indexPath.row] : categories[indexPath.row]
+        delegate?.selected(category)
+        dismiss(animated: true, completion: nil)
     }
 }

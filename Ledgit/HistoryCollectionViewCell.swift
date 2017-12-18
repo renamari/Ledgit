@@ -154,14 +154,14 @@ extension HistoryCollectionViewCell: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch tableView {
         case dayTableView:
-            let cell = dayTableView.dequeueReusableCell(withIdentifier: Constants.CellIdentifiers.date, for: indexPath) as! DateTableViewCell
+            let cell = dayTableView.dequeueReusableCell(withIdentifier: Constants.cellIdentifiers.date, for: indexPath) as! DateTableViewCell
             let item = dateEntries[indexPath.section].entries[indexPath.row]
             
             cell.updateLabels(amount: item.cost, description: item.description, category: item.category)
             
             return cell
         default:
-            let cell = cityTableView.dequeueReusableCell(withIdentifier: Constants.CellIdentifiers.city, for: indexPath) as! CityTableViewCell
+            let cell = cityTableView.dequeueReusableCell(withIdentifier: Constants.cellIdentifiers.city, for: indexPath) as! CityTableViewCell
             let item = cityEntries[indexPath.row]
             cell.updateLabels(city: item.location, amount: item.amount)
             

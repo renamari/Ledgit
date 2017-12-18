@@ -24,9 +24,9 @@ class TripsManager {
 
 extension TripsManager {
     func fetchSampleTrip() {
-        guard (UserDefaults.standard.value(forKey: Constants.UserDefaultKeys.sampleProject) as? Bool) == true else { return }
+        guard (UserDefaults.standard.value(forKey: Constants.userDefaultKeys.sampleProject) as? Bool) == true else { return }
         
-        trips.child(Constants.ProjectID.sample).observeSingleEvent(of: .value, with: { [unowned self] (snapshot) in
+        trips.child(Constants.projectID.sample).observeSingleEvent(of: .value, with: { [unowned self] (snapshot) in
             guard let dict = snapshot.value as? NSDictionary else { return }
             
             if let trip = LedgitTrip(dict: dict) {

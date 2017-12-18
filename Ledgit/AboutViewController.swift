@@ -27,7 +27,6 @@ class AboutViewController: UIViewController {
         super.viewDidLoad()
         
         setupWebView()
-        
         setupButton()
     }
     

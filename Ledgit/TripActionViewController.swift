@@ -30,6 +30,7 @@ class TripActionViewController: UIViewController {
     @IBOutlet weak var budgetPickerDailyButton: UIButton!
     @IBOutlet weak var budgetPickerMonthlyButton: UIButton!
     @IBOutlet weak var budgetPickerTripButton: UIButton!
+    @IBOutlet weak var scrollView: UIScrollView!
     
     var presenter: TripsPresenter?
     let budgetPickerButtonHeight: CGFloat = 20
@@ -89,6 +90,8 @@ class TripActionViewController: UIViewController {
         setupBars()
         
         setupBudgetPicker()
+        
+        setupObservers()
     }
     
     func setupView() {
@@ -112,7 +115,7 @@ class TripActionViewController: UIViewController {
 
             guard let trip = trip, let user = LedgitUser.current else {
                 navigationController?.popViewController(animated: true)
-                showAlert(with: Constants.ClientErrorMessages.errorGettingTrip)
+                showAlert(with: Constants.clientErrorMessages.errorGettingTrip)
                 return
             }
             
@@ -140,7 +143,7 @@ class TripActionViewController: UIViewController {
         if method == .edit {
             guard let trip = trip else {
                 navigationController?.popViewController(animated: true)
-                showAlert(with: Constants.ClientErrorMessages.errorGettingTrip)
+                showAlert(with: Constants.clientErrorMessages.errorGettingTrip)
                 return
             }
             
@@ -148,6 +151,11 @@ class TripActionViewController: UIViewController {
         } else {
             budgetSelection = .daily
         }
+    }
+    
+    func setupObservers() {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name:NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name:NSNotification.Name.UIKeyboardWillHide, object: nil)
     }
     
     func setupBars(){
@@ -179,7 +187,7 @@ class TripActionViewController: UIViewController {
             let endDate = endDateTextField.text,
             let budget = budgetTextField.text
         else {
-            showAlert(with: Constants.ClientErrorMessages.emptyTextFields)
+            showAlert(with: Constants.clientErrorMessages.emptyTextFields)
             return
         }
         
@@ -187,7 +195,7 @@ class TripActionViewController: UIViewController {
             let key = presenter?.manager.trips.childByAutoId().key,
             let owner = LedgitUser.current?.key
         else {
-            showAlert(with: Constants.ClientErrorMessages.authenticationError)
+            showAlert(with: Constants.clientErrorMessages.authenticationError)
             return
         }
          
@@ -213,7 +221,7 @@ class TripActionViewController: UIViewController {
             let endDate = endDateTextField.text,
             let budget = budgetTextField.text
         else {
-            showAlert(with: Constants.ClientErrorMessages.emptyTextFields)
+            showAlert(with: Constants.clientErrorMessages.emptyTextFields)
             return
         }
         
@@ -253,7 +261,7 @@ class TripActionViewController: UIViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == Constants.SegueIdentifiers.currencySelection {
+        if segue.identifier == Constants.segueIdentifiers.currencySelection {
             guard let destinationViewController = segue.destination as? CurrencySelectionViewController else { return }
             destinationViewController.delegate = self
             destinationViewController.currencies = selectedCurrencies
@@ -264,6 +272,18 @@ class TripActionViewController: UIViewController {
 }
 
 extension TripActionViewController: UITextFieldDelegate {
+    @objc func keyboardWillShow(notification:NSNotification){
+        //give room at the bottom of the scroll view, so it doesn't cover up anything the user needs to tap
+        guard let info = notification.userInfo else { return }
+        guard let keyboard = info[UIKeyboardFrameEndUserInfoKey] as? CGRect else { return }
+        
+        scrollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: keyboard.height, right: 0)
+    }
+    
+    @objc func keyboardWillHide(notification:NSNotification){
+        let contentInset:UIEdgeInsets = .zero
+        scrollView.contentInset = contentInset
+    }
 
     func textFieldDidBeginEditing(_ textField: UITextField) {
         activeTextField = textField
@@ -283,7 +303,7 @@ extension TripActionViewController: UITextFieldDelegate {
             }
     
         } else if textField == currenciesTextField {
-            performSegue(withIdentifier: Constants.SegueIdentifiers.currencySelection, sender: self)
+            performSegue(withIdentifier: Constants.segueIdentifiers.currencySelection, sender: self)
             
         } else if textField == budgetTextField {
             textField.inputAccessoryView = createToolbar()

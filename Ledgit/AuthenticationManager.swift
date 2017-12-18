@@ -33,12 +33,12 @@ extension AuthenticationManager {
     func performFirebaseSignUp(with email: String, password: String) {
         
         guard isConnected else {
-            self.delegate?.authenticationError(dict: Constants.ClientErrorMessages.noNetworkConnection)
+            self.delegate?.authenticationError(dict: Constants.clientErrorMessages.noNetworkConnection)
             return
         }
         
         guard !email.isEmpty, !password.isEmpty else {
-            self.delegate?.authenticationError(dict: Constants.ClientErrorMessages.emptyTextFields)
+            self.delegate?.authenticationError(dict: Constants.clientErrorMessages.emptyTextFields)
             return
         }
         
@@ -48,7 +48,7 @@ extension AuthenticationManager {
             }
             
             guard let user = user else {
-                self.delegate?.authenticationError(dict: Constants.AuthErrorMessages.general)
+                self.delegate?.authenticationError(dict: Constants.authErrorMessages.general)
                 return
             }
             
@@ -60,8 +60,8 @@ extension AuthenticationManager {
             ]
             
             self.users.child(user.uid).setValue(data)
-            UserDefaults.standard.set(user.uid, forKey: Constants.UserDefaultKeys.uid)
-            UserDefaults.standard.set(true, forKey: Constants.UserDefaultKeys.sampleProject)
+            UserDefaults.standard.set(user.uid, forKey: Constants.userDefaultKeys.uid)
+            UserDefaults.standard.set(true, forKey: Constants.userDefaultKeys.sampleProject)
             guard let authenticatedUser = LedgitUser(dict: data) else { return }
             LedgitUser.current = authenticatedUser
             self.delegate?.userAuthenticated(authenticatedUser)
@@ -70,12 +70,12 @@ extension AuthenticationManager {
     
     func performFirebaseSignIn(with email:String, password: String) {
         guard isConnected else {
-            self.delegate?.authenticationError(dict: Constants.ClientErrorMessages.noNetworkConnection)
+            self.delegate?.authenticationError(dict: Constants.clientErrorMessages.noNetworkConnection)
             return
         }
         
         guard !email.isEmpty, !password.isEmpty else {
-            self.delegate?.authenticationError(dict: Constants.ClientErrorMessages.emptyTextFields)
+            self.delegate?.authenticationError(dict: Constants.clientErrorMessages.emptyTextFields)
             return
         }
         
@@ -85,17 +85,17 @@ extension AuthenticationManager {
             }
             
             guard let user = user else {
-                self.delegate?.authenticationError(dict: Constants.AuthErrorMessages.general)
+                self.delegate?.authenticationError(dict: Constants.authErrorMessages.general)
                 return
             }
             
             self.users.child(user.uid).observeSingleEvent(of: .value, with: { (snapshot) in
                 guard let snapshot = snapshot.value as? NSDictionary else {
-                    self.delegate?.authenticationError(dict: Constants.AuthErrorMessages.general)
+                    self.delegate?.authenticationError(dict: Constants.authErrorMessages.general)
                     return
                 }
                 
-                UserDefaults.standard.set(user.uid, forKey: Constants.UserDefaultKeys.uid)
+                UserDefaults.standard.set(user.uid, forKey: Constants.userDefaultKeys.uid)
                 guard let authenticatedUser = LedgitUser(dict: snapshot) else { return }
                 LedgitUser.current = authenticatedUser
                 self.delegate?.userAuthenticated(authenticatedUser)
@@ -105,7 +105,7 @@ extension AuthenticationManager {
     
     func peformFacebookSignUp() {
         guard isConnected else {
-            self.delegate?.authenticationError(dict: Constants.ClientErrorMessages.noNetworkConnection)
+            self.delegate?.authenticationError(dict: Constants.clientErrorMessages.noNetworkConnection)
             return
         }
         
@@ -118,7 +118,7 @@ extension AuthenticationManager {
                 }
                 
             case .cancelled:
-                self.delegate?.authenticationError(dict: Constants.AuthErrorMessages.general)
+                self.delegate?.authenticationError(dict: Constants.authErrorMessages.general)
                 
             case .success( _,  _, let accessToken):
                 let credential = FacebookAuthProvider.credential(withAccessToken: accessToken.authenticationToken)
@@ -129,7 +129,7 @@ extension AuthenticationManager {
                     }
                     
                     guard let user = user else {
-                        self.delegate?.authenticationError(dict: Constants.AuthErrorMessages.general)
+                        self.delegate?.authenticationError(dict: Constants.authErrorMessages.general)
                         return
                     }
                     
@@ -142,8 +142,8 @@ extension AuthenticationManager {
                     ]
                     
                     self.users.child(user.uid).setValue(data)
-                    UserDefaults.standard.set(user.uid, forKey: Constants.UserDefaultKeys.uid)
-                    UserDefaults.standard.set(true, forKey: Constants.UserDefaultKeys.sampleProject)
+                    UserDefaults.standard.set(user.uid, forKey: Constants.userDefaultKeys.uid)
+                    UserDefaults.standard.set(true, forKey: Constants.userDefaultKeys.sampleProject)
                     guard let authenticatedUser = LedgitUser(dict: data) else { return }
                     LedgitUser.current = authenticatedUser
                     self.delegate?.userAuthenticated(authenticatedUser)
@@ -154,7 +154,7 @@ extension AuthenticationManager {
     
     func performFacebookSignIn() {
         guard isConnected else {
-            self.delegate?.authenticationError(dict: Constants.ClientErrorMessages.noNetworkConnection)
+            self.delegate?.authenticationError(dict: Constants.clientErrorMessages.noNetworkConnection)
             return
         }
         
@@ -166,7 +166,7 @@ extension AuthenticationManager {
                 self.delegate?.authenticationError(dict: self.handleError(with: code))
             
             case .cancelled:
-                self.delegate?.authenticationError(dict: Constants.AuthErrorMessages.cancelled)
+                self.delegate?.authenticationError(dict: Constants.authErrorMessages.cancelled)
                 
             case .success( _,  _, let result):
                 let credential = FacebookAuthProvider.credential(withAccessToken: result.authenticationToken)
@@ -177,14 +177,14 @@ extension AuthenticationManager {
                     }
                     
                     guard let user = user else {
-                        self.delegate?.authenticationError(dict: Constants.AuthErrorMessages.general)
+                        self.delegate?.authenticationError(dict: Constants.authErrorMessages.general)
                         return
                     }
                     
                     self.users.child(user.uid).observeSingleEvent(of: .value, with: { (snapshot) in
                         guard let snapshot = snapshot.value as? NSDictionary else { return }
                         guard let authenticatedUser = LedgitUser(dict: snapshot) else { return }
-                        UserDefaults.standard.set(user.uid, forKey: Constants.UserDefaultKeys.uid)
+                        UserDefaults.standard.set(user.uid, forKey: Constants.userDefaultKeys.uid)
                         LedgitUser.current = authenticatedUser
                         self.delegate?.userAuthenticated(authenticatedUser)
                     })
@@ -197,22 +197,22 @@ extension AuthenticationManager {
         switch code {
             
         case .emailAlreadyInUse:
-            return Constants.AuthErrorMessages.emailAlreadyInUse
+            return Constants.authErrorMessages.emailAlreadyInUse
             
         case .userDisabled:
-            return Constants.AuthErrorMessages.userDisabled
+            return Constants.authErrorMessages.userDisabled
             
         case .invalidEmail:
-            return Constants.AuthErrorMessages.invalidEmail
+            return Constants.authErrorMessages.invalidEmail
             
         case .wrongPassword:
-            return Constants.AuthErrorMessages.wrongPassword
+            return Constants.authErrorMessages.wrongPassword
             
         case .userNotFound:
-            return Constants.AuthErrorMessages.userNotFound
+            return Constants.authErrorMessages.userNotFound
             
         default:
-            return Constants.AuthErrorMessages.general
+            return Constants.authErrorMessages.general
         }
     }
 }
@@ -221,7 +221,7 @@ extension AuthenticationManager {
     func isAuthenticated() -> Bool{
         guard auth.currentUser != nil else{ return false }
         
-        guard UserDefaults.standard.value(forKey: Constants.UserDefaultKeys.uid) != nil else { return false }
+        guard UserDefaults.standard.value(forKey: Constants.userDefaultKeys.uid) != nil else { return false }
         
         return true
     }

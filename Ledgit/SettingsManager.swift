@@ -27,7 +27,7 @@ extension SettingsManager {
         do {
             try auth.signOut()
             
-            UserDefaults.standard.set(nil, forKey: Constants.UserDefaultKeys.uid)
+            UserDefaults.standard.set(nil, forKey: Constants.userDefaultKeys.uid)
             
             delegate?.signedout(.success)
     

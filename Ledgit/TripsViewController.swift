@@ -57,7 +57,7 @@ class TripsViewController: UIViewController {
 
     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == Constants.SegueIdentifiers.action {
+        if segue.identifier == Constants.segueIdentifiers.action {
             guard let destinationViewController = segue.destination as? TripActionViewController else { return }
             guard let selectedRow = sender as? Int else { return }
             destinationViewController.delegate = self
@@ -71,7 +71,7 @@ class TripsViewController: UIViewController {
                 destinationViewController.trip = presenter.trips[selectedRow]
             }
             
-        } else if segue.identifier == Constants.SegueIdentifiers.detail {
+        } else if segue.identifier == Constants.segueIdentifiers.detail {
             guard  let destinationViewController = segue.destination as? TripDetailViewController else { return }
             guard let selectedRow = tripsTableView.indexPathForSelectedRow?.row else { return }
             destinationViewController.currentTrip = presenter.trips[selectedRow]
@@ -102,13 +102,13 @@ extension TripsViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.row == presenter.trips.count { //Is last index path
-            let cell = tableView.dequeueReusableCell(withIdentifier: Constants.CellIdentifiers.add, for: indexPath) as! AddTripTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: Constants.cellIdentifiers.add, for: indexPath) as! AddTripTableViewCell
             cell.configure()
             
             return cell
             
         } else {
-            let cell = tableView.dequeueReusableCell(withIdentifier: Constants.CellIdentifiers.trip, for: indexPath) as! TripTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: Constants.cellIdentifiers.trip, for: indexPath) as! TripTableViewCell
             let trip = presenter.trips[indexPath.row]
             cell.configure(with: trip, at: indexPath)
             
@@ -122,10 +122,10 @@ extension TripsViewController: UITableViewDelegate{
         selectedIndexPath = indexPath
         
         if indexPath.row == tableView.lastRow(at: 0) {
-            performSegue(withIdentifier: Constants.SegueIdentifiers.action, sender: indexPath.row)
+            performSegue(withIdentifier: Constants.segueIdentifiers.action, sender: indexPath.row)
         
         }else{
-            performSegue(withIdentifier: Constants.SegueIdentifiers.detail, sender: self)
+            performSegue(withIdentifier: Constants.segueIdentifiers.detail, sender: self)
         }
     }
     
@@ -139,7 +139,7 @@ extension TripsViewController: UITableViewDelegate{
         guard indexPath.row != tableView.lastRow(at: 0) else { return nil }
         
         let edit = UITableViewRowAction(style: .normal, title: "Edit") { [unowned self] (row, index) in
-            self.performSegue(withIdentifier: Constants.SegueIdentifiers.action, sender: indexPath.row)
+            self.performSegue(withIdentifier: Constants.segueIdentifiers.action, sender: indexPath.row)
         }
         
         edit.backgroundColor = .ledgitYellow
@@ -152,8 +152,8 @@ extension TripsViewController: UITableViewDelegate{
                 
                 let selectedRow = indexPath.row
                 
-                if selectedRow == 0 && (UserDefaults.standard.value(forKey: Constants.UserDefaultKeys.sampleProject) as? Bool) == true{
-                    UserDefaults.standard.set(false, forKey: Constants.UserDefaultKeys.sampleProject)
+                if selectedRow == 0 && (UserDefaults.standard.value(forKey: Constants.userDefaultKeys.sampleProject) as? Bool) == true{
+                    UserDefaults.standard.set(false, forKey: Constants.userDefaultKeys.sampleProject)
                 }
                 
                 tableView.beginUpdates()

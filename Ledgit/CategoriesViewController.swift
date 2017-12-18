@@ -38,7 +38,7 @@ class CategoriesViewController: UIViewController {
     }
     
     @IBAction func addButtonPressed(_ sender: Any) {
-        performSegue(withIdentifier: Constants.SegueIdentifiers.categoryAction, sender: Action.add)
+        performSegue(withIdentifier: Constants.segueIdentifiers.categoryAction, sender: Action.add)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -73,7 +73,7 @@ extension CategoriesViewController: UITableViewDelegate, UITableViewDataSource{
         selectedIndexPath = indexPath
         
         let edit = UITableViewRowAction(style: .destructive, title: "Edit") { (action, path) in
-           self.performSegue(withIdentifier: Constants.SegueIdentifiers.categoryAction, sender: Action.edit)
+           self.performSegue(withIdentifier: Constants.segueIdentifiers.categoryAction, sender: Action.edit)
         }
         edit.backgroundColor = .ledgitYellow
         
@@ -91,7 +91,7 @@ extension CategoriesViewController: UITableViewDelegate, UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: Constants.CellIdentifiers.categoryName, for: indexPath) as! CategoryTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: Constants.cellIdentifiers.categoryName, for: indexPath) as! CategoryTableViewCell
         cell.titleLabel.text = presenter?.categories[indexPath.row]
         
         if indexPath.row == 0 && !displayedInformationLabel {

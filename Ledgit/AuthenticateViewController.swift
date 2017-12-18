@@ -62,15 +62,15 @@ class AuthenticateViewController: UIViewController {
 
         switch method {
         case .signup:
-            titleLabel.text = Constants.AuthenticateText.signup
+            titleLabel.text = Constants.authenticateText.signup
             authenticateButton.setTitle("Sign Up", for: .normal)
-            descriptionLabel.text = Constants.AuthenticateText.signupDescription
+            descriptionLabel.text = Constants.authenticateText.signupDescription
             forgotPasswordButton.isHidden = true
             
         case .signin:
-            titleLabel.text = Constants.AuthenticateText.signin
+            titleLabel.text = Constants.authenticateText.signin
             authenticateButton.setTitle("Sign In", for: .normal)
-            descriptionLabel.text = Constants.AuthenticateText.signinDescription
+            descriptionLabel.text = Constants.authenticateText.signinDescription
             forgotPasswordButton.isHidden = false
         }
     }
@@ -81,12 +81,12 @@ class AuthenticateViewController: UIViewController {
     }
     
     func setupButtons(){
-        authenticateButton.createBorder(radius: Constants.CornerRadius.button)
-        facebookButton.createBorder(radius: Constants.CornerRadius.button)
+        authenticateButton.createBorder(radius: Constants.cornerRadius.button)
+        facebookButton.createBorder(radius: Constants.cornerRadius.button)
     }
     
     func setupViews(){
-        loginView.createBorder(radius: Constants.CornerRadius.button, color: .ledgitSeparatorGray)
+        loginView.createBorder(radius: Constants.cornerRadius.button, color: .ledgitSeparatorGray)
     }
     
     func setupRecognizers(){

@@ -51,16 +51,16 @@ class SettingsViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let identifier = segue.identifier
         
-        if identifier == Constants.SegueIdentifiers.account {
+        if identifier == Constants.segueIdentifiers.account {
             guard let accountViewController = segue.destination as? AccountViewController else { return }
             accountViewController.presenter = presenter
         }
         
-        if identifier == Constants.SegueIdentifiers.subscription {
+        if identifier == Constants.segueIdentifiers.subscription {
 
         }
         
-        if identifier == Constants.SegueIdentifiers.category {
+        if identifier == Constants.segueIdentifiers.category {
             guard let categoriesViewController = segue.destination as? CategoriesViewController else { return }
             categoriesViewController.presenter = presenter
         }
@@ -71,13 +71,13 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch indexPath.row {
         case 0: //Categories
-            performSegue(withIdentifier: Constants.SegueIdentifiers.category, sender: self)
+            performSegue(withIdentifier: Constants.segueIdentifiers.category, sender: self)
         case 1: //Subscriptions
-            performSegue(withIdentifier: Constants.SegueIdentifiers.subscription, sender: self)
+            performSegue(withIdentifier: Constants.segueIdentifiers.subscription, sender: self)
         case 2: //Account
-            performSegue(withIdentifier: Constants.SegueIdentifiers.account, sender: self)
+            performSegue(withIdentifier: Constants.segueIdentifiers.account, sender: self)
         default: //About
-            performSegue(withIdentifier: Constants.SegueIdentifiers.about, sender: self)
+            performSegue(withIdentifier: Constants.segueIdentifiers.about, sender: self)
         }
     }
     
@@ -86,7 +86,7 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: Constants.CellIdentifiers.settings, for: indexPath) as! SettingsTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: Constants.cellIdentifiers.settings, for: indexPath) as! SettingsTableViewCell
         
         cell.iconImageView.image = settingsImages[indexPath.row]
         cell.titleLabel.text = settingsTitleText[indexPath.row]
@@ -98,7 +98,7 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource{
 extension SettingsViewController: SettingsPresenterDelegate {
     func signedout() {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let navigationController = storyboard.instantiateViewController(withIdentifier: Constants.NavigationIdentifiers.main) as! UINavigationController
+        let navigationController = storyboard.instantiateViewController(withIdentifier: Constants.navigationIdentifiers.main) as! UINavigationController
         
         self.present(navigationController, animated: true, completion: nil)
     }

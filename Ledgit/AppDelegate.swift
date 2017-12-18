@@ -25,7 +25,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         window = UIWindow(frame: UIScreen.main.bounds)
         
-        if AuthenticationManager.shared.isAuthenticated(), let currentUserKey = UserDefaults.standard.value(forKey: Constants.UserDefaultKeys.uid) as? String{
+        if AuthenticationManager.shared.isAuthenticated(), let currentUserKey = UserDefaults.standard.value(forKey: Constants.userDefaultKeys.uid) as? String {
             
             AuthenticationManager.shared.users.child(currentUserKey).observeSingleEvent(of: .value, with: { (snapshot) in
                 

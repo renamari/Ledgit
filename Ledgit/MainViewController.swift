@@ -40,8 +40,8 @@ class MainViewController: UIViewController {
     }
     
     func setupUI() {
-        signupButton.createBorder(radius: Constants.CornerRadius.button)
-        signinButton.createBorder(radius: Constants.CornerRadius.button, color: .ledgitBlue)
+        signupButton.createBorder(radius: Constants.cornerRadius.button)
+        signinButton.createBorder(radius: Constants.cornerRadius.button, color: .ledgitBlue)
     }
     
     func setupPageViewController() {
@@ -73,12 +73,12 @@ class MainViewController: UIViewController {
     // MARK: - IBActions
     @IBAction func signupButtonPressed(_ sender: Any) {
         method = .signup
-        performSegue(withIdentifier: Constants.SegueIdentifiers.authenticate, sender: nil)
+        performSegue(withIdentifier: Constants.segueIdentifiers.authenticate, sender: nil)
     }
     
     @IBAction func signinButtonPressed(_ sender: Any) {
         method = .signin
-        performSegue(withIdentifier: Constants.SegueIdentifiers.authenticate, sender: nil)
+        performSegue(withIdentifier: Constants.segueIdentifiers.authenticate, sender: nil)
     }
     
     @IBAction func exploreButtonPressed(_ sender: Any) {
@@ -86,7 +86,7 @@ class MainViewController: UIViewController {
 
     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == Constants.SegueIdentifiers.authenticate {
+        if segue.identifier == Constants.segueIdentifiers.authenticate {
             guard let authenticateViewController = segue.destination as? AuthenticateViewController else { return }
             authenticateViewController.method = method
         }

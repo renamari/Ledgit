@@ -26,7 +26,7 @@ struct LedgitEntry {
             let date = dict["date"] as? String,
             let description = dict["description"] as? String,
             let currencyString = dict["currency"] as? String,
-            let currency = Currency.getCurrency(withCode: currencyString),
+            let currency = Currency.get(with: currencyString),
             let location = dict["location"] as? String,
             let category = dict["category"] as? String,
             let paidBy = dict["paidBy"] as? String,

@@ -48,7 +48,7 @@ class Service {
     var currentUser: LedgitUser?
     
     var CURRENT_USER_REF:DatabaseReference {
-        let userID = UserDefaults.standard.value(forKey: Constants.UserDefaultKeys.uid) as! String
+        let userID = UserDefaults.standard.value(forKey: Constants.userDefaultKeys.uid) as! String
         let currentUser = users.child(userID)
         return currentUser
     }
@@ -56,7 +56,7 @@ class Service {
     func isUserAuthenticated() -> Bool{
         guard auth.currentUser != nil else{ return false }
         
-        guard UserDefaults.standard.value(forKey: Constants.UserDefaultKeys.uid) != nil else { return false }
+        guard UserDefaults.standard.value(forKey: Constants.userDefaultKeys.uid) != nil else { return false }
         
         return true
     }
@@ -71,7 +71,7 @@ class Service {
             self.users.child(user.uid).observeSingleEvent(of: .value, with: { (snapshot) in
                 guard let snapshot = snapshot.value as? NSDictionary else { return }
                 guard let authenticatedUser = LedgitUser(dict: snapshot) else { return }
-                UserDefaults.standard.set(authenticatedUser.key, forKey: Constants.UserDefaultKeys.uid)
+                UserDefaults.standard.set(authenticatedUser.key, forKey: Constants.userDefaultKeys.uid)
                 
                 completion(.success(authenticatedUser))
             })
@@ -101,7 +101,7 @@ class Service {
                     if let user = user {
                         self.users.child(user.uid).observeSingleEvent(of: .value, with: { (snapshot) in
                             if let snapshot = snapshot.value as? NSDictionary{
-                                UserDefaults.standard.set(user.uid, forKey: Constants.UserDefaultKeys.uid)
+                                UserDefaults.standard.set(user.uid, forKey: Constants.userDefaultKeys.uid)
                                 guard let authenticatedUser = LedgitUser(dict: snapshot) else { return }
                                 completion(.success(authenticatedUser))
                             }
@@ -127,8 +127,8 @@ class Service {
                 ]
                 
                 self.users.child(user.uid).setValue(data)
-                UserDefaults.standard.set(user.uid, forKey: Constants.UserDefaultKeys.uid)
-                UserDefaults.standard.set(true, forKey: Constants.UserDefaultKeys.sampleProject)
+                UserDefaults.standard.set(user.uid, forKey: Constants.userDefaultKeys.uid)
+                UserDefaults.standard.set(true, forKey: Constants.userDefaultKeys.sampleProject)
                 
                 guard let authenticatedUser = LedgitUser(dict: data) else { return }
                 completion(.success(authenticatedUser))
@@ -166,8 +166,8 @@ class Service {
                         ]
                         
                         self.users.child(user.uid).setValue(data)
-                        UserDefaults.standard.set(user.uid, forKey: Constants.UserDefaultKeys.uid)
-                        UserDefaults.standard.set(true, forKey: Constants.UserDefaultKeys.sampleProject)
+                        UserDefaults.standard.set(user.uid, forKey: Constants.userDefaultKeys.uid)
+                        UserDefaults.standard.set(true, forKey: Constants.userDefaultKeys.sampleProject)
                         
                         guard let authenticatedUser = LedgitUser(dict: data) else { return }
                         completion(.success(authenticatedUser))
@@ -181,7 +181,7 @@ class Service {
         do {
             try auth.signOut()
             
-            UserDefaults.standard.set(nil, forKey: Constants.UserDefaultKeys.uid)
+            UserDefaults.standard.set(nil, forKey: Constants.userDefaultKeys.uid)
             
             completion(.success)
             
@@ -192,7 +192,7 @@ class Service {
     }
     
     func fetchSampleTrip(completion: @escaping(LedgitTrip) -> Void){
-        trips.child(Constants.ProjectID.sample).observeSingleEvent(of: .value, with: { (snapshot) in
+        trips.child(Constants.projectID.sample).observeSingleEvent(of: .value, with: { (snapshot) in
             guard let dict = snapshot.value as? NSDictionary else{
                 return
             }

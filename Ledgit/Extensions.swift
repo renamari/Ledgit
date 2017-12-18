@@ -281,3 +281,7 @@ extension UITableView {
         return self.numberOfRows(inSection: section) - 1
     }
 }
+
+extension DefaultsKeys {
+    static let user = DefaultsKey<LedgitUser?>("user")
+}

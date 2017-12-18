@@ -15,9 +15,9 @@ class TripDetailViewController: UIViewController {
     @IBOutlet weak var pageControl: UIPageControl!
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var collectionViewFlowLayout: UICollectionViewFlowLayout!
-    let transition = BubbleTransition()
-    let cellHeightScale: CGFloat = Constants.Scales.cellHeight
-    let cellWidthScale: CGFloat = Constants.Scales.cellWidth
+    private let transition = BubbleTransition()
+    private let cellHeightScale: CGFloat = Constants.scales.cellHeight
+    private let cellWidthScale: CGFloat = Constants.scales.cellWidth
     
     var currentTrip: LedgitTrip?
     var presenter: TripDetailPresenter?
@@ -28,6 +28,11 @@ class TripDetailViewController: UIViewController {
         setupPresenter()
         setupNavigationBar()
         setupCollectionView()
+        
+        Currency.getRates { rates in
+            print(rates)
+        }
+    
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -36,7 +41,7 @@ class TripDetailViewController: UIViewController {
     
     func setupPresenter() {
         guard let trip = currentTrip else {
-            showAlert(with: Constants.ClientErrorMessages.errorGettingTrip)
+            showAlert(with: Constants.clientErrorMessages.errorGettingTrip)
             dismiss(animated: true, completion: nil)
             return
         }
@@ -62,15 +67,15 @@ class TripDetailViewController: UIViewController {
     }
     
     @IBAction func actionButtonPressed(_ sender: Any) {
-        guard currentTrip?.key != Constants.ProjectID.sample else {
-            showAlert(with: Constants.ClientErrorMessages.cannotAddEntriesToSample)
+        guard currentTrip?.key != Constants.projectID.sample else {
+            showAlert(with: Constants.clientErrorMessages.cannotAddEntriesToSample)
             return
         }
-        performSegue(withIdentifier: Constants.SegueIdentifiers.addEntry, sender: self)
+        performSegue(withIdentifier: Constants.segueIdentifiers.addEntry, sender: self)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == Constants.SegueIdentifiers.addEntry {
+        if segue.identifier == Constants.segueIdentifiers.addEntry {
             guard let addEntryViewController = segue.destination as? AddEntryViewController else {
                 return
             }
@@ -95,18 +100,18 @@ extension TripDetailViewController: UICollectionViewDataSource, UICollectionView
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         switch indexPath.row {
         case 0:
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.CellIdentifiers.weekly, for: indexPath) as! WeeklyCollectionViewCell
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.cellIdentifiers.weekly, for: indexPath) as! WeeklyCollectionViewCell
             if let presenter = presenter {
                 cell.setupChart(with: presenter.entries)
                 cell.updateLabels(dayAmount: presenter.costToday, budgetAmount: presenter.trip.budget, remainingAmount: presenter.trip.budget - presenter.costToday, averageAmount: presenter.averageCost)
             }
             return cell
         case 1:
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.CellIdentifiers.category, for: indexPath) as! CategoryCollectionViewCell
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.cellIdentifiers.category, for: indexPath) as! CategoryCollectionViewCell
             if let presenter = presenter { cell.setupChart(with: presenter.entries) }
             return cell
         default:
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.CellIdentifiers.history, for: indexPath) as! HistoryCollectionViewCell
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.cellIdentifiers.history, for: indexPath) as! HistoryCollectionViewCell
             if let presenter = presenter { cell.updateTableViews(with: presenter.entries) }
             return cell
         }

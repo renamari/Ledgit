@@ -73,7 +73,8 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource{
         case 0: //Categories
             performSegue(withIdentifier: Constants.segueIdentifiers.category, sender: self)
         case 1: //Subscriptions
-            performSegue(withIdentifier: Constants.segueIdentifiers.subscription, sender: self)
+            break
+            //performSegue(withIdentifier: Constants.segueIdentifiers.subscription, sender: self)
         case 2: //Account
             performSegue(withIdentifier: Constants.segueIdentifiers.account, sender: self)
         default: //About

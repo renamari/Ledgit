@@ -28,11 +28,6 @@ class TripDetailViewController: UIViewController {
         setupPresenter()
         setupNavigationBar()
         setupCollectionView()
-        
-        Currency.getRates { rates in
-            print(rates)
-        }
-    
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -71,14 +66,13 @@ class TripDetailViewController: UIViewController {
             showAlert(with: Constants.clientErrorMessages.cannotAddEntriesToSample)
             return
         }
+
         performSegue(withIdentifier: Constants.segueIdentifiers.addEntry, sender: self)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == Constants.segueIdentifiers.addEntry {
-            guard let addEntryViewController = segue.destination as? AddEntryViewController else {
-                return
-            }
+            guard let addEntryViewController = segue.destination as? AddEntryViewController else { return }
             addEntryViewController.presenter = presenter
             addEntryViewController.transitioningDelegate = self
             addEntryViewController.modalPresentationStyle = .custom

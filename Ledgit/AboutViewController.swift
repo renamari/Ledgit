@@ -9,7 +9,6 @@
 import UIKit
 
 class AboutViewController: UIViewController {
-    @IBOutlet weak var backButton: UIButton!
     @IBOutlet weak var webView: UIWebView!
     
     var isLoading:Bool = false{
@@ -25,17 +24,9 @@ class AboutViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         setupWebView()
-        setupButton()
     }
-    
-    func setupButton(){
-        backButton.layer.cornerRadius = backButton.frame.height / 2
-        backButton.layer.masksToBounds = true
-        backButton.clipsToBounds = true
-    }
-    
+
     func setupWebView(){
         webView.delegate = self
         
@@ -44,13 +35,12 @@ class AboutViewController: UIViewController {
         webView.loadRequest(request)
     }
 
-    @IBAction func returnpage(_ sender: Any) {
+    @IBAction func backButtonPressed(_ sender: Any) {
         webView.goBack()
     }
     
-    @IBAction func backButtonPressed(_ sender: Any) {
-        
-        _ = navigationController?.popViewController(animated: true)
+    @IBAction func doneButtonPressed(_ sender: Any) {
+        navigationController?.popViewController(animated: true)
     }
 }
 

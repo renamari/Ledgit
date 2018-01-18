@@ -20,8 +20,10 @@ class AddEntryViewController: UIViewController {
     @IBOutlet weak var amountTextField: SkyFloatingLabelTextField!
     @IBOutlet weak var currencyTextField: SkyFloatingLabelTextField!
     @IBOutlet weak var categoryTextField: SkyFloatingLabelTextField!
+    @IBOutlet weak var exchangeRateTextField: SkyFloatingLabelTextField!
     @IBOutlet weak var paymentPickerCashButton: UIButton!
     @IBOutlet weak var paymentPickerCreditButton: UIButton!
+    var isConnected: Bool { return Reachability.isConnectedToNetwork() }
     var activeTextField = UITextField()
     var selectedCurrency: Currency?
     var selectedCategory: String?
@@ -56,10 +58,12 @@ class AddEntryViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         UIApplication.shared.statusBarStyle = .lightContent
+        activeTextField.resignFirstResponder()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         UIApplication.shared.statusBarStyle = .default
+        activeTextField.resignFirstResponder()
     }
     
     func setupButtons() {
@@ -78,13 +82,30 @@ class AddEntryViewController: UIViewController {
         currencyTextField.delegate = self
         amountTextField.delegate = self
         categoryTextField.delegate = self
-
+        
+        dateTextField.setTitleVisible(true)
+        locationTextField.setTitleVisible(true)
+        descriptionTextField.setTitleVisible(true)
+        currencyTextField.setTitleVisible(true)
+        amountTextField.setTitleVisible(true)
+        categoryTextField.setTitleVisible(true)
+        exchangeRateTextField.setTitleVisible(true)
         dateTextField.text = Date().toString(style: .long)
+        
+        // Initially hide the exchange rate text field
+        if isConnected && !Currency.rates.isEmpty {
+            exchangeRateTextField.frame.size.height = 0
+            exchangeRateTextField.isHidden = true
+        } else {
+            exchangeRateTextField.frame.size.height = categoryTextField.frame.size.height
+            exchangeRateTextField.errorMessage = "Not connected. Enter an exchange rate."
+            exchangeRateTextField.isHidden = false
+        }
     }
     
     func setupObservers() {
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name:NSNotification.Name.UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name:NSNotification.Name.UIKeyboardWillHide, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: .UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: .UIKeyboardWillHide, object: nil)
     }
     
     func createToolbar() -> UIToolbar {
@@ -152,12 +173,24 @@ class AddEntryViewController: UIViewController {
             return
         }
         
-        guard let amount = Double(amountString.components(separatedBy: CharacterSet.decimalDigits.inverted).joined(separator: "")) else { return }
-
-        guard let date = dateTextField.text?.strip(),
-            let owningTripKey = presenter?.trip.key,
-            let name = LedgitUser.current?.key else {
-                return
+        var rate: Double = 1.0
+        if !exchangeRateTextField.isHidden {
+            guard let exchangeRate = exchangeRateTextField.text?.strip() else { return }
+            rate <= Double(exchangeRate)
+        } else if !Currency.rates.isEmpty {
+            if currency == LedgitUser.current.homeCurrency {
+                rate = 1
+            } else {
+                rate = Currency.rates[currency.code]!
+            }
+        }
+        
+        guard
+            let amount = Double(amountString.components(separatedBy: CharacterSet.decimalDigits.inverted).joined(separator: "")),
+            let date = dateTextField.text?.strip(),
+            let owningTripKey = presenter?.trip.key
+        else {
+            return
         }
         
         let key = Service.shared.entries.childByAutoId().key
@@ -168,21 +201,16 @@ class AddEntryViewController: UIViewController {
             "description": description,
             "category": category,
             "currency": currency.code,
+            "homeCurrency": LedgitUser.current.homeCurrency.code,
+            "exchangeRate": rate,
             "paymentType": paymentType.rawValue,
             "cost": amount,
-            "paidBy": name,
+            "paidBy": LedgitUser.current.key,
             "owningTrip": owningTripKey
         ]
         
         presenter?.create(entry: entry)
         dismiss(animated: true, completion: nil)
-    }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == Constants.segueIdentifiers.categorySelection {
-            guard let categorySelectionViewController = segue.destination as? CategorySelectionViewController else { return }
-            categorySelectionViewController.delegate = self
-        }
     }
 }
 
@@ -196,24 +224,24 @@ extension AddEntryViewController: CategorySelectionDelegate {
 
 extension AddEntryViewController: CurrencySelectionDelegate {
     func selected(_ currencies: [Currency]) {
-        selectedCurrency = currencies[0]
+        selectedCurrency = currencies.first
         currencyTextField.text = selectedCurrency?.name
         currencyTextField.resignFirstResponder()
     }
 }
 
 extension AddEntryViewController: UITextFieldDelegate {
+    
     @objc func keyboardWillShow(notification:NSNotification){
         //give room at the bottom of the scroll view, so it doesn't cover up anything the user needs to tap
         guard let info = notification.userInfo else { return }
         guard let keyboard = info[UIKeyboardFrameEndUserInfoKey] as? CGRect else { return }
         
-        scrollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: keyboard.height, right: 0)
+        scrollView.contentInset.bottom = keyboard.height
     }
     
     @objc func keyboardWillHide(notification:NSNotification){
-        let contentInset:UIEdgeInsets = .zero
-        scrollView.contentInset = contentInset
+        scrollView.contentInset = .zero
     }
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
@@ -235,13 +263,20 @@ extension AddEntryViewController: UITextFieldDelegate {
             }
             
         case currencyTextField:
-            currencyTextField.errorMessage = nil
             resignFirstResponder()
+            currencyTextField.errorMessage = nil
+            
             let currencySelectionViewController = CurrencySelectionViewController.instantiate(from: .trips)
             currencySelectionViewController.delegate = self
             currencySelectionViewController.allowsMultipleSelection = false
-            currencySelectionViewController.modalTransitionStyle = .crossDissolve
-            present(currencySelectionViewController, animated: true, completion: nil)
+            
+            let navigationController = UINavigationController(rootViewController: currencySelectionViewController)
+            let doneButton = UIBarButtonItem(title: "Done", style: .done, target: currencySelectionViewController, action: #selector(CurrencySelectionViewController.dismissViewController))
+            doneButton.tintColor = .ledgitBlue
+            navigationController.navigationBar.isTranslucent = false
+            navigationController.topViewController?.navigationItem.setRightBarButton(doneButton, animated: true)
+            
+            present(navigationController, animated: true, completion: nil)
             
         case amountTextField:
             amountTextField.errorMessage = nil
@@ -251,9 +286,19 @@ extension AddEntryViewController: UITextFieldDelegate {
             }
             
         case categoryTextField:
-            categoryTextField.errorMessage = nil
             resignFirstResponder()
-            performSegue(withIdentifier: Constants.segueIdentifiers.categorySelection, sender: nil)
+            categoryTextField.errorMessage = nil
+            
+            let categorySelectionViewController = CategorySelectionViewController.instantiate(from: .trips)
+            categorySelectionViewController.delegate = self
+            
+            let navigationController = UINavigationController(rootViewController: categorySelectionViewController)
+            let doneButton = UIBarButtonItem(title: "Done", style: .done, target: categorySelectionViewController, action: #selector(CategorySelectionViewController.dismissViewController))
+            doneButton.tintColor = .ledgitBlue
+            navigationController.navigationBar.isTranslucent = false
+            navigationController.topViewController?.navigationItem.setRightBarButton(doneButton, animated: true)
+            
+            present(navigationController, animated: true, completion: nil)
             
         case locationTextField:
             locationTextField.errorMessage = nil
@@ -265,10 +310,8 @@ extension AddEntryViewController: UITextFieldDelegate {
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
-        guard let user = LedgitUser.current else { return }
-
         if textField == amountTextField, let text = textField.text?.strip() {
-            textField.text = "\(user.homeCurrency.symbol) \(text)"
+            textField.text = "\(LedgitUser.current.homeCurrency.symbol) \(text)"
         }
     }
     

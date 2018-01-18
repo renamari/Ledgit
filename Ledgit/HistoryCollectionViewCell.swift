@@ -67,18 +67,16 @@ class HistoryCollectionViewCell: UICollectionViewCell {
         }
     }
     
-    func updateTableViews(with data:[LedgitEntry]){
-        guard !data.isEmpty else{
-            return
-        }
+    func updateTableViews(with data:[LedgitEntry]) {
+        guard !data.isEmpty else { return }
         
         dateEntries = []
         cityEntries = []
     
-        for item in data{
-            if let index = dateEntries.index(where: {$0.date.isInSameDayOf(date: item.date)}){
+        for item in data {
+            if let index = dateEntries.index(where: { $0.date.isInSameDayOf(date: item.date) }) {
                 dateEntries[index].entries.append(item)
-            }else{
+            } else {
                 
                 let newSection = DateSection(date: item.date, entries: [item])
                 dateEntries.append(newSection)
@@ -86,7 +84,7 @@ class HistoryCollectionViewCell: UICollectionViewCell {
             
             if let index = cityEntries.index(where: {$0.location == item.location}){
                 cityEntries[index].amount += item.cost
-            }else{
+            } else {
                 let newSection = CitySection(location: item.location, amount: item.cost)
                 cityEntries.append(newSection)
             }
@@ -118,27 +116,28 @@ extension HistoryCollectionViewCell: UITableViewDelegate, UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        
         switch tableView {
-        case dayTableView:
             
-            guard !dateEntries.isEmpty else{
-                return nil
-            }
+        case dayTableView:
+            guard !dateEntries.isEmpty else { return nil }
             
             let view = UIView()
+            let dateSection = dateEntries[section]
             view.backgroundColor = .ledgitNavigationBarGray
         
-            let label = UILabel(frame: CGRect(x: 15, y: 0, width: dayTableView.frame.width, height: headerHeight))
-            label.text = dateEntries[section].date.toString(style: .medium)
+            let label = UILabel(frame: CGRect(x: 15,
+                                              y: 0,
+                                              width: dayTableView.frame.width,
+                                              height: headerHeight))
+            label.text = dateSection.date.toString(style: .medium)
             label.font = .futuraMedium10
             label.textColor = .ledgitNavigationTextGray
             
             view.addSubview(label)
-            
             return view
             
-        default:
-            return nil
+        default: return nil
         }
     }
     

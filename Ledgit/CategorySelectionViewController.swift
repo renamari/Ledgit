@@ -18,10 +18,7 @@ class CategorySelectionViewController: UIViewController {
     weak var delegate: CategorySelectionDelegate?
     lazy var filteredCategories: [String] = []
     var categories: [String] {
-        if let categories = LedgitUser.current?.categories {
-            return categories
-        }
-        return []
+        return LedgitUser.current.categories
     }
     
     override func viewDidLoad() {
@@ -29,6 +26,11 @@ class CategorySelectionViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         searchBar.delegate = self
+        tableView.contentOffset.y = searchBar.frame.height
+    }
+    
+    @objc func dismissViewController() {
+        dismiss(animated: true, completion: nil)
     }
 }
 

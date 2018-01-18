@@ -137,6 +137,7 @@ extension TripsViewController: UITableViewDelegate{
  
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         guard indexPath.row != tableView.lastRow(at: 0) else { return nil }
+        let selectedRow = indexPath.row
         
         let edit = UITableViewRowAction(style: .normal, title: "Edit") { [unowned self] (row, index) in
             self.performSegue(withIdentifier: Constants.segueIdentifiers.action, sender: indexPath.row)
@@ -150,9 +151,7 @@ extension TripsViewController: UITableViewDelegate{
             let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
             let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { (action) in
                 
-                let selectedRow = indexPath.row
-                
-                if selectedRow == 0 && (UserDefaults.standard.value(forKey: Constants.userDefaultKeys.sampleProject) as? Bool) == true{
+                if selectedRow == 0 && (UserDefaults.standard.value(forKey: Constants.userDefaultKeys.sampleProject) as? Bool) == true {
                     UserDefaults.standard.set(false, forKey: Constants.userDefaultKeys.sampleProject)
                 }
                 
@@ -169,7 +168,11 @@ extension TripsViewController: UITableViewDelegate{
             self.present(alert, animated: true, completion: nil)
         }
         
-        return [delete, edit]
+        if selectedRow == 0 && (UserDefaults.standard.value(forKey: Constants.userDefaultKeys.sampleProject) as? Bool) == true {
+            return [delete]
+        } else {
+            return [delete, edit]
+        }
     }
 }
 

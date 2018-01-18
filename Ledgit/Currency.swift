@@ -276,6 +276,8 @@ extension Currency {
                                   SGD, THB, TRY, USD, ZAR, EUR]
     
     static let codes: [String] = Currency.all.map{ $0.code }
+    
+    static var rates: [String : Double] = [:]
 }
 
 extension Currency {
@@ -295,17 +297,33 @@ extension Currency {
     
     // https://api.fixer.io/latest?base=USD
     static func getRates(completion: @escaping (NSDictionary) -> Void) {
-        guard let user = LedgitUser.current else { return }
-        guard let url = URL(string: "https://api.fixer.io/latest?base=\(user.homeCurrency.code)") else { return }
+        guard let url = URL(string: "https://api.fixer.io/latest?base=\(LedgitUser.current.homeCurrency.code)") else { return }
         
-        URLSession.shared.dataTask(with: url) { (data, response, error) in
+        let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
             if error != nil, let error = error { print(error.localizedDescription) }
             guard let data = data else { return }
             guard let result = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) as? NSDictionary else { return }
             guard let rates = result?["rates"] as? NSDictionary else { return }
             
             completion(rates)
-        }.resume()
+        }
+        
+        task.resume()
+    }
+    
+    static func getRates() {
+        guard let url = URL(string: "https://api.fixer.io/latest?base=\(LedgitUser.current.homeCurrency.code)") else { return }
+        
+        let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
+            if error != nil, let error = error { print(error.localizedDescription) }
+            guard let data = data else { return }
+            guard let result = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) as? NSDictionary else { return }
+            guard let rates = result?["rates"] as? [String:Double] else { return }
+            
+            Currency.rates = rates
+        }
+        
+        task.resume()
     }
 }
 

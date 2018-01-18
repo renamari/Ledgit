@@ -50,8 +50,9 @@ enum PaymentType: String {
     case cash = "Cash"
 }
 
-enum Subscription {
-    case free, paid
+enum Subscription: String {
+    case free = "Free"
+    case paid = "Paid"
 }
 
 enum BudgetSelection: String {
@@ -68,6 +69,11 @@ enum LedgitDateStyle: String {
     case short = "MM/dd/yyyy"
     case day = "E"
     case year = "yyyy"
+}
+
+infix operator <=: NilCoalescingPrecedence
+public func <=<T>(lhs: inout T, rhs: T?) {
+    lhs = rhs ?? lhs
 }
 
 public protocol FormatterProtocol {

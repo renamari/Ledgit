@@ -112,8 +112,7 @@ class TripActionViewController: UIViewController {
     
     func setupTextFields() {
         if method == .edit {
-
-            guard let trip = trip, let user = LedgitUser.current else {
+            guard let trip = trip else {
                 navigationController?.popViewController(animated: true)
                 showAlert(with: Constants.clientErrorMessages.errorGettingTrip)
                 return
@@ -122,7 +121,7 @@ class TripActionViewController: UIViewController {
             nameTextField.text = trip.name
             startDateTextField.text = trip.startDate
             endDateTextField.text = trip.endDate
-            budgetTextField.text = "\(user.homeCurrency.symbol) \(trip.budget)"
+            budgetTextField.text = "\(LedgitUser.current.homeCurrency.symbol) \(trip.budget)"
             currenciesTextField.text = trip.currencies.map{ $0.code }.joined(separator: ",")
             selectedCurrencies = trip.currencies
             budgetSelection = trip.budgetSelection
@@ -133,6 +132,12 @@ class TripActionViewController: UIViewController {
         endDateTextField.delegate = self
         budgetTextField.delegate = self
         currenciesTextField.delegate = self
+        
+        nameTextField.setTitleVisible(true)
+        startDateTextField.setTitleVisible(true)
+        endDateTextField.setTitleVisible(true)
+        budgetTextField.setTitleVisible(true)
+        currenciesTextField.setTitleVisible(true)
     }
     
     func setupBudgetPicker() {
@@ -192,8 +197,7 @@ class TripActionViewController: UIViewController {
         }
         
         guard
-            let key = presenter?.manager.trips.childByAutoId().key,
-            let owner = LedgitUser.current?.key
+            let key = presenter?.manager.trips.childByAutoId().key
         else {
             showAlert(with: Constants.clientErrorMessages.authenticationError)
             return
@@ -205,10 +209,11 @@ class TripActionViewController: UIViewController {
          "endDate": endDate,
          "currencies": selectedCurrencies.map{ $0.code },
          "dailyBudget": Double(budget.components(separatedBy: CharacterSet.decimalDigits.inverted).joined(separator: ""))!,
+         "budgetSelection": budgetSelection.rawValue,
          "image": "rome-icon",
          "users": "",
          "key": key,
-         "owner": owner
+         "owner": LedgitUser.current.key
          ]
         delegate?.added(trip: dict)
         navigationController?.popViewController(animated: true)
@@ -316,13 +321,8 @@ extension TripActionViewController: UITextFieldDelegate {
     
     func textFieldDidEndEditing(_ textField: UITextField) {
         if textField == budgetTextField {
-            if let text = textField.text {
-                if let user = LedgitUser.current {
-                    textField.text = "\(user.homeCurrency.symbol) \(text)"
-                } else {
-                    textField.text = "\(text)"
-                }
-            }
+            guard let text = textField.text else { return }
+            textField.text = "\(LedgitUser.current.homeCurrency.symbol) \(text)"
         }
     }
     

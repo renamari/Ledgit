@@ -14,51 +14,41 @@ struct LedgitTrip {
     var startDate: String
     var endDate: String
     var currencies: [Currency] = []
-    //var image: UIImage
     var users: String
     var owner: String
     var budget: Double
-    var budgetSelection: BudgetSelection
+    var budgetSelection: BudgetSelection = .daily
+    //var image: UIImage
     
     init?(dict: NSDictionary) {
         guard
-            let name = dict["name"] as? String,
-            let key = dict["key"] as? String,
-            let startDate = dict["startDate"] as? String,
-            let endDate = dict["endDate"] as? String,
-            let users = dict["users"] as? String,
-            let owner = dict["owner"] as? String,
-            let budget = dict["budget"] as? Double,
-            let budgetSelection = dict["budgetSelection"] as? String,
+            let nameString = dict["name"] as? String,
+            let keyString = dict["key"] as? String,
+            let startDateString = dict["startDate"] as? String,
+            let endDateString = dict["endDate"] as? String,
+            let usersString = dict["users"] as? String,
+            let ownerString = dict["owner"] as? String,
+            let budgetString = dict["dailyBudget"] as? Double,
+            let budgetSelectionString = dict["budgetSelection"] as? String,
             let currencyStrings = dict["currencies"] as? [String]
-            else {
-                return nil
+            
+        else {
+            return nil
         }
         
-        self.name = name
-        self.key = key
-        self.startDate = startDate
-        self.endDate = endDate
+        key = keyString
+        name = nameString
+        startDate = startDateString
+        endDate = endDateString
+        users = usersString
+        owner = ownerString
+        budget = budgetString
+        budgetSelection <= BudgetSelection(rawValue: budgetSelectionString)
         //self.image = UIImage(named: dict["image"] as! String)!
-        self.users = users
-        self.owner = owner
-        self.budget = budget
         
-        switch budgetSelection {
-        case "Daily":
-            self.budgetSelection = .daily
-        case "Monthly":
-            self.budgetSelection = .monthly
-        case "Trip":
-            self.budgetSelection = .trip
-        default:
-            self.budgetSelection = .daily
-        }
-        
-        for item in currencyStrings {
-            if let currency = Currency.all.first(where: { $0.code == item}) {
-                self.currencies.append(currency)
-            }
+        currencyStrings.forEach { item in
+            guard let currency = Currency.get(with: item) else { return }
+            currencies.append(currency)
         }
     }
 }

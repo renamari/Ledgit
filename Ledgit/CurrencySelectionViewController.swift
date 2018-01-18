@@ -32,12 +32,18 @@ class CurrencySelectionViewController: UIViewController {
     
     func setupSearchBar() {
         searchBar.delegate = self
+        
+        tableView.contentOffset.y = searchBar.frame.height
     }
     
     func setupTableView() {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.allowsMultipleSelection = allowsMultipleSelection
+    }
+    
+    @objc func dismissViewController() {
+        dismiss(animated: true, completion: nil)
     }
 }
 
@@ -61,7 +67,7 @@ extension CurrencySelectionViewController: UITableViewDelegate, UITableViewDataS
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: Constants.cellIdentifiers.currency) as! CurrencyTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: Constants.cellIdentifiers.currency, for: indexPath) as! CurrencyTableViewCell
         let currency = !filteredCurrencies.isEmpty ? filteredCurrencies[indexPath.row] : Currency.all[indexPath.row]
 
         cell.configure(with: currency)

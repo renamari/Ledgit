@@ -31,7 +31,9 @@ extension TripDetailManager {
     }
     
     func create(entry: NSDictionary) {
-        guard let key = entry["key"] as? String else { return }
-        entries.child(key).setValue(entry)
+        guard let entryKey = entry["key"] as? String else { return }
+        guard let tripKey = entry["owningTrip"] as? String else { return }
+        entries.child(entryKey).setValue(entry)
+        trips.child(tripKey).updateChildValues(["entries": entryKey])
     }
 }

@@ -62,7 +62,7 @@ extension AuthenticationManager {
             self.users.child(user.uid).setValue(data)
             UserDefaults.standard.set(user.uid, forKey: Constants.userDefaultKeys.uid)
             UserDefaults.standard.set(true, forKey: Constants.userDefaultKeys.sampleProject)
-            guard let authenticatedUser = LedgitUser(dict: data) else { return }
+            let authenticatedUser = LedgitUser(dict: data)
             LedgitUser.current = authenticatedUser
             self.delegate?.userAuthenticated(authenticatedUser)
         }
@@ -96,7 +96,7 @@ extension AuthenticationManager {
                 }
                 
                 UserDefaults.standard.set(user.uid, forKey: Constants.userDefaultKeys.uid)
-                guard let authenticatedUser = LedgitUser(dict: snapshot) else { return }
+                let authenticatedUser = LedgitUser(dict: snapshot)
                 LedgitUser.current = authenticatedUser
                 self.delegate?.userAuthenticated(authenticatedUser)
             })
@@ -144,7 +144,7 @@ extension AuthenticationManager {
                     self.users.child(user.uid).setValue(data)
                     UserDefaults.standard.set(user.uid, forKey: Constants.userDefaultKeys.uid)
                     UserDefaults.standard.set(true, forKey: Constants.userDefaultKeys.sampleProject)
-                    guard let authenticatedUser = LedgitUser(dict: data) else { return }
+                    let authenticatedUser = LedgitUser(dict: data)
                     LedgitUser.current = authenticatedUser
                     self.delegate?.userAuthenticated(authenticatedUser)
                 })
@@ -183,7 +183,7 @@ extension AuthenticationManager {
                     
                     self.users.child(user.uid).observeSingleEvent(of: .value, with: { (snapshot) in
                         guard let snapshot = snapshot.value as? NSDictionary else { return }
-                        guard let authenticatedUser = LedgitUser(dict: snapshot) else { return }
+                        let authenticatedUser = LedgitUser(dict: snapshot)
                         UserDefaults.standard.set(user.uid, forKey: Constants.userDefaultKeys.uid)
                         LedgitUser.current = authenticatedUser
                         self.delegate?.userAuthenticated(authenticatedUser)

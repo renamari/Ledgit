@@ -51,13 +51,9 @@ class AccountViewController: UIViewController {
         nameTextField.delegate = self
         emailTextField.delegate = self
         
-        if let name = LedgitUser.current?.name {
-            nameTextField.text = name
-        }
-        
-        if let email = LedgitUser.current?.email {
-            emailTextField.text = email
-        }
+        let currentUser = LedgitUser.current
+        nameTextField.text = currentUser.name
+        emailTextField.text = currentUser.email
     }
     
     func setupRecognizers() {

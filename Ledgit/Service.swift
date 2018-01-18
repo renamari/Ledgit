@@ -70,7 +70,7 @@ class Service {
             guard let user = user else { return }
             self.users.child(user.uid).observeSingleEvent(of: .value, with: { (snapshot) in
                 guard let snapshot = snapshot.value as? NSDictionary else { return }
-                guard let authenticatedUser = LedgitUser(dict: snapshot) else { return }
+                let authenticatedUser = LedgitUser(dict: snapshot)
                 UserDefaults.standard.set(authenticatedUser.key, forKey: Constants.userDefaultKeys.uid)
                 
                 completion(.success(authenticatedUser))
@@ -100,9 +100,9 @@ class Service {
                     
                     if let user = user {
                         self.users.child(user.uid).observeSingleEvent(of: .value, with: { (snapshot) in
-                            if let snapshot = snapshot.value as? NSDictionary{
+                            if let snapshot = snapshot.value as? NSDictionary {
                                 UserDefaults.standard.set(user.uid, forKey: Constants.userDefaultKeys.uid)
-                                guard let authenticatedUser = LedgitUser(dict: snapshot) else { return }
+                                let authenticatedUser = LedgitUser(dict: snapshot)
                                 completion(.success(authenticatedUser))
                             }
                         })
@@ -130,7 +130,7 @@ class Service {
                 UserDefaults.standard.set(user.uid, forKey: Constants.userDefaultKeys.uid)
                 UserDefaults.standard.set(true, forKey: Constants.userDefaultKeys.sampleProject)
                 
-                guard let authenticatedUser = LedgitUser(dict: data) else { return }
+                let authenticatedUser = LedgitUser(dict: data)
                 completion(.success(authenticatedUser))
             }
         }
@@ -169,7 +169,7 @@ class Service {
                         UserDefaults.standard.set(user.uid, forKey: Constants.userDefaultKeys.uid)
                         UserDefaults.standard.set(true, forKey: Constants.userDefaultKeys.sampleProject)
                         
-                        guard let authenticatedUser = LedgitUser(dict: data) else { return }
+                        let authenticatedUser = LedgitUser(dict: data)
                         completion(.success(authenticatedUser))
                     }
                 })

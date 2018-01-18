@@ -16,7 +16,6 @@ class CategoryCollectionViewCell: UICollectionViewCell, ChartViewDelegate {
     override func awakeFromNib() {
         super.awakeFromNib()
         pieChart.delegate = self
-
     }
     
     override func layoutSubviews() {
@@ -29,30 +28,28 @@ class CategoryCollectionViewCell: UICollectionViewCell, ChartViewDelegate {
         
         layer.cornerRadius = 10
         layer.shadowColor = UIColor.black.cgColor
-        layer.shadowOffset = CGSize(width:0,height: 2)
+        layer.shadowOffset = CGSize(width:0, height: 2)
         layer.shadowRadius = 4
         layer.shadowOpacity = 0.05
         layer.masksToBounds = false
         layer.shadowPath = UIBezierPath(roundedRect:bounds, cornerRadius:contentView.layer.cornerRadius).cgPath
     }
     
-    func setupChart(with data: [LedgitEntry]){
-        guard !data.isEmpty else{
-            return
-        }
+    func setupChart(with data: [LedgitEntry]) {
+        guard !data.isEmpty else { return }
         
         var categories:[String:Double] = [:]
         var values:[PieChartDataEntry] = []
         
-        for item in data{
-            if categories.keys.contains(item.category){
+        for item in data {
+            if categories.keys.contains(item.category) {
                 categories[item.category]! += item.cost
-            }else{
+            } else {
                 categories[item.category] = item.cost
             }
         }
         
-        for item in categories{
+        for item in categories {
             let entry = PieChartDataEntry(value: item.value, label: item.key)
             values.append(entry)
         }
@@ -107,7 +104,9 @@ class CategoryCollectionViewCell: UICollectionViewCell, ChartViewDelegate {
     }
     
     @IBAction func displayButtonPressed(_ sender: Any) {
-        switch displayButton.currentTitle!{
+        guard let title = displayButton.currentTitle else { return }
+        
+        switch title {
         case "$":
             let format = NumberFormatter()
             format.numberStyle = .percent
@@ -122,14 +121,12 @@ class CategoryCollectionViewCell: UICollectionViewCell, ChartViewDelegate {
         default:
             let format = NumberFormatter()
             format.numberStyle = .currency
-            format.currencySymbol = LedgitUser.current!.homeCurrency.symbol
+            format.currencySymbol = LedgitUser.current.homeCurrency.symbol
             let formatter = DefaultValueFormatter(formatter: format)
             
             pieChart.data?.setValueFormatter(formatter)
             pieChart.usePercentValuesEnabled = false
             displayButton.setTitle("$", for: .normal)
         }
-        
-        
     }
 }

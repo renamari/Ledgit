@@ -37,37 +37,30 @@ extension SettingsManager {
     }
     
     func fetchCategories() {
-        guard let categories = LedgitUser.current?.categories else {
-            delegate?.retrieved([])
-            return
-        }
-        delegate?.retrieved(categories)
+        delegate?.retrieved(LedgitUser.current.categories)
     }
     
     func add(category: String){
-        guard var currentUser = LedgitUser.current else { return }
-        currentUser.categories.append(category)
-        LedgitUser.current?.categories.append(category)
-        users.child(currentUser.key).child("categories").setValue(currentUser.categories)
+        LedgitUser.current.categories.append(category)
+        users.child(LedgitUser.current.key).child("categories").setValue(LedgitUser.current.categories)
         delegate?.added(category)
     }
     
     func updateCategory(to newCategory: String, from category: String) {
-        guard var categories = LedgitUser.current?.categories, let key = LedgitUser.current?.key else { return }
-        guard let index = categories.index(where: {$0 == category}) else { return }
-        
-        categories[index] = newCategory
-        users.child(key).child("categories").setValue(categories)
-        LedgitUser.current?.categories = categories
-        delegate?.updated(categories)
+        let key = LedgitUser.current.key
+        var categories = LedgitUser.current.categories
+        if let index = categories.index(of: category) {
+            categories[index] = newCategory
+            users.child(key).child("categories").setValue(categories)
+            LedgitUser.current.categories = categories
+            delegate?.updated(categories)
+        }
     }
     
     func remove(_ category: String) {
-        guard var currentUser = LedgitUser.current else { return }
-        guard let index = currentUser.categories.index(where: {$0 == category}) else { return }
-        
-        let categories = currentUser.categories.remove(at: index)
-        users.child(currentUser.key).child("categories").setValue(categories)
+        guard let index = LedgitUser.current.categories.index(of: category) else { return }
+        LedgitUser.current.categories.remove(at: index)
+        users.child(LedgitUser.current.key).child("categories").setValue(LedgitUser.current.categories)
     }
     
     func updateUser(name: String, email: String) {
@@ -79,8 +72,8 @@ extension SettingsManager {
                 print(error.localizedDescription)
             }
             
-            guard let key = LedgitUser.current?.key else { return }
-            LedgitUser.current?.name = name
+            let key = LedgitUser.current.key
+            LedgitUser.current.name = name
             self.users.child(key).child("name").setValue(name)
         }
         
@@ -90,8 +83,8 @@ extension SettingsManager {
                 print(error.localizedDescription)
             }
             
-            guard let key = LedgitUser.current?.key else { return }
-            LedgitUser.current?.email = email
+            let key = LedgitUser.current.key
+            LedgitUser.current.email = email
             self.users.child(key).child("email").setValue(email)
         })
     }

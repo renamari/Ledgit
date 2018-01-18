@@ -19,31 +19,35 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
-        FirebaseApp.configure()
-        ROX.setup(withKey:"59e7e1a2832daa14ceb21736")
         
+        // Set up Facebook login
+        FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
+        
+        // Set up Firebase
+        FirebaseApp.configure()
+        
+        // Set up Rollout configuration
+        ROX.setup(withKey:"59e7e1a2832daa14ceb21736")
         window = UIWindow(frame: UIScreen.main.bounds)
         
         if AuthenticationManager.shared.isAuthenticated(), let currentUserKey = UserDefaults.standard.value(forKey: Constants.userDefaultKeys.uid) as? String {
-            
             AuthenticationManager.shared.users.child(currentUserKey).observeSingleEvent(of: .value, with: { (snapshot) in
                 
-                if let snapshot = snapshot.value as? NSDictionary{
+                if let snapshot = snapshot.value as? NSDictionary {
                     LedgitUser.current = LedgitUser(dict: snapshot)
-                    
+                    Currency.getRates()
                 }
             })
             
             let navigationController = TripsNavigationController.instantiate(from: .trips)
             self.window?.rootViewController = navigationController
         
-        }else{
+        } else {
             let navigationController = MainNavigationController.instantiate(from: .main)
             self.window?.rootViewController = navigationController
         }
         
-        self.window?.makeKeyAndVisible()
+        window?.makeKeyAndVisible()
  
         return true
     }

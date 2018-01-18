@@ -23,8 +23,8 @@ class WeeklyCollectionViewCell: UICollectionViewCell, ChartViewDelegate {
         (Date() - 5.day).toString(style: .day),
         (Date() - 4.day).toString(style: .day),
         (Date() - 3.day).toString(style: .day),
-        (Date() - 2.day).toString(style: .day),
-        (Date() - 1.day).toString(style: .day),
+        (Date() - 2.day).toString(style: .day),  // etc..
+        (Date() - 1.day).toString(style: .day),  // Yesterday
         "Today"
     ]
     
@@ -51,12 +51,10 @@ class WeeklyCollectionViewCell: UICollectionViewCell, ChartViewDelegate {
     }
     
     func updateLabels(dayAmount: Double, budgetAmount: Double, remainingAmount: Double, averageAmount: Double){
-        
         let dayAmount = String(format: "%.2f", dayAmount)
         let budgetAmount = String(format: "%.2f", budgetAmount)
         let remainingAmount = String(format: "%.2f", remainingAmount)
         let averageAmount = String(format: "%.2f", averageAmount)
-        
         
         dayLabel.text = Date().toString(style: .long)
         dayCostLabel.text =  dayAmount
@@ -66,35 +64,43 @@ class WeeklyCollectionViewCell: UICollectionViewCell, ChartViewDelegate {
     }
     
     func setupChart(with data: [LedgitEntry]){
-        guard !data.isEmpty else{
-            return
-        }
-        
+        guard !data.isEmpty else { return }
         var values:[BarChartDataEntry] = []
         var amounts:[Double] = [0, 0, 0, 0, 0, 0, 0]
         
-        for index in 0..<data.count{
+        for index in 0..<data.count {
             let item = data[index]
             
-            if item.date.isInSameDayOf(date: (Date() - 6.day)){
+            /*
+             Chart is layed out with today being on the far right of the chart
+             
+               -----    ----                    -----           -----
+               -----    ----    -----           -----   ----    -----
+               -----    ----    -----   -----   -----   ----    -----
+             |   0   |   1   |    2   |   3   |   4   |   5   |    6    |
+             |  Wed  |  Thur |   Fri  |  Sat  |  Sun  |  Mon  |  Today  |
+             
+             */
+            
+            if item.date.isInSameDayOf(date: (Date() - 6.day)) {
                 amounts[0] += item.cost
-            }else if item.date.isInSameDayOf(date: (Date() - 5.day)){
+            } else if item.date.isInSameDayOf(date: (Date() - 5.day)) {
                 amounts[1] += item.cost
-            }else if item.date.isInSameDayOf(date: (Date() - 4.day)){
+            } else if item.date.isInSameDayOf(date: (Date() - 4.day)) {
                 amounts[2] += item.cost
-            }else if item.date.isInSameDayOf(date: (Date() - 3.day)){
+            } else if item.date.isInSameDayOf(date: (Date() - 3.day)) {
                 amounts[3] += item.cost
-            }else if item.date.isInSameDayOf(date: (Date() - 2.day)){
+            } else if item.date.isInSameDayOf(date: (Date() - 2.day)) {
                 amounts[4] += item.cost
-            }else if item.date.isInSameDayOf(date: (Date() - 1.day)){
+            } else if item.date.isInSameDayOf(date: (Date() - 1.day)) {
                 amounts[5] += item.cost
-            }else if item.date.isToday{
+            } else if item.date.isToday {
                 amounts[6] += item.cost
             }
         }
         
-        for index in 0..<amounts.count{
-            let entry = BarChartDataEntry(x: Double(index), y: amounts[index])
+        for (index, amount) in amounts.enumerated() {
+            let entry = BarChartDataEntry(x: Double(index), y: amount)
             values.append(entry)
         }
         
@@ -108,7 +114,7 @@ class WeeklyCollectionViewCell: UICollectionViewCell, ChartViewDelegate {
         format.minimum = 0
         format.numberStyle = .currency
         format.allowsFloats = false
-        format.currencySymbol = LedgitUser.current!.homeCurrency.symbol
+        format.currencySymbol = LedgitUser.current.homeCurrency.symbol
         
         let xFormat = BarChartXAxisFormatter(labels: weekdays)
         
@@ -116,7 +122,7 @@ class WeeklyCollectionViewCell: UICollectionViewCell, ChartViewDelegate {
         dataFormat.numberStyle = .currency
         dataFormat.allowsFloats = false
         dataFormat.zeroSymbol = ""
-        dataFormat.currencySymbol = LedgitUser.current!.homeCurrency.symbol
+        dataFormat.currencySymbol = LedgitUser.current.homeCurrency.symbol
         let dataFormatter = DefaultValueFormatter(formatter: dataFormat)
         
         let xAxis: XAxis = weeklyChart.xAxis
@@ -155,9 +161,7 @@ class WeeklyCollectionViewCell: UICollectionViewCell, ChartViewDelegate {
 }
 
 extension WeeklyCollectionViewCell {
-    
     class BarChartXAxisFormatter: NSObject, IAxisValueFormatter {
-        
         var labels: [String] = []
         
         func stringForValue(_ value: Double, axis: AxisBase?) -> String {

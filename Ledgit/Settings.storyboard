@@ -419,18 +419,18 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6Qz-iW-Jcw">
-                                        <rect key="frame" x="15" y="67.666666666666686" width="304" height="51"/>
+                                        <rect key="frame" x="15" y="67.666666666666686" width="304" height="46"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bhe-L5-17K">
-                                        <rect key="frame" x="15" y="228" width="304" height="51"/>
+                                        <rect key="frame" x="15" y="223" width="304" height="46"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </view>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cZe-Ya-dH9">
-                                        <rect key="frame" x="15" y="279" width="304" height="40"/>
+                                        <rect key="frame" x="15" y="269" width="304" height="50"/>
                                         <color key="backgroundColor" red="0.27450980390000002" green="0.54901960780000003" blue="0.99215686270000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="40" id="YOJ-I2-ABw"/>
+                                            <constraint firstAttribute="height" constant="50" id="YOJ-I2-ABw"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="17"/>
                                         <state key="normal" title="Save">
@@ -441,7 +441,7 @@
                                         </connections>
                                     </button>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Jdx-au-ghb" customClass="SkyFloatingLabelTextField" customModule="SkyFloatingLabelTextField">
-                                        <rect key="frame" x="30" y="118.66666666666669" width="274" height="50"/>
+                                        <rect key="frame" x="30" y="113.66666666666669" width="274" height="50"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="50" id="jic-De-vz4"/>
                                         </constraints>
@@ -463,7 +463,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </textField>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="plR-oR-AuR" customClass="SkyFloatingLabelTextField" customModule="SkyFloatingLabelTextField">
-                                        <rect key="frame" x="30" y="183.66666666666669" width="274" height="44.333333333333343"/>
+                                        <rect key="frame" x="30" y="178.66666666666669" width="274" height="44.333333333333343"/>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="17"/>
                                         <textInputTraits key="textInputTraits"/>

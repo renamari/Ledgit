@@ -68,11 +68,11 @@ class AccountViewController: UIViewController {
     
     func setupView() {
         view.backgroundColor = UIColor.black.withAlphaComponent(0.7)
-        cardView.createBorder(radius: 10)
+        cardView.roundedCorners(radius: Constants.cornerRadius.button)
     }
     
     func setupButton(){
-        saveButton.createBorder(radius: 10)
+        saveButton.roundedCorners(radius: Constants.cornerRadius.button)
     }
     
     @IBAction func closeButtonPressed(_ sender: Any) {

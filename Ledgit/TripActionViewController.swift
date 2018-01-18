@@ -107,7 +107,7 @@ class TripActionViewController: UIViewController {
             actionButton.setTitle("Save", for: .normal)
         }
         
-        actionButton.createBorder(radius: 10)
+        actionButton.roundedCorners(radius: Constants.cornerRadius.button)
     }
     
     func setupTextFields() {
@@ -141,9 +141,9 @@ class TripActionViewController: UIViewController {
     }
     
     func setupBudgetPicker() {
-        budgetPickerDailyButton.createBorder(radius: budgetPickerButtonHeight / 2, color: .ledgitNavigationTextGray)
-        budgetPickerMonthlyButton.createBorder(radius: budgetPickerButtonHeight / 2, color: .ledgitNavigationTextGray)
-        budgetPickerTripButton.createBorder(radius: budgetPickerButtonHeight / 2, color: .ledgitNavigationTextGray)
+        budgetPickerDailyButton.roundedCorners(radius: budgetPickerButtonHeight / 2, borderColor: .ledgitNavigationTextGray)
+        budgetPickerMonthlyButton.roundedCorners(radius: budgetPickerButtonHeight / 2, borderColor: .ledgitNavigationTextGray)
+        budgetPickerTripButton.roundedCorners(radius: budgetPickerButtonHeight / 2, borderColor: .ledgitNavigationTextGray)
         
         if method == .edit {
             guard let trip = trip else {
@@ -159,8 +159,8 @@ class TripActionViewController: UIViewController {
     }
     
     func setupObservers() {
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name:NSNotification.Name.UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name:NSNotification.Name.UIKeyboardWillHide, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: .UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: .UIKeyboardWillHide, object: nil)
     }
     
     func setupBars(){
@@ -215,6 +215,7 @@ class TripActionViewController: UIViewController {
          "key": key,
          "owner": LedgitUser.current.key
          ]
+        
         delegate?.added(trip: dict)
         navigationController?.popViewController(animated: true)
     }
@@ -266,12 +267,11 @@ class TripActionViewController: UIViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        activeTextField.resignFirstResponder()
         if segue.identifier == Constants.segueIdentifiers.currencySelection {
             guard let destinationViewController = segue.destination as? CurrencySelectionViewController else { return }
             destinationViewController.delegate = self
             destinationViewController.currencies = selectedCurrencies
-            
-            activeTextField.resignFirstResponder()
         }
     }
 }

@@ -81,12 +81,12 @@ class AuthenticateViewController: UIViewController {
     }
     
     func setupButtons(){
-        authenticateButton.createBorder(radius: Constants.cornerRadius.button)
-        facebookButton.createBorder(radius: Constants.cornerRadius.button)
+        authenticateButton.roundedCorners(radius: Constants.cornerRadius.button)
+        facebookButton.roundedCorners(radius: Constants.cornerRadius.button)
     }
     
     func setupViews(){
-        loginView.createBorder(radius: Constants.cornerRadius.button, color: .ledgitSeparatorGray)
+        loginView.roundedCorners(radius: Constants.cornerRadius.button, borderColor: .ledgitSeparatorGray)
     }
     
     func setupRecognizers(){

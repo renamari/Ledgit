@@ -40,8 +40,8 @@ class MainViewController: UIViewController {
     }
     
     func setupUI() {
-        signupButton.createBorder(radius: Constants.cornerRadius.button)
-        signinButton.createBorder(radius: Constants.cornerRadius.button, color: .ledgitBlue)
+        signupButton.roundedCorners(radius: Constants.cornerRadius.button)
+        signinButton.roundedCorners(radius: Constants.cornerRadius.button, borderColor: .ledgitBlue)
     }
     
     func setupPageViewController() {

@@ -46,7 +46,7 @@ class TripDetailViewController: UIViewController {
     }
     
     func setupButton(){
-        actionButton.createBorder(radius: actionButton.frame.height / 2)
+        actionButton.roundedCorners(radius: actionButton.frame.height / 2)
     }
     
     func setupCollectionView(){

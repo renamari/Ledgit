@@ -68,10 +68,10 @@ class AddEntryViewController: UIViewController {
     
     func setupButtons() {
         closeButton.transform = CGAffineTransform(rotationAngle: CGFloat.pi / 4)
-        closeButton.createBorder(radius: 25)
+        closeButton.roundedCorners(radius: 25)
         
-        paymentPickerCashButton.createBorder(radius: paymentPickerCashButton.frame.height / 2, color: .white)
-        paymentPickerCreditButton.createBorder(radius: paymentPickerCreditButton.frame.height / 2, color: .white)
+        paymentPickerCashButton.roundedCorners(radius: paymentPickerCashButton.frame.height / 2, borderColor: .white)
+        paymentPickerCreditButton.roundedCorners(radius: paymentPickerCreditButton.frame.height / 2, borderColor: .white)
         paymentType = .cash
     }
     

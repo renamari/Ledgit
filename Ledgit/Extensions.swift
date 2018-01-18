@@ -200,21 +200,20 @@ extension UIView {
     
     func addTapRecognizer(with action: Selector) {
         let tapRecognizer = UITapGestureRecognizer(target: self, action: action)
-        
         self.addGestureRecognizer(tapRecognizer)
     }
     
-    func createBorder(radius: CGFloat) {
+    func roundedCorners(radius: CGFloat) {
         self.layer.cornerRadius = radius
         self.layer.masksToBounds = true
         self.clipsToBounds = true
     }
     
-    func createBorder(radius: CGFloat, color: UIColor){
+    func roundedCorners(radius: CGFloat, borderColor: UIColor) {
         self.layer.cornerRadius = radius
         self.layer.masksToBounds = true
         self.clipsToBounds = true
-        self.layer.borderColor = color.cgColor
+        self.layer.borderColor = borderColor.cgColor
         self.layer.borderWidth = 1
     }
     
@@ -232,7 +231,6 @@ extension UIView {
         layer.path = UIBezierPath(roundedRect: frame, cornerRadius: 5).cgPath
         layer.masksToBounds = true
         self.layer.addSublayer(layer)
-        
     }
     
     // view1: represents view which should be hidden and from which we are starting

@@ -104,7 +104,7 @@ struct Constants {
     }
     
     struct cornerRadius {
-        static let button: CGFloat  = 10
+        static let button: CGFloat  = 5
     }
     
     struct firebaseReference {

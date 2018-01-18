@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="TaV-jP-eNz">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="TaV-jP-eNz">
     <device id="retina5_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -39,10 +39,10 @@
                                 </connections>
                             </button>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="hgW-cc-Fsr" userLabel="Authentication Buttons">
-                                <rect key="frame" x="20" y="628" width="374" height="40"/>
+                                <rect key="frame" x="20" y="618" width="374" height="50"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gQE-M0-Utg">
-                                        <rect key="frame" x="0.0" y="0.0" width="182" height="40"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="182" height="50"/>
                                         <color key="backgroundColor" red="0.18823529410000001" green="0.54901960780000003" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="18"/>
                                         <state key="normal" title="Sign Up">
@@ -53,7 +53,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jxn-yC-eYF">
-                                        <rect key="frame" x="192" y="0.0" width="182" height="40"/>
+                                        <rect key="frame" x="192" y="0.0" width="182" height="50"/>
                                         <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="18"/>
                                         <state key="normal" title="Log In">
                                             <color key="titleColor" red="0.18823529410000001" green="0.54901960780000003" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -64,7 +64,7 @@
                                     </button>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="9pU-Tc-wu1"/>
+                                    <constraint firstAttribute="height" constant="50" id="9pU-Tc-wu1"/>
                                     <constraint firstAttribute="height" constant="75" id="FJH-fP-tm2"/>
                                 </constraints>
                                 <variation key="default">
@@ -80,12 +80,12 @@
                                 </variation>
                             </stackView>
                             <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="feu-zP-oGh">
-                                <rect key="frame" x="187.66666666666666" y="586" width="39" height="37"/>
+                                <rect key="frame" x="187.66666666666666" y="576" width="39" height="37"/>
                                 <color key="pageIndicatorTintColor" red="0.84313725490196079" green="0.84313725490196079" blue="0.84313725490196079" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="currentPageIndicatorTintColor" red="0.18823529410000001" green="0.54901960780000003" blue="0.97647058819999999" alpha="1" colorSpace="calibratedRGB"/>
                             </pageControl>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MsE-RM-4NR">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="581"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="571"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                         </subviews>
@@ -172,13 +172,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ledgit-icon-blue" translatesAutoresizingMaskIntoConstraints="NO" id="kJZ-NQ-6LM">
-                                <rect key="frame" x="151" y="121" width="110.66666666666669" height="110.33333333333331"/>
+                                <rect key="frame" x="162" y="121.66666666666669" width="88.666666666666686" height="88.333333333333314"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="kJZ-NQ-6LM" secondAttribute="height" multiplier="1:1" id="VB3-8F-FH3"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sign in to get started" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="L6N-DC-a3V">
-                                <rect key="frame" x="40" y="261" width="334" height="22.333333333333314"/>
+                                <rect key="frame" x="40" y="239.66666666666666" width="334" height="22.333333333333343"/>
                                 <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="20"/>
                                 <color key="textColor" red="0.30588235294117649" green="0.30588235294117649" blue="0.30588235294117649" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -187,7 +187,7 @@
                                 </variation>
                             </label>
                             <view tag="10" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Iw2-sC-gBt">
-                                <rect key="frame" x="40" y="294" width="334" height="100"/>
+                                <rect key="frame" x="40" y="272.66666666666669" width="334" height="100"/>
                                 <subviews>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hku-WL-VPl">
                                         <rect key="frame" x="10" y="0.0" width="314" height="49.333333333333336"/>
@@ -226,10 +226,10 @@
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0AI-oO-4LT">
-                                <rect key="frame" x="40" y="404" width="334" height="40"/>
+                                <rect key="frame" x="40" y="382.66666666666669" width="334" height="50"/>
                                 <color key="backgroundColor" red="0.18823529411764706" green="0.5490196078431373" blue="0.97647058823529409" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="9cy-a7-S9n"/>
+                                    <constraint firstAttribute="height" constant="50" id="9cy-a7-S9n"/>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="40" id="W6p-vP-ka2"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="17"/>
@@ -252,7 +252,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="or Log In Using" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hny-bx-HeR">
-                                <rect key="frame" x="40" y="616.33333333333337" width="334" height="19.666666666666629"/>
+                                <rect key="frame" x="40" y="606.33333333333337" width="334" height="19.666666666666629"/>
                                 <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="20"/>
                                 <color key="textColor" red="0.61176470588235299" green="0.61176470588235299" blue="0.61176470588235299" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -261,10 +261,10 @@
                                 </variation>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lfd-Lz-wfP">
-                                <rect key="frame" x="40" y="646" width="334" height="40"/>
+                                <rect key="frame" x="40" y="636" width="334" height="50"/>
                                 <color key="backgroundColor" red="0.14509803921568626" green="0.27843137254901962" blue="0.60784313725490191" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="gCs-CI-Cel"/>
+                                    <constraint firstAttribute="height" constant="50" id="gCs-CI-Cel"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="17"/>
                                 <state key="normal" title="Facebook">
@@ -291,11 +291,11 @@
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1RB-qi-JoM">
-                                <rect key="frame" x="40" y="444" width="334" height="172"/>
+                                <rect key="frame" x="40" y="432.66666666666669" width="334" height="173.33333333333331"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qbe-og-Ubb">
-                                <rect key="frame" x="35" y="34.999999999999993" width="339" height="86.333333333333314"/>
+                                <rect key="frame" x="35" y="35" width="339" height="87"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </view>
                         </subviews>
@@ -316,7 +316,7 @@
                             <constraint firstItem="mpT-uT-aRK" firstAttribute="leading" secondItem="sQa-fQ-1kI" secondAttribute="leading" constant="40" id="UVQ-cq-PVq"/>
                             <constraint firstAttribute="trailing" secondItem="Qbe-og-Ubb" secondAttribute="trailing" constant="40" id="XVW-QM-lxJ"/>
                             <constraint firstItem="Lfd-Lz-wfP" firstAttribute="leading" secondItem="sQa-fQ-1kI" secondAttribute="leading" constant="40" id="Y91-wq-Gtb"/>
-                            <constraint firstItem="kJZ-NQ-6LM" firstAttribute="height" secondItem="sQa-fQ-1kI" secondAttribute="height" multiplier="0.15" id="axf-ZJ-J0Y"/>
+                            <constraint firstItem="kJZ-NQ-6LM" firstAttribute="height" secondItem="sQa-fQ-1kI" secondAttribute="height" multiplier="0.12" id="axf-ZJ-J0Y"/>
                             <constraint firstItem="hny-bx-HeR" firstAttribute="leading" secondItem="sQa-fQ-1kI" secondAttribute="leading" constant="40" id="c5G-WX-wLP"/>
                             <constraint firstItem="mpT-uT-aRK" firstAttribute="top" secondItem="Lfd-Lz-wfP" secondAttribute="bottom" constant="10" id="cTr-cF-7Y2"/>
                             <constraint firstAttribute="trailing" secondItem="hny-bx-HeR" secondAttribute="trailing" constant="40" id="ejN-au-sud"/>

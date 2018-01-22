@@ -29,6 +29,8 @@ class TripsViewController: UIViewController {
         setupTableView()
         
         setupPresenter()
+        
+        Currency.getRates()
     }
     
     override func viewWillAppear(_ animated: Bool) {

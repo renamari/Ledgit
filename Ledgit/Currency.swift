@@ -13,7 +13,6 @@ struct Currency: Equatable {
     var code: String
     var symbol: String
     var flagCode: String
-    var image: UIImage
 }
 
 extension Currency {
@@ -22,248 +21,217 @@ extension Currency {
             name: "Australian Dollar",
             code: "AUD",
             symbol: "A$",
-            flagCode: "AU",
-            image: #imageLiteral(resourceName: "AU"))
+            flagCode: "AU")
     }
-    
     static var BGN: Currency {
         return Currency(
             name: "Bulgarian Lev",
             code: "BGN",
             symbol: "BGN",
-            flagCode: "BG",
-            image: #imageLiteral(resourceName: "BG"))
+            flagCode: "BG")
     }
     static var BRL: Currency {
         return Currency(
             name: "Brazilian Real",
             code: "BRL",
             symbol: "R$",
-            flagCode: "BR",
-            image: #imageLiteral(resourceName: "BR"))
+            flagCode: "BR")
     }
     static var CAD: Currency {
         return Currency(
             name: "Canadian Dollar",
             code: "CAD",
             symbol: "CA$",
-            flagCode: "CA",
-            image: #imageLiteral(resourceName: "CA"))
+            flagCode: "CA")
     }
     static var CHF: Currency {
         return Currency(
             name: "Swiss Franc",
             code: "CHF",
             symbol: "CHF",
-            flagCode: "CH2",
-            image: #imageLiteral(resourceName: "CH2"))
+            flagCode: "CH")
     }
     static var CNY: Currency {
         return Currency(
             name: "Chinese Yuan",
             code: "CNY",
             symbol: "CN¥",
-            flagCode: "CN",
-            image: #imageLiteral(resourceName: "CN"))
+            flagCode: "CN")
     }
     static var CZK: Currency {
         return Currency(
             name: "Czech Koruna",
             code: "CZK",
             symbol: "CZK",
-            flagCode: "CZ",
-            image: #imageLiteral(resourceName: "CZ"))
+            flagCode: "CZ")
     }
     static var DKK: Currency {
         return Currency(
             name: "Danish Krone",
             code: "DKK",
             symbol: "DKK",
-            flagCode: "DK",
-            image: #imageLiteral(resourceName: "DK"))
+            flagCode: "DK")
     }
     static var GBP: Currency {
         return Currency(
             name: "Great British Pound",
             code: "GBP",
             symbol: "£",
-            flagCode: "GB",
-            image: #imageLiteral(resourceName: "GB"))
+            flagCode: "GB")
     }
     static var HKD: Currency {
         return Currency(
             name: "Hong Kong Dollar",
             code: "HKD",
             symbol: "HK$",
-            flagCode: "HK",
-            image: #imageLiteral(resourceName: "HK"))
+            flagCode: "HK")
     }
     static var HRK: Currency {
         return Currency(
             name: "Croatia Kuna",
             code: "HRK",
             symbol: "HRK",
-            flagCode: "HR",
-            image: #imageLiteral(resourceName: "HR"))
+            flagCode: "HR")
     }
     static var HUF: Currency {
         return Currency(
             name: "Hungarian Forint",
             code: "HUF",
             symbol: "HUF",
-            flagCode: "HU",
-            image: #imageLiteral(resourceName: "HU"))
+            flagCode: "HU")
     }
     static var IDR: Currency {
         return Currency(
             name: "Indonesian Rupiah",
             code: "IDR",
             symbol: "IDR",
-            flagCode: "ID",
-            image: #imageLiteral(resourceName: "ID"))
+            flagCode: "ID")
     }
     static var ILS: Currency {
         return Currency(
             name: "Israeli New Shekel",
             code: "ILS",
             symbol: "₪",
-            flagCode: "IL",
-            image: #imageLiteral(resourceName: "IL"))
+            flagCode: "IL")
     }
     static var JPY: Currency {
         return Currency(
             name: "Japanese Yen",
             code: "JPY",
             symbol: "¥",
-            flagCode: "JP",
-            image: #imageLiteral(resourceName: "JP"))
+            flagCode: "JP")
     }
     static var KRW: Currency {
         return Currency(
             name: "South Korean Won",
             code: "KRW",
             symbol: "₩",
-            flagCode: "KR",
-            image: #imageLiteral(resourceName: "KR"))
+            flagCode: "KR")
     }
     static var MXN: Currency {
         return Currency(
             name: "Mexican Peso",
             code: "MXN",
             symbol: "MX$",
-            flagCode: "MX",
-            image: #imageLiteral(resourceName: "MX"))
+            flagCode: "MX")
     }
     static var MYR: Currency {
         return Currency(
             name: "Malaysian Ringgit",
             code: "MYR",
             symbol: "MYR",
-            flagCode: "MY",
-            image: #imageLiteral(resourceName: "MY"))}
+            flagCode: "MY")
+    }
     static var NOK: Currency {
         return Currency(
             name: "Norwegian Krone",
             code: "NOK",
             symbol: "NOK",
-            flagCode: "NO",
-            image: #imageLiteral(resourceName: "NO"))
+            flagCode: "NO")
     }
     static var NZD: Currency {
         return Currency(
             name: "New Zealand Dollar",
             code: "NZD",
             symbol: "NZ$",
-            flagCode: "NZ",
-            image: #imageLiteral(resourceName: "NZ"))
+            flagCode: "NZ")
     }
     static var PHP: Currency {
         return Currency(
             name: "Philippine Peso",
             code: "PHP",
             symbol: "PHP",
-            flagCode: "PH",
-            image: #imageLiteral(resourceName: "PH"))
+            flagCode: "PH")
     }
     static var PLN: Currency {
         return Currency(
             name: "Polish Zloty",
             code: "PLN",
             symbol: "PLN",
-            flagCode: "PL",
-            image: #imageLiteral(resourceName: "PL"))
+            flagCode: "PL")
     }
     static var RON: Currency {
         return Currency(
             name: "Romanian Leu",
             code: "RON",
             symbol: "RON",
-            flagCode: "RO",
-            image: #imageLiteral(resourceName: "RO"))
+            flagCode: "RO")
     }
     static var RUB: Currency {
         return Currency(
             name: "Russian Ruble",
             code: "RUB",
             symbol: "RUB",
-            flagCode: "RU",
-            image: #imageLiteral(resourceName: "RU"))
+            flagCode: "RU")
     }
     static var SEK: Currency {
         return Currency(
             name: "Swedish Krona",
             code: "SEK",
             symbol: "SEK",
-            flagCode: "SE",
-            image: #imageLiteral(resourceName: "SE"))
+            flagCode: "SE")
     }
     static var SGD: Currency {
         return Currency(
             name: "Singapore Dollar",
             code: "SGD",
             symbol: "SGD",
-            flagCode: "SG",
-            image: #imageLiteral(resourceName: "SG"))
+            flagCode: "SG")
     }
     static var THB: Currency {
         return Currency(
             name: "Thai Baht",
             code: "THB",
             symbol: "THB",
-            flagCode: "TH",
-            image: #imageLiteral(resourceName: "TH"))
+            flagCode: "TH")
     }
     static var TRY: Currency {
         return Currency(
             name: "Turkish Lira",
             code: "TRY",
             symbol: "TRY",
-            flagCode: "TR",
-            image: #imageLiteral(resourceName: "TR"))
+            flagCode: "TR")
     }
     static var USD: Currency {
         return Currency(
             name: "US Dollar",
             code: "USD",
             symbol: "$",
-            flagCode: "US",
-            image: #imageLiteral(resourceName: "US"))
+            flagCode: "US")
     }
     static var ZAR: Currency {
         return Currency(
             name: "South African Rand",
             code: "ZAR",
             symbol: "ZAR",
-            flagCode: "ZA",
-            image: #imageLiteral(resourceName: "ZA"))
+            flagCode: "ZA")
     }
     static var EUR: Currency {
         return Currency(
             name: "Euro",
             code: "EUR",
             symbol: "€",
-            flagCode: "EU",
-            image: #imageLiteral(resourceName: "EU"))
+            flagCode: "EU")
     }
 }
 
@@ -275,7 +243,7 @@ extension Currency {
                                   PHP, PLN, RON, RUB, SEK,
                                   SGD, THB, TRY, USD, ZAR, EUR]
     
-    static let codes: [String] = Currency.all.map{ $0.code }
+    static let codes: [String] = Currency.all.map { $0.code }
     
     static var rates: [String : Double] = [:]
 }
@@ -300,7 +268,7 @@ extension Currency {
         guard let url = URL(string: "https://api.fixer.io/latest?base=\(LedgitUser.current.homeCurrency.code)") else { return }
         
         let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
-            if error != nil, let error = error { print(error.localizedDescription) }
+            if error != nil, let error = error { debugPrint(error.localizedDescription) }
             guard let data = data else { return }
             guard let result = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) as? NSDictionary else { return }
             guard let rates = result?["rates"] as? NSDictionary else { return }
@@ -333,7 +301,6 @@ extension Currency {
             lhs.name == rhs.name &&
             lhs.code == rhs.code &&
             lhs.flagCode == rhs.flagCode &&
-            lhs.image == rhs.image &&
             lhs.symbol == rhs.symbol
     }
 }

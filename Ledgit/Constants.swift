@@ -58,21 +58,24 @@ struct Constants {
         return [
             .ledgitBlue,
             .ledgitPink,
-            .ledgitAqua]
+            .ledgitAqua
+        ]
     }()
     
     static let pageTitles: [String] = {
         return [
             "Create New Trips",
             "Add Expenses Quickly",
-            "Analyze Your Budget"]
+            "Analyze Your Budget"
+        ]
     }()
     
     static let pageDescriptions: [String] = {
         return [
             "Get a unique ID and attach it to an item, and link it in the app",
             "When you lose an item, mark it as lost through the app",
-            "When you find an item, report the ID to notify the owner"]
+            "When you find an item, report the ID to notify the owner"
+        ]
     }()
     
     static let pageImages: [UIImage] = {
@@ -150,23 +153,23 @@ struct Constants {
         ]
         
         static let authenticationError = [
-            "title":"Error",
-            "message":"Something went wrong with Facebook authentication. Please try again."
+            "title": "Error",
+            "message": "Something went wrong with Facebook authentication. Please try again."
         ]
         
         static let resetInstructionsSent = [
-            "title":"Hooray",
-            "message":"We sent you an email to reset your password."
+            "title": "Hooray",
+            "message": "We sent you an email to reset your password."
         ]
         
         static let cannotAddEntriesToSample = [
-            "title":"Not So Fast",
-            "message":"You can't add entries to this sample project. Go back and create one if you haven't done so already."
+            "title": "Not So Fast",
+            "message": "You can't add entries to this sample trip. Go back and create one if you haven't done so already."
         ]
         
         static let errorGettingTrip = [
-            "title":"Please Excuse Us",
-            "message":"We had some trouble getting your trip details. Try again later."
+            "title": "Please Excuse Us",
+            "message": "We had some trouble getting your trip details. Try again later."
         ]
     }
     

@@ -30,12 +30,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         ROX.setup(withKey:"59e7e1a2832daa14ceb21736")
         window = UIWindow(frame: UIScreen.main.bounds)
         
+        // Request on demand resources
+        ResourceManager.shared.requestFlagImages()
+        
+        // Determine which screen to go to depending on current user status
         if AuthenticationManager.shared.isAuthenticated(), let currentUserKey = UserDefaults.standard.value(forKey: Constants.userDefaultKeys.uid) as? String {
             AuthenticationManager.shared.users.child(currentUserKey).observeSingleEvent(of: .value, with: { (snapshot) in
                 
                 if let snapshot = snapshot.value as? NSDictionary {
                     LedgitUser.current = LedgitUser(dict: snapshot)
-                    Currency.getRates()
                 }
             })
             

@@ -22,7 +22,7 @@ target 'Ledgit' do
 
   pod 'NVActivityIndicatorView'
 
-  pod 'Eureka'
+  pod 'NotificationBannerSwift'
 
   pod 'BubbleTransition'
 
@@ -30,7 +30,6 @@ target 'Ledgit' do
   
   pod 'BetterSegmentedControl'
 
-  pod "SearchTextField"
   pod 'SkyFloatingLabelTextField'
 
   pod 'ROX', '~> 1.1.1'

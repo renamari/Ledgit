@@ -62,6 +62,8 @@
 		8DDDD6B51F47ECDD0053146B /* WeeklyCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDDD6B41F47ECDD0053146B /* WeeklyCollectionViewCell.swift */; };
 		8DDDD6B71F47ECF00053146B /* CategoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDDD6B61F47ECF00053146B /* CategoryCollectionViewCell.swift */; };
 		8DDDD6B91F47ECFD0053146B /* HistoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDDD6B81F47ECFD0053146B /* HistoryCollectionViewCell.swift */; };
+		8DE6F568201532DD0081DB6E /* Flags.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8DE6F567201532DD0081DB6E /* Flags.xcassets */; };
+		8DE6F56C20154CD90081DB6E /* ResourceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DE6F56B20154CD90081DB6E /* ResourceManager.swift */; };
 		8DFAE8991FCA930000B4734B /* CategoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DFAE8981FCA930000B4734B /* CategoryTableViewCell.swift */; };
 		8DFAE89B1FCB103F00B4734B /* TripDetailManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DFAE89A1FCB103F00B4734B /* TripDetailManager.swift */; };
 		8DFAE89D1FCB104C00B4734B /* TripDetailPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DFAE89C1FCB104C00B4734B /* TripDetailPresenter.swift */; };
@@ -148,6 +150,8 @@
 		8DDDD6B41F47ECDD0053146B /* WeeklyCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeeklyCollectionViewCell.swift; sourceTree = "<group>"; };
 		8DDDD6B61F47ECF00053146B /* CategoryCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryCollectionViewCell.swift; sourceTree = "<group>"; };
 		8DDDD6B81F47ECFD0053146B /* HistoryCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryCollectionViewCell.swift; sourceTree = "<group>"; };
+		8DE6F567201532DD0081DB6E /* Flags.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Flags.xcassets; sourceTree = "<group>"; };
+		8DE6F56B20154CD90081DB6E /* ResourceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceManager.swift; sourceTree = "<group>"; };
 		8DFAE8981FCA930000B4734B /* CategoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryTableViewCell.swift; sourceTree = "<group>"; };
 		8DFAE89A1FCB103F00B4734B /* TripDetailManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripDetailManager.swift; sourceTree = "<group>"; };
 		8DFAE89C1FCB104C00B4734B /* TripDetailPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripDetailPresenter.swift; sourceTree = "<group>"; };
@@ -334,6 +338,7 @@
 				8DB4679C1FC1F16700E44863 /* LedgitUser.swift */,
 				8DB4679E1FC1F2FA00E44863 /* LedgitEntry.swift */,
 				8DB467A01FC1F3A500E44863 /* LedgitTrip.swift */,
+				8DE6F56B20154CD90081DB6E /* ResourceManager.swift */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -343,6 +348,7 @@
 			children = (
 				8DA3B1A61F3F875B00FC31AF /* AppDelegate.swift */,
 				8DA3B1B01F3F875B00FC31AF /* Assets.xcassets */,
+				8DE6F567201532DD0081DB6E /* Flags.xcassets */,
 				8DA3B1B21F3F875B00FC31AF /* LaunchScreen.storyboard */,
 				8DA3B1B51F3F875B00FC31AF /* Info.plist */,
 				8DA3B1D71F3F880800FC31AF /* GoogleService-Info.plist */,
@@ -567,6 +573,9 @@
 		8DA3B19B1F3F875B00FC31AF /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				KnownAssetTags = (
+					flags,
+				);
 				LastSwiftUpdateCheck = 0830;
 				LastUpgradeCheck = 0900;
 				ORGANIZATIONNAME = "Camden Developers";
@@ -624,6 +633,7 @@
 				8D2AEC0D1F4AAFE400227FC6 /* Settings.storyboard in Resources */,
 				8DA3B1B11F3F875B00FC31AF /* Assets.xcassets in Resources */,
 				8DA3B1AC1F3F875B00FC31AF /* Main.storyboard in Resources */,
+				8DE6F568201532DD0081DB6E /* Flags.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -751,7 +761,6 @@
 				"${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework",
 				"${BUILT_PRODUCTS_DIR}/BubbleTransition/BubbleTransition.framework",
 				"${BUILT_PRODUCTS_DIR}/Charts/Charts.framework",
-				"${BUILT_PRODUCTS_DIR}/Eureka/Eureka.framework",
 				"${BUILT_PRODUCTS_DIR}/FBSDKCoreKit/FBSDKCoreKit.framework",
 				"${BUILT_PRODUCTS_DIR}/FBSDKLoginKit/FBSDKLoginKit.framework",
 				"${BUILT_PRODUCTS_DIR}/FBSDKShareKit/FBSDKShareKit.framework",
@@ -760,11 +769,13 @@
 				"${BUILT_PRODUCTS_DIR}/FacebookShare/FacebookShare.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
+				"${BUILT_PRODUCTS_DIR}/MarqueeLabel/MarqueeLabel.framework",
 				"${BUILT_PRODUCTS_DIR}/NVActivityIndicatorView/NVActivityIndicatorView.framework",
+				"${BUILT_PRODUCTS_DIR}/NotificationBannerSwift/NotificationBannerSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/ROX/ROX.framework",
 				"${PODS_ROOT}/ROXCore/RoxSdk/ROXCore.framework",
-				"${BUILT_PRODUCTS_DIR}/SearchTextField/SearchTextField.framework",
 				"${BUILT_PRODUCTS_DIR}/SkyFloatingLabelTextField/SkyFloatingLabelTextField.framework",
+				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
 				"${BUILT_PRODUCTS_DIR}/SteviaLayout/Stevia.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftDate/SwiftDate.framework",
 				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
@@ -776,7 +787,6 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bolts.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BubbleTransition.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Charts.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Eureka.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKCoreKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKLoginKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKShareKit.framework",
@@ -785,11 +795,13 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FacebookShare.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MarqueeLabel.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NVActivityIndicatorView.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NotificationBannerSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ROX.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ROXCore.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SearchTextField.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SkyFloatingLabelTextField.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Stevia.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftDate.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
@@ -860,6 +872,7 @@
 				8D656AA31F94480800C85A0F /* AddEntryViewController.swift in Sources */,
 				8D29168E1FB8EA42008ED9F2 /* CurrencyTableViewCell.swift in Sources */,
 				8DB4679F1FC1F2FA00E44863 /* LedgitEntry.swift in Sources */,
+				8DE6F56C20154CD90081DB6E /* ResourceManager.swift in Sources */,
 				8D6F4B661F4E8D050046847C /* AccountViewController.swift in Sources */,
 				8D2AEC191F4D146900227FC6 /* DateTableViewCell.swift in Sources */,
 				8D2AEC0F1F4AB2F300227FC6 /* AboutViewController.swift in Sources */,

@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Eureka
 import Firebase
 import SkyFloatingLabelTextField
 

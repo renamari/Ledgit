@@ -20,6 +20,10 @@ class TripsManager {
     let auth = Auth.auth()
     let trips = Database.database().reference().child("trips")
     var isConnected: Bool { return Reachability.isConnectedToNetwork() }
+    
+    deinit {
+        trips.removeAllObservers()
+    }
 }
 
 extension TripsManager {

@@ -18,6 +18,7 @@ struct LedgitEntry {
     var paidBy: String
     var paymentType: PaymentType
     var cost: Double
+    var convertedCost: Double
     var owningTrip: String
     var exchangeRate: Double
     
@@ -34,6 +35,7 @@ struct LedgitEntry {
             let paymentTypeString = dict["paymentType"] as? String,
             let owningTripString = dict["owningTrip"] as? String,
             let costDouble = dict["cost"] as? Double,
+            let convertedCostDouble = dict["convertedCost"] as? Double,
             let exchangeRateDouble = dict["exchangeRate"] as? Double,
             let paymentTypeValue = PaymentType(rawValue: paymentTypeString)
         else {
@@ -48,6 +50,7 @@ struct LedgitEntry {
         category = categoryString
         paidBy = paidByString
         cost = costDouble
+        convertedCost = convertedCostDouble
         owningTrip = owningTripString
         paymentType = paymentTypeValue
         exchangeRate = exchangeRateDouble

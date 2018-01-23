@@ -57,10 +57,10 @@ class WeeklyCollectionViewCell: UICollectionViewCell, ChartViewDelegate {
         let averageAmount = String(format: "%.2f", averageAmount)
         
         dayLabel.text = Date().toString(style: .long)
-        dayCostLabel.text =  dayAmount
-        budgetLabel.text =  budgetAmount
-        remainingLabel.text =  remainingAmount
-        averageLabel.text =  averageAmount
+        dayCostLabel.text =  LedgitUser.current.homeCurrency.symbol + dayAmount
+        budgetLabel.text =  LedgitUser.current.homeCurrency.symbol + budgetAmount
+        remainingLabel.text =  LedgitUser.current.homeCurrency.symbol + remainingAmount
+        averageLabel.text =  LedgitUser.current.homeCurrency.symbol + averageAmount
     }
     
     func setupChart(with data: [LedgitEntry]){
@@ -83,19 +83,19 @@ class WeeklyCollectionViewCell: UICollectionViewCell, ChartViewDelegate {
              */
             
             if item.date.isInSameDayOf(date: (Date() - 6.day)) {
-                amounts[0] += item.cost
+                amounts[0] += item.convertedCost
             } else if item.date.isInSameDayOf(date: (Date() - 5.day)) {
-                amounts[1] += item.cost
+                amounts[1] += item.convertedCost
             } else if item.date.isInSameDayOf(date: (Date() - 4.day)) {
-                amounts[2] += item.cost
+                amounts[2] += item.convertedCost
             } else if item.date.isInSameDayOf(date: (Date() - 3.day)) {
-                amounts[3] += item.cost
+                amounts[3] += item.convertedCost
             } else if item.date.isInSameDayOf(date: (Date() - 2.day)) {
-                amounts[4] += item.cost
+                amounts[4] += item.convertedCost
             } else if item.date.isInSameDayOf(date: (Date() - 1.day)) {
-                amounts[5] += item.cost
+                amounts[5] += item.convertedCost
             } else if item.date.isToday {
-                amounts[6] += item.cost
+                amounts[6] += item.convertedCost
             }
         }
         
@@ -145,7 +145,7 @@ class WeeklyCollectionViewCell: UICollectionViewCell, ChartViewDelegate {
         leftAxis.gridLineWidth = 1.0
         
         let dataSet = BarChartDataSet(values: values, label: nil)
-        dataSet.colors = [.kColor2C82BE]
+        dataSet.colors = [.ledgitBlue]
         
         let data = BarChartData(dataSet: dataSet)
         data.setValueFormatter(dataFormatter)

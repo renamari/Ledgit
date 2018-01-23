@@ -19,10 +19,21 @@ class TripDetailManager {
     let trips = Database.database().reference().child("trips")
     let entries = Database.database().reference().child("entries")
     var isConnected: Bool { return Reachability.isConnectedToNetwork() }
+    
+    deinit {
+        entries.removeAllObservers()
+    }
 }
 
 extension TripDetailManager {
     func fetchEntry(forTrip trip: LedgitTrip) {
+        
+        entries.queryOrdered(byChild: "owningTrip").queryEqual(toValue: trip.key).observe(.childChanged, with: { snapshot in
+            guard let snapshot = snapshot.value as? NSDictionary else { return }
+            guard let entry = LedgitEntry(dict: snapshot) else { return }
+            self.delegate?.retrievedEntry(entry)
+        })
+    
         entries.queryOrdered(byChild: "owningTrip").queryEqual(toValue: trip.key).observe(.childAdded, with: { snapshot in
             guard let snapshot = snapshot.value as? NSDictionary else { return }
             guard let entry = LedgitEntry(dict: snapshot) else { return }

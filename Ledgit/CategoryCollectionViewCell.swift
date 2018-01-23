@@ -43,9 +43,9 @@ class CategoryCollectionViewCell: UICollectionViewCell, ChartViewDelegate {
         
         for item in data {
             if categories.keys.contains(item.category) {
-                categories[item.category]! += item.cost
+                categories[item.category]! += item.convertedCost
             } else {
-                categories[item.category] = item.cost
+                categories[item.category] = item.convertedCost
             }
         }
         

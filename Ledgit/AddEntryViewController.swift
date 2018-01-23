@@ -161,6 +161,13 @@ class AddEntryViewController: UIViewController {
         paymentType = .credit
     }
     
+    @IBAction func amountTextFieldChanged(_ sender: SkyFloatingLabelTextField) {
+        guard let text = sender.text else { return }
+        sender.text = text.currencyFormat(with: selectedCurrency.symbol)
+        
+        
+    }
+    
     @IBAction func closeButtonPressed(_ sender: Any) {
         dismiss(animated: true, completion: nil)
     }
@@ -186,7 +193,7 @@ class AddEntryViewController: UIViewController {
             return
         }
         
-        guard let exchangeRate = exchangeRateTextField.text?.strip() else { return }
+        guard let exchangeRateString = exchangeRateTextField.text?.strip(), let exchangeRate = Double(exchangeRateString) else { return }
         
         guard
             let amount = Double(amountString.components(separatedBy: CharacterSet.decimalDigits.inverted).joined(separator: "")),
@@ -207,7 +214,7 @@ class AddEntryViewController: UIViewController {
             "homeCurrency": LedgitUser.current.homeCurrency.code,
             "exchangeRate": exchangeRate,
             "paymentType": paymentType.rawValue,
-            "cost": amount,
+            "cost": (amount / 100),
             "paidBy": LedgitUser.current.key,
             "owningTrip": owningTripKey
         ]
@@ -229,6 +236,7 @@ extension AddEntryViewController: CurrencySelectionDelegate {
         guard let currency = currencies.first else { return }
         selectedCurrency = currency
         currencyTextField.text = currency.name
+        amountTextFieldChanged(amountTextField)
     }
 }
 
@@ -307,29 +315,12 @@ extension AddEntryViewController: UITextFieldDelegate {
         activeTextField = textField
         
         switch textField {
-        case amountTextField:
-            amountTextField.errorMessage = nil
-            if let text = amountTextField.text, !text.isEmpty {
-                amountTextField.text = text.components(separatedBy: CharacterSet.decimalDigits.inverted).joined(separator: "")
-            }
-  
         case locationTextField:
             locationTextField.errorMessage = nil
         
         case descriptionTextField:
             descriptionTextField.errorMessage = nil
             
-        default: break
-        }
-    }
-    
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        textField.resignFirstResponder()
-        
-        switch textField {
-        case amountTextField:
-            guard let text = amountTextField.text, !text.isEmpty else { return }
-            amountTextField.text = "\(LedgitUser.current.homeCurrency.symbol) \(text)"
         default: break
         }
     }

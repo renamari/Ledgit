@@ -83,9 +83,9 @@ class HistoryCollectionViewCell: UICollectionViewCell {
             }
             
             if let index = cityEntries.index(where: {$0.location == item.location}){
-                cityEntries[index].amount += item.cost
+                cityEntries[index].amount += item.convertedCost
             } else {
-                let newSection = CitySection(location: item.location, amount: item.cost)
+                let newSection = CitySection(location: item.location, amount: item.convertedCost)
                 cityEntries.append(newSection)
             }
         }
@@ -156,7 +156,7 @@ extension HistoryCollectionViewCell: UITableViewDelegate, UITableViewDataSource{
             let cell = dayTableView.dequeueReusableCell(withIdentifier: Constants.cellIdentifiers.date, for: indexPath) as! DateTableViewCell
             let item = dateEntries[indexPath.section].entries[indexPath.row]
             
-            cell.updateLabels(amount: item.cost, description: item.description, category: item.category)
+            cell.updateLabels(amount: item.convertedCost, description: item.description, category: item.category)
             
             return cell
         default:

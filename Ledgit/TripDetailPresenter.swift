@@ -45,10 +45,10 @@ extension TripDetailPresenter: TripDetailManagerDelegate {
         }
     
         if entry.date.isToday {
-            costToday += entry.cost
+            costToday += entry.convertedCost
         }
         
-        totalCost += entry.cost
+        totalCost += entry.convertedCost
         averageCost = totalCost / Double(dates.count)
         entries.append(entry)
         delegate?.retrieveEntry()

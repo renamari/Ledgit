@@ -73,7 +73,7 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource{
         case 0: //Categories
             performSegue(withIdentifier: Constants.segueIdentifiers.category, sender: self)
         case 1: //Subscriptions
-            break
+            showAlert(with: Constants.clientErrorMessages.freeSubscriptions)
             //performSegue(withIdentifier: Constants.segueIdentifiers.subscription, sender: self)
         case 2: //Account
             performSegue(withIdentifier: Constants.segueIdentifiers.account, sender: self)

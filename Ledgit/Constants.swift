@@ -117,6 +117,11 @@ struct Constants {
     }
     
     struct clientErrorMessages {
+        static let freeSubscriptions = [
+            "title": "Hooray For You!",
+            "message": "We're still testing this feature, so for now everything is free. Enjoy 😉"
+        ]
+        
         static let emptyUserPasswordTextFields = [
             "title": "Could Not Sign In",
             "message":"Email/password fields are empty."

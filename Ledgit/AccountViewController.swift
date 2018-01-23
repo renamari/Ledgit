@@ -110,9 +110,7 @@ class AccountViewController: UIViewController {
     }
     
     @objc func keyboardWillHide(notification: Notification) {
-        guard let frame = previousFrame else{
-            return
-        }
+        guard let frame = previousFrame else { return }
 
         UIView.animate(withDuration: 0.25, animations: {
             self.cardView.frame = frame

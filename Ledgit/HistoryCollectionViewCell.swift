@@ -10,10 +10,15 @@ import UIKit
 import BetterSegmentedControl
 import SwiftDate
 
+protocol DayTableCellDelegate: class {
+    func selected(entry: LedgitEntry)
+}
+
 class HistoryCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var segmentedControl: BetterSegmentedControl!
     @IBOutlet weak var cityTableView: UITableView!
     @IBOutlet weak var dayTableView: UITableView!
+    weak var delegate: DayTableCellDelegate?
     
     var dateEntries: [DateSection] = []
     var cityEntries: [CitySection] = []
@@ -45,9 +50,9 @@ class HistoryCollectionViewCell: UICollectionViewCell {
     
     func setupTableViews(){
         cityTableView.delegate = self
-        dayTableView.delegate = self
-        
         cityTableView.dataSource = self
+        
+        dayTableView.delegate = self
         dayTableView.dataSource = self
     }
     
@@ -67,7 +72,8 @@ class HistoryCollectionViewCell: UICollectionViewCell {
         }
     }
     
-    func updateTableViews(with data:[LedgitEntry]) {
+    func setup(with presenter:TripDetailPresenter) {
+        let data = presenter.entries
         guard !data.isEmpty else { return }
         
         dateEntries = []
@@ -82,8 +88,9 @@ class HistoryCollectionViewCell: UICollectionViewCell {
                 dateEntries.append(newSection)
             }
             
-            if let index = cityEntries.index(where: {$0.location == item.location}){
+            if let index = cityEntries.index(where: {$0.location == item.location}) {
                 cityEntries[index].amount += item.convertedCost
+                
             } else {
                 let newSection = CitySection(location: item.location, amount: item.convertedCost)
                 cityEntries.append(newSection)
@@ -154,17 +161,22 @@ extension HistoryCollectionViewCell: UITableViewDelegate, UITableViewDataSource{
         switch tableView {
         case dayTableView:
             let cell = dayTableView.dequeueReusableCell(withIdentifier: Constants.cellIdentifiers.date, for: indexPath) as! DateTableViewCell
-            let item = dateEntries[indexPath.section].entries[indexPath.row]
-            
-            cell.updateLabels(amount: item.convertedCost, description: item.description, category: item.category)
-            
+            let entry = dateEntries[indexPath.section].entries[indexPath.row]
+            cell.setup(with: entry)
+           
             return cell
         default:
             let cell = cityTableView.dequeueReusableCell(withIdentifier: Constants.cellIdentifiers.city, for: indexPath) as! CityTableViewCell
-            let item = cityEntries[indexPath.row]
-            cell.updateLabels(city: item.location, amount: item.amount)
+            let section = cityEntries[indexPath.row]
+            cell.setup(with: section)
             
             return cell
         }
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard tableView == dayTableView else { return }
+        let entry = dateEntries[indexPath.section].entries[indexPath.row]
+        delegate?.selected(entry: entry)
     }
 }

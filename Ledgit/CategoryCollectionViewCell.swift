@@ -35,7 +35,8 @@ class CategoryCollectionViewCell: UICollectionViewCell, ChartViewDelegate {
         layer.shadowPath = UIBezierPath(roundedRect:bounds, cornerRadius:contentView.layer.cornerRadius).cgPath
     }
     
-    func setupChart(with data: [LedgitEntry]) {
+    func setup(with presenter: TripDetailPresenter) {
+        let data = presenter.entries
         guard !data.isEmpty else { return }
         
         var categories:[String:Double] = [:]

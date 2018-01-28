@@ -26,9 +26,9 @@ class MainViewController: UIViewController {
     lazy var pageColors: [UIColor] = Constants.pageColors
     
     lazy var orderedViewControllers: [UIViewController] = {
-        return [createNewTutorialViewController(with: 0),
-                createNewTutorialViewController(with: 1),
-                createNewTutorialViewController(with: 2)]
+        return [createNewTutorialViewController(at: 0),
+                createNewTutorialViewController(at: 1),
+                createNewTutorialViewController(at: 2)]
     }()
     
     override func viewDidLoad() {
@@ -58,7 +58,7 @@ class MainViewController: UIViewController {
         tutorialView.addSubview(pageViewController.view)
     }
     
-    fileprivate func createNewTutorialViewController(with index: Int) -> UIViewController {
+    fileprivate func createNewTutorialViewController(at index: Int) -> UIViewController {
         
         // 1. Create a new tutorial view controller screen
         let tutorialViewController = TutorialViewController.instantiate(from: .main)

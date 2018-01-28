@@ -33,37 +33,14 @@ class WeeklyCollectionViewCell: UICollectionViewCell, ChartViewDelegate {
         weeklyChart.delegate = self
     }
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
+    func setup(with presenter: TripDetailPresenter) {
+        let data = presenter.entries
         
-        contentView.layer.cornerRadius = 10
-        contentView.layer.borderWidth = 1
-        contentView.layer.borderColor = UIColor.clear.cgColor
-        contentView.layer.masksToBounds = true
+        updateLabels(dayAmount: presenter.costToday,
+                     budgetAmount: presenter.trip.budget,
+                     remainingAmount: presenter.trip.budget - presenter.costToday,
+                     averageAmount: presenter.averageCost)
         
-        layer.cornerRadius = 10
-        layer.shadowColor = UIColor.black.cgColor
-        layer.shadowOffset = CGSize(width:0,height: 2)
-        layer.shadowRadius = 4
-        layer.shadowOpacity = 0.10
-        layer.masksToBounds = false
-        layer.shadowPath = UIBezierPath(roundedRect:bounds, cornerRadius:contentView.layer.cornerRadius).cgPath
-    }
-    
-    func updateLabels(dayAmount: Double, budgetAmount: Double, remainingAmount: Double, averageAmount: Double){
-        let dayAmount = String(format: "%.2f", dayAmount)
-        let budgetAmount = String(format: "%.2f", budgetAmount)
-        let remainingAmount = String(format: "%.2f", remainingAmount)
-        let averageAmount = String(format: "%.2f", averageAmount)
-        
-        dayLabel.text = Date().toString(style: .long)
-        dayCostLabel.text =  LedgitUser.current.homeCurrency.symbol + dayAmount
-        budgetLabel.text =  LedgitUser.current.homeCurrency.symbol + budgetAmount
-        remainingLabel.text =  LedgitUser.current.homeCurrency.symbol + remainingAmount
-        averageLabel.text =  LedgitUser.current.homeCurrency.symbol + averageAmount
-    }
-    
-    func setupChart(with data: [LedgitEntry]){
         guard !data.isEmpty else { return }
         var values:[BarChartDataEntry] = []
         var amounts:[Double] = [0, 0, 0, 0, 0, 0, 0]
@@ -105,6 +82,36 @@ class WeeklyCollectionViewCell: UICollectionViewCell, ChartViewDelegate {
         }
         
         drawChart(with: values)
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        contentView.layer.cornerRadius = 10
+        contentView.layer.borderWidth = 1
+        contentView.layer.borderColor = UIColor.clear.cgColor
+        contentView.layer.masksToBounds = true
+        
+        layer.cornerRadius = 10
+        layer.shadowColor = UIColor.black.cgColor
+        layer.shadowOffset = CGSize(width:0,height: 2)
+        layer.shadowRadius = 4
+        layer.shadowOpacity = 0.10
+        layer.masksToBounds = false
+        layer.shadowPath = UIBezierPath(roundedRect:bounds, cornerRadius:contentView.layer.cornerRadius).cgPath
+    }
+    
+    private func updateLabels(dayAmount: Double, budgetAmount: Double, remainingAmount: Double, averageAmount: Double){
+        let dayAmount = String(format: "%.2f", dayAmount)
+        let budgetAmount = String(format: "%.2f", budgetAmount)
+        let remainingAmount = String(format: "%.2f", remainingAmount)
+        let averageAmount = String(format: "%.2f", averageAmount)
+        
+        dayLabel.text = Date().toString(style: .long)
+        dayCostLabel.text =  LedgitUser.current.homeCurrency.symbol + dayAmount
+        budgetLabel.text =  LedgitUser.current.homeCurrency.symbol + budgetAmount
+        remainingLabel.text =  LedgitUser.current.homeCurrency.symbol + remainingAmount
+        averageLabel.text =  LedgitUser.current.homeCurrency.symbol + averageAmount
     }
     
     fileprivate func drawChart(with values: [BarChartDataEntry]){

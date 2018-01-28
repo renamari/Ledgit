@@ -21,6 +21,7 @@
 		8D2AEC191F4D146900227FC6 /* DateTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D2AEC181F4D146900227FC6 /* DateTableViewCell.swift */; };
 		8D2AEC1B1F4D147800227FC6 /* CityTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D2AEC1A1F4D147800227FC6 /* CityTableViewCell.swift */; };
 		8D39F94B1FC51B470055BA4E /* SettingsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D39F94A1FC51B470055BA4E /* SettingsManager.swift */; };
+		8D562E7A201D95A7009BD564 /* EditEntryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D562E79201D95A6009BD564 /* EditEntryViewController.swift */; };
 		8D656AA31F94480800C85A0F /* AddEntryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D656AA21F94480800C85A0F /* AddEntryViewController.swift */; };
 		8D6F4B641F4E8CFC0046847C /* CategoriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D6F4B631F4E8CFC0046847C /* CategoriesViewController.swift */; };
 		8D6F4B661F4E8D050046847C /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D6F4B651F4E8D050046847C /* AccountViewController.swift */; };
@@ -103,6 +104,7 @@
 		8D2AEC181F4D146900227FC6 /* DateTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateTableViewCell.swift; sourceTree = "<group>"; };
 		8D2AEC1A1F4D147800227FC6 /* CityTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CityTableViewCell.swift; sourceTree = "<group>"; };
 		8D39F94A1FC51B470055BA4E /* SettingsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsManager.swift; sourceTree = "<group>"; };
+		8D562E79201D95A6009BD564 /* EditEntryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditEntryViewController.swift; sourceTree = "<group>"; };
 		8D656AA21F94480800C85A0F /* AddEntryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEntryViewController.swift; sourceTree = "<group>"; };
 		8D6F4B631F4E8CFC0046847C /* CategoriesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoriesViewController.swift; sourceTree = "<group>"; };
 		8D6F4B651F4E8D050046847C /* AccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountViewController.swift; sourceTree = "<group>"; };
@@ -410,6 +412,7 @@
 				8DDDD6BA1F47ED100053146B /* Collection View Cells */,
 				8DDDD6B21F473EFA0053146B /* TripDetailViewController.swift */,
 				8D656AA21F94480800C85A0F /* AddEntryViewController.swift */,
+				8D562E79201D95A6009BD564 /* EditEntryViewController.swift */,
 				8DFAE89E1FCB9B1500B4734B /* CategorySelectionViewController.swift */,
 			);
 			name = View;
@@ -883,6 +886,7 @@
 				8DA3B2201F3FBEF300FC31AF /* Utilities.swift in Sources */,
 				8D707B4E1F9D3EEE00CABA0F /* TripsPresenter.swift in Sources */,
 				8DAD43E71F9D46270054EDD8 /* SettingsNavigationController.swift in Sources */,
+				8D562E7A201D95A7009BD564 /* EditEntryViewController.swift in Sources */,
 				8D6F4B641F4E8CFC0046847C /* CategoriesViewController.swift in Sources */,
 				8D707B4C1F9D3BAC00CABA0F /* TripsNavigationController.swift in Sources */,
 				8DC243DC1F43BE3900B3E080 /* AddTripTableViewCell.swift in Sources */,

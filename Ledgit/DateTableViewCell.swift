@@ -19,4 +19,10 @@ class DateTableViewCell: UITableViewCell {
         descriptionLabel.text = description
         categoryLabel.text = category
     }
+    
+    func setup(with entry: LedgitEntry) {
+        amountLabel.text = LedgitUser.current.homeCurrency.symbol + String(format: "%.2f", entry.convertedCost)
+        descriptionLabel.text = entry.description
+        categoryLabel.text = entry.category
+    }
 }

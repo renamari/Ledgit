@@ -10,7 +10,6 @@ import UIKit
 
 class TripsViewController: UIViewController {
     @IBOutlet weak var tripsTableView: UITableView!
-
     private let presenter = TripsPresenter(manager: TripsManager())
     private var selectedIndexPath = IndexPath()
     
@@ -27,9 +26,7 @@ class TripsViewController: UIViewController {
         super.viewDidLoad()
         
         setupTableView()
-        
         setupPresenter()
-        
         Currency.getRates()
     }
     

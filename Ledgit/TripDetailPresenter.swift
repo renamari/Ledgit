@@ -23,10 +23,13 @@ class TripDetailPresenter {
     var averageCost: Double = 0
     var dates: [Date] = []
     
-    init(manager: TripDetailManager, and trip: LedgitTrip) {
-        self.trip = trip
+    init(manager: TripDetailManager) {
         self.manager = manager
         self.manager.delegate = self
+    }
+    
+    func attachTrip(_ trip: LedgitTrip) {
+        self.trip = trip
     }
     
     func create(entry: NSDictionary) {

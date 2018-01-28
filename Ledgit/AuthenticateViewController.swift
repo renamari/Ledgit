@@ -22,11 +22,10 @@ class AuthenticateViewController: UIViewController {
     @IBOutlet weak var facebookButton: UIButton!
     @IBOutlet weak var forgotPasswordButton: UIButton!
     
+    private var presenter = AuthenticationPresenter(manager: AuthenticationManager())
     var method: AuthenticationMethod = .signin
     
-    var presenter: AuthenticationPresenter?
-    
-    var isLoading:Bool = false {
+    var isLoading: Bool = false {
         didSet {
             switch isLoading {
             case true:
@@ -39,7 +38,6 @@ class AuthenticateViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         setupRecognizers()
         setupTextFields()
         setupPresenter()
@@ -54,8 +52,7 @@ class AuthenticateViewController: UIViewController {
     }
     
     func setupPresenter() {
-        presenter = AuthenticationPresenter(manager: AuthenticationManager())
-        presenter?.delegate = self
+        presenter.delegate = self
     }
     
     func setupLabels() {
@@ -104,7 +101,7 @@ class AuthenticateViewController: UIViewController {
         guard let email = emailTextField.text?.strip() else { return }
         guard let password = passwordTextField.text?.strip() else { return }
         
-        presenter?.authenticateUser(platform: .firebase, method: method, email: email, password: password)
+        presenter.authenticateUser(platform: .firebase, method: method, email: email, password: password)
     }
     
     @IBAction func facebookButtonPressed(_ sender: Any) {
@@ -113,7 +110,7 @@ class AuthenticateViewController: UIViewController {
         guard let email = emailTextField.text?.strip() else { return }
         guard let password = passwordTextField.text?.strip() else { return }
         
-        presenter?.authenticateUser(platform: .facebook, method: method, email: email, password: password)
+        presenter.authenticateUser(platform: .facebook, method: method, email: email, password: password)
     }
     
     @IBAction func forgotPasswordButton(_ sender: Any) {

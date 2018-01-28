@@ -12,9 +12,9 @@ class SettingsViewController: UIViewController {
     @IBOutlet weak var backButton: UIButton!
     @IBOutlet weak var settingsTableView: UITableView!
     @IBOutlet weak var signoutButton: UIButton!
+    private var presenter = SettingsPresenter(manager: SettingsManager())
     let actionViewBackground = UIView()
     let actionViewTag = 12345
-    var presenter: SettingsPresenter?
     fileprivate(set) lazy var settingsImages:[UIImage] = {
         return [#imageLiteral(resourceName: "categories-icon"),#imageLiteral(resourceName: "subscription-icon"),#imageLiteral(resourceName: "account-icon"), #imageLiteral(resourceName: "about-icon")]
     }()
@@ -25,14 +25,12 @@ class SettingsViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
         setupTableView()
         setupPresenter()
     }
     
     func setupPresenter() {
-        presenter = SettingsPresenter(manager: SettingsManager())
-        presenter?.delegate = self
+        presenter.delegate = self
     }
     
     func setupTableView(){
@@ -45,24 +43,25 @@ class SettingsViewController: UIViewController {
     }
 
     @IBAction func signoutButtonPressed(_ sender: Any) {
-        presenter?.signout()
+        presenter.signout()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let identifier = segue.identifier
+        guard let identifier = segue.identifier else { return }
         
-        if identifier == Constants.segueIdentifiers.account {
+        switch identifier {
+        case Constants.segueIdentifiers.account:
             guard let accountViewController = segue.destination as? AccountViewController else { return }
             accountViewController.presenter = presenter
-        }
-        
-        if identifier == Constants.segueIdentifiers.subscription {
-
-        }
-        
-        if identifier == Constants.segueIdentifiers.category {
+            
+        case Constants.segueIdentifiers.subscription:
+            break
+            
+        case Constants.segueIdentifiers.category:
             guard let categoriesViewController = segue.destination as? CategoriesViewController else { return }
             categoriesViewController.presenter = presenter
+            
+        default: break
         }
     }
 }

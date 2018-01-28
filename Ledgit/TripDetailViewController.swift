@@ -18,14 +18,17 @@ class TripDetailViewController: UIViewController {
     private let transition = BubbleTransition()
     private let cellHeightScale: CGFloat = Constants.scales.cellHeight
     private let cellWidthScale: CGFloat = Constants.scales.cellWidth
-    
+    private var presenter = TripDetailPresenter(manager: TripDetailManager())
+    var identifiers = [Constants.cellIdentifiers.weekly,
+                       Constants.cellIdentifiers.category,
+                       Constants.cellIdentifiers.history]
     var currentTrip: LedgitTrip?
-    var presenter: TripDetailPresenter?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupButton()
         setupPresenter()
+        setupGestureRecognizers()
         setupNavigationBar()
         setupCollectionView()
     }
@@ -40,9 +43,9 @@ class TripDetailViewController: UIViewController {
             dismiss(animated: true, completion: nil)
             return
         }
-        presenter = TripDetailPresenter(manager: TripDetailManager(), and: trip)
-        presenter?.delegate = self
-        presenter?.fetchEntries()
+        presenter.delegate = self
+        presenter.attachTrip(trip)
+        presenter.fetchEntries()
     }
     
     func setupButton(){
@@ -61,21 +64,52 @@ class TripDetailViewController: UIViewController {
         navigationController?.view.backgroundColor = .ledgitNavigationBarGray
     }
     
+    func setupGestureRecognizers() {
+        let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(handleLongGesture))
+        collectionView.addGestureRecognizer(longPressGesture)
+    }
+    
     @IBAction func actionButtonPressed(_ sender: Any) {
         guard currentTrip?.key != Constants.projectID.sample else {
             showAlert(with: Constants.clientErrorMessages.cannotAddEntriesToSample)
             return
         }
-
         performSegue(withIdentifier: Constants.segueIdentifiers.addEntry, sender: self)
     }
     
+    @objc func handleLongGesture(_ gesture: UILongPressGestureRecognizer) {
+        
+        switch gesture.state {
+            
+        case .began:
+            guard let selectedIndexPath = collectionView.indexPathForItem(at: gesture.location(in: collectionView)) else {
+                break
+            }
+            collectionView.beginInteractiveMovementForItem(at: selectedIndexPath)
+            
+        case .changed:
+            guard let view = gesture.view else { return }
+            collectionView.updateInteractiveMovementTargetPosition(gesture.location(in: view))
+        
+        case .ended:
+            collectionView.endInteractiveMovement()
+            
+        default:
+            collectionView.cancelInteractiveMovement()
+        }
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == Constants.segueIdentifiers.addEntry {
+        guard let identifier = segue.identifier else { return }
+        
+        switch identifier {
+        case Constants.segueIdentifiers.addEntry:
             guard let addEntryViewController = segue.destination as? AddEntryViewController else { return }
             addEntryViewController.presenter = presenter
             addEntryViewController.transitioningDelegate = self
             addEntryViewController.modalPresentationStyle = .custom
+            
+        default: break
         }
     }
 }
@@ -88,27 +122,38 @@ extension TripDetailViewController: TripDetailPresenterDelegate {
 
 extension TripDetailViewController: UICollectionViewDataSource, UICollectionViewDelegate, UIScrollViewDelegate,UICollectionViewDelegateFlowLayout{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 3
+        return identifiers.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        switch indexPath.row {
-        case 0:
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.cellIdentifiers.weekly, for: indexPath) as! WeeklyCollectionViewCell
-            if let presenter = presenter {
-                cell.setupChart(with: presenter.entries)
-                cell.updateLabels(dayAmount: presenter.costToday, budgetAmount: presenter.trip.budget, remainingAmount: presenter.trip.budget - presenter.costToday, averageAmount: presenter.averageCost)
-            }
+        let identifier = identifiers[indexPath.row]
+        
+        switch identifier {
+            
+        case Constants.cellIdentifiers.weekly:
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath) as! WeeklyCollectionViewCell
+            cell.setup(with: presenter)
             return cell
-        case 1:
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.cellIdentifiers.category, for: indexPath) as! CategoryCollectionViewCell
-            if let presenter = presenter { cell.setupChart(with: presenter.entries) }
+            
+        case Constants.cellIdentifiers.category:
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath) as! CategoryCollectionViewCell
+            cell.setup(with: presenter)
             return cell
-        default:
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.cellIdentifiers.history, for: indexPath) as! HistoryCollectionViewCell
-            if let presenter = presenter { cell.updateTableViews(with: presenter.entries) }
+            
+        case Constants.cellIdentifiers.history:
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath) as! HistoryCollectionViewCell
+            cell.setup(with: presenter)
+            cell.delegate = self
+            
             return cell
+            
+        default: return UICollectionViewCell()
         }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, moveItemAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+        let identifier = identifiers.remove(at: sourceIndexPath.item)
+        identifiers.insert(identifier, at: destinationIndexPath.item)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -124,12 +169,12 @@ extension TripDetailViewController: UICollectionViewDataSource, UICollectionView
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        let cellWidth: CGFloat = collectionView.frame.width * 0.90
+        let cellWidth: CGFloat = collectionView.frame.width * cellWidthScale
         return collectionView.frame.width - cellWidth
     }
     
     func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
-        let pageWidth = Float(collectionView!.frame.width * 0.90)
+        let pageWidth = Float(collectionView!.frame.width * cellWidthScale)
         let targetXContentOffset = Float(targetContentOffset.pointee.x)
         let contentWidth = Float(collectionView!.contentSize.width)
         var newPage = Float(pageControl.currentPage)
@@ -164,5 +209,12 @@ extension TripDetailViewController: UIViewControllerTransitioningDelegate {
         transition.startingPoint = actionButton.center
         transition.bubbleColor = actionButton.backgroundColor!
         return transition
+    }
+}
+
+extension TripDetailViewController: DayTableCellDelegate {
+    func selected(entry: LedgitEntry) {
+        performSegue(withIdentifier: <#T##String#>, sender: <#T##Any?#>)
+        print(entry)
     }
 }

@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct LedgitEntry {
+struct LedgitEntry: Equatable {
     var key: String
     let date: Date
     let currency: Currency
@@ -43,7 +43,7 @@ struct LedgitEntry {
         }
         
         key = keyString
-        date = dateString.toDate(withFormat: nil)
+        date = dateString.toDate()
         description = descriptionString
         currency = currencyValue
         location = locationString
@@ -54,5 +54,9 @@ struct LedgitEntry {
         owningTrip = owningTripString
         paymentType = paymentTypeValue
         exchangeRate = exchangeRateDouble
+    }
+
+    static func ==(lhs: LedgitEntry, rhs: LedgitEntry) -> Bool {
+        return lhs.key == rhs.key
     }
 }

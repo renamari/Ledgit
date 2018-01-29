@@ -11,7 +11,7 @@ import BetterSegmentedControl
 import SwiftDate
 
 protocol DayTableCellDelegate: class {
-    func selected(entry: LedgitEntry)
+    func selected(entry: LedgitEntry, at cell: UITableViewCell)
 }
 
 class HistoryCollectionViewCell: UICollectionViewCell {
@@ -22,7 +22,7 @@ class HistoryCollectionViewCell: UICollectionViewCell {
     
     var dateEntries: [DateSection] = []
     var cityEntries: [CitySection] = []
-    let headerHeight: CGFloat = 25
+    let headerHeight: CGFloat = 30
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -84,7 +84,7 @@ class HistoryCollectionViewCell: UICollectionViewCell {
                 dateEntries[index].entries.append(item)
             } else {
                 
-                let newSection = DateSection(date: item.date, entries: [item])
+                let newSection = DateSection(date: item.date, entries: [item], collapsed: false)
                 dateEntries.append(newSection)
             }
             
@@ -96,6 +96,8 @@ class HistoryCollectionViewCell: UICollectionViewCell {
                 cityEntries.append(newSection)
             }
         }
+        
+        dateEntries = dateEntries.sorted { $0.date > $1.date }
     
         cityTableView.reloadData()
         dayTableView.reloadData()
@@ -128,21 +130,25 @@ extension HistoryCollectionViewCell: UITableViewDelegate, UITableViewDataSource{
             
         case dayTableView:
             guard !dateEntries.isEmpty else { return nil }
+            let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "header") as? CollapsibleDateHeaderView ?? CollapsibleDateHeaderView(reuseIdentifier: "header")
+            header.section = section
+            header.setCollapsed(dateEntries[section].collapsed)
+            header.titleLabel.text = dateEntries[section].date.toString(style: .medium)
+            header.delegate = self
             
-            let view = UIView()
-            let dateSection = dateEntries[section]
-            view.backgroundColor = .ledgitNavigationBarGray
-        
-            let label = UILabel(frame: CGRect(x: 15,
-                                              y: 0,
-                                              width: dayTableView.frame.width,
-                                              height: headerHeight))
-            label.text = dateSection.date.toString(style: .medium)
-            label.font = .futuraMedium10
-            label.textColor = .ledgitNavigationTextGray
-            
-            view.addSubview(label)
-            return view
+//            let view = UIView()
+//            let dateSection = dateEntries[section]
+//            view.backgroundColor = .ledgitNavigationBarGray
+//
+//            let label = UILabel(frame: CGRect(x: 15, y: 0,
+//                                              width: dayTableView.frame.width, height: headerHeight))
+//            label.text = dateSection.date.toString(style: .medium)
+//            label.font = .futuraMedium14
+//            label.textColor = .ledgitNavigationTextGray
+//
+//            view.addSubview(label)
+//            return view
+            return header
             
         default: return nil
         }
@@ -151,7 +157,7 @@ extension HistoryCollectionViewCell: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch tableView {
         case dayTableView:
-            return dateEntries[section].entries.count
+            return dateEntries[section].collapsed ? 0 : dateEntries[section].entries.count
         default:
             return cityEntries.count
         }
@@ -176,7 +182,18 @@ extension HistoryCollectionViewCell: UITableViewDelegate, UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard tableView == dayTableView else { return }
+        guard let cell = tableView.cellForRow(at: indexPath) else { return }
         let entry = dateEntries[indexPath.section].entries[indexPath.row]
-        delegate?.selected(entry: entry)
+        delegate?.selected(entry: entry, at: cell)
+    }
+}
+
+extension HistoryCollectionViewCell: CollapsibleDateHeaderViewDelegate {
+    func toggleSection(_ header: CollapsibleDateHeaderView, section: Int) {
+        let collapsed = !dateEntries[section].collapsed
+        
+        dateEntries[section].collapsed = collapsed
+        header.setCollapsed(collapsed)
+        dayTableView.reloadSections(IndexSet(integer: section), with: .automatic)
     }
 }

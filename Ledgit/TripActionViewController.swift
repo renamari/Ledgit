@@ -35,7 +35,7 @@ class TripActionViewController: UIViewController {
     let budgetPickerButtonHeight: CGFloat = 20
     var activeTextField = UITextField()
     var delegate: TripActionDelegate?
-    var method: TripActionMethod = .add
+    var method: LedgitAction = .add
     var trip: LedgitTrip?
     var selectedCurrencies: [Currency] = [.USD]
     var datePicker: UIDatePicker?
@@ -131,12 +131,6 @@ class TripActionViewController: UIViewController {
         endDateTextField.delegate = self
         budgetTextField.delegate = self
         currenciesTextField.delegate = self
-        
-        nameTextField.setTitleVisible(true)
-        startDateTextField.setTitleVisible(true)
-        endDateTextField.setTitleVisible(true)
-        budgetTextField.setTitleVisible(true)
-        currenciesTextField.setTitleVisible(true)
     }
     
     func setupBudgetPicker() {
@@ -302,7 +296,7 @@ extension TripActionViewController: UITextFieldDelegate {
             textField.inputAccessoryView = createToolbar()
             
             if let dateString = (textField == startDateTextField) ? trip?.startDate : trip?.endDate {
-                let date = dateString.toDate(withFormat: nil)
+                let date = dateString.toDate()
                 datePicker?.setDate(date, animated: false)
             }
     

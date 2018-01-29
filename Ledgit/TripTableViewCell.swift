@@ -9,6 +9,7 @@
 import UIKit
 
 class TripTableViewCell: UITableViewCell {
+    @IBOutlet weak var mainView: UIView!
     @IBOutlet weak var tripNameLabel: UILabel!
     @IBOutlet weak var tripColorImageView: UIImageView!
     @IBOutlet weak var tripDateLabel: UILabel!
@@ -25,5 +26,7 @@ class TripTableViewCell: UITableViewCell {
         tripColorImageView.image = cellImages[indexPath.row % 3]
         
         contentView.layoutIfNeeded()
+        mainView.roundedCorners(radius: Constants.cornerRadius.tripCard)
+        mainView.dropShadow()
     }
 }

@@ -123,7 +123,7 @@ extension TripsViewController: UITableViewDelegate{
         if indexPath.row == tableView.lastRow(at: 0) {
             performSegue(withIdentifier: Constants.segueIdentifiers.action, sender: indexPath.row)
         
-        }else{
+        } else {
             performSegue(withIdentifier: Constants.segueIdentifiers.detail, sender: self)
         }
     }

@@ -57,7 +57,7 @@ class TripDetailViewController: UIViewController {
         collectionView.dataSource = self
     }
     
-    func setupNavigationBar(){
+    func setupNavigationBar() {
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         navigationController?.navigationBar.shadowImage = UIImage()
         navigationController?.navigationBar.isTranslucent = true
@@ -74,7 +74,7 @@ class TripDetailViewController: UIViewController {
             showAlert(with: Constants.clientErrorMessages.cannotAddEntriesToSample)
             return
         }
-        performSegue(withIdentifier: Constants.segueIdentifiers.addEntry, sender: self)
+        performSegue(withIdentifier: Constants.segueIdentifiers.entryAction, sender: actionButton)
     }
     
     @objc func handleLongGesture(_ gesture: UILongPressGestureRecognizer) {
@@ -103,11 +103,15 @@ class TripDetailViewController: UIViewController {
         guard let identifier = segue.identifier else { return }
         
         switch identifier {
-        case Constants.segueIdentifiers.addEntry:
-            guard let addEntryViewController = segue.destination as? AddEntryViewController else { return }
-            addEntryViewController.presenter = presenter
-            addEntryViewController.transitioningDelegate = self
-            addEntryViewController.modalPresentationStyle = .custom
+        case Constants.segueIdentifiers.entryAction:
+            guard let entryActionViewController = segue.destination as? EntryActionViewController else { return }
+            entryActionViewController.presenter = presenter
+            entryActionViewController.transitioningDelegate = self
+            entryActionViewController.modalPresentationStyle = .custom
+            if let entry = sender as? LedgitEntry {
+                entryActionViewController.entry = entry
+                entryActionViewController.action = .edit
+            }
             
         default: break
         }
@@ -115,12 +119,12 @@ class TripDetailViewController: UIViewController {
 }
 
 extension TripDetailViewController: TripDetailPresenterDelegate {
-    func retrieveEntry() {
+    func receivedEntryUpdate() {
         collectionView.reloadData()
     }
 }
 
-extension TripDetailViewController: UICollectionViewDataSource, UICollectionViewDelegate, UIScrollViewDelegate,UICollectionViewDelegateFlowLayout{
+extension TripDetailViewController: UICollectionViewDataSource, UICollectionViewDelegate, UIScrollViewDelegate,UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return identifiers.count
     }
@@ -152,6 +156,7 @@ extension TripDetailViewController: UICollectionViewDataSource, UICollectionView
     }
     
     func collectionView(_ collectionView: UICollectionView, moveItemAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+        pageControl.currentPage = destinationIndexPath.row
         let identifier = identifiers.remove(at: sourceIndexPath.item)
         identifiers.insert(identifier, at: destinationIndexPath.item)
     }
@@ -200,21 +205,20 @@ extension TripDetailViewController: UIViewControllerTransitioningDelegate {
     func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         transition.transitionMode = .present
         transition.startingPoint = actionButton.center
-        transition.bubbleColor = actionButton.backgroundColor!
+        transition.bubbleColor = actionButton.backgroundColor ?? .ledgitBlue
         return transition
     }
     
     func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         transition.transitionMode = .dismiss
         transition.startingPoint = actionButton.center
-        transition.bubbleColor = actionButton.backgroundColor!
+        transition.bubbleColor = actionButton.backgroundColor ?? .ledgitBlue
         return transition
     }
 }
 
 extension TripDetailViewController: DayTableCellDelegate {
-    func selected(entry: LedgitEntry) {
-        performSegue(withIdentifier: <#T##String#>, sender: <#T##Any?#>)
-        print(entry)
+    func selected(entry: LedgitEntry, at cell: UITableViewCell) {
+        performSegue(withIdentifier: Constants.segueIdentifiers.entryAction, sender: entry)
     }
 }

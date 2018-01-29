@@ -49,7 +49,7 @@ struct Constants {
         static let account = "toAccountViewController"
         static let about = "toAboutViewController"
         static let categoryAction = "toCategoryActionViewController"
-        static let addEntry = "toAddEntryViewController"
+        static let entryAction = "toAddEntryViewController"
         static let currencySelection = "toCurrencySelectionViewController"
         static let categorySelection = "toCategorySelectionViewController"
     }
@@ -108,6 +108,7 @@ struct Constants {
     
     struct cornerRadius {
         static let button: CGFloat  = 5
+        static let tripCard: CGFloat = 5
     }
     
     struct firebaseReference {
@@ -117,6 +118,7 @@ struct Constants {
     }
     
     struct clientErrorMessages {
+        
         static let freeSubscriptions = [
             "title": "Hooray For You!",
             "message": "We're still testing this feature, so for now everything is free. Enjoy 😉"
@@ -175,6 +177,11 @@ struct Constants {
         static let errorGettingTrip = [
             "title": "Please Excuse Us",
             "message": "We had some trouble getting your trip details. Try again later."
+        ]
+        
+        static let errorGettingEntry = [
+            "title": "Please Excuse Us",
+            "message": "We had some trouble getting your entry details. Try again later."
         ]
     }
     

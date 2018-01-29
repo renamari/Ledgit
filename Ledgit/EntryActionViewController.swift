@@ -1,5 +1,5 @@
 //
-//  AddEntryViewController.swift
+//  EntryActionViewController.swift
 //  Ledgit
 //
 //  Created by Marcos Ortiz on 10/15/17.
@@ -9,9 +9,11 @@
 import UIKit
 import SkyFloatingLabelTextField
 
-class AddEntryViewController: UIViewController {
+class EntryActionViewController: UIViewController {
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var closeButton: UIButton!
+    @IBOutlet weak var deleteButton: UIButton!
+    @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var dateTextField: SkyFloatingLabelTextField!
     @IBOutlet weak var descriptionTextField: SkyFloatingLabelTextField!
     @IBOutlet weak var locationTextField: SkyFloatingLabelTextField!
@@ -22,6 +24,8 @@ class AddEntryViewController: UIViewController {
     @IBOutlet var textFields: [SkyFloatingLabelTextField]!
     @IBOutlet weak var paymentPickerCashButton: UIButton!
     @IBOutlet weak var paymentPickerCreditButton: UIButton!
+    var action: LedgitAction = .add
+    var editedEntry: Bool = false
     var isConnected: Bool { return Reachability.isConnectedToNetwork() }
     var activeTextField: UITextField?
     var selectedCurrency: Currency = .USD {
@@ -34,6 +38,7 @@ class AddEntryViewController: UIViewController {
     var selectedCategory: String?
     var datePicker: UIDatePicker?
     var presenter: TripDetailPresenter?
+    var entry: LedgitEntry?
     
     var paymentType: PaymentType = .cash {
         didSet {
@@ -83,6 +88,41 @@ class AddEntryViewController: UIViewController {
     }
     
     func setupTextFields() {
+        if action == .edit {
+            guard let entry = entry else {
+                showAlert(with: Constants.clientErrorMessages.errorGettingEntry)
+                dismiss(animated: true, completion: nil)
+                return
+            }
+            
+            titleLabel.text = "Edit Entry"
+            selectedCurrency = entry.currency
+            selectedCategory = entry.category
+            categoryTextField.text = selectedCategory
+            currencyTextField.text = selectedCurrency.name
+            dateTextField.text = entry.date.toString(style: .long)
+            locationTextField.text = entry.location
+            descriptionTextField.text = entry.description
+            amountTextField.text = "\(entry.cost)".currencyFormat(with: entry.currency.symbol)
+            exchangeRateTextField.text = "\(entry.exchangeRate)"
+            
+            paymentType = entry.paymentType
+            
+            deleteButton.isUserInteractionEnabled = true
+            deleteButton.isHidden = false
+            
+        } else {
+            dateTextField.text = Date().toString(style: .long)
+            currencyTextField.text = selectedCurrency.name
+            
+            // Initially hide the exchange rate text field
+            if !Currency.rates.isEmpty, let exchangeRate =  Currency.rates[selectedCurrency.code] {
+                exchangeRateTextField.text = "\(exchangeRate)"
+            } else if selectedCurrency == LedgitUser.current.homeCurrency {
+                exchangeRateTextField.text = "1.00"
+            }
+        }
+        
         dateTextField.delegate = self
         locationTextField.delegate = self
         descriptionTextField.delegate = self
@@ -98,19 +138,10 @@ class AddEntryViewController: UIViewController {
         amountTextField.setTitleVisible(true)
         categoryTextField.setTitleVisible(true)
         exchangeRateTextField.setTitleVisible(true)
-        dateTextField.text = Date().toString(style: .long)
         
-        currencyTextField.text = selectedCurrency.name
-        amountTextField.inputAccessoryView = createToolbar()
         exchangeRateTextField.inputAccessoryView = createToolbar()
+        amountTextField.inputAccessoryView = createToolbar()
         dateTextField.inputAccessoryView = createToolbar()
-        
-        // Initially hide the exchange rate text field
-        if !Currency.rates.isEmpty, let exchangeRate =  Currency.rates[selectedCurrency.code] {
-            exchangeRateTextField.text = "\(exchangeRate)"
-        } else if selectedCurrency == LedgitUser.current.homeCurrency {
-            exchangeRateTextField.text = "1.00"
-        }
     }
     
     func setupObservers() {
@@ -164,12 +195,45 @@ class AddEntryViewController: UIViewController {
     @IBAction func amountTextFieldChanged(_ sender: SkyFloatingLabelTextField) {
         guard let text = sender.text else { return }
         sender.text = text.currencyFormat(with: selectedCurrency.symbol)
+    }
+    
+    @IBAction func deleteButtonPressed(_ sender: Any) {
+        guard let entry = entry else { return }
+        let alert = UIAlertController(title: "Warning", message: "Are you sure you want to remove this entry? This can't be undone.", preferredStyle: .actionSheet)
+
+        let cancelAction = UIAlertAction(title: "Nevermind", style: .cancel, handler: nil)
+        let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { action in
+            self.presenter?.remove(entry)
+        }
         
+        alert.addAction(deleteAction)
+        alert.addAction(cancelAction)
         
+        present(alert, animated: true, completion: nil)
     }
     
     @IBAction func closeButtonPressed(_ sender: Any) {
-        dismiss(animated: true, completion: nil)
+        
+        if action == .edit && editedEntry {
+            
+            let alert = UIAlertController(title: "Just making sure...", message: "It looks like you made some changes, do you want to save them?", preferredStyle: .alert)
+            
+            let noThanksAction = UIAlertAction(title: "No thanks", style: .destructive, handler: { action in
+                self.dismiss(animated: true, completion: nil)
+            })
+          
+            let saveAction = UIAlertAction(title: "Yes please!", style: .cancel, handler: { action in
+                self.saveButtonPressed(self)
+            })
+            
+            alert.addAction(saveAction)
+            alert.addAction(noThanksAction)
+            
+            present(alert, animated: true, completion: nil)
+            
+        } else {
+            dismiss(animated: true, completion: nil)
+        }
     }
     
     @IBAction func saveButtonPressed(_ sender: Any) {
@@ -203,8 +267,14 @@ class AddEntryViewController: UIViewController {
             return
         }
         
-        let key = Service.shared.entries.childByAutoId().key
-        let entry: NSDictionary = [
+        var key = ""
+        if action == .edit, let entry = entry {
+            key = entry.key
+        } else {
+            key = Service.shared.entries.childByAutoId().key
+        }
+        
+        let entryData: NSDictionary = [
             "key": key,
             "date": date,
             "location": location,
@@ -219,19 +289,24 @@ class AddEntryViewController: UIViewController {
             "owningTrip": owningTripKey
         ]
         
-        presenter?.create(entry: entry)
+        if action == .edit {
+            presenter?.update(entry: entryData)
+        } else {
+            presenter?.create(entry: entryData)
+        }
+        
         dismiss(animated: true, completion: nil)
     }
 }
 
-extension AddEntryViewController: CategorySelectionDelegate {
+extension EntryActionViewController: CategorySelectionDelegate {
     func selected(_ category: String) {
         selectedCategory = category
         categoryTextField.text = category
     }
 }
 
-extension AddEntryViewController: CurrencySelectionDelegate {
+extension EntryActionViewController: CurrencySelectionDelegate {
     func selected(_ currencies: [Currency]) {
         guard let currency = currencies.first else { return }
         selectedCurrency = currency
@@ -240,7 +315,7 @@ extension AddEntryViewController: CurrencySelectionDelegate {
     }
 }
 
-extension AddEntryViewController: UITextFieldDelegate {
+extension EntryActionViewController: UITextFieldDelegate {
     
     @objc func keyboardWillShow(notification:NSNotification){
         //give room at the bottom of the scroll view, so it doesn't cover up anything the user needs to tap
@@ -252,6 +327,11 @@ extension AddEntryViewController: UITextFieldDelegate {
     
     @objc func keyboardWillHide(notification:NSNotification){
         scrollView.contentInset = .zero
+    }
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        editedEntry = true
+        return true
     }
     
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
@@ -302,7 +382,7 @@ extension AddEntryViewController: UITextFieldDelegate {
             dateTextField.inputView = datePicker
             dateTextField.errorMessage = nil
             if let dateString = dateTextField.text {
-                let date = dateString.toDate(withFormat: nil)
+                let date = dateString.toDate()
                 datePicker?.setDate(date, animated: false)
             }
             return true

@@ -11,6 +11,8 @@ import Firebase
 
 protocol TripDetailManagerDelegate: class {
     func retrievedEntry(_ entry: LedgitEntry)
+    func removedEntry(_ entry: LedgitEntry)
+    func updatedEntry(_ key: String)
 }
 
 class TripDetailManager {
@@ -46,5 +48,20 @@ extension TripDetailManager {
         guard let tripKey = entry["owningTrip"] as? String else { return }
         entries.child(entryKey).setValue(entry)
         trips.child(tripKey).updateChildValues(["entries": entryKey])
+    }
+    
+    func remove(_ entry: LedgitEntry) {
+        let key = entry.key
+        
+        entries.child(key).removeValue { (error, ref) in
+            guard error == nil else { return }
+            self.delegate?.removedEntry(entry)
+        }
+    }
+    
+    func update(_ entryData: NSDictionary) {
+        guard let entryKey = entryData["key"] as? String else { return }
+        entries.child(entryKey).setValue(entryData)
+        delegate?.updatedEntry(entryKey)
     }
 }

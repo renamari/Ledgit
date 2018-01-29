@@ -10,6 +10,7 @@
 		0AEC39872D7A188B128C430A /* Pods_LedgitTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7EB21902AE594012FF148F96 /* Pods_LedgitTests.framework */; };
 		5FA2B0A65D5BA7817E8BA1AB /* Pods_Ledgit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 440E18801682C6FA72C78822 /* Pods_Ledgit.framework */; };
 		82E5542861F21775516C139F /* Pods_LedgitUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8521A36C51FB5EBE2134AD85 /* Pods_LedgitUITests.framework */; };
+		8D171ED5201EAD370058891E /* CollapsibleDateHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D171ED4201EAD370058891E /* CollapsibleDateHeaderView.swift */; };
 		8D173EBF1F997B4100EC8527 /* AuthenticationPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D173EBE1F997B4100EC8527 /* AuthenticationPresenter.swift */; };
 		8D173EC31F99803400EC8527 /* AuthenticationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D173EC21F99803400EC8527 /* AuthenticationManager.swift */; };
 		8D18DCB61F43E07100BD5EBA /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D18DCB51F43E07100BD5EBA /* SettingsViewController.swift */; };
@@ -21,8 +22,7 @@
 		8D2AEC191F4D146900227FC6 /* DateTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D2AEC181F4D146900227FC6 /* DateTableViewCell.swift */; };
 		8D2AEC1B1F4D147800227FC6 /* CityTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D2AEC1A1F4D147800227FC6 /* CityTableViewCell.swift */; };
 		8D39F94B1FC51B470055BA4E /* SettingsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D39F94A1FC51B470055BA4E /* SettingsManager.swift */; };
-		8D562E7A201D95A7009BD564 /* EditEntryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D562E79201D95A6009BD564 /* EditEntryViewController.swift */; };
-		8D656AA31F94480800C85A0F /* AddEntryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D656AA21F94480800C85A0F /* AddEntryViewController.swift */; };
+		8D656AA31F94480800C85A0F /* EntryActionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D656AA21F94480800C85A0F /* EntryActionViewController.swift */; };
 		8D6F4B641F4E8CFC0046847C /* CategoriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D6F4B631F4E8CFC0046847C /* CategoriesViewController.swift */; };
 		8D6F4B661F4E8D050046847C /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D6F4B651F4E8D050046847C /* AccountViewController.swift */; };
 		8D6F4B681F4E8D100046847C /* SubscriptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D6F4B671F4E8D100046847C /* SubscriptionViewController.swift */; };
@@ -93,6 +93,7 @@
 		440E18801682C6FA72C78822 /* Pods_Ledgit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Ledgit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7EB21902AE594012FF148F96 /* Pods_LedgitTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LedgitTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8521A36C51FB5EBE2134AD85 /* Pods_LedgitUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LedgitUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8D171ED4201EAD370058891E /* CollapsibleDateHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollapsibleDateHeaderView.swift; sourceTree = "<group>"; };
 		8D173EBE1F997B4100EC8527 /* AuthenticationPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationPresenter.swift; sourceTree = "<group>"; };
 		8D173EC21F99803400EC8527 /* AuthenticationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationManager.swift; sourceTree = "<group>"; };
 		8D18DCB51F43E07100BD5EBA /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
@@ -104,8 +105,7 @@
 		8D2AEC181F4D146900227FC6 /* DateTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateTableViewCell.swift; sourceTree = "<group>"; };
 		8D2AEC1A1F4D147800227FC6 /* CityTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CityTableViewCell.swift; sourceTree = "<group>"; };
 		8D39F94A1FC51B470055BA4E /* SettingsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsManager.swift; sourceTree = "<group>"; };
-		8D562E79201D95A6009BD564 /* EditEntryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditEntryViewController.swift; sourceTree = "<group>"; };
-		8D656AA21F94480800C85A0F /* AddEntryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEntryViewController.swift; sourceTree = "<group>"; };
+		8D656AA21F94480800C85A0F /* EntryActionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryActionViewController.swift; sourceTree = "<group>"; };
 		8D6F4B631F4E8CFC0046847C /* CategoriesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoriesViewController.swift; sourceTree = "<group>"; };
 		8D6F4B651F4E8D050046847C /* AccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountViewController.swift; sourceTree = "<group>"; };
 		8D6F4B671F4E8D100046847C /* SubscriptionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubscriptionViewController.swift; sourceTree = "<group>"; };
@@ -268,6 +268,7 @@
 			isa = PBXGroup;
 			children = (
 				8D2AEC1A1F4D147800227FC6 /* CityTableViewCell.swift */,
+				8D171ED4201EAD370058891E /* CollapsibleDateHeaderView.swift */,
 				8D2AEC181F4D146900227FC6 /* DateTableViewCell.swift */,
 			);
 			name = "History Table View Cell";
@@ -411,8 +412,7 @@
 			children = (
 				8DDDD6BA1F47ED100053146B /* Collection View Cells */,
 				8DDDD6B21F473EFA0053146B /* TripDetailViewController.swift */,
-				8D656AA21F94480800C85A0F /* AddEntryViewController.swift */,
-				8D562E79201D95A6009BD564 /* EditEntryViewController.swift */,
+				8D656AA21F94480800C85A0F /* EntryActionViewController.swift */,
 				8DFAE89E1FCB9B1500B4734B /* CategorySelectionViewController.swift */,
 			);
 			name = View;
@@ -872,7 +872,8 @@
 				8D173EBF1F997B4100EC8527 /* AuthenticationPresenter.swift in Sources */,
 				8DA3B22D1F40055700FC31AF /* Device.swift in Sources */,
 				8DBBB5F81FAFC99F002D0984 /* TripActionViewController.swift in Sources */,
-				8D656AA31F94480800C85A0F /* AddEntryViewController.swift in Sources */,
+				8D171ED5201EAD370058891E /* CollapsibleDateHeaderView.swift in Sources */,
+				8D656AA31F94480800C85A0F /* EntryActionViewController.swift in Sources */,
 				8D29168E1FB8EA42008ED9F2 /* CurrencyTableViewCell.swift in Sources */,
 				8DB4679F1FC1F2FA00E44863 /* LedgitEntry.swift in Sources */,
 				8DE6F56C20154CD90081DB6E /* ResourceManager.swift in Sources */,
@@ -886,7 +887,6 @@
 				8DA3B2201F3FBEF300FC31AF /* Utilities.swift in Sources */,
 				8D707B4E1F9D3EEE00CABA0F /* TripsPresenter.swift in Sources */,
 				8DAD43E71F9D46270054EDD8 /* SettingsNavigationController.swift in Sources */,
-				8D562E7A201D95A7009BD564 /* EditEntryViewController.swift in Sources */,
 				8D6F4B641F4E8CFC0046847C /* CategoriesViewController.swift in Sources */,
 				8D707B4C1F9D3BAC00CABA0F /* TripsNavigationController.swift in Sources */,
 				8DC243DC1F43BE3900B3E080 /* AddTripTableViewCell.swift in Sources */,

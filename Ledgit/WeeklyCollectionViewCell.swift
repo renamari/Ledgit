@@ -17,6 +17,10 @@ class WeeklyCollectionViewCell: UICollectionViewCell, ChartViewDelegate {
     @IBOutlet weak var remainingLabel: UILabel!
     @IBOutlet weak var budgetLabel: UILabel!
     @IBOutlet weak var averageLabel: UILabel!
+    var costToday: Double = 0
+    var totalCost: Double = 0
+    var averageCost: Double = 0
+    var dates: [Date] = []
     
     var weekdays:[String] = [
         (Date() - 6.day).toString(style: .day),
@@ -33,20 +37,34 @@ class WeeklyCollectionViewCell: UICollectionViewCell, ChartViewDelegate {
         weeklyChart.delegate = self
     }
     
+    func clearValues() {
+        costToday = 0
+        totalCost = 0
+        averageCost = 0
+        dates = []
+    }
+    
     func setup(with presenter: TripDetailPresenter) {
+        clearValues()
         let data = presenter.entries
-        
-        updateLabels(dayAmount: presenter.costToday,
-                     budgetAmount: presenter.trip.budget,
-                     remainingAmount: presenter.trip.budget - presenter.costToday,
-                     averageAmount: presenter.averageCost)
         
         guard !data.isEmpty else { return }
         var values:[BarChartDataEntry] = []
         var amounts:[Double] = [0, 0, 0, 0, 0, 0, 0]
         
-        for index in 0..<data.count {
+        for index in 0 ..< data.count {
             let item = data[index]
+            // Compute the information on the front card
+            if !dates.contains(item.date) {
+                dates.append(item.date)
+            }
+            
+            if item.date.isToday {
+                costToday += item.convertedCost
+            }
+            
+            totalCost += item.convertedCost
+            averageCost = totalCost / Double(dates.count)
             
             /*
              Chart is layed out with today being on the far right of the chart
@@ -75,6 +93,11 @@ class WeeklyCollectionViewCell: UICollectionViewCell, ChartViewDelegate {
                 amounts[6] += item.convertedCost
             }
         }
+        
+        updateLabels(dayAmount: costToday,
+                     budgetAmount: presenter.trip.budget,
+                     remainingAmount: presenter.trip.budget - costToday,
+                     averageAmount: averageCost)
         
         for (index, amount) in amounts.enumerated() {
             let entry = BarChartDataEntry(x: Double(index), y: amount)

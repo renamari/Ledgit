@@ -14,6 +14,8 @@ class AccountViewController: UIViewController {
     @IBOutlet weak var nameTextField: SkyFloatingLabelTextField!
     @IBOutlet weak var emailTextField: SkyFloatingLabelTextField!
     @IBOutlet weak var saveButton: UIButton!
+    @IBOutlet var cardViewCenterConstraint: NSLayoutConstraint!
+    @IBOutlet var cardViewBottomConstraint: NSLayoutConstraint!
     weak var presenter: SettingsPresenter?
     var previousFrame: CGRect?
     let padding:CGFloat = 20
@@ -99,20 +101,18 @@ class AccountViewController: UIViewController {
     @objc func keyboardWillShow(notification: Notification) {
         guard let userInfo = notification.userInfo else { return }
         guard let keyboardSize = userInfo[UIKeyboardFrameEndUserInfoKey] as? CGRect else { return }
-        let availableScreen = view.frame.height - keyboardSize.height
-        previousFrame = cardView.frame
         
-        UIView.animate(withDuration: 0.25, animations: {
-            self.cardView.frame.size.height = availableScreen - (2 * self.padding)
-            self.cardView.frame.origin.y = self.padding
+        UIView.animate(withDuration: 0.5, animations: {
+            self.cardViewCenterConstraint.isActive = false
+            self.cardViewBottomConstraint.constant = keyboardSize.height + 15
+            self.cardViewBottomConstraint.isActive = true
         })
     }
     
     @objc func keyboardWillHide(notification: Notification) {
-        guard let frame = previousFrame else { return }
-
-        UIView.animate(withDuration: 0.25, animations: {
-            self.cardView.frame = frame
+        UIView.animate(withDuration: 0.5, animations: {
+            self.cardViewBottomConstraint.constant = 15
+            self.cardViewCenterConstraint.isActive = true
         })
     }
 }

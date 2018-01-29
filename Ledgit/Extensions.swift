@@ -83,6 +83,7 @@ extension UIFont {
     static var futuraMedium8: UIFont { return UIFont(name: "Futura-Medium", size: 8.0)!}
     static var futuraMedium10: UIFont { return UIFont(name: "Futura-Medium", size: 10.0)!}
     static var futuraMedium12: UIFont { return UIFont(name: "Futura-Medium", size: 12.0)!}
+    static var futuraMedium14: UIFont { return UIFont(name: "Futura-Medium", size: 14.0)!}
     static var futuraMedium15: UIFont { return UIFont(name: "Futura-Medium", size: 15.0)!}
     static var futuraMedium17: UIFont { return UIFont(name: "Futura-Medium", size: 17.0)!}
     static var futuraMedium18: UIFont { return UIFont(name: "Futura-Medium", size: 18.0)!}
@@ -123,6 +124,7 @@ extension UIColor {
     
     // MARK:- Theme colors
     static var ledgitBlue: UIColor { return UIColor(hex: 0x308CF9)! }
+    static var ledgitRed: UIColor { return UIColor(hex: 0xFF7D7D)! }
     static var ledgitPink: UIColor { return UIColor(hex: 0xEF7BC6)! }
     static var ledgitAqua: UIColor { return UIColor(hex: 0x1F9DBF)! }
     static var ledgitYellow: UIColor { return UIColor(hex: 0xFFBA00)! }
@@ -182,12 +184,9 @@ extension String{
         return scanner.scanDecimal(nil) && scanner.isAtEnd
     }
     
-    func toDate(withFormat format:String?) -> Date {
+    func toDate(withFormat format: LedgitDateStyle = .full) -> Date {
         let formatter = DateFormatter()
-        
-        if let format = format { formatter.dateFormat = format }
-        else { formatter.dateFormat = "MMMM dd, yyyy" }
-        
+        formatter.dateFormat = format.rawValue
         return formatter.date(from: self)!
     }
     
@@ -203,10 +202,22 @@ extension UIView {
         self.addGestureRecognizer(tapRecognizer)
     }
     
+    func dropShadow(scale: Bool = true) {
+        layer.masksToBounds = false
+        layer.shadowColor = UIColor.ledgitSeparatorGray.cgColor
+        layer.shadowOpacity = 0.7
+        layer.shadowOffset = CGSize(width: 0, height: 1)
+        layer.shadowRadius = 2
+        
+        layer.shadowPath = UIBezierPath(rect: bounds).cgPath
+        layer.shouldRasterize = true
+        layer.rasterizationScale = scale ? UIScreen.main.scale : 1
+    }
+    
     func roundedCorners(radius: CGFloat) {
-        self.layer.cornerRadius = radius
-        self.layer.masksToBounds = true
-        self.clipsToBounds = true
+        layer.cornerRadius = radius
+        //layer.masksToBounds = true
+        clipsToBounds = true
     }
     
     func roundedCorners(radius: CGFloat, borderColor: UIColor) {

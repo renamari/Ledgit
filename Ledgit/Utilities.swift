@@ -31,13 +31,14 @@ enum AuthenticationMethod {
     case signin, signup
 }
 
-enum TripActionMethod {
+enum LedgitAction {
     case add, edit
 }
 
 struct DateSection {
     var date: Date
     var entries: [LedgitEntry]
+    var collapsed: Bool = false
 }
 
 struct CitySection {

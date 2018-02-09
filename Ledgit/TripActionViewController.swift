@@ -60,19 +60,19 @@ class TripActionViewController: UIViewController {
             switch budgetSelection {
             case .daily:
                 budgetPickerLabel.text = "DAILY"
-                budgetPickerDailyButton.backgroundColor = .ledgitNavigationTextGray
+                budgetPickerDailyButton.backgroundColor = LedgitColor.navigationTextGray
                 budgetPickerMonthlyButton.backgroundColor = .clear
                 budgetPickerTripButton.backgroundColor = .clear
                 
             case .monthly:
                 budgetPickerLabel.text = "MONTHLY"
-                budgetPickerMonthlyButton.backgroundColor = .ledgitNavigationTextGray
+                budgetPickerMonthlyButton.backgroundColor = LedgitColor.navigationTextGray
                 budgetPickerDailyButton.backgroundColor = .clear
                 budgetPickerTripButton.backgroundColor = .clear
                 
             case .trip:
                 budgetPickerLabel.text = "TRIP"
-                budgetPickerTripButton.backgroundColor = .ledgitNavigationTextGray
+                budgetPickerTripButton.backgroundColor = LedgitColor.navigationTextGray
                 budgetPickerDailyButton.backgroundColor = .clear
                 budgetPickerMonthlyButton.backgroundColor = .clear
             }
@@ -134,9 +134,9 @@ class TripActionViewController: UIViewController {
     }
     
     func setupBudgetPicker() {
-        budgetPickerDailyButton.roundedCorners(radius: budgetPickerButtonHeight / 2, borderColor: .ledgitNavigationTextGray)
-        budgetPickerMonthlyButton.roundedCorners(radius: budgetPickerButtonHeight / 2, borderColor: .ledgitNavigationTextGray)
-        budgetPickerTripButton.roundedCorners(radius: budgetPickerButtonHeight / 2, borderColor: .ledgitNavigationTextGray)
+        budgetPickerDailyButton.roundedCorners(radius: budgetPickerButtonHeight / 2, borderColor: LedgitColor.navigationTextGray)
+        budgetPickerMonthlyButton.roundedCorners(radius: budgetPickerButtonHeight / 2, borderColor: LedgitColor.navigationTextGray)
+        budgetPickerTripButton.roundedCorners(radius: budgetPickerButtonHeight / 2, borderColor: LedgitColor.navigationTextGray)
         
         if method == .edit {
             guard let trip = trip else {

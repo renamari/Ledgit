@@ -58,7 +58,7 @@ class HistoryCollectionViewCell: UICollectionViewCell {
     
     func setupSegmentedControl(){
         segmentedControl.layer.borderWidth = 1
-        segmentedControl.layer.borderColor = UIColor.ledgitBlue.cgColor
+        segmentedControl.layer.borderColor = LedgitColor.coreBlue.cgColor
         segmentedControl.titles = ["Date", "City"]
         segmentedControl.addTarget(self, action: #selector(segmentedControlChanged), for: .valueChanged)
     }
@@ -135,19 +135,7 @@ extension HistoryCollectionViewCell: UITableViewDelegate, UITableViewDataSource{
             header.setCollapsed(dateEntries[section].collapsed)
             header.titleLabel.text = dateEntries[section].date.toString(style: .medium)
             header.delegate = self
-            
-//            let view = UIView()
-//            let dateSection = dateEntries[section]
-//            view.backgroundColor = .ledgitNavigationBarGray
-//
-//            let label = UILabel(frame: CGRect(x: 15, y: 0,
-//                                              width: dayTableView.frame.width, height: headerHeight))
-//            label.text = dateSection.date.toString(style: .medium)
-//            label.font = .futuraMedium14
-//            label.textColor = .ledgitNavigationTextGray
-//
-//            view.addSubview(label)
-//            return view
+
             return header
             
         default: return nil

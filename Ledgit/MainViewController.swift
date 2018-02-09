@@ -33,15 +33,13 @@ class MainViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         setupUI()
-        
         setupPageViewController()
     }
     
     func setupUI() {
         signupButton.roundedCorners(radius: Constants.cornerRadius.button)
-        signinButton.roundedCorners(radius: Constants.cornerRadius.button, borderColor: .ledgitBlue)
+        signinButton.roundedCorners(radius: Constants.cornerRadius.button, borderColor: LedgitColor.coreBlue)
     }
     
     func setupPageViewController() {
@@ -138,8 +136,8 @@ extension MainViewController: UIPageViewControllerDelegate {
     func pageViewController(_ pageViewController: UIPageViewController, willTransitionTo pendingViewControllers: [UIViewController]) {
         
         // 1. Update the current index to the view controller index user will transition to
-        guard let controller = pendingViewControllers.first as? TutorialViewController, let index = controller.index else { return }
-        currentIndex = index
+        guard let controller = pendingViewControllers.first as? TutorialViewController else { return }
+        currentIndex = controller.index
     }
 }
 

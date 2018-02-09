@@ -48,7 +48,6 @@
 		8DA3B22B1F4004EB00FC31AF /* Currency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA3B22A1F4004EB00FC31AF /* Currency.swift */; };
 		8DA3B22D1F40055700FC31AF /* Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA3B22C1F40055700FC31AF /* Device.swift */; };
 		8DAD43E71F9D46270054EDD8 /* SettingsNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DAD43E61F9D46270054EDD8 /* SettingsNavigationController.swift */; };
-		8DB4679B1FC0B4A800E44863 /* MockData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB4679A1FC0B4A800E44863 /* MockData.swift */; };
 		8DB4679D1FC1F16700E44863 /* LedgitUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB4679C1FC1F16700E44863 /* LedgitUser.swift */; };
 		8DB4679F1FC1F2FA00E44863 /* LedgitEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB4679E1FC1F2FA00E44863 /* LedgitEntry.swift */; };
 		8DB467A11FC1F3A500E44863 /* LedgitTrip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB467A01FC1F3A500E44863 /* LedgitTrip.swift */; };
@@ -59,6 +58,10 @@
 		8DC243D81F43ADBB00B3E080 /* Trips.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8DC243D71F43ADBB00B3E080 /* Trips.storyboard */; };
 		8DC243DA1F43BE2B00B3E080 /* TripTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DC243D91F43BE2B00B3E080 /* TripTableViewCell.swift */; };
 		8DC243DC1F43BE3900B3E080 /* AddTripTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DC243DB1F43BE3900B3E080 /* AddTripTableViewCell.swift */; };
+		8DDD131A202AAA5F00998AA5 /* LedgitPromise.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDD1319202AAA5F00998AA5 /* LedgitPromise.swift */; };
+		8DDD131C202AB0F600998AA5 /* LedgitColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDD131B202AB0F600998AA5 /* LedgitColor.swift */; };
+		8DDD1321202D5CC300998AA5 /* AuthenticationManagerDelegateMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDD1320202D5CC300998AA5 /* AuthenticationManagerDelegateMock.swift */; };
+		8DDD1323202D5F4E00998AA5 /* AuthenticationPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDD1322202D5F4E00998AA5 /* AuthenticationPresenterTests.swift */; };
 		8DDDD6B31F473EFA0053146B /* TripDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDDD6B21F473EFA0053146B /* TripDetailViewController.swift */; };
 		8DDDD6B51F47ECDD0053146B /* WeeklyCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDDD6B41F47ECDD0053146B /* WeeklyCollectionViewCell.swift */; };
 		8DDDD6B71F47ECF00053146B /* CategoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDDD6B61F47ECF00053146B /* CategoryCollectionViewCell.swift */; };
@@ -137,7 +140,6 @@
 		8DA3B22A1F4004EB00FC31AF /* Currency.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Currency.swift; sourceTree = "<group>"; };
 		8DA3B22C1F40055700FC31AF /* Device.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Device.swift; sourceTree = "<group>"; };
 		8DAD43E61F9D46270054EDD8 /* SettingsNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsNavigationController.swift; sourceTree = "<group>"; };
-		8DB4679A1FC0B4A800E44863 /* MockData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockData.swift; sourceTree = "<group>"; };
 		8DB4679C1FC1F16700E44863 /* LedgitUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LedgitUser.swift; sourceTree = "<group>"; };
 		8DB4679E1FC1F2FA00E44863 /* LedgitEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LedgitEntry.swift; sourceTree = "<group>"; };
 		8DB467A01FC1F3A500E44863 /* LedgitTrip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LedgitTrip.swift; sourceTree = "<group>"; };
@@ -148,6 +150,10 @@
 		8DC243D71F43ADBB00B3E080 /* Trips.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Trips.storyboard; sourceTree = "<group>"; };
 		8DC243D91F43BE2B00B3E080 /* TripTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TripTableViewCell.swift; sourceTree = "<group>"; };
 		8DC243DB1F43BE3900B3E080 /* AddTripTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddTripTableViewCell.swift; sourceTree = "<group>"; };
+		8DDD1319202AAA5F00998AA5 /* LedgitPromise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LedgitPromise.swift; sourceTree = "<group>"; };
+		8DDD131B202AB0F600998AA5 /* LedgitColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LedgitColor.swift; sourceTree = "<group>"; };
+		8DDD1320202D5CC300998AA5 /* AuthenticationManagerDelegateMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationManagerDelegateMock.swift; sourceTree = "<group>"; };
+		8DDD1322202D5F4E00998AA5 /* AuthenticationPresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationPresenterTests.swift; sourceTree = "<group>"; };
 		8DDDD6B21F473EFA0053146B /* TripDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TripDetailViewController.swift; sourceTree = "<group>"; };
 		8DDDD6B41F47ECDD0053146B /* WeeklyCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeeklyCollectionViewCell.swift; sourceTree = "<group>"; };
 		8DDDD6B61F47ECF00053146B /* CategoryCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -299,7 +305,7 @@
 		8DA3B1A51F3F875B00FC31AF /* Ledgit */ = {
 			isa = PBXGroup;
 			children = (
-				8DA3B22E1F40136C00FC31AF /* Login */,
+				8DA3B22E1F40136C00FC31AF /* Authentication */,
 				8DC243D41F43AD8C00B3E080 /* Trips */,
 				8D2AEBC31F48912D00227FC6 /* Trip Detail */,
 				8D18DCB91F43E68F00BD5EBA /* Settings */,
@@ -312,9 +318,9 @@
 		8DA3B1BD1F3F875B00FC31AF /* LedgitTests */ = {
 			isa = PBXGroup;
 			children = (
+				8DDD131D202D59B400998AA5 /* Authentication */,
 				8DBFF0261F9ED67B0069FB3A /* Trips Mocks */,
 				8DA3B1BE1F3F875B00FC31AF /* LedgitTests.swift */,
-				8DB4679A1FC0B4A800E44863 /* MockData.swift */,
 				8DA3B1C01F3F875B00FC31AF /* Info.plist */,
 			);
 			path = LedgitTests;
@@ -333,6 +339,7 @@
 			isa = PBXGroup;
 			children = (
 				8DA3B21A1F3FBCA500FC31AF /* Extensions.swift */,
+				8DDD131B202AB0F600998AA5 /* LedgitColor.swift */,
 				8DBBDBD91F97857700E7F8CF /* Service.swift */,
 				8DA3B21F1F3FBEF300FC31AF /* Utilities.swift */,
 				8DA3B22C1F40055700FC31AF /* Device.swift */,
@@ -342,6 +349,7 @@
 				8DB4679E1FC1F2FA00E44863 /* LedgitEntry.swift */,
 				8DB467A01FC1F3A500E44863 /* LedgitTrip.swift */,
 				8DE6F56B20154CD90081DB6E /* ResourceManager.swift */,
+				8DDD1319202AAA5F00998AA5 /* LedgitPromise.swift */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -360,14 +368,14 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		8DA3B22E1F40136C00FC31AF /* Login */ = {
+		8DA3B22E1F40136C00FC31AF /* Authentication */ = {
 			isa = PBXGroup;
 			children = (
 				8D173EC51F99A4FA00EC8527 /* Model */,
 				8D173EC41F99A4E200EC8527 /* View */,
 				8D173EC61F99A50100EC8527 /* Presenter */,
 			);
-			name = Login;
+			name = Authentication;
 			sourceTree = "<group>";
 		};
 		8DAD43E81F9D54D50054EDD8 /* View */ = {
@@ -473,6 +481,15 @@
 				8DAD43E81F9D54D50054EDD8 /* View */,
 			);
 			name = Trips;
+			sourceTree = "<group>";
+		};
+		8DDD131D202D59B400998AA5 /* Authentication */ = {
+			isa = PBXGroup;
+			children = (
+				8DDD1320202D5CC300998AA5 /* AuthenticationManagerDelegateMock.swift */,
+				8DDD1322202D5F4E00998AA5 /* AuthenticationPresenterTests.swift */,
+			);
+			path = Authentication;
 			sourceTree = "<group>";
 		};
 		8DDDD6BA1F47ED100053146B /* Collection View Cells */ = {
@@ -870,6 +887,7 @@
 				8DFAE89B1FCB103F00B4734B /* TripDetailManager.swift in Sources */,
 				8D6F4B681F4E8D100046847C /* SubscriptionViewController.swift in Sources */,
 				8D173EBF1F997B4100EC8527 /* AuthenticationPresenter.swift in Sources */,
+				8DDD131A202AAA5F00998AA5 /* LedgitPromise.swift in Sources */,
 				8DA3B22D1F40055700FC31AF /* Device.swift in Sources */,
 				8DBBB5F81FAFC99F002D0984 /* TripActionViewController.swift in Sources */,
 				8D171ED5201EAD370058891E /* CollapsibleDateHeaderView.swift in Sources */,
@@ -901,6 +919,7 @@
 				8DA3B22B1F4004EB00FC31AF /* Currency.swift in Sources */,
 				8D18DCB81F43E34B00BD5EBA /* SettingsTableViewCell.swift in Sources */,
 				8DA3B1AF1F3F875B00FC31AF /* Ledgit.xcdatamodeld in Sources */,
+				8DDD131C202AB0F600998AA5 /* LedgitColor.swift in Sources */,
 				8DC243DA1F43BE2B00B3E080 /* TripTableViewCell.swift in Sources */,
 				8DB4679D1FC1F16700E44863 /* LedgitUser.swift in Sources */,
 				8DC243D61F43ADA400B3E080 /* TripsViewController.swift in Sources */,
@@ -921,7 +940,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				8DA3B1BF1F3F875B00FC31AF /* LedgitTests.swift in Sources */,
-				8DB4679B1FC0B4A800E44863 /* MockData.swift in Sources */,
+				8DDD1321202D5CC300998AA5 /* AuthenticationManagerDelegateMock.swift in Sources */,
+				8DDD1323202D5F4E00998AA5 /* AuthenticationPresenterTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1015,7 +1035,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -1066,7 +1086,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";

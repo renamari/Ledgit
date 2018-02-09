@@ -100,3 +100,42 @@ class CurrencyFormatter : NumberFormatter, FormatterProtocol {
 }
 
 
+
+func makeError(_ string: String) -> Error {
+    return NSError(domain: "RenameMeErrorDomain",
+                   code: 1,
+                   userInfo: [NSLocalizedDescriptionKey: string])
+}
+
+struct Log {
+    
+    static func debug(_ string: String,
+                      _ method: String = #function,
+                      _ line: Int = #line) {
+        print("\(Date()): <DEBUG>\t\t\(string)")
+    }
+    
+    static func info(_ string: String,
+                     _ method: String = #function,
+                     _ line: Int = #line) {
+        print("\(Date()): <INFO>\t\t\(string)")
+    }
+    
+    static func warning(_ string: String,
+                        _ method: String = #function,
+                        _ line: Int = #line) {
+        print("\(Date()): <WARNING>\t\(string)")
+    }
+    
+    static func critical(_ string: String,
+                         _ method: String = #function,
+                         _ line: Int = #line) {
+        print("\(Date()): <CRITICAL>\t\(string)")
+    }
+    
+    static func error(_ error: Error,
+                      _ method: String = #function,
+                      _ line: Int = #line) {
+        print("\(Date()): <ERROR>\t\t\(error.localizedDescription)")
+    }
+}

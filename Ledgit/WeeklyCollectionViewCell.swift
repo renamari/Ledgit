@@ -158,24 +158,24 @@ class WeeklyCollectionViewCell: UICollectionViewCell, ChartViewDelegate {
         let xAxis: XAxis = weeklyChart.xAxis
         xAxis.labelPosition = .bottom;
         xAxis.labelFont = .futuraMedium10
-        xAxis.labelTextColor = .ledgitNavigationTextGray
+        xAxis.labelTextColor = LedgitColor.navigationTextGray
         xAxis.drawGridLinesEnabled = false
         xAxis.granularity = 1.0 // only intervals of 1 day
         xAxis.labelCount = 7
         xAxis.valueFormatter = xFormat
         
         let leftAxis: YAxis = weeklyChart.leftAxis
-        leftAxis.labelTextColor = .ledgitNavigationTextGray
+        leftAxis.labelTextColor = LedgitColor.navigationTextGray
         leftAxis.labelFont = .futuraMedium8
         leftAxis.labelPosition = .outsideChart
         leftAxis.axisMinimum = 0.0
         leftAxis.valueFormatter = DefaultAxisValueFormatter(formatter: format)
         leftAxis.drawGridLinesEnabled = false
-        leftAxis.gridColor = .ledgitNavigationBarGray
+        leftAxis.gridColor = LedgitColor.navigationBarGray
         leftAxis.gridLineWidth = 1.0
         
         let dataSet = BarChartDataSet(values: values, label: nil)
-        dataSet.colors = [.ledgitBlue]
+        dataSet.colors = [LedgitColor.coreBlue]
         
         let data = BarChartData(dataSet: dataSet)
         data.setValueFormatter(dataFormatter)

@@ -15,18 +15,14 @@ class TutorialViewController: UIViewController {
     fileprivate var pageTitles: [String] = Constants.pageTitles
     fileprivate var pageImages: [UIImage] = Constants.pageImages
     fileprivate var pageDescriptions: [String] = Constants.pageDescriptions
-    
-    var index: Int?
+    var index: Int = 0
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         configure()
     }
     
     func configure() {
-        guard let index = index else { return }
-        
         titleLabel.text = pageTitles[index]
         backgroundImageView.image = pageImages[index]
         descriptionLabel.text = pageDescriptions[index]        

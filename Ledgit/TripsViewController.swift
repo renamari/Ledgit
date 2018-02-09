@@ -142,7 +142,7 @@ extension TripsViewController: UITableViewDelegate{
             self.performSegue(withIdentifier: Constants.segueIdentifiers.action, sender: indexPath.row)
         }
         
-        edit.backgroundColor = .ledgitYellow
+        edit.backgroundColor = LedgitColor.coreYellow
         
         let delete = UITableViewRowAction(style: .destructive, title: "Delete") { [unowned self] (row, index) in
             

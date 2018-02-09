@@ -283,7 +283,7 @@ extension Currency {
         guard let url = URL(string: "https://api.fixer.io/latest?base=\(LedgitUser.current.homeCurrency.code)") else { return }
         
         let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
-            if error != nil, let error = error { print(error.localizedDescription) }
+            if error != nil, let error = error { Log.error(error) }
             guard let data = data else { return }
             guard let result = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) as? NSDictionary else { return }
             guard let rates = result?["rates"] as? [String:Double] else { return }

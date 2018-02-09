@@ -10,7 +10,7 @@ import UIKit
 import NVActivityIndicatorView
 
 //MARK:- UIViewController Extensions
-extension UIViewController{
+extension UIViewController {
     var loadingIndicatorTag: Int { return 999999 }
     
     class var storyboardID: String{
@@ -37,7 +37,7 @@ extension UIViewController{
         let indicator = NVActivityIndicatorView(
             frame: CGRect(x: (self.view.frame.width - 60) / 2, y: (self.view.frame.height - 60) / 2, width: 60, height: 60),
             type: .ballClipRotatePulse,
-            color: .ledgitBlue,
+            color: LedgitColor.coreBlue,
             padding: 0)
         
         indicator.tag = loadingIndicatorTag
@@ -204,7 +204,7 @@ extension UIView {
     
     func dropShadow(scale: Bool = true) {
         layer.masksToBounds = false
-        layer.shadowColor = UIColor.ledgitSeparatorGray.cgColor
+        layer.shadowColor = LedgitColor.separatorGray.cgColor
         layer.shadowOpacity = 0.7
         layer.shadowOffset = CGSize(width: 0, height: 1)
         layer.shadowRadius = 2

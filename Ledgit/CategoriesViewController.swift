@@ -75,7 +75,7 @@ extension CategoriesViewController: UITableViewDelegate, UITableViewDataSource{
         let edit = UITableViewRowAction(style: .destructive, title: "Edit") { (action, path) in
            self.performSegue(withIdentifier: Constants.segueIdentifiers.categoryAction, sender: Action.edit)
         }
-        edit.backgroundColor = .ledgitYellow
+        edit.backgroundColor = LedgitColor.coreYellow
         
         let delete = UITableViewRowAction(style: .destructive, title: "Delete") { (action, path) in
             self.presenter?.remove(at: indexPath.row)

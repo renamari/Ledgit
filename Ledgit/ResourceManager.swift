@@ -27,7 +27,7 @@ class ResourceManager {
         
         request.beginAccessingResources { error in
             if let error = error {
-                print( error.localizedDescription )
+                Log.error(error)
                 self.retrievedFlags = false
             }
             

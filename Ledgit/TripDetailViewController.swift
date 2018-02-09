@@ -61,7 +61,7 @@ class TripDetailViewController: UIViewController {
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         navigationController?.navigationBar.shadowImage = UIImage()
         navigationController?.navigationBar.isTranslucent = true
-        navigationController?.view.backgroundColor = .ledgitNavigationBarGray
+        navigationController?.view.backgroundColor = LedgitColor.navigationBarGray
     }
     
     func setupGestureRecognizers() {
@@ -205,14 +205,14 @@ extension TripDetailViewController: UIViewControllerTransitioningDelegate {
     func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         transition.transitionMode = .present
         transition.startingPoint = actionButton.center
-        transition.bubbleColor = actionButton.backgroundColor ?? .ledgitBlue
+        transition.bubbleColor = actionButton.backgroundColor ?? LedgitColor.coreBlue
         return transition
     }
     
     func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         transition.transitionMode = .dismiss
         transition.startingPoint = actionButton.center
-        transition.bubbleColor = actionButton.backgroundColor ?? .ledgitBlue
+        transition.bubbleColor = actionButton.backgroundColor ?? LedgitColor.coreBlue
         return transition
     }
 }

@@ -14,7 +14,7 @@ let CATEGORIES = "categories"
 let HOMECURRENCY = "homeCurrency"
 let SUBSCRIPTION = "subscription"
 
-struct LedgitUser {
+struct LedgitUser: Equatable {
     var key: String = ""
     var name: String = ""
     var email: String = ""
@@ -42,6 +42,12 @@ struct LedgitUser {
 
 extension LedgitUser {
     static var current = LedgitUser()
+}
+
+extension LedgitUser {
+    static func ==(lhs: LedgitUser, rhs: LedgitUser) -> Bool {
+        return lhs.key == rhs.key
+    }
 }
 //struct LedgitUser {
 //    var key: String

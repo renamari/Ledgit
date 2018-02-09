@@ -347,7 +347,7 @@ extension EntryActionViewController: UITextFieldDelegate {
             
             let navigationController = UINavigationController(rootViewController: currencySelectionViewController)
             let doneButton = UIBarButtonItem(title: "Done", style: .done, target: currencySelectionViewController, action: #selector(CurrencySelectionViewController.dismissViewController))
-            doneButton.tintColor = .ledgitBlue
+            doneButton.tintColor = LedgitColor.coreBlue
             navigationController.navigationBar.isTranslucent = false
             navigationController.topViewController?.navigationItem.setRightBarButton(doneButton, animated: true)
             
@@ -365,7 +365,7 @@ extension EntryActionViewController: UITextFieldDelegate {
             
             let navigationController = UINavigationController(rootViewController: categorySelectionViewController)
             let doneButton = UIBarButtonItem(title: "Done", style: .done, target: categorySelectionViewController, action: #selector(CategorySelectionViewController.dismissViewController))
-            doneButton.tintColor = .ledgitBlue
+            doneButton.tintColor = LedgitColor.coreBlue
             navigationController.navigationBar.isTranslucent = false
             navigationController.topViewController?.navigationItem.setRightBarButton(doneButton, animated: true)
             

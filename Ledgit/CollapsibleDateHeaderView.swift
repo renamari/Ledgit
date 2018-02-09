@@ -23,7 +23,7 @@ class CollapsibleDateHeaderView: UITableViewHeaderFooterView {
     
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)
-        contentView.backgroundColor = .ledgitNavigationBarGray
+        contentView.backgroundColor = LedgitColor.navigationBarGray
         contentView.addSubview(imageView)
         contentView.addSubview(titleLabel)
         addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(headerTapped)))
@@ -37,7 +37,7 @@ class CollapsibleDateHeaderView: UITableViewHeaderFooterView {
         imageView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
         
         titleLabel.font = .futuraMedium14
-        titleLabel.textColor = .ledgitNavigationTextGray
+        titleLabel.textColor = LedgitColor.navigationTextGray
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: headerPadding).isActive = true
         titleLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true

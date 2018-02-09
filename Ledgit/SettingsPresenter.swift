@@ -65,7 +65,7 @@ extension SettingsPresenter: SettingsManagerDelegate {
         case .success:
             delegate?.signedout()
         case .failure(let error):
-            print("Error signing out: ", error.localizedDescription)
+            Log.error(error)
         }
     }
     

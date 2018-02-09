@@ -56,9 +56,9 @@ struct Constants {
     
     static let pageColors: [UIColor] = {
         return [
-            .ledgitBlue,
-            .ledgitPink,
-            .ledgitAqua
+            LedgitColor.coreBlue,
+            LedgitColor.lightPink,
+            LedgitColor.lightAqua
         ]
     }()
     

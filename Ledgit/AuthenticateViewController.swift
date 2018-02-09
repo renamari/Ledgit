@@ -83,7 +83,7 @@ class AuthenticateViewController: UIViewController {
     }
     
     func setupViews(){
-        loginView.roundedCorners(radius: Constants.cornerRadius.button, borderColor: .ledgitSeparatorGray)
+        loginView.roundedCorners(radius: Constants.cornerRadius.button, borderColor: LedgitColor.separatorGray)
     }
     
     func setupRecognizers(){
@@ -114,7 +114,7 @@ class AuthenticateViewController: UIViewController {
     }
     
     @IBAction func forgotPasswordButton(_ sender: Any) {
-        print("Forgot Password")
+        Log.info("Forgot password")
     }
     
     @IBAction func backButtonPressed(_ sender: Any) {

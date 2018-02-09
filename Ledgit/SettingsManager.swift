@@ -69,7 +69,7 @@ extension SettingsManager {
         changeRequest?.commitChanges { (error) in
             //MARK:CHANGE FOR REALEASE
             if let error = error {
-                print(error.localizedDescription)
+                Log.error(error)
             }
             
             let key = LedgitUser.current.key
@@ -80,7 +80,7 @@ extension SettingsManager {
         auth.currentUser?.updateEmail(to: email, completion: { (error) in
             //MARK:-Change for release
             if let error = error {
-                print(error.localizedDescription)
+                Log.error(error)
             }
             
             let key = LedgitUser.current.key

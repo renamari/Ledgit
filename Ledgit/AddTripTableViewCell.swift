@@ -14,7 +14,7 @@ class AddTripTableViewCell: UITableViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        mainView.dashedBorder(withColor: UIColor.ledgitNavigationTextGray.cgColor)
+        mainView.dashedBorder(withColor: LedgitColor.navigationTextGray.cgColor)
         mainView.addSubview(contentStackView)
     }
     

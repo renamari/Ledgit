@@ -62,6 +62,12 @@
 		8DDD131C202AB0F600998AA5 /* LedgitColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDD131B202AB0F600998AA5 /* LedgitColor.swift */; };
 		8DDD1321202D5CC300998AA5 /* AuthenticationManagerDelegateMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDD1320202D5CC300998AA5 /* AuthenticationManagerDelegateMock.swift */; };
 		8DDD1323202D5F4E00998AA5 /* AuthenticationPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDD1322202D5F4E00998AA5 /* AuthenticationPresenterTests.swift */; };
+		8DDD1327202F8B2500998AA5 /* AuthenticationManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDD1326202F8B2500998AA5 /* AuthenticationManagerTests.swift */; };
+		8DDD132A202F8CE600998AA5 /* LedgitUserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDD1329202F8CE600998AA5 /* LedgitUserTests.swift */; };
+		8DDD132C202F935100998AA5 /* AuthenticationPresenterDelegateMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDD132B202F935100998AA5 /* AuthenticationPresenterDelegateMock.swift */; };
+		8DDD1330202F9D6300998AA5 /* AuthenticationPresenterMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDD132F202F9D6300998AA5 /* AuthenticationPresenterMock.swift */; };
+		8DDD13332030B81300998AA5 /* TripActionViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDD13322030B81300998AA5 /* TripActionViewControllerTests.swift */; };
+		8DDD13362030F4FC00998AA5 /* TripBudgetInformationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDD13352030F4FC00998AA5 /* TripBudgetInformationView.swift */; };
 		8DDDD6B31F473EFA0053146B /* TripDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDDD6B21F473EFA0053146B /* TripDetailViewController.swift */; };
 		8DDDD6B51F47ECDD0053146B /* WeeklyCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDDD6B41F47ECDD0053146B /* WeeklyCollectionViewCell.swift */; };
 		8DDDD6B71F47ECF00053146B /* CategoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDDD6B61F47ECF00053146B /* CategoryCollectionViewCell.swift */; };
@@ -154,6 +160,12 @@
 		8DDD131B202AB0F600998AA5 /* LedgitColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LedgitColor.swift; sourceTree = "<group>"; };
 		8DDD1320202D5CC300998AA5 /* AuthenticationManagerDelegateMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationManagerDelegateMock.swift; sourceTree = "<group>"; };
 		8DDD1322202D5F4E00998AA5 /* AuthenticationPresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationPresenterTests.swift; sourceTree = "<group>"; };
+		8DDD1326202F8B2500998AA5 /* AuthenticationManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationManagerTests.swift; sourceTree = "<group>"; };
+		8DDD1329202F8CE600998AA5 /* LedgitUserTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LedgitUserTests.swift; sourceTree = "<group>"; };
+		8DDD132B202F935100998AA5 /* AuthenticationPresenterDelegateMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationPresenterDelegateMock.swift; sourceTree = "<group>"; };
+		8DDD132F202F9D6300998AA5 /* AuthenticationPresenterMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationPresenterMock.swift; sourceTree = "<group>"; };
+		8DDD13322030B81300998AA5 /* TripActionViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripActionViewControllerTests.swift; sourceTree = "<group>"; };
+		8DDD13352030F4FC00998AA5 /* TripBudgetInformationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripBudgetInformationView.swift; sourceTree = "<group>"; };
 		8DDDD6B21F473EFA0053146B /* TripDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TripDetailViewController.swift; sourceTree = "<group>"; };
 		8DDDD6B41F47ECDD0053146B /* WeeklyCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeeklyCollectionViewCell.swift; sourceTree = "<group>"; };
 		8DDDD6B61F47ECF00053146B /* CategoryCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -318,6 +330,8 @@
 		8DA3B1BD1F3F875B00FC31AF /* LedgitTests */ = {
 			isa = PBXGroup;
 			children = (
+				8DDD13312030B7FC00998AA5 /* Trips */,
+				8DDD1328202F8CD400998AA5 /* Utilities */,
 				8DDD131D202D59B400998AA5 /* Authentication */,
 				8DBFF0261F9ED67B0069FB3A /* Trips Mocks */,
 				8DA3B1BE1F3F875B00FC31AF /* LedgitTests.swift */,
@@ -381,6 +395,7 @@
 		8DAD43E81F9D54D50054EDD8 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				8DDD13342030F4CB00998AA5 /* Custom Views */,
 				8DDDD6BB1F47EFCF0053146B /* Table View Cell */,
 				8DC243D71F43ADBB00B3E080 /* Trips.storyboard */,
 				8D29168B1FB8EA2F008ED9F2 /* CurrencySelectionViewController.swift */,
@@ -487,9 +502,36 @@
 			isa = PBXGroup;
 			children = (
 				8DDD1320202D5CC300998AA5 /* AuthenticationManagerDelegateMock.swift */,
+				8DDD132B202F935100998AA5 /* AuthenticationPresenterDelegateMock.swift */,
+				8DDD132F202F9D6300998AA5 /* AuthenticationPresenterMock.swift */,
 				8DDD1322202D5F4E00998AA5 /* AuthenticationPresenterTests.swift */,
+				8DDD1326202F8B2500998AA5 /* AuthenticationManagerTests.swift */,
 			);
 			path = Authentication;
+			sourceTree = "<group>";
+		};
+		8DDD1328202F8CD400998AA5 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				8DDD1329202F8CE600998AA5 /* LedgitUserTests.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		8DDD13312030B7FC00998AA5 /* Trips */ = {
+			isa = PBXGroup;
+			children = (
+				8DDD13322030B81300998AA5 /* TripActionViewControllerTests.swift */,
+			);
+			path = Trips;
+			sourceTree = "<group>";
+		};
+		8DDD13342030F4CB00998AA5 /* Custom Views */ = {
+			isa = PBXGroup;
+			children = (
+				8DDD13352030F4FC00998AA5 /* TripBudgetInformationView.swift */,
+			);
+			name = "Custom Views";
 			sourceTree = "<group>";
 		};
 		8DDDD6BA1F47ED100053146B /* Collection View Cells */ = {
@@ -902,6 +944,7 @@
 				8DA3B2231F3FC00500FC31AF /* MainViewController.swift in Sources */,
 				8D2AEC1B1F4D147800227FC6 /* CityTableViewCell.swift in Sources */,
 				8DA3B2271F3FC01B00FC31AF /* TutorialViewController.swift in Sources */,
+				8DDD13362030F4FC00998AA5 /* TripBudgetInformationView.swift in Sources */,
 				8DA3B2201F3FBEF300FC31AF /* Utilities.swift in Sources */,
 				8D707B4E1F9D3EEE00CABA0F /* TripsPresenter.swift in Sources */,
 				8DAD43E71F9D46270054EDD8 /* SettingsNavigationController.swift in Sources */,
@@ -940,7 +983,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				8DA3B1BF1F3F875B00FC31AF /* LedgitTests.swift in Sources */,
+				8DDD132C202F935100998AA5 /* AuthenticationPresenterDelegateMock.swift in Sources */,
 				8DDD1321202D5CC300998AA5 /* AuthenticationManagerDelegateMock.swift in Sources */,
+				8DDD132A202F8CE600998AA5 /* LedgitUserTests.swift in Sources */,
+				8DDD1327202F8B2500998AA5 /* AuthenticationManagerTests.swift in Sources */,
+				8DDD13332030B81300998AA5 /* TripActionViewControllerTests.swift in Sources */,
+				8DDD1330202F9D6300998AA5 /* AuthenticationPresenterMock.swift in Sources */,
 				8DDD1323202D5F4E00998AA5 /* AuthenticationPresenterTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

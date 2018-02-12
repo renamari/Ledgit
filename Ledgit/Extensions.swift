@@ -88,6 +88,10 @@ extension UIFont {
     static var futuraMedium17: UIFont { return UIFont(name: "Futura-Medium", size: 17.0)!}
     static var futuraMedium18: UIFont { return UIFont(name: "Futura-Medium", size: 18.0)!}
     static var futuraMedium30: UIFont { return UIFont(name: "Futura-Medium", size: 30.0)!}
+    
+    static var futuraBold13: UIFont { return UIFont(name: "Futura-Bold", size: 13)!}
+    static var futuraBold14: UIFont { return UIFont(name: "Futura-Bold", size: 14)!}
+    static var futuraBold15: UIFont { return UIFont(name: "Futura-Bold", size: 15)!}
 }
 
 //MARK:- UIColor Extensions
@@ -190,7 +194,7 @@ extension String{
         return formatter.date(from: self)!
     }
     
-    func strip() -> String{
+    func strip() -> String {
         return self.trimmingCharacters(in: .whitespacesAndNewlines)
     }
 }
@@ -293,31 +297,43 @@ extension UITableView {
 
 // MARK:- UITextField Extensions
 extension String {
-    
-    // formatting text for currency textField
     func currencyFormat(with symbol: String = "$") -> String {
-        
-        var number: NSNumber!
         let formatter = NumberFormatter()
-        formatter.numberStyle = .currencyAccounting
-        formatter.currencySymbol = symbol
-        formatter.maximumFractionDigits = 2
-        formatter.minimumFractionDigits = 2
+        formatter.numberStyle = .decimal
         
-        var amountWithPrefix = self
-        
-        // remove from String: "$", ".", ","
-        let regex = try! NSRegularExpression(pattern: "[^0-9]", options: .caseInsensitive)
-        amountWithPrefix = regex.stringByReplacingMatches(in: amountWithPrefix, options: NSRegularExpression.MatchingOptions(rawValue: 0), range: NSMakeRange(0, count), withTemplate: "")
-        
-        let double = (amountWithPrefix as NSString).doubleValue
-        number = NSNumber(value: (double / 100))
-        
-        // if first number is 0 or all numbers were deleted
-        guard number != 0 as NSNumber else {
+        guard
+            let amount = Double(self),
+            let formattedNumber = formatter.string(from: NSNumber(value: amount))
+        else {
             return ""
         }
-        
-        return formatter.string(from: number)!
+        return "\(LedgitUser.current.homeCurrency.symbol)\(formattedNumber)"
     }
+    
+    // formatting text for currency textField
+//    func currencyFormat(with symbol: String = "$") -> String {
+//        
+//        var number: NSNumber!
+//        let formatter = NumberFormatter()
+//        formatter.numberStyle = .currencyAccounting
+//        formatter.currencySymbol = symbol
+//        formatter.maximumFractionDigits = 2
+//        formatter.minimumFractionDigits = 2
+//        
+//        var amountWithPrefix = self
+//        
+//        // remove from String: "$", ".", ","
+//        let regex = try! NSRegularExpression(pattern: "[^0-9]", options: .caseInsensitive)
+//        amountWithPrefix = regex.stringByReplacingMatches(in: amountWithPrefix, options: NSRegularExpression.MatchingOptions(rawValue: 0), range: NSMakeRange(0, count), withTemplate: "")
+//        
+//        let double = (amountWithPrefix as NSString).doubleValue
+//        number = NSNumber(value: (double / 100))
+//        
+//        // if first number is 0 or all numbers were deleted
+//        guard number != 0 as NSNumber else {
+//            return ""
+//        }
+//        
+//        return formatter.string(from: number)!
+//    }
 }

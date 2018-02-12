@@ -12,35 +12,12 @@ import XCTest
 
 class AuthenticationPresenterTests: XCTestCase {
     var manager: AuthenticationManager!
-    var managerDelegate: AuthenticationManagerDelegateMock!
     var presenter: AuthenticationPresenter!
+    var presenterDelegate: AuthenticationPresenterDelegateMock!
+    var controller: AuthenticateViewController!
     
-    override func setUp() {
-        super.setUp()
-        managerDelegate = AuthenticationManagerDelegateMock()
-        manager = AuthenticationManager()
-        
-        manager.delegate = managerDelegate
-        presenter = AuthenticationPresenter(manager: manager)
-    }
-    
-    func testManagerErrorHandling() {
-        // Arrange
-        guard let error = AuthErrorCode(rawValue: 17007) else {
-            XCTFail("Error code not generated")
-            return
-        }
-        
-        // Act
-        let dictionary = manager.handleError(with: error)
-        
-        // Assert
-        XCTAssertEqual(dictionary, Constants.authErrorMessages.emailAlreadyInUse)
-    }
-    
-    func testPresenterReceivedUser() {
-        // Arrange
-        let data: NSDictionary = [
+    var userData: NSDictionary {
+        return [
             "key": "123456789",
             "email": "marcosortiz13@gmail.com",
             "name": "Marcos Ortiz",
@@ -48,17 +25,30 @@ class AuthenticationPresenterTests: XCTestCase {
             "categories": ["Transportation", "Food", "Lodging", "Entertainment", "Emergency", "Miscellaneous"],
             "homeCurrency": "USD"
         ]
-        let user = LedgitUser(dict: data)
-        
-        // Act
-        managerDelegate.userAuthenticated(user)
-        
-        // Assert
-        XCTAssertTrue(managerDelegate.didAuthenticate)
-        XCTAssertEqual(user, LedgitUser.current)
     }
     
-    func testPresenterReceivedError() {
+    override func setUp() {
+        super.setUp()
+        manager = AuthenticationManager()
+        presenter = AuthenticationPresenter(manager: manager)
+        presenterDelegate = AuthenticationPresenterDelegateMock()
+        
+        controller = AuthenticateViewController.instantiate(from: .main)
+    }
+    
+    func delegateDidReceiveUser() {
+        // Arrange
+        let user = LedgitUser(dict: userData)
+        
+        // Act
+        presenterDelegate.successfulAuthentication(of: user)
+        
+        // Assert
+        XCTAssertTrue(presenterDelegate.didAuthenticate)
+        XCTAssertEqual(user, presenterDelegate.authenticatedUser)
+    }
+    
+    func delegateDidReceiveError() {
         // Arrange
         guard let error = AuthErrorCode(rawValue: 17007) else {
             XCTFail("Error code not generated")
@@ -68,9 +58,22 @@ class AuthenticationPresenterTests: XCTestCase {
         let dictionary = manager.handleError(with: error)
         
         // Act
-        managerDelegate.authenticationError(dict: dictionary)
+        presenterDelegate.displayError(dictionary)
         
         // Assert
-        XCTAssertTrue(managerDelegate.didReceiveAuthenticationError)
+        XCTAssertTrue(presenterDelegate.didReceiveAuthenticationError)
+        XCTAssertEqual(dictionary, presenterDelegate.errorDictionary)
+    }
+    
+    func presenterDidReceiveUser() {
+        // Arrange
+        let user = LedgitUser(dict: userData)
+        
+        // Act
+        presenter.userAuthenticated(user)
+        
+        // Assert
+        XCTAssertEqual(LedgitUser.current, user)
+        XCTAssertEqual(controller.isLoading, false)
     }
 }

@@ -58,7 +58,6 @@ enum Subscription: String {
 
 enum BudgetSelection: String {
     case daily = "Daily"
-    case monthly = "Monthly"
     case trip = "Trip"
 }
 

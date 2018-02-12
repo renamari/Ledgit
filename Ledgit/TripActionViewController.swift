@@ -9,6 +9,7 @@
 import UIKit
 import Firebase
 import SkyFloatingLabelTextField
+import NotificationBannerSwift
 
 protocol TripActionDelegate {
     func added(trip dict: NSDictionary)
@@ -27,18 +28,20 @@ class TripActionViewController: UIViewController {
     
     @IBOutlet weak var budgetPickerLabel: UILabel!
     @IBOutlet weak var budgetPickerDailyButton: UIButton!
-    @IBOutlet weak var budgetPickerMonthlyButton: UIButton!
     @IBOutlet weak var budgetPickerTripButton: UIButton!
     @IBOutlet weak var scrollView: UIScrollView!
     
     var presenter: TripsPresenter?
-    let budgetPickerButtonHeight: CGFloat = 20
-    var activeTextField = UITextField()
     var delegate: TripActionDelegate?
     var method: LedgitAction = .add
     var trip: LedgitTrip?
     var selectedCurrencies: [Currency] = [.USD]
+    let infoView = TripBudgetInformationView()
+    var banner: NotificationBanner?
+    let budgetPickerButtonHeight: CGFloat = 20
+    var activeTextField = UITextField()
     var datePicker: UIDatePicker?
+    var tripLength: Int = 1
     
     var isLoading:Bool = false {
         didSet {
@@ -51,7 +54,7 @@ class TripActionViewController: UIViewController {
     
     var formatter: DateFormatter {
         let formatter = DateFormatter()
-        formatter.dateFormat = "MMMM dd, yyyy"
+        formatter.dateFormat = LedgitDateStyle.full.rawValue
         return formatter
     }
     
@@ -61,36 +64,23 @@ class TripActionViewController: UIViewController {
             case .daily:
                 budgetPickerLabel.text = "DAILY"
                 budgetPickerDailyButton.backgroundColor = LedgitColor.navigationTextGray
-                budgetPickerMonthlyButton.backgroundColor = .clear
                 budgetPickerTripButton.backgroundColor = .clear
-                
-            case .monthly:
-                budgetPickerLabel.text = "MONTHLY"
-                budgetPickerMonthlyButton.backgroundColor = LedgitColor.navigationTextGray
-                budgetPickerDailyButton.backgroundColor = .clear
-                budgetPickerTripButton.backgroundColor = .clear
-                
+            
             case .trip:
                 budgetPickerLabel.text = "TRIP"
                 budgetPickerTripButton.backgroundColor = LedgitColor.navigationTextGray
                 budgetPickerDailyButton.backgroundColor = .clear
-                budgetPickerMonthlyButton.backgroundColor = .clear
             }
         }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        setupView()
-        
-        setupTextFields()
-        
-        setupBars()
-        
         setupBudgetPicker()
-        
+        setupTextFields()
         setupObservers()
+        setupBars()
+        setupView()
     }
     
     func setupView() {
@@ -131,11 +121,14 @@ class TripActionViewController: UIViewController {
         endDateTextField.delegate = self
         budgetTextField.delegate = self
         currenciesTextField.delegate = self
+        
+        startDateTextField.inputAccessoryView = createToolbar()
+        endDateTextField.inputAccessoryView = createToolbar()
+        budgetTextField.inputAccessoryView = createToolbar()
     }
     
     func setupBudgetPicker() {
         budgetPickerDailyButton.roundedCorners(radius: budgetPickerButtonHeight / 2, borderColor: LedgitColor.navigationTextGray)
-        budgetPickerMonthlyButton.roundedCorners(radius: budgetPickerButtonHeight / 2, borderColor: LedgitColor.navigationTextGray)
         budgetPickerTripButton.roundedCorners(radius: budgetPickerButtonHeight / 2, borderColor: LedgitColor.navigationTextGray)
         
         if method == .edit {
@@ -239,21 +232,19 @@ class TripActionViewController: UIViewController {
     
     @IBAction func budgetPickerDailyButtonPressed(_ sender: Any) {
         budgetSelection = .daily
-    }
-    
-    @IBAction func budgetPickerMonthlyButtonPressed(_ sender: Any) {
-        budgetSelection = .monthly
+        showBudgetInformationBanner()
     }
     
     @IBAction func budgetPickerTripButtonPressed(_ sender: Any) {
         budgetSelection = .trip
+        showBudgetInformationBanner()
     }
     
     @IBAction func actionButtonPressed(_ sender: Any) {
-        
         switch method {
         case .edit:
             performUpdateAction()
+            
         case .add:
             performSaveAction()
         }
@@ -291,31 +282,53 @@ extension TripActionViewController: UITextFieldDelegate {
             datePicker?.datePickerMode = .date
             datePicker?.backgroundColor = .white
             datePicker?.addTarget(self, action: #selector(datePickerValueChanged), for: .valueChanged)
-            
             textField.inputView = datePicker
-            textField.inputAccessoryView = createToolbar()
             
-            if let dateString = (textField == startDateTextField) ? trip?.startDate : trip?.endDate {
-                let date = dateString.toDate()
-                datePicker?.setDate(date, animated: false)
+            // If there is previous text before
+            if let text = textField.text, !text.isEmpty {
+                let date = text.toDate()
+                datePicker?.setDate(date, animated: true)
+                datePickerValueChanged(sender: datePicker!)
+                return
             }
-    
+            
+            switch method {
+            case .edit:
+                guard let trip = trip else { return }
+                let dateString = (textField == startDateTextField) ? trip.startDate : trip.endDate
+                let date = dateString.toDate()
+                datePicker?.setDate(date, animated: true)
+                datePickerValueChanged(sender: datePicker!)
+                
+            case .add:
+                if textField == endDateTextField, let startDateText = startDateTextField.text, !startDateText.isEmpty {
+                    let date = startDateText.toDate().add(components: 1.day)
+                    datePicker?.setDate(date, animated: true)
+                    datePickerValueChanged(sender: datePicker!)
+                    
+                } else {
+                    let now = Date()
+                    datePicker?.setDate(now, animated: true)
+                    datePickerValueChanged(sender: datePicker!)
+                }
+            }
+            
         } else if textField == currenciesTextField {
             performSegue(withIdentifier: Constants.segueIdentifiers.currencySelection, sender: self)
             
         } else if textField == budgetTextField {
-            textField.inputAccessoryView = createToolbar()
-            
-            if let text = textField.text {
-                textField.text = text.components(separatedBy: CharacterSet.decimalDigits.inverted).joined(separator: "")
-            }
+            guard let text = textField.text else { return }
+            textField.text = text
+                .replacingOccurrences(of: LedgitUser.current.homeCurrency.symbol, with: "")
+                .replacingOccurrences(of: ",", with: "")
         }
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
         if textField == budgetTextField {
             guard let text = textField.text else { return }
-            textField.text = "\(LedgitUser.current.homeCurrency.symbol) \(text)"
+            textField.text = text.currencyFormat()
+            showBudgetInformationBanner()
         }
     }
     
@@ -335,6 +348,57 @@ extension TripActionViewController: UITextFieldDelegate {
     
     @objc func datePickerValueChanged(sender: UIDatePicker) {
         activeTextField.text = formatter.string(from: sender.date)
+        
+        guard
+            let startDateText = startDateTextField.text?.strip(),
+            let endDateText = endDateTextField.text?.strip(),
+            let startDate = formatter.date(from: startDateText),
+            let endDate = formatter.date(from: endDateText)
+        else {
+            Log.info("Either startDate or endDate not yet available")
+            return
+        }
+        
+        if validate(startDate, isBefore: endDate) {
+            // If startDate is BEFORE endDate,
+            // set the trip length
+            setTripLength(from: startDate, to: endDate)
+            
+        } else {
+            // If startDate is NOT before endDate,
+            // set the endDateTextField to the start date
+            endDateTextField.text = formatter.string(from: startDate)
+        }
+    }
+    
+    func validate(_ startDate: Date, isBefore endDate: Date) -> Bool {
+        guard startDate.isBefore(date: endDate, granularity: .day) else { return false }
+        return true
+    }
+    
+    func setTripLength(from startDate: Date, to endDate: Date) {
+        let calendar = Calendar.current
+        guard let daysBetweenDates = calendar.dateComponents([.day], from: startDate, to: endDate).day else { return }
+        tripLength = daysBetweenDates
+        Log.info("Days between \(startDate) and \(endDate) is \(tripLength)")
+    }
+    
+    func showBudgetInformationBanner() {
+        guard
+            let budgetText = budgetTextField.text?.strip(),
+            let startText = startDateTextField.text,
+            let endText = endDateTextField.text,
+            !startText.isEmpty,
+            !endText.isEmpty,
+            !budgetText.isEmpty
+        else { return }
+        
+        infoView.configure(with: budgetText, selection: budgetSelection, tripLength: tripLength)
+        banner = NotificationBanner(customView: infoView)
+        banner?.dismissOnTap = true
+        banner?.bannerHeight = 110
+        banner?.duration = 3.0
+        banner?.show(queuePosition: .front, bannerPosition: .top, queue: .default, on: nil)
     }
 }
 

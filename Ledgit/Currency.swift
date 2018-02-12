@@ -264,21 +264,6 @@ extension Currency {
     }
     
     // https://api.fixer.io/latest?base=USD
-    static func getRates(completion: @escaping (NSDictionary) -> Void) {
-        guard let url = URL(string: "https://api.fixer.io/latest?base=\(LedgitUser.current.homeCurrency.code)") else { return }
-        
-        let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
-            if error != nil, let error = error { debugPrint(error.localizedDescription) }
-            guard let data = data else { return }
-            guard let result = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) as? NSDictionary else { return }
-            guard let rates = result?["rates"] as? NSDictionary else { return }
-            
-            completion(rates)
-        }
-        
-        task.resume()
-    }
-    
     static func getRates() {
         guard let url = URL(string: "https://api.fixer.io/latest?base=\(LedgitUser.current.homeCurrency.code)") else { return }
         
@@ -290,7 +275,6 @@ extension Currency {
             
             Currency.rates = rates
         }
-        
         task.resume()
     }
 }

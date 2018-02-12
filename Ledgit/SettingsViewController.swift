@@ -8,20 +8,23 @@
 
 import UIKit
 
+struct SettingsContent {
+    var name: String
+    var icon: UIImage
+}
+
 class SettingsViewController: UIViewController {
     @IBOutlet weak var backButton: UIButton!
     @IBOutlet weak var settingsTableView: UITableView!
     @IBOutlet weak var signoutButton: UIButton!
     private var presenter = SettingsPresenter(manager: SettingsManager())
-    let actionViewBackground = UIView()
-    let actionViewTag = 12345
-    fileprivate(set) lazy var settingsImages:[UIImage] = {
-        return [#imageLiteral(resourceName: "categories-icon"),#imageLiteral(resourceName: "subscription-icon"),#imageLiteral(resourceName: "account-icon"), #imageLiteral(resourceName: "about-icon")]
-    }()
+    fileprivate(set) lazy var settingsContent = [SettingsContent(name: "Categories", icon: #imageLiteral(resourceName: "categories-icon")),
+                                                 SettingsContent(name: "Subscription", icon: #imageLiteral(resourceName: "subscription-icon")),
+                                                 SettingsContent(name: "Account", icon: #imageLiteral(resourceName: "account-icon")),
+                                                 SettingsContent(name: "About", icon: #imageLiteral(resourceName: "about-icon"))]
     
-    fileprivate(set) lazy var settingsTitleText:[String] = {
-        return ["Categories","Subscription","Account", "About"]
-    }()
+    fileprivate(set) lazy var settingsImages = [#imageLiteral(resourceName: "categories-icon"), #imageLiteral(resourceName: "subscription-icon"), #imageLiteral(resourceName: "account-icon"), #imageLiteral(resourceName: "about-icon")]
+    fileprivate(set) lazy var settingsTitleText = ["Categories", "Subscription", "Account", "About"]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -68,28 +71,35 @@ class SettingsViewController: UIViewController {
 
 extension SettingsViewController: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        switch indexPath.row {
-        case 0: //Categories
+        let content = settingsContent[indexPath.row]
+        
+        switch content.name {
+        case "Categories":
             performSegue(withIdentifier: Constants.segueIdentifiers.category, sender: self)
-        case 1: //Subscriptions
+            
+        case "Subscription":
             showAlert(with: Constants.clientErrorMessages.freeSubscriptions)
             //performSegue(withIdentifier: Constants.segueIdentifiers.subscription, sender: self)
-        case 2: //Account
+            
+        case "Account":
             performSegue(withIdentifier: Constants.segueIdentifiers.account, sender: self)
-        default: //About
+            
+        case "About":
             performSegue(withIdentifier: Constants.segueIdentifiers.about, sender: self)
+            
+        default: break
         }
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return settingsImages.count
+        return settingsContent.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: Constants.cellIdentifiers.settings, for: indexPath) as! SettingsTableViewCell
-        
-        cell.iconImageView.image = settingsImages[indexPath.row]
-        cell.titleLabel.text = settingsTitleText[indexPath.row]
+        let content = settingsContent[indexPath.row]
+        cell.iconImageView.image = content.icon
+        cell.titleLabel.text = content.name
         
         return cell
     }

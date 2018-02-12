@@ -725,7 +725,7 @@
                                                                 <rect key="frame" x="162.5" y="0.0" width="152.5" height="55"/>
                                                                 <nil key="textColor"/>
                                                                 <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="17"/>
-                                                                <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                                                                <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
                                                                 <userDefinedRuntimeAttributes>
                                                                     <userDefinedRuntimeAttribute type="number" keyPath="selectedLineHeight">
                                                                         <real key="value" value="1"/>
@@ -752,9 +752,6 @@
                                                                     </userDefinedRuntimeAttribute>
                                                                     <userDefinedRuntimeAttribute type="string" keyPath="title" value="Amount"/>
                                                                 </userDefinedRuntimeAttributes>
-                                                                <connections>
-                                                                    <action selector="amountTextFieldChanged:" destination="W7m-iS-sfS" eventType="editingChanged" id="BpC-tP-kDX"/>
-                                                                </connections>
                                                             </textField>
                                                         </subviews>
                                                     </stackView>
@@ -1090,7 +1087,7 @@
         <!--Create Trip-->
         <scene sceneID="ROW-Um-HKT">
             <objects>
-                <viewController title="Create Trip" id="gAQ-FT-6Fr" customClass="TripActionViewController" customModule="Ledgit" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="TripActionViewController" title="Create Trip" id="gAQ-FT-6Fr" customClass="TripActionViewController" customModule="Ledgit" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="BD9-Dx-Bgj"/>
                         <viewControllerLayoutGuide type="bottom" id="rI1-tK-kS8"/>
@@ -1195,7 +1192,7 @@
                                                                 <rect key="frame" x="0.0" y="0.0" width="152.5" height="45"/>
                                                                 <nil key="textColor"/>
                                                                 <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="17"/>
-                                                                <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="numberPad"/>
+                                                                <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="decimalPad"/>
                                                                 <userDefinedRuntimeAttributes>
                                                                     <userDefinedRuntimeAttribute type="string" keyPath="selectedTitle" value="Budget"/>
                                                                     <userDefinedRuntimeAttribute type="color" keyPath="textColor">
@@ -1225,7 +1222,7 @@
                                                                         <color key="textColor" red="0.50190365314483643" green="0.50199371576309204" blue="0.50189799070358276" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
-                                                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="qzc-JK-0Iw">
+                                                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" translatesAutoresizingMaskIntoConstraints="NO" id="qzc-JK-0Iw">
                                                                         <rect key="frame" x="0.0" y="25" width="152.5" height="20"/>
                                                                         <subviews>
                                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Iok-6y-Lsr">
@@ -1237,19 +1234,6 @@
                                                                                 </constraints>
                                                                                 <connections>
                                                                                     <action selector="budgetPickerDailyButtonPressed:" destination="gAQ-FT-6Fr" eventType="touchUpInside" id="nZy-zX-bxc"/>
-                                                                                </connections>
-                                                                            </button>
-                                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QxU-1f-z8Y">
-                                                                                <rect key="frame" x="66.5" y="0.0" width="20" height="20"/>
-                                                                                <color key="backgroundColor" red="0.3284923434" green="0.4658738375" blue="0.53283280129999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                                <constraints>
-                                                                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="20" id="UIN-jk-cTY"/>
-                                                                                    <constraint firstAttribute="height" constant="20" id="ftj-am-LGD"/>
-                                                                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="20" id="oT8-3O-OMd"/>
-                                                                                    <constraint firstAttribute="width" constant="20" id="yDo-qe-0Hx"/>
-                                                                                </constraints>
-                                                                                <connections>
-                                                                                    <action selector="budgetPickerMonthlyButtonPressed:" destination="gAQ-FT-6Fr" eventType="touchUpInside" id="yEr-Qx-rAa"/>
                                                                                 </connections>
                                                                             </button>
                                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IF2-9C-WcE">
@@ -1362,7 +1346,6 @@
                         <outlet property="actionButton" destination="Xfg-JP-xZW" id="GUG-Gw-DeJ"/>
                         <outlet property="budgetPickerDailyButton" destination="Iok-6y-Lsr" id="WrL-Kq-O0c"/>
                         <outlet property="budgetPickerLabel" destination="oIa-7o-ihN" id="s8Z-Kn-apq"/>
-                        <outlet property="budgetPickerMonthlyButton" destination="QxU-1f-z8Y" id="WGK-h6-UNe"/>
                         <outlet property="budgetPickerTripButton" destination="IF2-9C-WcE" id="RaO-1g-dbB"/>
                         <outlet property="budgetTextField" destination="UJA-Sh-kOg" id="a7K-nI-UVd"/>
                         <outlet property="currenciesTextField" destination="1gw-ym-OM3" id="J1x-mH-pBU"/>

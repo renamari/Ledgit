@@ -284,7 +284,7 @@ class EntryActionViewController: UIViewController {
             "homeCurrency": LedgitUser.current.homeCurrency.code,
             "exchangeRate": exchangeRate,
             "paymentType": paymentType.rawValue,
-            "cost": (amount / 100),
+            "cost": amount,
             "paidBy": LedgitUser.current.key,
             "owningTrip": owningTripKey
         ]
@@ -400,8 +400,19 @@ extension EntryActionViewController: UITextFieldDelegate {
         
         case descriptionTextField:
             descriptionTextField.errorMessage = nil
+        
+        case amountTextField:
+            guard let text = textField.text else { return }
+            textField.text = text.components(separatedBy: CharacterSet.decimalDigits.inverted).joined(separator: "")
             
         default: break
+        }
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        if textField == amountTextField {
+            guard let text = textField.text else { return }
+            textField.text = text.currencyFormat()
         }
     }
     

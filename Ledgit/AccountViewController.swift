@@ -22,10 +22,10 @@ class AccountViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupView()
-        setupButton()
-        setupTextFields()
         setupRecognizers()
+        setupTextFields()
+        setupButton()
+        setupView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -51,10 +51,9 @@ class AccountViewController: UIViewController {
     func setupTextFields() {
         nameTextField.delegate = self
         emailTextField.delegate = self
-        
-        let currentUser = LedgitUser.current
-        nameTextField.text = currentUser.name
-        emailTextField.text = currentUser.email
+    
+        nameTextField.text = LedgitUser.current.name
+        emailTextField.text = LedgitUser.current.email
     }
     
     func setupRecognizers() {
@@ -81,18 +80,15 @@ class AccountViewController: UIViewController {
     }
     
     @IBAction func saveButtonPressed(_ sender: Any) {
-        guard let nameText = nameTextField.text, !nameText.isEmpty else {
+        guard let name = nameTextField.text?.strip(), !name.isEmpty else {
             nameTextField.errorMessage = "Cannot leave name empty"
             return
         }
         
-        guard let emailText = emailTextField.text, !emailText.isEmpty else {
+        guard let email = emailTextField.text?.strip(), !email.isEmpty else {
             emailTextField.errorMessage = "Cannot leave email empty"
             return
         }
-        
-        let name = nameText.strip()
-        let email = emailText.strip()
         
         presenter?.updateUser(name: name, email: email)
         dismiss(animated: true, completion: nil)
@@ -102,7 +98,7 @@ class AccountViewController: UIViewController {
         guard let userInfo = notification.userInfo else { return }
         guard let keyboardSize = userInfo[UIKeyboardFrameEndUserInfoKey] as? CGRect else { return }
         
-        UIView.animate(withDuration: 0.5, animations: {
+        UIView.animate(withDuration: 0.5, animations: { [unowned self] in
             self.cardViewCenterConstraint.isActive = false
             self.cardViewBottomConstraint.constant = keyboardSize.height + 15
             self.cardViewBottomConstraint.isActive = true
@@ -110,7 +106,7 @@ class AccountViewController: UIViewController {
     }
     
     @objc func keyboardWillHide(notification: Notification) {
-        UIView.animate(withDuration: 0.5, animations: {
+        UIView.animate(withDuration: 0.5, animations: { [unowned self] in
             self.cardViewBottomConstraint.constant = 15
             self.cardViewCenterConstraint.isActive = true
         })

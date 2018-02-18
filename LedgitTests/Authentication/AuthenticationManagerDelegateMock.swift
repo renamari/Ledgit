@@ -10,8 +10,8 @@ import Foundation
 @testable import Ledgit
 
 class AuthenticationManagerDelegateMock: AuthenticationManagerDelegate {
-    var didAuthenticate: Bool = false
-    var didReceiveAuthenticationError: Bool = false
+    var didAuthenticate = false
+    var didReceiveAuthenticationError = false
     var errorDictionary: [String:String] = [:]
     var authenticatedUser: LedgitUser = LedgitUser()
     

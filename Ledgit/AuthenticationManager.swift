@@ -25,7 +25,20 @@ class AuthenticationManager {
     let users = Database.database().reference().child("users")
     let facebook = LoginManager()
     let auth = Auth.auth()
-    var isConnected: Bool { return Reachability.isConnectedToNetwork() }
+    
+    #if DEBUG
+    var isConnected: Bool = false
+    #else
+    var isConnected: Bool {
+        get { return Reachability.isConnectedToNetwork() }
+    }
+    #endif
+
+    init() {
+    #if DEBUG
+        isConnected = Reachability.isConnectedToNetwork()
+    #endif
+    }
 }
 
 extension AuthenticationManager {

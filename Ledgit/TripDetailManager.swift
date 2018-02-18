@@ -20,7 +20,20 @@ class TripDetailManager {
     let auth = Auth.auth()
     let trips = Database.database().reference().child("trips")
     let entries = Database.database().reference().child("entries")
-    var isConnected: Bool { return Reachability.isConnectedToNetwork() }
+    
+    #if DEBUG
+    var isConnected: Bool = false
+    #else
+    var isConnected: Bool {
+        get { return Reachability.isConnectedToNetwork() }
+    }
+    #endif
+    
+    init() {
+    #if DEBUG
+        isConnected = Reachability.isConnectedToNetwork()
+    #endif
+    }
     
     deinit {
         entries.removeAllObservers()

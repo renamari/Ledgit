@@ -26,12 +26,12 @@
                   moduleName = "Ledgit"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/Marcos/Documents/Official%20Xcode%20Projects/Ledgit/Ledgit/TripDetailPresenter.swift"
-                  timestampString = "540104779.673449"
+                  timestampString = "540688783.511663"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "54"
                   endingLineNumber = "54"
-                  offsetFromSymbolStart = "40">
+                  offsetFromSymbolStart = "56">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -41,12 +41,12 @@
                   moduleName = "Ledgit"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/Marcos/Documents/Official%20Xcode%20Projects/Ledgit/Ledgit/TripDetailPresenter.swift"
-                  timestampString = "540104779.675882"
+                  timestampString = "540688783.516551"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "54"
                   endingLineNumber = "54"
-                  offsetFromSymbolStart = "372">
+                  offsetFromSymbolStart = "749">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -74,12 +74,12 @@
                   moduleName = "Ledgit"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/Marcos/Documents/Official%20Xcode%20Projects/Ledgit/Ledgit/TripDetailPresenter.swift"
-                  timestampString = "540104779.6809011"
+                  timestampString = "540688783.526346"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "60"
                   endingLineNumber = "60"
-                  offsetFromSymbolStart = "524">
+                  offsetFromSymbolStart = "750">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -89,12 +89,12 @@
                   moduleName = "Ledgit"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/Marcos/Documents/Official%20Xcode%20Projects/Ledgit/Ledgit/TripDetailPresenter.swift"
-                  timestampString = "540104779.68303"
+                  timestampString = "540688783.529712"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "60"
                   endingLineNumber = "60"
-                  offsetFromSymbolStart = "864">
+                  offsetFromSymbolStart = "1567">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -112,22 +112,6 @@
             startingLineNumber = "40"
             endingLineNumber = "40"
             landmarkName = "update(entry:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Ledgit/TripDetailManager.swift"
-            timestampString = "538894521.294309"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "63"
-            endingLineNumber = "63"
-            landmarkName = "update(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

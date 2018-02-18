@@ -32,7 +32,7 @@ target 'Ledgit' do
 
   pod 'SkyFloatingLabelTextField'
 
-  pod 'ROX', '~> 1.1.1'
+  pod 'ROX'
 
   target 'LedgitTests' do
     inherit! :search_paths
@@ -47,6 +47,8 @@ target 'Ledgit' do
   target 'LedgitUITests' do
     inherit! :search_paths
     # Pods for testing
+    pod 'ROX'
+
   end
 
 end

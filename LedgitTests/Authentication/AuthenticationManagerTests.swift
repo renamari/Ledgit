@@ -28,11 +28,8 @@ class AuthenticationManagerTests: XCTestCase {
     
     override func setUp() {
         super.setUp()
-        
-        managerDelegate = AuthenticationManagerDelegateMock()
         manager = AuthenticationManager()
-        
-        manager.delegate = managerDelegate
+        managerDelegate = AuthenticationManagerDelegateMock()
         presenter = AuthenticationPresenter(manager: manager)
     }
 
@@ -50,7 +47,7 @@ class AuthenticationManagerTests: XCTestCase {
         XCTAssertEqual(dictionary, Constants.authErrorMessages.emailAlreadyInUse)
     }
     
-    func delegateDidReceiveUser() {
+    func testDelegateDidReceiveUser() {
         // Arrange
         let user = LedgitUser(dict: userData)
         
@@ -62,7 +59,7 @@ class AuthenticationManagerTests: XCTestCase {
         XCTAssertEqual(user, managerDelegate.authenticatedUser)
     }
     
-    func delegateDidReceiveError() {
+    func testDelegateDidReceiveError() {
         // Arrange
         guard let error = AuthErrorCode(rawValue: 17007) else {
             XCTFail("Error code not generated")
@@ -77,5 +74,31 @@ class AuthenticationManagerTests: XCTestCase {
         // Assert
         XCTAssertTrue(managerDelegate.didReceiveAuthenticationError)
         XCTAssertEqual(dictionary, managerDelegate.errorDictionary)
+    }
+    
+    func testAuthenticationFailedWithNoNetwork() {
+        // Arrange
+        manager.delegate = managerDelegate
+        manager.isConnected = false
+        
+        // Act
+        manager.performFirebaseSignIn(with: "marcos@gmail.com", password: "password")
+        
+        // Assert
+        XCTAssertTrue(managerDelegate.didReceiveAuthenticationError)
+        XCTAssertEqual(managerDelegate.errorDictionary, Constants.clientErrorMessages.noNetworkConnection)
+    }
+    
+    func testAuthenticationFailedWithEmptyValues() {
+        // Arrange
+        manager.delegate = managerDelegate
+        manager.isConnected = true
+        
+        // Act
+        manager.performFirebaseSignIn(with: "", password: "")
+        
+        // Assert
+        XCTAssertTrue(managerDelegate.didReceiveAuthenticationError)
+        XCTAssertEqual(managerDelegate.errorDictionary, Constants.clientErrorMessages.emptyTextFields)
     }
 }

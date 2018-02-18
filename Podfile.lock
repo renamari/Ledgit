@@ -107,7 +107,7 @@ DEPENDENCIES:
   - Firebase/Storage
   - NotificationBannerSwift
   - NVActivityIndicatorView
-  - ROX (~> 1.1.1)
+  - ROX
   - SkyFloatingLabelTextField
   - SteviaLayout
   - SwiftDate
@@ -144,6 +144,6 @@ SPEC CHECKSUMS:
   SteviaLayout: 0d2112caea45707695e8c718262c8ea3dd37ef17
   SwiftDate: 7b56d42a221f582047287deb256b23fc5ed49a60
 
-PODFILE CHECKSUM: 216f865d1236d5f2dd08bdf0b2ef916828e614eb
+PODFILE CHECKSUM: 80a88c48778d5bf2e7ed8221d9f074d7b4877e4f
 
 COCOAPODS: 1.4.0

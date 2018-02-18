@@ -330,9 +330,9 @@
 		8DA3B1BD1F3F875B00FC31AF /* LedgitTests */ = {
 			isa = PBXGroup;
 			children = (
+				8DDD131D202D59B400998AA5 /* Authentication */,
 				8DDD13312030B7FC00998AA5 /* Trips */,
 				8DDD1328202F8CD400998AA5 /* Utilities */,
-				8DDD131D202D59B400998AA5 /* Authentication */,
 				8DBFF0261F9ED67B0069FB3A /* Trips Mocks */,
 				8DA3B1BE1F3F875B00FC31AF /* LedgitTests.swift */,
 				8DA3B1C01F3F875B00FC31AF /* Info.plist */,
@@ -803,9 +803,14 @@
 			files = (
 			);
 			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-LedgitUITests/Pods-LedgitUITests-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/ROX/ROX.framework",
+				"${PODS_ROOT}/ROXCore/RoxSdk/ROXCore.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ROX.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ROXCore.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;

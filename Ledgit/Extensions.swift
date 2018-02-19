@@ -161,7 +161,25 @@ extension Date {
 }
 
 // MARK:- String Extensions
-extension String{
+extension String {
+    func toDouble() -> Double {
+        let validSet = CharacterSet(charactersIn: "0123456789.")
+        guard let double = Double(components(separatedBy: validSet.inverted).joined(separator: "")) else { return 0.0 }
+        return double
+    }
+    
+    func currencyFormat(with symbol: String = LedgitUser.current.homeCurrency.symbol) -> String {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        
+        guard
+            let amount = Double(self),
+            let formattedNumber = formatter.string(from: NSNumber(value: amount))
+            else {
+                return ""
+        }
+        return "\(symbol)\(formattedNumber)"
+    }
     
     // Returns true if the string has at least one character in common with matchCharacters.
     func containsCharactersIn(matchCharacters: String) -> Bool{
@@ -220,7 +238,6 @@ extension UIView {
     
     func roundedCorners(radius: CGFloat) {
         layer.cornerRadius = radius
-        //layer.masksToBounds = true
         clipsToBounds = true
     }
     
@@ -293,47 +310,4 @@ extension UITableView {
     func lastRow(at section: Int) -> Int{
         return self.numberOfRows(inSection: section) - 1
     }
-}
-
-// MARK:- UITextField Extensions
-extension String {
-    func currencyFormat(with symbol: String = "$") -> String {
-        let formatter = NumberFormatter()
-        formatter.numberStyle = .decimal
-        
-        guard
-            let amount = Double(self),
-            let formattedNumber = formatter.string(from: NSNumber(value: amount))
-        else {
-            return ""
-        }
-        return "\(LedgitUser.current.homeCurrency.symbol)\(formattedNumber)"
-    }
-    
-    // formatting text for currency textField
-//    func currencyFormat(with symbol: String = "$") -> String {
-//        
-//        var number: NSNumber!
-//        let formatter = NumberFormatter()
-//        formatter.numberStyle = .currencyAccounting
-//        formatter.currencySymbol = symbol
-//        formatter.maximumFractionDigits = 2
-//        formatter.minimumFractionDigits = 2
-//        
-//        var amountWithPrefix = self
-//        
-//        // remove from String: "$", ".", ","
-//        let regex = try! NSRegularExpression(pattern: "[^0-9]", options: .caseInsensitive)
-//        amountWithPrefix = regex.stringByReplacingMatches(in: amountWithPrefix, options: NSRegularExpression.MatchingOptions(rawValue: 0), range: NSMakeRange(0, count), withTemplate: "")
-//        
-//        let double = (amountWithPrefix as NSString).doubleValue
-//        number = NSNumber(value: (double / 100))
-//        
-//        // if first number is 0 or all numbers were deleted
-//        guard number != 0 as NSNumber else {
-//            return ""
-//        }
-//        
-//        return formatter.string(from: number)!
-//    }
 }

@@ -67,7 +67,7 @@ class WeeklyCollectionViewCell: UICollectionViewCell, ChartViewDelegate {
             averageCost = totalCost / Double(dates.count)
             
             /*
-             Chart is layed out with today being on the far right of the chart
+             Chart is laid out with today being on the far right of the chart
              
                -----    ----                    -----           -----
                -----    ----    -----           -----   ----    -----
@@ -139,6 +139,7 @@ class WeeklyCollectionViewCell: UICollectionViewCell, ChartViewDelegate {
     
     fileprivate func drawChart(with values: [BarChartDataEntry]){
         weeklyChart.animate(yAxisDuration: 1.5, easingOption: .easeInOutBack)
+        //weeklyChart.noDataText = 
         
         let format = NumberFormatter()
         format.minimum = 0

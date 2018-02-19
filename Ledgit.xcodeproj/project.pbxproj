@@ -22,6 +22,7 @@
 		8D2AEC191F4D146900227FC6 /* DateTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D2AEC181F4D146900227FC6 /* DateTableViewCell.swift */; };
 		8D2AEC1B1F4D147800227FC6 /* CityTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D2AEC1A1F4D147800227FC6 /* CityTableViewCell.swift */; };
 		8D39F94B1FC51B470055BA4E /* SettingsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D39F94A1FC51B470055BA4E /* SettingsManager.swift */; };
+		8D488ABE203A714A00A9798B /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D488ABD203A714A00A9798B /* Configuration.swift */; };
 		8D656AA31F94480800C85A0F /* EntryActionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D656AA21F94480800C85A0F /* EntryActionViewController.swift */; };
 		8D6F4B641F4E8CFC0046847C /* CategoriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D6F4B631F4E8CFC0046847C /* CategoriesViewController.swift */; };
 		8D6F4B661F4E8D050046847C /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D6F4B651F4E8D050046847C /* AccountViewController.swift */; };
@@ -114,6 +115,7 @@
 		8D2AEC181F4D146900227FC6 /* DateTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateTableViewCell.swift; sourceTree = "<group>"; };
 		8D2AEC1A1F4D147800227FC6 /* CityTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CityTableViewCell.swift; sourceTree = "<group>"; };
 		8D39F94A1FC51B470055BA4E /* SettingsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsManager.swift; sourceTree = "<group>"; };
+		8D488ABD203A714A00A9798B /* Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
 		8D656AA21F94480800C85A0F /* EntryActionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryActionViewController.swift; sourceTree = "<group>"; };
 		8D6F4B631F4E8CFC0046847C /* CategoriesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoriesViewController.swift; sourceTree = "<group>"; };
 		8D6F4B651F4E8D050046847C /* AccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountViewController.swift; sourceTree = "<group>"; };
@@ -363,6 +365,7 @@
 				8DB4679E1FC1F2FA00E44863 /* LedgitEntry.swift */,
 				8DB467A01FC1F3A500E44863 /* LedgitTrip.swift */,
 				8DE6F56B20154CD90081DB6E /* ResourceManager.swift */,
+				8D488ABD203A714A00A9798B /* Configuration.swift */,
 				8DDD1319202AAA5F00998AA5 /* LedgitPromise.swift */,
 			);
 			name = Utilities;
@@ -839,6 +842,7 @@
 				"${BUILT_PRODUCTS_DIR}/MarqueeLabel/MarqueeLabel.framework",
 				"${BUILT_PRODUCTS_DIR}/NVActivityIndicatorView/NVActivityIndicatorView.framework",
 				"${BUILT_PRODUCTS_DIR}/NotificationBannerSwift/NotificationBannerSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
 				"${BUILT_PRODUCTS_DIR}/ROX/ROX.framework",
 				"${PODS_ROOT}/ROXCore/RoxSdk/ROXCore.framework",
 				"${BUILT_PRODUCTS_DIR}/SkyFloatingLabelTextField/SkyFloatingLabelTextField.framework",
@@ -865,6 +869,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MarqueeLabel.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NVActivityIndicatorView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NotificationBannerSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ROX.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ROXCore.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SkyFloatingLabelTextField.framework",
@@ -906,6 +911,7 @@
 				"${SRCROOT}/Pods/Target Support Files/Pods-LedgitTests/Pods-LedgitTests-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
+				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
 				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
@@ -913,6 +919,7 @@
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
@@ -947,6 +954,7 @@
 				8D2AEC0F1F4AB2F300227FC6 /* AboutViewController.swift in Sources */,
 				8DDDD6B91F47ECFD0053146B /* HistoryCollectionViewCell.swift in Sources */,
 				8DA3B2231F3FC00500FC31AF /* MainViewController.swift in Sources */,
+				8D488ABE203A714A00A9798B /* Configuration.swift in Sources */,
 				8D2AEC1B1F4D147800227FC6 /* CityTableViewCell.swift in Sources */,
 				8DA3B2271F3FC01B00FC31AF /* TutorialViewController.swift in Sources */,
 				8DDD13362030F4FC00998AA5 /* TripBudgetInformationView.swift in Sources */,

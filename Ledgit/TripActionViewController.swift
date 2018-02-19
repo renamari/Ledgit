@@ -31,14 +31,14 @@ class TripActionViewController: UIViewController {
     @IBOutlet weak var budgetPickerTripButton: UIButton!
     @IBOutlet weak var scrollView: UIScrollView!
     
+    let infoView = TripBudgetInformationView()
+    let budgetPickerButtonHeight: CGFloat = 20
     var presenter: TripsPresenter?
     var delegate: TripActionDelegate?
-    var method: LedgitAction = .add
     var trip: LedgitTrip?
-    var selectedCurrencies: [Currency] = [.USD]
-    let infoView = TripBudgetInformationView()
     var banner: NotificationBanner?
-    let budgetPickerButtonHeight: CGFloat = 20
+    var method: LedgitAction = .add
+    var selectedCurrencies: [Currency] = [.USD]
     var activeTextField = UITextField()
     var datePicker: UIDatePicker?
     var tripLength: Int = 1
@@ -110,7 +110,7 @@ class TripActionViewController: UIViewController {
             nameTextField.text = trip.name
             startDateTextField.text = trip.startDate
             endDateTextField.text = trip.endDate
-            budgetTextField.text = "\(LedgitUser.current.homeCurrency.symbol) \(trip.budget)"
+            budgetTextField.text = String(trip.budget).currencyFormat()
             currenciesTextField.text = trip.currencies.map{ $0.code }.joined(separator: ",")
             selectedCurrencies = trip.currencies
             budgetSelection = trip.budgetSelection
@@ -174,17 +174,19 @@ class TripActionViewController: UIViewController {
     func performSaveAction() {
         guard
             let name = nameTextField.text,
+            !name.isEmpty,
             let startDate = startDateTextField.text,
+            !startDate.isEmpty,
             let endDate = endDateTextField.text,
-            let budget = budgetTextField.text
+            !endDate.isEmpty,
+            let budget = budgetTextField.text,
+            !budget.isEmpty
         else {
             showAlert(with: Constants.clientErrorMessages.emptyTextFields)
             return
         }
         
-        guard
-            let key = presenter?.manager.trips.childByAutoId().key
-        else {
+        guard let key = presenter?.manager.trips.childByAutoId().key else {
             showAlert(with: Constants.clientErrorMessages.authenticationError)
             return
         }
@@ -194,7 +196,8 @@ class TripActionViewController: UIViewController {
          "startDate": startDate,
          "endDate": endDate,
          "currencies": selectedCurrencies.map{ $0.code },
-         "dailyBudget": Double(budget.components(separatedBy: CharacterSet.decimalDigits.inverted).joined(separator: ""))!,
+         "tripLength": tripLength,
+         "dailyBudget": budget.toDouble(),
          "budgetSelection": budgetSelection.rawValue,
          "image": "rome-icon",
          "users": "",
@@ -209,9 +212,13 @@ class TripActionViewController: UIViewController {
     func performUpdateAction() {
         guard
             let name = nameTextField.text,
+            !name.isEmpty,
             let startDate = startDateTextField.text,
+            !startDate.isEmpty,
             let endDate = endDateTextField.text,
-            let budget = budgetTextField.text
+            !endDate.isEmpty,
+            let budget = budgetTextField.text,
+            !budget.isEmpty
         else {
             showAlert(with: Constants.clientErrorMessages.emptyTextFields)
             return
@@ -221,7 +228,7 @@ class TripActionViewController: UIViewController {
             trip.name = name
             trip.startDate = startDate
             trip.endDate = endDate
-            trip.budget = Double(budget.components(separatedBy: CharacterSet.decimalDigits.inverted).joined(separator: ""))!
+            trip.budget = budget.toDouble()
             trip.currencies = selectedCurrencies
             trip.budgetSelection = budgetSelection
             

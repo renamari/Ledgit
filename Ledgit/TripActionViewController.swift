@@ -114,6 +114,7 @@ class TripActionViewController: UIViewController {
             currenciesTextField.text = trip.currencies.map{ $0.code }.joined(separator: ",")
             selectedCurrencies = trip.currencies
             budgetSelection = trip.budgetSelection
+            tripLength = trip.length
         }
         
         nameTextField.delegate = self
@@ -231,6 +232,7 @@ class TripActionViewController: UIViewController {
             trip.budget = budget.toDouble()
             trip.currencies = selectedCurrencies
             trip.budgetSelection = budgetSelection
+            trip.length = tripLength
             
             delegate?.edited(trip)
             navigationController?.popViewController(animated: true)

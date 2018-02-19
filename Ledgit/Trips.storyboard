@@ -42,41 +42,41 @@
                                                     <rect key="frame" x="20" y="20" width="335" height="174.66666666666666"/>
                                                     <subviews>
                                                         <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="r3h-VQ-lfc" userLabel="Date Group">
-                                                            <rect key="frame" x="200.33333333333334" y="108.33333333333334" width="114.66666666666666" height="18.333333333333329"/>
+                                                            <rect key="frame" x="198.33333333333334" y="104.66666666666667" width="116.66666666666666" height="20"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="21 May 2017" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n1V-MV-iwq">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="86.666666666666671" height="18.333333333333332"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="86.666666666666671" height="20"/>
                                                                     <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="14"/>
                                                                     <color key="textColor" red="0.2470588235" green="0.37647058820000001" blue="0.44705882349999998" alpha="1" colorSpace="calibratedRGB"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
-                                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" image="clock-icon" translatesAutoresizingMaskIntoConstraints="NO" id="w5d-Cr-WG0">
-                                                                    <rect key="frame" x="96.666666666666657" y="0.0" width="18" height="18.333333333333332"/>
+                                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" image="start-flag-icon" translatesAutoresizingMaskIntoConstraints="NO" id="w5d-Cr-WG0">
+                                                                    <rect key="frame" x="96.666666666666657" y="0.0" width="20" height="20"/>
                                                                 </imageView>
                                                             </subviews>
                                                         </stackView>
                                                         <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="u2Z-hl-xZX" userLabel="City Group">
-                                                            <rect key="frame" x="206" y="136.66666666666666" width="109" height="18"/>
+                                                            <rect key="frame" x="203" y="134.66666666666666" width="112" height="20"/>
                                                             <subviews>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Paris, France" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3yO-F4-plb">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="84" height="18"/>
-                                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10 July 2017" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3yO-F4-plb">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="82" height="20"/>
+                                                                    <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="14"/>
                                                                     <color key="textColor" red="0.30882430080000001" green="0.45124137399999997" blue="0.52217835189999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
-                                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="location-icon" translatesAutoresizingMaskIntoConstraints="NO" id="Qii-Hi-NOw">
-                                                                    <rect key="frame" x="94" y="0.0" width="15" height="18"/>
+                                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="end-flag-icon" translatesAutoresizingMaskIntoConstraints="NO" id="Qii-Hi-NOw">
+                                                                    <rect key="frame" x="92" y="0.0" width="20" height="20"/>
                                                                 </imageView>
                                                             </subviews>
                                                         </stackView>
                                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="xF7-qw-Bl3">
-                                                            <rect key="frame" x="247" y="0.0" width="88" height="88.333333333333329"/>
+                                                            <rect key="frame" x="250.66666666666671" y="0.0" width="84.333333333333343" height="84.666666666666671"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" secondItem="xF7-qw-Bl3" secondAttribute="height" multiplier="1:1" id="TXe-ex-gJr"/>
                                                             </constraints>
                                                         </imageView>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Europe" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZMo-Rd-uYC">
-                                                            <rect key="frame" x="20" y="20.000000000000004" width="222" height="35.333333333333343"/>
+                                                            <rect key="frame" x="19.999999999999986" y="20.000000000000004" width="225.66666666666663" height="35.333333333333343"/>
                                                             <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="27"/>
                                                             <color key="textColor" red="0.2470588235" green="0.37647058820000001" blue="0.44705882349999998" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
@@ -105,10 +105,10 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="bottomLabel" destination="3yO-F4-plb" id="YSq-wG-bPT"/>
                                             <outlet property="mainView" destination="vDi-dp-b6m" id="qxA-QS-jt1"/>
+                                            <outlet property="topLabel" destination="n1V-MV-iwq" id="eyH-9k-u9W"/>
                                             <outlet property="tripColorImageView" destination="xF7-qw-Bl3" id="yaY-ef-sit"/>
-                                            <outlet property="tripDateLabel" destination="n1V-MV-iwq" id="a86-Ib-X7A"/>
-                                            <outlet property="tripLocationLabel" destination="3yO-F4-plb" id="OpC-Jy-Nge"/>
                                             <outlet property="tripNameLabel" destination="ZMo-Rd-uYC" id="fZB-Pn-ibQ"/>
                                         </connections>
                                     </tableViewCell>
@@ -1088,10 +1088,10 @@
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="724"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="dzl-zr-pv5" userLabel="Form">
-                                                <rect key="frame" x="30" y="216" width="315" height="234.66666666666663"/>
+                                                <rect key="frame" x="30" y="216" width="315" height="238.33333333333337"/>
                                                 <subviews>
                                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tuj-vw-GU8" customClass="SkyFloatingLabelTextField" customModule="SkyFloatingLabelTextField">
-                                                        <rect key="frame" x="0.0" y="0.0" width="315" height="43.666666666666664"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="315" height="44.666666666666664"/>
                                                         <nil key="textColor"/>
                                                         <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="17"/>
                                                         <textInputTraits key="textInputTraits" autocapitalizationType="words" autocorrectionType="yes"/>
@@ -1116,10 +1116,10 @@
                                                         </userDefinedRuntimeAttributes>
                                                     </textField>
                                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="fip-Xv-mTe" userLabel="Date Fields">
-                                                        <rect key="frame" x="0.0" y="63.666666666666686" width="315" height="43.666666666666657"/>
+                                                        <rect key="frame" x="0.0" y="64.666666666666686" width="315" height="44.666666666666657"/>
                                                         <subviews>
                                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Z9s-7X-rEH" customClass="SkyFloatingLabelTextField" customModule="SkyFloatingLabelTextField">
-                                                                <rect key="frame" x="0.0" y="0.0" width="152.66666666666666" height="43.666666666666664"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="152.66666666666666" height="44.666666666666664"/>
                                                                 <nil key="textColor"/>
                                                                 <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="17"/>
                                                                 <textInputTraits key="textInputTraits"/>
@@ -1144,7 +1144,7 @@
                                                                 </userDefinedRuntimeAttributes>
                                                             </textField>
                                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="jge-oE-wSb" customClass="SkyFloatingLabelTextField" customModule="SkyFloatingLabelTextField">
-                                                                <rect key="frame" x="162.66666666666663" y="0.0" width="152.33333333333337" height="43.666666666666664"/>
+                                                                <rect key="frame" x="162.66666666666663" y="0.0" width="152.33333333333337" height="44.666666666666664"/>
                                                                 <nil key="textColor"/>
                                                                 <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="17"/>
                                                                 <textInputTraits key="textInputTraits"/>
@@ -1171,10 +1171,10 @@
                                                         </subviews>
                                                     </stackView>
                                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="goN-cO-VIx" userLabel="Budget">
-                                                        <rect key="frame" x="0.0" y="127.33333333333333" width="315" height="43.666666666666671"/>
+                                                        <rect key="frame" x="0.0" y="129.33333333333331" width="315" height="44.333333333333343"/>
                                                         <subviews>
                                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="UJA-Sh-kOg" customClass="SkyFloatingLabelTextField" customModule="SkyFloatingLabelTextField">
-                                                                <rect key="frame" x="0.0" y="0.0" width="152.66666666666666" height="43.666666666666664"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="152.66666666666666" height="44.333333333333336"/>
                                                                 <nil key="textColor"/>
                                                                 <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="17"/>
                                                                 <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="decimalPad"/>
@@ -1199,16 +1199,16 @@
                                                                 </userDefinedRuntimeAttributes>
                                                             </textField>
                                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="pVH-BJ-r1a" userLabel="Budget Selection">
-                                                                <rect key="frame" x="162.66666666666663" y="0.0" width="152.33333333333337" height="43.666666666666664"/>
+                                                                <rect key="frame" x="162.66666666666663" y="0.0" width="152.33333333333337" height="44.333333333333336"/>
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="DAILY" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oIa-7o-ihN">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="152.33333333333334" height="15.666666666666666"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="152.33333333333334" height="16.333333333333332"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                                         <color key="textColor" red="0.50190365314483643" green="0.50199371576309204" blue="0.50189799070358276" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" translatesAutoresizingMaskIntoConstraints="NO" id="qzc-JK-0Iw">
-                                                                        <rect key="frame" x="0.0" y="23.666666666666686" width="152.33333333333334" height="20"/>
+                                                                        <rect key="frame" x="0.0" y="24.333333333333371" width="152.33333333333334" height="20"/>
                                                                         <subviews>
                                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Iok-6y-Lsr">
                                                                                 <rect key="frame" x="0.0" y="0.0" width="20" height="20"/>
@@ -1241,7 +1241,7 @@
                                                         </subviews>
                                                     </stackView>
                                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="1gw-ym-OM3" customClass="SkyFloatingLabelTextField" customModule="SkyFloatingLabelTextField">
-                                                        <rect key="frame" x="0.0" y="191" width="315" height="43.666666666666657"/>
+                                                        <rect key="frame" x="0.0" y="193.66666666666669" width="315" height="44.666666666666657"/>
                                                         <nil key="textColor"/>
                                                         <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="17"/>
                                                         <textInputTraits key="textInputTraits" autocorrectionType="no"/>
@@ -1460,11 +1460,11 @@
         <image name="add-icon" width="24" height="24"/>
         <image name="add-icon-blue" width="25" height="25"/>
         <image name="add-icon-white" width="25" height="25"/>
-        <image name="clock-icon" width="18" height="18"/>
+        <image name="end-flag-icon" width="20" height="20"/>
         <image name="icon-save" width="126" height="126"/>
-        <image name="location-icon" width="15" height="18"/>
         <image name="map-icon" width="100" height="100"/>
         <image name="settings-icon" width="24" height="24"/>
+        <image name="start-flag-icon" width="20" height="20"/>
         <image name="trash-icon" width="24" height="27"/>
     </resources>
 </document>

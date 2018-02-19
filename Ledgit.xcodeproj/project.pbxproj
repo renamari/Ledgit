@@ -294,6 +294,13 @@
 			name = "History Table View Cell";
 			sourceTree = "<group>";
 		};
+		8D488ABF203A811D00A9798B /* Trip Detail */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "Trip Detail";
+			sourceTree = "<group>";
+		};
 		8DA3B19A1F3F875B00FC31AF = {
 			isa = PBXGroup;
 			children = (
@@ -332,6 +339,7 @@
 		8DA3B1BD1F3F875B00FC31AF /* LedgitTests */ = {
 			isa = PBXGroup;
 			children = (
+				8D488ABF203A811D00A9798B /* Trip Detail */,
 				8DDD131D202D59B400998AA5 /* Authentication */,
 				8DDD13312030B7FC00998AA5 /* Trips */,
 				8DDD1328202F8CD400998AA5 /* Utilities */,

@@ -59,6 +59,7 @@ class EntryActionViewController: UIViewController {
         return formatter
     }
     
+    // MARK:- Life cycle methods
     override func viewDidLoad() {
         super.viewDidLoad()
         setupButtons()
@@ -100,7 +101,7 @@ class EntryActionViewController: UIViewController {
             selectedCategory = entry.category
             categoryTextField.text = selectedCategory
             currencyTextField.text = selectedCurrency.name
-            dateTextField.text = entry.date.toString(style: .long)
+            dateTextField.text = entry.date.toString(style: .full)
             locationTextField.text = entry.location
             descriptionTextField.text = entry.description
             amountTextField.text = "\(entry.cost)".currencyFormat(with: entry.currency.symbol)

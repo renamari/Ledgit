@@ -35,6 +35,9 @@ class WeeklyCollectionViewCell: UICollectionViewCell, ChartViewDelegate {
     override func awakeFromNib() {
         super.awakeFromNib()
         weeklyChart.delegate = self
+        weeklyChart.noDataText = "Wow, such empty 😿"
+        weeklyChart.noDataFont = .futuraMedium14
+        weeklyChart.noDataTextColor = LedgitColor.navigationTextGray
     }
     
     func clearValues() {
@@ -139,7 +142,6 @@ class WeeklyCollectionViewCell: UICollectionViewCell, ChartViewDelegate {
     
     fileprivate func drawChart(with values: [BarChartDataEntry]){
         weeklyChart.animate(yAxisDuration: 1.5, easingOption: .easeInOutBack)
-        //weeklyChart.noDataText = 
         
         let format = NumberFormatter()
         format.minimum = 0

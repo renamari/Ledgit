@@ -17,8 +17,8 @@ struct LedgitTrip {
     var users: String
     var owner: String
     var budget: Double
+    var length: Int
     var budgetSelection: BudgetSelection = .daily
-    //var image: UIImage
     
     init?(dict: NSDictionary) {
         guard
@@ -29,6 +29,7 @@ struct LedgitTrip {
             let usersString = dict["users"] as? String,
             let ownerString = dict["owner"] as? String,
             let budgetString = dict["dailyBudget"] as? Double,
+            let lengthDouble = dict["length"] as? Int,
             let budgetSelectionString = dict["budgetSelection"] as? String,
             let currencyStrings = dict["currencies"] as? [String]
             
@@ -43,8 +44,8 @@ struct LedgitTrip {
         users = usersString
         owner = ownerString
         budget = budgetString
+        length = lengthDouble
         budgetSelection <= BudgetSelection(rawValue: budgetSelectionString)
-        //self.image = UIImage(named: dict["image"] as! String)!
         
         currencyStrings.forEach { item in
             guard let currency = Currency.get(with: item) else { return }

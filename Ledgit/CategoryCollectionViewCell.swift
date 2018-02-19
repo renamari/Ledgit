@@ -16,6 +16,9 @@ class CategoryCollectionViewCell: UICollectionViewCell, ChartViewDelegate {
     override func awakeFromNib() {
         super.awakeFromNib()
         pieChart.delegate = self
+        pieChart.noDataText = "Wow, such empty 😿"
+        pieChart.noDataFont = .futuraMedium14
+        pieChart.noDataTextColor = LedgitColor.navigationTextGray
     }
     
     override func layoutSubviews() {

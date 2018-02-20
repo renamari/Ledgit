@@ -17,10 +17,12 @@ class WeeklyCollectionViewCell: UICollectionViewCell, ChartViewDelegate {
     @IBOutlet weak var remainingLabel: UILabel!
     @IBOutlet weak var budgetLabel: UILabel!
     @IBOutlet weak var averageLabel: UILabel!
+    var averageCost: Double = 0
     var costToday: Double = 0
     var totalCost: Double = 0
-    var averageCost: Double = 0
     var dates: [Date] = []
+    var values:[BarChartDataEntry] = []
+    var amounts:[Double] = [0, 0, 0, 0, 0, 0, 0]
     
     var weekdays:[String] = [
         (Date() - 6.day).toString(style: .day),
@@ -34,72 +36,66 @@ class WeeklyCollectionViewCell: UICollectionViewCell, ChartViewDelegate {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        defaultChartSetup()
+    }
+    
+    func defaultChartSetup() {
         weeklyChart.delegate = self
         weeklyChart.noDataText = "Wow, such empty 😿"
         weeklyChart.noDataFont = .futuraMedium14
         weeklyChart.noDataTextColor = LedgitColor.navigationTextGray
     }
     
-    func clearValues() {
+    func resetValues() {
         costToday = 0
         totalCost = 0
         averageCost = 0
         dates = []
+        values = []
+        amounts = [0, 0, 0, 0, 0, 0, 0]
     }
     
-    func setup(with presenter: TripDetailPresenter) {
-        clearValues()
-        let data = presenter.entries
+    func setup(with entries: [LedgitEntry], budget: Double) {
+        guard !entries.isEmpty else { return }
+        resetValues()
         
-        guard !data.isEmpty else { return }
-        var values:[BarChartDataEntry] = []
-        var amounts:[Double] = [0, 0, 0, 0, 0, 0, 0]
-        
-        for index in 0 ..< data.count {
-            let item = data[index]
-            // Compute the information on the front card
-            if !dates.contains(item.date) {
-                dates.append(item.date)
-            }
-            
-            if item.date.isToday {
-                costToday += item.convertedCost
-            }
-            
-            totalCost += item.convertedCost
+        entries.forEach { entry in
+            !dates.contains(entry.date) ? dates.append(entry.date) : nil
+            costToday += entry.date.isToday ? entry.convertedCost : 0
+            totalCost += entry.convertedCost
             averageCost = totalCost / Double(dates.count)
             
             /*
              Chart is laid out with today being on the far right of the chart
              
-               -----    ----                    -----           -----
-               -----    ----    -----           -----   ----    -----
-               -----    ----    -----   -----   -----   ----    -----
+             -----    ----                    -----           -----
+             -----    ----    -----           -----   ----    -----
+             -----    ----    -----   -----   -----   ----    -----
              |   0   |   1   |    2   |   3   |   4   |   5   |    6    |
              |  Wed  |  Thur |   Fri  |  Sat  |  Sun  |  Mon  |  Today  |
              
              */
             
-            if item.date.isInSameDayOf(date: (Date() - 6.day)) {
-                amounts[0] += item.convertedCost
-            } else if item.date.isInSameDayOf(date: (Date() - 5.day)) {
-                amounts[1] += item.convertedCost
-            } else if item.date.isInSameDayOf(date: (Date() - 4.day)) {
-                amounts[2] += item.convertedCost
-            } else if item.date.isInSameDayOf(date: (Date() - 3.day)) {
-                amounts[3] += item.convertedCost
-            } else if item.date.isInSameDayOf(date: (Date() - 2.day)) {
-                amounts[4] += item.convertedCost
-            } else if item.date.isInSameDayOf(date: (Date() - 1.day)) {
-                amounts[5] += item.convertedCost
-            } else if item.date.isToday {
-                amounts[6] += item.convertedCost
+            if entry.date.isInSameDayOf(date: (Date() - 6.day)) {
+                amounts[0] += entry.convertedCost
+            } else if entry.date.isInSameDayOf(date: (Date() - 5.day)) {
+                amounts[1] += entry.convertedCost
+            } else if entry.date.isInSameDayOf(date: (Date() - 4.day)) {
+                amounts[2] += entry.convertedCost
+            } else if entry.date.isInSameDayOf(date: (Date() - 3.day)) {
+                amounts[3] += entry.convertedCost
+            } else if entry.date.isInSameDayOf(date: (Date() - 2.day)) {
+                amounts[4] += entry.convertedCost
+            } else if entry.date.isInSameDayOf(date: (Date() - 1.day)) {
+                amounts[5] += entry.convertedCost
+            } else if entry.date.isToday {
+                amounts[6] += entry.convertedCost
             }
         }
         
         updateLabels(dayAmount: costToday,
-                     budgetAmount: presenter.trip.budget,
-                     remainingAmount: presenter.trip.budget - costToday,
+                     budgetAmount: budget,
+                     remainingAmount: budget - costToday,
                      averageAmount: averageCost)
         
         for (index, amount) in amounts.enumerated() {
@@ -127,17 +123,18 @@ class WeeklyCollectionViewCell: UICollectionViewCell, ChartViewDelegate {
         layer.shadowPath = UIBezierPath(roundedRect:bounds, cornerRadius:contentView.layer.cornerRadius).cgPath
     }
     
-    private func updateLabels(dayAmount: Double, budgetAmount: Double, remainingAmount: Double, averageAmount: Double){
-        let dayAmount = String(format: "%.2f", dayAmount)
-        let budgetAmount = String(format: "%.2f", budgetAmount)
-        let remainingAmount = String(format: "%.2f", remainingAmount)
-        let averageAmount = String(format: "%.2f", averageAmount)
+    private func updateLabels(dayAmount: Double, budgetAmount: Double, remainingAmount: Double, averageAmount: Double) {
+        let currencySymbol = LedgitUser.current.homeCurrency.symbol
         
         dayLabel.text = Date().toString(style: .long)
-        dayCostLabel.text =  LedgitUser.current.homeCurrency.symbol + dayAmount
-        budgetLabel.text =  LedgitUser.current.homeCurrency.symbol + budgetAmount
-        remainingLabel.text =  LedgitUser.current.homeCurrency.symbol + remainingAmount
-        averageLabel.text =  LedgitUser.current.homeCurrency.symbol + averageAmount
+        dayCostLabel.text =  generateText(from: dayAmount, symbol: currencySymbol)
+        budgetLabel.text =  generateText(from: budgetAmount, symbol: currencySymbol)
+        remainingLabel.text =  generateText(from: remainingAmount, symbol: currencySymbol)
+        averageLabel.text =  generateText(from: averageAmount, symbol: currencySymbol)
+    }
+    
+    func generateText(from amount: Double, symbol: String) -> String {
+        return symbol + String(format: "%.2f", amount)
     }
     
     fileprivate func drawChart(with values: [BarChartDataEntry]){

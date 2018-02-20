@@ -23,6 +23,7 @@
 		8D2AEC1B1F4D147800227FC6 /* CityTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D2AEC1A1F4D147800227FC6 /* CityTableViewCell.swift */; };
 		8D39F94B1FC51B470055BA4E /* SettingsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D39F94A1FC51B470055BA4E /* SettingsManager.swift */; };
 		8D488ABE203A714A00A9798B /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D488ABD203A714A00A9798B /* Configuration.swift */; };
+		8D488AC1203BAF7F00A9798B /* WeeklyCollectionViewCellTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D488AC0203BAF7F00A9798B /* WeeklyCollectionViewCellTests.swift */; };
 		8D656AA31F94480800C85A0F /* EntryActionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D656AA21F94480800C85A0F /* EntryActionViewController.swift */; };
 		8D6F4B641F4E8CFC0046847C /* CategoriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D6F4B631F4E8CFC0046847C /* CategoriesViewController.swift */; };
 		8D6F4B661F4E8D050046847C /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D6F4B651F4E8D050046847C /* AccountViewController.swift */; };
@@ -116,6 +117,7 @@
 		8D2AEC1A1F4D147800227FC6 /* CityTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CityTableViewCell.swift; sourceTree = "<group>"; };
 		8D39F94A1FC51B470055BA4E /* SettingsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsManager.swift; sourceTree = "<group>"; };
 		8D488ABD203A714A00A9798B /* Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
+		8D488AC0203BAF7F00A9798B /* WeeklyCollectionViewCellTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyCollectionViewCellTests.swift; sourceTree = "<group>"; };
 		8D656AA21F94480800C85A0F /* EntryActionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryActionViewController.swift; sourceTree = "<group>"; };
 		8D6F4B631F4E8CFC0046847C /* CategoriesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoriesViewController.swift; sourceTree = "<group>"; };
 		8D6F4B651F4E8D050046847C /* AccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountViewController.swift; sourceTree = "<group>"; };
@@ -297,6 +299,7 @@
 		8D488ABF203A811D00A9798B /* Trip Detail */ = {
 			isa = PBXGroup;
 			children = (
+				8D488AC0203BAF7F00A9798B /* WeeklyCollectionViewCellTests.swift */,
 			);
 			name = "Trip Detail";
 			sourceTree = "<group>";
@@ -1004,6 +1007,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8DA3B1BF1F3F875B00FC31AF /* LedgitTests.swift in Sources */,
+				8D488AC1203BAF7F00A9798B /* WeeklyCollectionViewCellTests.swift in Sources */,
 				8DDD132C202F935100998AA5 /* AuthenticationPresenterDelegateMock.swift in Sources */,
 				8DDD1321202D5CC300998AA5 /* AuthenticationManagerDelegateMock.swift in Sources */,
 				8DDD132A202F8CE600998AA5 /* LedgitUserTests.swift in Sources */,

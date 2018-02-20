@@ -136,17 +136,17 @@ extension TripDetailViewController: UICollectionViewDataSource, UICollectionView
             
         case Constants.cellIdentifiers.weekly:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath) as! WeeklyCollectionViewCell
-            cell.setup(with: presenter)
+            cell.setup(with: presenter.entries, budget: presenter.trip.budget)
             return cell
             
         case Constants.cellIdentifiers.category:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath) as! CategoryCollectionViewCell
-            cell.setup(with: presenter)
+            cell.setup(with: presenter.entries)
             return cell
             
         case Constants.cellIdentifiers.history:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath) as! HistoryCollectionViewCell
-            cell.setup(with: presenter)
+            cell.setup(with: presenter.entries)
             cell.delegate = self
             
             return cell

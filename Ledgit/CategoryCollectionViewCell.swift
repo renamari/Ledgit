@@ -38,14 +38,13 @@ class CategoryCollectionViewCell: UICollectionViewCell, ChartViewDelegate {
         layer.shadowPath = UIBezierPath(roundedRect:bounds, cornerRadius:contentView.layer.cornerRadius).cgPath
     }
     
-    func setup(with presenter: TripDetailPresenter) {
-        let data = presenter.entries
-        guard !data.isEmpty else { return }
+    func setup(with entries: [LedgitEntry]) {
+        guard !entries.isEmpty else { return }
         
         var categories:[String:Double] = [:]
         var values:[PieChartDataEntry] = []
         
-        for item in data {
+        for item in entries {
             if categories.keys.contains(item.category) {
                 categories[item.category]! += item.convertedCost
             } else {

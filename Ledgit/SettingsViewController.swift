@@ -98,8 +98,8 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: Constants.cellIdentifiers.settings, for: indexPath) as! SettingsTableViewCell
         let content = settingsContent[indexPath.row]
-        cell.iconImageView.image = content.icon
-        cell.titleLabel.text = content.name
+        cell.iconImageView.image(content.icon)
+        cell.titleLabel.text(content.name)
         
         return cell
     }

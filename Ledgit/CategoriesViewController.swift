@@ -92,7 +92,7 @@ extension CategoriesViewController: UITableViewDelegate, UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: Constants.cellIdentifiers.categoryName, for: indexPath) as! CategoryTableViewCell
-        cell.titleLabel.text = presenter?.categories[indexPath.row]
+        cell.titleLabel.text(presenter?.categories[indexPath.row])
         
         if indexPath.row == 0 && !displayedInformationLabel {
             cell.displayInformationLabel()

@@ -13,12 +13,12 @@ class CityTableViewCell: UITableViewCell {
     @IBOutlet weak var amountLabel: UILabel!
     
     func updateLabels(city:String, amount:Double) {
-        cityLabel.text = city
-        amountLabel.text = LedgitUser.current.homeCurrency.symbol + String(format: "%.2f", amount)
+        cityLabel.text(city)
+        amountLabel.text(LedgitUser.current.homeCurrency.symbol + String(format: "%.2f", amount))
     }
     
     func setup(with section: CitySection) {
-        cityLabel.text = section.location
-        amountLabel.text = LedgitUser.current.homeCurrency.symbol + String(format: "%.2f", section.amount)
+        cityLabel.text(section.location)
+        amountLabel.text(LedgitUser.current.homeCurrency.symbol + String(format: "%.2f", section.amount))
     }
 }

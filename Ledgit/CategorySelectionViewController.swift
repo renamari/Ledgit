@@ -56,7 +56,7 @@ extension CategorySelectionViewController: UITableViewDelegate, UITableViewDataS
         let cell = tableView.dequeueReusableCell(withIdentifier: "CategorySelectionCell", for: indexPath)
         let category = !filteredCategories.isEmpty ? filteredCategories[indexPath.row] : categories[indexPath.row]
         
-        cell.textLabel?.text = category
+        cell.textLabel?.text(category)
         
         return cell
     }

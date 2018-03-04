@@ -77,11 +77,11 @@ class CategoryActionViewController: UIViewController {
     func setupLabels() {
         switch action {
         case .add:
-            cardTitleLabel.text = "Add New Category"
+            cardTitleLabel.text("Add New Category")
             
         case .edit:
-            cardTitleLabel.text = "Edit Category"
-            categoryTextField.text = category
+            cardTitleLabel.text("Edit Category")
+            categoryTextField.text(category)
         }
     }
 

@@ -52,8 +52,8 @@ class AccountViewController: UIViewController {
         nameTextField.delegate = self
         emailTextField.delegate = self
     
-        nameTextField.text = LedgitUser.current.name
-        emailTextField.text = LedgitUser.current.email
+        nameTextField.text(LedgitUser.current.name)
+        emailTextField.text(LedgitUser.current.email)
     }
     
     func setupRecognizers() {

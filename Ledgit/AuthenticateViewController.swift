@@ -59,15 +59,15 @@ class AuthenticateViewController: UIViewController {
 
         switch method {
         case .signup:
-            titleLabel.text = Constants.authenticateText.signup
-            authenticateButton.setTitle("Sign Up", for: .normal)
-            descriptionLabel.text = Constants.authenticateText.signupDescription
+            titleLabel.text(Constants.authenticateText.signup)
+            authenticateButton.text("Sign Up")
+            descriptionLabel.text(Constants.authenticateText.signupDescription)
             forgotPasswordButton.isHidden = true
             
         case .signin:
-            titleLabel.text = Constants.authenticateText.signin
-            authenticateButton.setTitle("Sign In", for: .normal)
-            descriptionLabel.text = Constants.authenticateText.signinDescription
+            titleLabel.text(Constants.authenticateText.signin)
+            authenticateButton.text("Sign In")
+            descriptionLabel.text(Constants.authenticateText.signinDescription)
             forgotPasswordButton.isHidden = false
         }
     }

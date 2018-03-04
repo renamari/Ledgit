@@ -66,30 +66,36 @@ class WeeklyCollectionViewCell: UICollectionViewCell, ChartViewDelegate {
             averageCost = totalCost / Double(dates.count)
             
             /*
-             Chart is laid out with today being on the far right of the chart
-             
-             -----    ----                    -----           -----
-             -----    ----    -----           -----   ----    -----
-             -----    ----    -----   -----   -----   ----    -----
-             |   0   |   1   |    2   |   3   |   4   |   5   |    6    |
-             |  Wed  |  Thur |   Fri  |  Sat  |  Sun  |  Mon  |  Today  |
-             
+             * Chart is laid out with today being on the far right of the chart
+             *
+             *   -----   ----                     -----            -----
+             *   -----   ----    -----            -----   ----     -----
+             *   -----   ----    -----    -----   -----   ----     -----
+             * |   0   |   1   |    2   |   3   |   4   |   5   |    6    |
+             * |  Wed  |  Thur |   Fri  |  Sat  |  Sun  |  Mon  |  Today  |
              */
             
             if entry.date.isInSameDayOf(date: (Date() - 6.day)) {
                 amounts[0] += entry.convertedCost
+                
             } else if entry.date.isInSameDayOf(date: (Date() - 5.day)) {
                 amounts[1] += entry.convertedCost
+                
             } else if entry.date.isInSameDayOf(date: (Date() - 4.day)) {
                 amounts[2] += entry.convertedCost
+                
             } else if entry.date.isInSameDayOf(date: (Date() - 3.day)) {
                 amounts[3] += entry.convertedCost
+                
             } else if entry.date.isInSameDayOf(date: (Date() - 2.day)) {
                 amounts[4] += entry.convertedCost
+                
             } else if entry.date.isInSameDayOf(date: (Date() - 1.day)) {
                 amounts[5] += entry.convertedCost
+                
             } else if entry.date.isToday {
                 amounts[6] += entry.convertedCost
+                
             }
         }
         
@@ -126,11 +132,11 @@ class WeeklyCollectionViewCell: UICollectionViewCell, ChartViewDelegate {
     private func updateLabels(dayAmount: Double, budgetAmount: Double, remainingAmount: Double, averageAmount: Double) {
         let currencySymbol = LedgitUser.current.homeCurrency.symbol
         
-        dayLabel.text = Date().toString(style: .long)
-        dayCostLabel.text =  generateText(from: dayAmount, symbol: currencySymbol)
-        budgetLabel.text =  generateText(from: budgetAmount, symbol: currencySymbol)
-        remainingLabel.text =  generateText(from: remainingAmount, symbol: currencySymbol)
-        averageLabel.text =  generateText(from: averageAmount, symbol: currencySymbol)
+        dayLabel.text(Date().toString(style: .long))
+        dayCostLabel.text(generateText(from: dayAmount, symbol: currencySymbol))
+        budgetLabel.text(generateText(from: budgetAmount, symbol: currencySymbol))
+        remainingLabel.text(generateText(from: remainingAmount, symbol: currencySymbol))
+        averageLabel.text(generateText(from: averageAmount, symbol: currencySymbol))
     }
     
     func generateText(from amount: Double, symbol: String) -> String {

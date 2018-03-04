@@ -52,13 +52,13 @@ class TripBudgetInformationView: UIView {
             let tripBudget = amount * Double(tripLength)
             let tripBudgetText = String(tripBudget).currencyFormat()
             
-            titleLabel.text = "Based on your daily budget of \(amountText), you'll likely spend \(tripBudgetText) on your \(tripLength) day long trip."
+            titleLabel.text("Based on your daily budget of \(amountText), you'll likely spend \(tripBudgetText) on your \(tripLength) day long trip.")
             
         } else if selection == .trip {
             let dailyBudget = amount / Double(tripLength)
             let dailyBudgetText = String(dailyBudget).currencyFormat()
             
-            titleLabel.text = "Based on your trip budget of \(amountText), you'll likely spend \(dailyBudgetText)/day on your \(tripLength) day long trip."
+            titleLabel.text("Based on your trip budget of \(amountText), you'll likely spend \(dailyBudgetText)/day on your \(tripLength) day long trip.")
         }
     }
 }

@@ -132,7 +132,7 @@ extension HistoryCollectionViewCell: UITableViewDelegate, UITableViewDataSource{
             let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "header") as? CollapsibleDateHeaderView ?? CollapsibleDateHeaderView(reuseIdentifier: "header")
             header.section = section
             header.setCollapsed(dateEntries[section].collapsed)
-            header.titleLabel.text = dateEntries[section].date.toString(style: .medium)
+            header.titleLabel.text(dateEntries[section].date.toString(style: .medium))
             header.delegate = self
 
             return header

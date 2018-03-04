@@ -23,7 +23,7 @@ class CurrencyTableViewCell: UITableViewCell {
             currencyImageViewWidthConstraint.constant = 0
         }
         
-        nameLabel.text = currency.name
-        codeLabel.text = currency.code
+        nameLabel.text(currency.name)
+        codeLabel.text(currency.code)
     }
 }

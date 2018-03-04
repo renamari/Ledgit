@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Stevia
 import NVActivityIndicatorView
 import Firebase
 import SwiftDate

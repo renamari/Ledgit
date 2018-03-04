@@ -20,10 +20,10 @@ class TripTableViewCell: UITableViewCell {
     }()
 
     func configure(with trip: LedgitTrip, at indexPath: IndexPath) {
-        tripNameLabel.text = trip.name
-        topLabel.text = trip.startDate
-        bottomLabel.text = trip.endDate
-        tripColorImageView.image = cellImages[indexPath.row % 3]
+        tripNameLabel.text(trip.name)
+        topLabel.text(trip.startDate)
+        bottomLabel.text(trip.endDate)
+        tripColorImageView.image(cellImages[indexPath.row % 3])
         
         contentView.layoutIfNeeded()
         mainView.roundedCorners(radius: Constants.cornerRadius.tripCard)

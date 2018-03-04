@@ -62,14 +62,14 @@ class TripActionViewController: UIViewController {
         didSet {
             switch budgetSelection {
             case .daily:
-                budgetPickerLabel.text = "DAILY"
-                budgetPickerDailyButton.backgroundColor = LedgitColor.navigationTextGray
-                budgetPickerTripButton.backgroundColor = .clear
+                budgetPickerLabel.text("DAILY")
+                budgetPickerDailyButton.color(LedgitColor.navigationTextGray)
+                budgetPickerTripButton.color(.clear)
             
             case .trip:
-                budgetPickerLabel.text = "TRIP"
-                budgetPickerTripButton.backgroundColor = LedgitColor.navigationTextGray
-                budgetPickerDailyButton.backgroundColor = .clear
+                budgetPickerLabel.text("TRIP")
+                budgetPickerTripButton.color(LedgitColor.navigationTextGray)
+                budgetPickerDailyButton.color(.clear)
             }
         }
     }
@@ -87,13 +87,13 @@ class TripActionViewController: UIViewController {
         switch method {
         case .add:
             title = "Create Trip"
-            titleLabel.text = "Enter some details of your trip"
-            actionButton.setTitle("Create Trip", for: .normal)
+            titleLabel.text("Enter some details of your trip")
+            actionButton.text("Create Trip")
             
         case .edit:
             title = "Edit Trip"
-            titleLabel.text = "Change the details of your trip"
-            actionButton.setTitle("Save", for: .normal)
+            titleLabel.text("Change the details of your trip")
+            actionButton.text("Save")
         }
         
         actionButton.roundedCorners(radius: Constants.cornerRadius.button)
@@ -107,11 +107,11 @@ class TripActionViewController: UIViewController {
                 return
             }
             
-            nameTextField.text = trip.name
-            startDateTextField.text = trip.startDate
-            endDateTextField.text = trip.endDate
-            budgetTextField.text = String(trip.budget).currencyFormat()
-            currenciesTextField.text = trip.currencies.map{ $0.code }.joined(separator: ",")
+            nameTextField.text(trip.name)
+            startDateTextField.text(trip.startDate)
+            endDateTextField.text(trip.endDate)
+            budgetTextField.text(String(trip.budget).currencyFormat())
+            currenciesTextField.text(trip.currencies.map{ $0.code }.joined(separator: ","))
             selectedCurrencies = trip.currencies
             budgetSelection = trip.budgetSelection
             tripLength = trip.length
@@ -327,16 +327,15 @@ extension TripActionViewController: UITextFieldDelegate {
             
         } else if textField == budgetTextField {
             guard let text = textField.text else { return }
-            textField.text = text
-                .replacingOccurrences(of: LedgitUser.current.homeCurrency.symbol, with: "")
-                .replacingOccurrences(of: ",", with: "")
+            let budgetText = text.replacingOccurrences(of: LedgitUser.current.homeCurrency.symbol, with: "").replacingOccurrences(of: ",", with: "")
+            textField.text(budgetText)
         }
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
         if textField == budgetTextField {
             guard let text = textField.text else { return }
-            textField.text = text.currencyFormat()
+            textField.text(text.currencyFormat())
             showBudgetInformationBanner()
         }
     }
@@ -356,7 +355,7 @@ extension TripActionViewController: UITextFieldDelegate {
     }
     
     @objc func datePickerValueChanged(sender: UIDatePicker) {
-        activeTextField.text = formatter.string(from: sender.date)
+        activeTextField.text(formatter.string(from: sender.date))
         
         guard
             let startDateText = startDateTextField.text?.strip(),
@@ -376,7 +375,7 @@ extension TripActionViewController: UITextFieldDelegate {
         } else {
             // If startDate is NOT before endDate,
             // set the endDateTextField to the start date
-            endDateTextField.text = formatter.string(from: startDate)
+            endDateTextField.text(formatter.string(from: startDate))
         }
     }
     
@@ -414,7 +413,7 @@ extension TripActionViewController: UITextFieldDelegate {
 extension TripActionViewController: CurrencySelectionDelegate {
     func selected(_ currencies: [Currency]) {
         selectedCurrencies = currencies
-        currenciesTextField.text = currencies.map{ $0.code }.joined(separator: ", ")
+        currenciesTextField.text(currencies.map{ $0.code }.joined(separator: ", "))
         currenciesTextField.resignFirstResponder()
     }
 }

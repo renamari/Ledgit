@@ -6,9 +6,6 @@ target 'Ledgit' do
   use_frameworks!
 
   # Pods for Ledgit
-
-  pod 'SteviaLayout'
-
   pod 'SwiftDate'
 
   pod 'Firebase/Core'

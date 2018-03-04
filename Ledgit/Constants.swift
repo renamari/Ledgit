@@ -9,6 +9,10 @@
 import UIKit
 
 struct Constants {
+    struct chartText {
+        static let empty = "Wow, such empty 😿"
+    }
+    
     struct projectID {
         static let sample = "-KrcJuMyMi0EtFAlpAlf"
     }

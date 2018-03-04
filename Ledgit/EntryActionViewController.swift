@@ -31,7 +31,7 @@ class EntryActionViewController: UIViewController {
     var selectedCurrency: Currency = .USD {
         didSet {
             if let exchangeRate =  Currency.rates[selectedCurrency.code] {
-                exchangeRateTextField.text = "\(exchangeRate)"
+                exchangeRateTextField.text("\(exchangeRate)")
             }
         }
     }
@@ -96,16 +96,16 @@ class EntryActionViewController: UIViewController {
                 return
             }
             
-            titleLabel.text = "Edit Entry"
+            titleLabel.text("Edit Entry")
             selectedCurrency = entry.currency
             selectedCategory = entry.category
-            categoryTextField.text = selectedCategory
-            currencyTextField.text = selectedCurrency.name
-            dateTextField.text = entry.date.toString(style: .full)
-            locationTextField.text = entry.location
-            descriptionTextField.text = entry.description
-            amountTextField.text = "\(entry.cost)".currencyFormat(with: entry.currency.symbol)
-            exchangeRateTextField.text = "\(entry.exchangeRate)"
+            categoryTextField.text(selectedCategory)
+            currencyTextField.text(selectedCurrency.name)
+            dateTextField.text(entry.date.toString(style: .full))
+            locationTextField.text(entry.location)
+            descriptionTextField.text(entry.description)
+            amountTextField.text("\(entry.cost)".currencyFormat(with: entry.currency.symbol))
+            exchangeRateTextField.text("\(entry.exchangeRate)")
             
             paymentType = entry.paymentType
             
@@ -113,14 +113,14 @@ class EntryActionViewController: UIViewController {
             deleteButton.isHidden = false
             
         } else {
-            dateTextField.text = Date().toString(style: .long)
-            currencyTextField.text = selectedCurrency.name
+            dateTextField.text(Date().toString(style: .long))
+            currencyTextField.text(selectedCurrency.name)
             
             // Initially hide the exchange rate text field
             if !Currency.rates.isEmpty, let exchangeRate =  Currency.rates[selectedCurrency.code] {
-                exchangeRateTextField.text = "\(exchangeRate)"
+                exchangeRateTextField.text("\(exchangeRate)")
             } else if selectedCurrency == LedgitUser.current.homeCurrency {
-                exchangeRateTextField.text = "1.00"
+                exchangeRateTextField.text("1.00")
             }
         }
         
@@ -178,7 +178,7 @@ class EntryActionViewController: UIViewController {
     }
     
     @objc func datePickerValueChanged(sender: UIDatePicker) {
-        activeTextField?.text = formatter.string(from: sender.date)
+        activeTextField?.text(formatter.string(from: sender.date))
     }
     
     @objc func multipleSelectorDone() {
@@ -195,7 +195,7 @@ class EntryActionViewController: UIViewController {
     
     @IBAction func amountTextFieldChanged(_ sender: SkyFloatingLabelTextField) {
         guard let text = sender.text else { return }
-        sender.text = text.currencyFormat(with: selectedCurrency.symbol)
+        sender.text(text.currencyFormat(with: selectedCurrency.symbol))
     }
     
     @IBAction func deleteButtonPressed(_ sender: Any) {
@@ -303,7 +303,7 @@ class EntryActionViewController: UIViewController {
 extension EntryActionViewController: CategorySelectionDelegate {
     func selected(_ category: String) {
         selectedCategory = category
-        categoryTextField.text = category
+        categoryTextField.text(category)
     }
 }
 
@@ -311,7 +311,7 @@ extension EntryActionViewController: CurrencySelectionDelegate {
     func selected(_ currencies: [Currency]) {
         guard let currency = currencies.first else { return }
         selectedCurrency = currency
-        currencyTextField.text = currency.name
+        currencyTextField.text(currency.name)
         amountTextFieldChanged(amountTextField)
     }
 }
@@ -404,7 +404,7 @@ extension EntryActionViewController: UITextFieldDelegate {
         
         case amountTextField:
             guard let text = textField.text else { return }
-            textField.text = text.components(separatedBy: CharacterSet.decimalDigits.inverted).joined(separator: "")
+            textField.text(text.components(separatedBy: CharacterSet.decimalDigits.inverted).joined(separator: ""))
             
         default: break
         }
@@ -413,14 +413,14 @@ extension EntryActionViewController: UITextFieldDelegate {
     func textFieldDidEndEditing(_ textField: UITextField) {
         if textField == amountTextField {
             guard let text = textField.text else { return }
-            textField.text = text.currencyFormat()
+            textField.text(text.currencyFormat())
         }
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         
-        if textField.text == "" {
+        if textField.isEmpty {
             switch textField {
             case locationTextField:
                 locationTextField.errorMessage = "Enter a city"

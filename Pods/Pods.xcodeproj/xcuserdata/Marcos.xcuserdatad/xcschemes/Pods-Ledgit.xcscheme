@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "B3C8B74BE305C75E406587D6C6F9E14B"
+               BlueprintIdentifier = "BD5A615C771F0B2978AA646A99A5537E"
                BuildableName = "Pods_Ledgit.framework"
                BlueprintName = "Pods-Ledgit"
                ReferencedContainer = "container:Pods.xcodeproj">
@@ -47,7 +47,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "B3C8B74BE305C75E406587D6C6F9E14B"
+            BlueprintIdentifier = "BD5A615C771F0B2978AA646A99A5537E"
             BuildableName = "Pods_Ledgit.framework"
             BlueprintName = "Pods-Ledgit"
             ReferencedContainer = "container:Pods.xcodeproj">

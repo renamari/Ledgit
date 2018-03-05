@@ -19,6 +19,7 @@ struct LedgitTrip {
     var budget: Double
     var length: Int
     var budgetSelection: BudgetSelection = .daily
+    var dictionaryRepresentation: NSDictionary
     
     init?(dict: NSDictionary) {
         guard
@@ -46,6 +47,7 @@ struct LedgitTrip {
         budget = budgetString
         length = lengthDouble
         budgetSelection <= BudgetSelection(rawValue: budgetSelectionString)
+        dictionaryRepresentation = dict
         
         currencyStrings.forEach { item in
             guard let currency = Currency.get(with: item) else { return }

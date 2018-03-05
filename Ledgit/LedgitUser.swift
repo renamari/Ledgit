@@ -21,6 +21,7 @@ struct LedgitUser: Equatable {
     var subscription: Subscription = .free
     var homeCurrency: Currency = .USD
     var categories = ["Transportation", "Food", "Lodging", "Entertainment", "Emergency", "Miscellaneous"]
+    var dictionaryRepresentation: NSDictionary = [:]
     
     init() {}
     
@@ -29,6 +30,7 @@ struct LedgitUser: Equatable {
         name <= dict["name"] as? String
         email <= dict["email"] as? String
         categories <= dict["categories"] as? [String]
+        dictionaryRepresentation = dict
         
         if let currencyString = dict["homeCurrency"] as? String {
             homeCurrency <= Currency.get(with: currencyString)

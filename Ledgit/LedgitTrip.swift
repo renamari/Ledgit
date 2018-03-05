@@ -33,10 +33,7 @@ struct LedgitTrip {
             let lengthDouble = dict["length"] as? Int,
             let budgetSelectionString = dict["budgetSelection"] as? String,
             let currencyStrings = dict["currencies"] as? [String]
-            
-        else {
-            return nil
-        }
+        else { return nil }
         
         key = keyString
         name = nameString

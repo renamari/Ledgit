@@ -39,9 +39,7 @@ struct LedgitEntry: Equatable {
             let convertedCostDouble = dict["convertedCost"] as? Double,
             let exchangeRateDouble = dict["exchangeRate"] as? Double,
             let paymentTypeValue = PaymentType(rawValue: paymentTypeString)
-        else {
-            return nil
-        }
+        else { return nil }
         
         key = keyString
         date = dateString.toDate()

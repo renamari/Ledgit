@@ -10,103 +10,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Ledgit/TripDetailPresenter.swift"
-            timestampString = "539846793.6262569"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "54"
-            endingLineNumber = "54"
-            landmarkName = "updatedEntry(_:)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Ledgit.TripDetailPresenter.updatedEntry(Swift.String) -&gt; ()"
-                  moduleName = "Ledgit"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/Marcos/Documents/Official%20Xcode%20Projects/Ledgit/Ledgit/TripDetailPresenter.swift"
-                  timestampString = "540791107.018761"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "54"
-                  endingLineNumber = "54"
-                  offsetFromSymbolStart = "56">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Ledgit.LedgitEntry) -&gt; Swift.Bool in Ledgit.TripDetailPresenter.updatedEntry(Swift.String) -&gt; ()"
-                  moduleName = "Ledgit"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/Marcos/Documents/Official%20Xcode%20Projects/Ledgit/Ledgit/TripDetailPresenter.swift"
-                  timestampString = "540791107.0224921"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "54"
-                  endingLineNumber = "54"
-                  offsetFromSymbolStart = "749">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Ledgit/TripDetailPresenter.swift"
-            timestampString = "539846793.6263421"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "60"
-            endingLineNumber = "60"
-            landmarkName = "removedEntry(_:)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Ledgit.TripDetailPresenter.removedEntry(Ledgit.LedgitEntry) -&gt; ()"
-                  moduleName = "Ledgit"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/Marcos/Documents/Official%20Xcode%20Projects/Ledgit/Ledgit/TripDetailPresenter.swift"
-                  timestampString = "540791107.031792"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "60"
-                  endingLineNumber = "60"
-                  offsetFromSymbolStart = "750">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Ledgit.LedgitEntry) -&gt; Swift.Bool in Ledgit.TripDetailPresenter.removedEntry(Ledgit.LedgitEntry) -&gt; ()"
-                  moduleName = "Ledgit"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/Marcos/Documents/Official%20Xcode%20Projects/Ledgit/Ledgit/TripDetailPresenter.swift"
-                  timestampString = "540791107.034525"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "60"
-                  endingLineNumber = "60"
-                  offsetFromSymbolStart = "1567">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Ledgit/TripDetailPresenter.swift"
-            timestampString = "539846793.6263911"
+            timestampString = "541920219.800086"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "40"
@@ -122,7 +26,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Ledgit/CategoryActionViewController.swift"
-            timestampString = "540079243.026956"
+            timestampString = "541920219.800415"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "119"
@@ -138,7 +42,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Ledgit/TripActionViewController.swift"
-            timestampString = "540791106.7436531"
+            timestampString = "541920219.800776"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "208"
@@ -154,7 +58,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Ledgit/TripActionViewController.swift"
-            timestampString = "540791106.7464989"
+            timestampString = "541920219.800964"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "236"

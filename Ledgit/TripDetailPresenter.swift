@@ -33,7 +33,7 @@ class TripDetailPresenter {
     }
     
     func create(entry: NSDictionary) {
-        manager.create(entry: entry)
+        manager.createEntry(with: entry)
     }
     
     func update(entry: NSDictionary) {
@@ -41,7 +41,7 @@ class TripDetailPresenter {
     }
     
     func fetchEntries() {
-        manager.fetchEntry(forTrip: trip)
+        manager.fetchEntries(forTrip: trip)
     }
     
     func remove(_ entry: LedgitEntry) {
@@ -50,9 +50,15 @@ class TripDetailPresenter {
 }
 
 extension TripDetailPresenter: TripDetailManagerDelegate {
-    func updatedEntry(_ key: String) {
-        guard let index = entries.index(where: {$0.key == key}) else { return }
+    func createdEntry(_ entry: LedgitEntry) {
+        entries.append(entry)
+        delegate?.receivedEntryUpdate()
+    }
+    
+    func updatedEntry(_ entry: LedgitEntry) {
+        guard let index = entries.index(where: {$0.key == entry.key}) else { return }
         entries.remove(at: index)
+        entries.insert(entry, at: index)
         delegate?.receivedEntryUpdate()
     }
     
@@ -63,16 +69,6 @@ extension TripDetailPresenter: TripDetailManagerDelegate {
     }
     
     func retrievedEntry(_ entry: LedgitEntry) {
-//        if !dates.contains(entry.date) {
-//            dates.append(entry.date)
-//        }
-//
-//        if entry.date.isToday {
-//            costToday += entry.convertedCost
-//        }
-//
-//        totalCost += entry.convertedCost
-//        averageCost = totalCost / Double(dates.count)
         entries.append(entry)
         delegate?.receivedEntryUpdate()
     }

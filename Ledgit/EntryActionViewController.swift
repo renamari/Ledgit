@@ -205,6 +205,7 @@ class EntryActionViewController: UIViewController {
         let cancelAction = UIAlertAction(title: "Nevermind", style: .cancel, handler: nil)
         let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { action in
             self.presenter?.remove(entry)
+            self.dismiss(animated: true, completion: nil)
         }
         
         alert.addAction(deleteAction)

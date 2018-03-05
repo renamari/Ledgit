@@ -23,6 +23,14 @@ class TripDetailViewController: UIViewController {
                        Constants.cellIdentifiers.category,
                        Constants.cellIdentifiers.history]
     var currentTrip: LedgitTrip?
+    var isLoading: Bool = false {
+        didSet {
+            switch isLoading {
+            case true: startLoading()
+            case false: stopLoading()
+            }
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()

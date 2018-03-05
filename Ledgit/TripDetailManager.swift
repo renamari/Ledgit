@@ -10,9 +10,10 @@ import Foundation
 import Firebase
 
 protocol TripDetailManagerDelegate: class {
+    func createdEntry(_ entry: LedgitEntry)
     func retrievedEntry(_ entry: LedgitEntry)
     func removedEntry(_ entry: LedgitEntry)
-    func updatedEntry(_ key: String)
+    func updatedEntry(_ entry: LedgitEntry)
 }
 
 class TripDetailManager {
@@ -41,40 +42,46 @@ class TripDetailManager {
 }
 
 extension TripDetailManager {
-    func fetchEntry(forTrip trip: LedgitTrip) {
-        
-        entries.queryOrdered(byChild: "owningTrip").queryEqual(toValue: trip.key).observe(.childChanged, with: { snapshot in
-            guard let snapshot = snapshot.value as? NSDictionary else { return }
-            guard let entry = LedgitEntry(dict: snapshot) else { return }
-            self.delegate?.retrievedEntry(entry)
-        })
-    
-        entries.queryOrdered(byChild: "owningTrip").queryEqual(toValue: trip.key).observe(.childAdded, with: { snapshot in
-            guard let snapshot = snapshot.value as? NSDictionary else { return }
-            guard let entry = LedgitEntry(dict: snapshot) else { return }
-            self.delegate?.retrievedEntry(entry)
-        })
+    func fetchEntries(forTrip trip: LedgitTrip) {
+        entries
+            .queryOrdered(byChild: "owningTrip")
+            .queryEqual(toValue: trip.key)
+            .observeSingleEvent(of: .value) { snapshot in
+            guard
+                let snapshot = snapshot.value as? NSDictionary,
+                let entriesData = snapshot.allValues as? [NSDictionary]
+            else { return }
+            
+            entriesData.forEach {
+                guard let entry = LedgitEntry(dict: $0) else { return }
+                self.delegate?.retrievedEntry(entry)
+            }
+        }
     }
     
-    func create(entry: NSDictionary) {
-        guard let entryKey = entry["key"] as? String else { return }
-        guard let tripKey = entry["owningTrip"] as? String else { return }
-        entries.child(entryKey).setValue(entry)
+    func createEntry(with data: NSDictionary) {
+        guard let entryKey = data["key"] as? String else { return }
+        guard let tripKey = data["owningTrip"] as? String else { return }
+        entries.child(entryKey).setValue(data)
         trips.child(tripKey).updateChildValues(["entries": entryKey])
+        
+        entries.queryOrdered(byChild: "owningTrip").queryEqual(toValue: tripKey).observeSingleEvent(of: .childChanged) { snapshot in
+            guard let snapshot = snapshot.value as? NSDictionary else { return }
+            guard let entry = LedgitEntry(dict: snapshot) else { return }
+            self.delegate?.createdEntry(entry)
+        }
     }
     
     func remove(_ entry: LedgitEntry) {
-        let key = entry.key
-        
-        entries.child(key).removeValue { (error, ref) in
+        entries.child(entry.key).removeValue { (error, ref) in
             guard error == nil else { return }
             self.delegate?.removedEntry(entry)
         }
     }
     
     func update(_ entryData: NSDictionary) {
-        guard let entryKey = entryData["key"] as? String else { return }
-        entries.child(entryKey).setValue(entryData)
-        delegate?.updatedEntry(entryKey)
+        guard let entry = LedgitEntry(dict: entryData) else { return }
+        entries.child(entry.key).setValue(entryData)
+        delegate?.updatedEntry(entry)
     }
 }

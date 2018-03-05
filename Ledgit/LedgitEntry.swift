@@ -21,6 +21,7 @@ struct LedgitEntry: Equatable {
     var convertedCost: Double
     var owningTrip: String
     var exchangeRate: Double
+    var dictionaryRepresentation: NSDictionary
     
     init?(dict: NSDictionary) {
         guard
@@ -54,6 +55,7 @@ struct LedgitEntry: Equatable {
         owningTrip = owningTripString
         paymentType = paymentTypeValue
         exchangeRate = exchangeRateDouble
+        dictionaryRepresentation = dict
     }
 
     static func ==(lhs: LedgitEntry, rhs: LedgitEntry) -> Bool {

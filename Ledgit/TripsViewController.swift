@@ -13,15 +13,6 @@ class TripsViewController: UIViewController {
     private let presenter = TripsPresenter(manager: TripsManager())
     private var selectedIndexPath = IndexPath()
     
-    var isLoading: Bool = false {
-        didSet {
-            switch isLoading {
-            case true: startLoading()
-            case false: stopLoading()
-            }
-        }
-    }
-
     override func viewDidLoad() {
         super.viewDidLoad()
         

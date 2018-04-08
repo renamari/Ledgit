@@ -44,6 +44,7 @@
 		8D9266A3204C674C00A4B5B2 /* UITextField+Content.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9266A2204C674C00A4B5B2 /* UITextField+Content.swift */; };
 		8D9266A5204C676900A4B5B2 /* UILabel+Content.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9266A4204C676900A4B5B2 /* UILabel+Content.swift */; };
 		8D9266A7204C679100A4B5B2 /* UIImageView+Content.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9266A6204C679100A4B5B2 /* UIImageView+Content.swift */; };
+		8D9266A92059F4FC00A4B5B2 /* LedgitAnalytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9266A82059F4FC00A4B5B2 /* LedgitAnalytics.swift */; };
 		8D9778F41F4F5364008DD68C /* CategoryActionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9778F31F4F5364008DD68C /* CategoryActionViewController.swift */; };
 		8DA3B1A71F3F875B00FC31AF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA3B1A61F3F875B00FC31AF /* AppDelegate.swift */; };
 		8DA3B1AC1F3F875B00FC31AF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8DA3B1AA1F3F875B00FC31AF /* Main.storyboard */; };
@@ -149,6 +150,7 @@
 		8D9266A2204C674C00A4B5B2 /* UITextField+Content.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Content.swift"; sourceTree = "<group>"; };
 		8D9266A4204C676900A4B5B2 /* UILabel+Content.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+Content.swift"; sourceTree = "<group>"; };
 		8D9266A6204C679100A4B5B2 /* UIImageView+Content.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+Content.swift"; sourceTree = "<group>"; };
+		8D9266A82059F4FC00A4B5B2 /* LedgitAnalytics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LedgitAnalytics.swift; sourceTree = "<group>"; };
 		8D9778F31F4F5364008DD68C /* CategoryActionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryActionViewController.swift; sourceTree = "<group>"; };
 		8DA3B1A31F3F875B00FC31AF /* Ledgit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Ledgit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8DA3B1A61F3F875B00FC31AF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -417,6 +419,7 @@
 				8DB4679E1FC1F2FA00E44863 /* LedgitEntry.swift */,
 				8DB467A01FC1F3A500E44863 /* LedgitTrip.swift */,
 				8DE6F56B20154CD90081DB6E /* ResourceManager.swift */,
+				8D9266A82059F4FC00A4B5B2 /* LedgitAnalytics.swift */,
 				8D488ABD203A714A00A9798B /* Configuration.swift */,
 				8DDD1319202AAA5F00998AA5 /* LedgitPromise.swift */,
 			);
@@ -1006,6 +1009,7 @@
 				8D6F4B661F4E8D050046847C /* AccountViewController.swift in Sources */,
 				8D2AEC191F4D146900227FC6 /* DateTableViewCell.swift in Sources */,
 				8D2AEC0F1F4AB2F300227FC6 /* AboutViewController.swift in Sources */,
+				8D9266A92059F4FC00A4B5B2 /* LedgitAnalytics.swift in Sources */,
 				8DDDD6B91F47ECFD0053146B /* HistoryCollectionViewCell.swift in Sources */,
 				8D9266A7204C679100A4B5B2 /* UIImageView+Content.swift in Sources */,
 				8DA3B2231F3FC00500FC31AF /* MainViewController.swift in Sources */,

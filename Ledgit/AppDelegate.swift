@@ -34,20 +34,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         ResourceManager.shared.requestFlagImages()
         
         // Determine which screen to go to depending on current user status
-        if AuthenticationManager.shared.isAuthenticated(), let currentUserKey = UserDefaults.standard.value(forKey: Constants.userDefaultKeys.uid) as? String {
-            AuthenticationManager.shared.users.child(currentUserKey).observeSingleEvent(of: .value, with: { (snapshot) in
-                
-                if let snapshot = snapshot.value as? NSDictionary {
-                    LedgitUser.current = LedgitUser(dict: snapshot)
-                }
-            })
-            
+        if AuthenticationManager.shared.isAuthenticated() {
             let navigationController = TripsNavigationController.instantiate(from: .trips)
-            self.window?.rootViewController = navigationController
+            
+            window?.rootViewController = navigationController
         
         } else {
             let navigationController = MainNavigationController.instantiate(from: .main)
-            self.window?.rootViewController = navigationController
+            window?.rootViewController = navigationController
         }
         
         window?.makeKeyAndVisible()

@@ -28,7 +28,7 @@ class CollapsibleDateHeaderView: UITableViewHeaderFooterView {
         contentView.addSubview(titleLabel)
         addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(headerTapped)))
         
-        imageView.image = #imageLiteral(resourceName: "disclosure-icon")
+        imageView.image( #imageLiteral(resourceName: "disclosure-icon"))
         imageView.contentMode = .scaleAspectFit
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: scale).isActive = true
@@ -56,9 +56,9 @@ class CollapsibleDateHeaderView: UITableViewHeaderFooterView {
         UIView.animate(withDuration: 0.75) {
             switch collapsed {
             case true:
-                self.imageView.image = #imageLiteral(resourceName: "disclosure-icon")
+                self.imageView.image( #imageLiteral(resourceName: "disclosure-icon"))
             default:
-                self.imageView.image = #imageLiteral(resourceName: "disclosure-down-icon")
+                self.imageView.image( #imageLiteral(resourceName: "disclosure-down-icon"))
             }
         }
     }

@@ -50,8 +50,12 @@ extension TripDetailManager {
             guard
                 let snapshot = snapshot.value as? NSDictionary,
                 let entriesData = snapshot.allValues as? [NSDictionary]
-            else { return }
+            else {
+                LedgitAnalytics.shared.logEvent("Unable to parse snapshot value from Firebase")
+                return
+            }
             
+            LedgitAnalytics.shared.logEvent("Successfully retrieved entries from Firebase")
             entriesData.forEach {
                 guard let entry = LedgitEntry(dict: $0) else { return }
                 self.delegate?.retrievedEntry(entry)
@@ -60,27 +64,47 @@ extension TripDetailManager {
     }
     
     func createEntry(with data: NSDictionary) {
-        guard let entryKey = data["key"] as? String else { return }
-        guard let tripKey = data["owningTrip"] as? String else { return }
+        guard
+            let entryKey = data["key"] as? String,
+            let tripKey = data["owningTrip"] as? String
+        else {
+            LedgitAnalytics.shared.logEvent("Unable to begin entry creation. entryKey or tripKey not available.")
+            return
+        }
         entries.child(entryKey).setValue(data)
         trips.child(tripKey).updateChildValues(["entries": entryKey])
         
         entries.queryOrdered(byChild: "owningTrip").queryEqual(toValue: tripKey).observeSingleEvent(of: .childChanged) { snapshot in
-            guard let snapshot = snapshot.value as? NSDictionary else { return }
-            guard let entry = LedgitEntry(dict: snapshot) else { return }
+            guard
+                let snapshot = snapshot.value as? NSDictionary,
+                let entry = LedgitEntry(dict: snapshot)
+            else {
+                LedgitAnalytics.shared.logEvent("Unable to parse snapshot value from Firebase")
+                return
+            }
+            
+            LedgitAnalytics.shared.logEvent("Successfully created entry")
             self.delegate?.createdEntry(entry)
         }
     }
     
     func remove(_ entry: LedgitEntry) {
         entries.child(entry.key).removeValue { (error, ref) in
-            guard error == nil else { return }
+            guard error == nil else {
+                LedgitAnalytics.shared.logEvent("Firebase error when removing entry")
+                return
+            }
+            LedgitAnalytics.shared.logEvent("Successfully removed entry")
             self.delegate?.removedEntry(entry)
         }
     }
     
     func update(_ entryData: NSDictionary) {
-        guard let entry = LedgitEntry(dict: entryData) else { return }
+        guard let entry = LedgitEntry(dict: entryData) else {
+            LedgitAnalytics.shared.logEvent("Unable to create entry that's been updated")
+            return
+        }
+        LedgitAnalytics.shared.logEvent("Successfully updated entry")
         entries.child(entry.key).setValue(entryData)
         delegate?.updatedEntry(entry)
     }

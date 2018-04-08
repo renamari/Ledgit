@@ -16,9 +16,10 @@ class CurrencyTableViewCell: UITableViewCell {
 
     func configure(with currency: Currency) {
         if ResourceManager.shared.retrievedFlags {
-            currencyImageView.image = UIImage(named: currency.flagCode,
-                                              in: ResourceManager.shared.bundle,
-                                              compatibleWith: nil)
+            let image = UIImage(named: currency.flagCode,
+                                in: ResourceManager.shared.bundle,
+                                compatibleWith: nil)
+            currencyImageView.image(image)
         } else {
             currencyImageViewWidthConstraint.constant = 0
         }

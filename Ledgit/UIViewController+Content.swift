@@ -9,9 +9,13 @@
 import UIKit
 import NVActivityIndicatorView
 
+extension NSObject {
+    var debugID: String { return "\(self)" }
+}
+
 extension UIViewController {
     var loadingIndicatorTag: Int { return 999999 }
-    
+
     class var storyboardID: String{
         return "\(self)"
     }

@@ -74,7 +74,7 @@ extension AuthenticationManager {
             
             self.users.child(user.uid).setValue(data)
             UserDefaults.standard.set(user.uid, forKey: Constants.userDefaultKeys.uid)
-            UserDefaults.standard.set(true, forKey: Constants.userDefaultKeys.sampleProject)
+            UserDefaults.standard.set(true, forKey: Constants.userDefaultKeys.sampleTrip)
             let authenticatedUser = LedgitUser(dict: data)
             LedgitUser.current = authenticatedUser
             self.delegate?.userAuthenticated(authenticatedUser)
@@ -122,7 +122,7 @@ extension AuthenticationManager {
             return
         }
         
-        facebook.logIn(readPermissions: [ReadPermission.publicProfile,ReadPermission.email, ReadPermission.userFriends], viewController: nil) { [unowned self] (result) in
+        facebook.logIn(readPermissions: [.publicProfile, .email, .userFriends], viewController: nil) { [unowned self] (result) in
             switch result{
             case .failed(let error):
                 
@@ -156,7 +156,7 @@ extension AuthenticationManager {
                     
                     self.users.child(user.uid).setValue(data)
                     UserDefaults.standard.set(user.uid, forKey: Constants.userDefaultKeys.uid)
-                    UserDefaults.standard.set(true, forKey: Constants.userDefaultKeys.sampleProject)
+                    UserDefaults.standard.set(true, forKey: Constants.userDefaultKeys.sampleTrip)
                     let authenticatedUser = LedgitUser(dict: data)
                     LedgitUser.current = authenticatedUser
                     self.delegate?.userAuthenticated(authenticatedUser)
@@ -232,7 +232,7 @@ extension AuthenticationManager {
 
 extension AuthenticationManager {
     func isAuthenticated() -> Bool{
-        guard auth.currentUser != nil else{ return false }
+        guard auth.currentUser != nil else { return false }
         
         guard UserDefaults.standard.value(forKey: Constants.userDefaultKeys.uid) != nil else { return false }
         

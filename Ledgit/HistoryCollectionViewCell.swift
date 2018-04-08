@@ -26,7 +26,6 @@ class HistoryCollectionViewCell: UICollectionViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        
         setupTableViews()
         setupSegmentedControl()
     }
@@ -178,9 +177,10 @@ extension HistoryCollectionViewCell: UITableViewDelegate, UITableViewDataSource{
 extension HistoryCollectionViewCell: CollapsibleDateHeaderViewDelegate {
     func toggleSection(_ header: CollapsibleDateHeaderView, section: Int) {
         let collapsed = !dateEntries[section].collapsed
+        let sectionToReload = IndexSet(integer: section)
         
         dateEntries[section].collapsed = collapsed
         header.setCollapsed(collapsed)
-        dayTableView.reloadSections(IndexSet(integer: section), with: .automatic)
+        dayTableView.reloadSections(sectionToReload, with: .automatic)
     }
 }

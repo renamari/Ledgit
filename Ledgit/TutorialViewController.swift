@@ -24,7 +24,7 @@ class TutorialViewController: UIViewController {
     
     func configure() {
         titleLabel.text(pageTitles[index])
-        backgroundImageView.image = pageImages[index]
+        backgroundImageView.image(pageImages[index])
         descriptionLabel.text(pageDescriptions[index])
     }
 }

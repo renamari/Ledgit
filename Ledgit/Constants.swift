@@ -18,7 +18,7 @@ struct Constants {
     }
     
     struct userDefaultKeys {
-        static let sampleProject = "needsSampleProject"
+        static let sampleTrip = "needsSampleTrip"
         static let uid = "uid"
     }
     
@@ -76,9 +76,9 @@ struct Constants {
     
     static let pageDescriptions: [String] = {
         return [
-            "Get a unique ID and attach it to an item, and link it in the app",
-            "When you lose an item, mark it as lost through the app",
-            "When you find an item, report the ID to notify the owner"
+            "Add new trips quickly in advanced or in the moment",
+            "Quickly jot down your expense information",
+            "Get intelligent reports of your expenses as your trip goes on"
         ]
     }()
     
@@ -86,18 +86,6 @@ struct Constants {
         return [#imageLiteral(resourceName: "tutorial-icon-0"),#imageLiteral(resourceName: "tutorial-icon-1"),#imageLiteral(resourceName: "tutorial-icon-2")]
     }()
 
-    struct tutorialTitles {
-        static let first = "Create New Trips"
-        static let second = "Add Expenses Quickly"
-        static let third = "Analyze Your Budget"
-    }
-    
-    struct tutorialDescriptions {
-        static let first = "Get a unique ID and attach it to an item, and link it in the app"
-        static let second = "When you lose an item, mark it as lost through the app"
-        static let third = "When you find an item, report the ID to notify the owner"
-    }
-    
     struct authenticateText {
         static let signin = "Sign in to see your trips."
         static let signup = "Sign up to get started."

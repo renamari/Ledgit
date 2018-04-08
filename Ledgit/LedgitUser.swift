@@ -8,12 +8,6 @@
 
 import Foundation
 
-let NAME = "name"
-let EMAIL = "email"
-let CATEGORIES = "categories"
-let HOMECURRENCY = "homeCurrency"
-let SUBSCRIPTION = "subscription"
-
 struct LedgitUser: Equatable {
     var key: String = ""
     var name: String = ""

@@ -238,36 +238,49 @@ class EntryActionViewController: UIViewController {
         }
     }
     
-    @IBAction func saveButtonPressed(_ sender: Any) {
-        guard let location = locationTextField.text?.strip() else {
+    func textFieldsValidated() -> Bool {
+        var validated = true
+        if locationTextField.text?.isEmpty == true {
             locationTextField.errorMessage = "Enter a city"
-            return
+            validated = false
         }
         
-        guard let description = descriptionTextField.text?.strip() else {
+        if descriptionTextField.text?.isEmpty == true {
             descriptionTextField.errorMessage = "Enter a description"
-            return
+            validated = false
         }
         
-        guard let category = selectedCategory else {
+        if selectedCategory == nil {
             categoryTextField.errorMessage = "Select a category"
-            return
+            validated = false
         }
         
-        guard let amountString = amountTextField.text?.strip() else {
+        if amountTextField.text?.isEmpty == true {
             amountTextField.errorMessage = "Enter an amount"
-            return
+            validated = false
         }
         
-        guard let exchangeRateString = exchangeRateTextField.text?.strip(), let exchangeRate = Double(exchangeRateString) else { return }
+        if exchangeRateTextField.text?.isEmpty == true {
+            exchangeRateTextField.errorMessage = "Enter an exchange rate"
+            validated = false
+        }
         
+        return validated
+    }
+    
+    @IBAction func saveButtonPressed(_ sender: Any) {
         guard
+            textFieldsValidated(),
+            let location = locationTextField.text?.strip(),
+            let description = descriptionTextField.text?.strip(),
+            let category = selectedCategory,
+            let amountString = amountTextField.text?.strip(),
+            let exchangeRateString = exchangeRateTextField.text?.strip(),
+            let exchangeRate = Double(exchangeRateString),
             let amount = Double(amountString.components(separatedBy: CharacterSet.decimalDigits.inverted).joined(separator: "")),
             let date = dateTextField.text?.strip(),
             let owningTripKey = presenter?.trip.key
-        else {
-            return
-        }
+        else { return }
         
         var key = ""
         if action == .edit, let entry = entry {
@@ -425,16 +438,16 @@ extension EntryActionViewController: UITextFieldDelegate {
             switch textField {
             case locationTextField:
                 locationTextField.errorMessage = "Enter a city"
-                
+
             case descriptionTextField:
                 descriptionTextField.errorMessage = "Enter a description"
-                
+
             case currencyTextField:
                 currencyTextField.errorMessage = "Select a currency"
-                
+
             case categoryTextField:
                 categoryTextField.errorMessage = "Select a category"
-                
+
             case amountTextField:
                 amountTextField.errorMessage = "Enter an amount"
             default: break

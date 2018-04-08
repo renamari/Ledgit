@@ -53,7 +53,7 @@ class TripsViewController: UIViewController {
             destinationViewController.delegate = self
             destinationViewController.presenter = presenter
             
-            if selectedRow == tripsTableView.lastRow(at: 0) {
+            if selectedRow == tripsTableView.lastRow() {
                 destinationViewController.method = .add
                 
             } else {
@@ -111,7 +111,7 @@ extension TripsViewController: UITableViewDelegate{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         selectedIndexPath = indexPath
         
-        if indexPath.row == tableView.lastRow(at: 0) {
+        if indexPath.row == tableView.lastRow() {
             performSegue(withIdentifier: Constants.segueIdentifiers.action, sender: indexPath.row)
         
         } else {
@@ -120,13 +120,13 @@ extension TripsViewController: UITableViewDelegate{
     }
     
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        guard indexPath.row != tableView.lastRow(at: 0) else { return false } //Cannot delete last row
+        guard indexPath.row != tableView.lastRow() else { return false } //Cannot delete last row
         
         return true
     }
  
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-        guard indexPath.row != tableView.lastRow(at: 0) else { return nil }
+        guard indexPath.row != tableView.lastRow() else { return nil }
         let selectedRow = indexPath.row
         
         let edit = UITableViewRowAction(style: .normal, title: "Edit") { [unowned self] (row, index) in
@@ -141,8 +141,8 @@ extension TripsViewController: UITableViewDelegate{
             let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
             let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { (action) in
                 
-                if selectedRow == 0 && (UserDefaults.standard.value(forKey: Constants.userDefaultKeys.sampleProject) as? Bool) == true {
-                    UserDefaults.standard.set(false, forKey: Constants.userDefaultKeys.sampleProject)
+                if selectedRow == 0 && (UserDefaults.standard.value(forKey: Constants.userDefaultKeys.sampleTrip) as? Bool) == true {
+                    UserDefaults.standard.set(false, forKey: Constants.userDefaultKeys.sampleTrip)
                 }
                 
                 tableView.beginUpdates()
@@ -158,7 +158,7 @@ extension TripsViewController: UITableViewDelegate{
             self.present(alert, animated: true, completion: nil)
         }
         
-        if selectedRow == 0 && (UserDefaults.standard.value(forKey: Constants.userDefaultKeys.sampleProject) as? Bool) == true {
+        if selectedRow == 0 && (UserDefaults.standard.value(forKey: Constants.userDefaultKeys.sampleTrip) as? Bool) == true {
             return [delete]
         } else {
             return [delete, edit]
@@ -175,7 +175,7 @@ extension TripsViewController: TripsPresenterDelegate {
     
     func retrievedTrip() {
         tripsTableView.beginUpdates()
-        tripsTableView.insertRows(at: [IndexPath(row: tripsTableView.lastRow(at: 0), section: 0)], with: .right)
+        tripsTableView.insertRows(at: [IndexPath(row: tripsTableView.lastRow(), section: 0)], with: .right)
         tripsTableView.endUpdates()
         
         var index: Double = 0

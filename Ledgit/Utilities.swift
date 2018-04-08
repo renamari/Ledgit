@@ -98,8 +98,6 @@ class CurrencyFormatter : NumberFormatter, FormatterProtocol {
     }
 }
 
-
-
 func makeError(_ string: String) -> Error {
     return NSError(domain: "RenameMeErrorDomain",
                    code: 1,
@@ -107,7 +105,6 @@ func makeError(_ string: String) -> Error {
 }
 
 struct Log {
-    
     static func debug(_ string: String,
                       _ method: String = #function,
                       _ line: Int = #line) {

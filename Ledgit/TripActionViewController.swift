@@ -146,8 +146,9 @@ class TripActionViewController: UIViewController {
     }
     
     func setupObservers() {
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: .UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: .UIKeyboardWillHide, object: nil)
+        let center = NotificationCenter.default
+        center.addObserver(self, selector: #selector(keyboardWillShow), name: .UIKeyboardWillShow, object: nil)
+        center.addObserver(self, selector: #selector(keyboardWillHide), name: .UIKeyboardWillHide, object: nil)
     }
     
     func setupBars(){
@@ -172,16 +173,39 @@ class TripActionViewController: UIViewController {
         return toolBar
     }
     
+    func textFieldsValidated() -> Bool {
+        var validated = true
+        
+        if nameTextField.text?.isEmpty == true {
+            nameTextField.errorMessage = "Enter a city"
+            validated = false
+        }
+        
+        if startDateTextField.text?.isEmpty == true {
+            startDateTextField.errorMessage = "Enter a description"
+            validated = false
+        }
+        
+        if endDateTextField == nil {
+            endDateTextField.errorMessage = "Select a category"
+            validated = false
+        }
+        
+        if budgetTextField.text?.isEmpty == true {
+            budgetTextField.errorMessage = "Enter an amount"
+            validated = false
+        }
+
+        return validated
+    }
+    
     func performSaveAction() {
         guard
+            textFieldsValidated(),
             let name = nameTextField.text,
-            !name.isEmpty,
             let startDate = startDateTextField.text,
-            !startDate.isEmpty,
             let endDate = endDateTextField.text,
-            !endDate.isEmpty,
-            let budget = budgetTextField.text,
-            !budget.isEmpty
+            let budget = budgetTextField.text
         else {
             showAlert(with: Constants.clientErrorMessages.emptyTextFields)
             return
@@ -212,14 +236,11 @@ class TripActionViewController: UIViewController {
     
     func performUpdateAction() {
         guard
+            textFieldsValidated(),
             let name = nameTextField.text,
-            !name.isEmpty,
             let startDate = startDateTextField.text,
-            !startDate.isEmpty,
             let endDate = endDateTextField.text,
-            !endDate.isEmpty,
-            let budget = budgetTextField.text,
-            !budget.isEmpty
+            let budget = budgetTextField.text
         else {
             showAlert(with: Constants.clientErrorMessages.emptyTextFields)
             return

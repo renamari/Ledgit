@@ -24,8 +24,16 @@ class TripsPresenter {
     }
     
     func retrieveTrips() {
-        manager.fetchSampleTrip()
-        manager.fetchTrip()
+        guard let currentUserKey = UserDefaults.standard.value(forKey: Constants.userDefaultKeys.uid) as? String else {
+            return
+        }
+        
+        AuthenticationManager.shared.users.child(currentUserKey).observeSingleEvent(of: .value, with: { (snapshot) in
+            guard let snapshot = snapshot.value as? NSDictionary else { return }
+            LedgitUser.current = LedgitUser(dict: snapshot)
+            self.manager.fetchSampleTrip()
+            self.manager.fetchTrip()
+        })
     }
     
     func removeTrip(at index: Int) {

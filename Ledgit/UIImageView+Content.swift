@@ -10,7 +10,7 @@ import UIKit
 
 extension UIImageView {
     @discardableResult
-    public func image(_ i: UIImage) -> Self {
+    public func image(_ i: UIImage?) -> Self {
         image = i
         return self
     }

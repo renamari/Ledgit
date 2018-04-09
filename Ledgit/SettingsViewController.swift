@@ -30,6 +30,11 @@ class SettingsViewController: UIViewController {
         super.viewDidLoad()
         setupTableView()
         setupPresenter()
+        setupView()
+    }
+    
+    func setupView() {
+        signoutButton.isHidden = LedgitUser.current.subscription == .free ? true : false
     }
     
     func setupPresenter() {

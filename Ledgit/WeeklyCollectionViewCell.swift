@@ -56,8 +56,12 @@ class WeeklyCollectionViewCell: UICollectionViewCell, ChartViewDelegate {
     }
     
     func setup(with entries: [LedgitEntry], budget: Double) {
-        guard !entries.isEmpty else { return }
         resetValues()
+        
+        guard !entries.isEmpty else {
+            weeklyChart.clear()
+            return
+        }
         
         entries.forEach { entry in
             !dates.contains(entry.date) ? dates.append(entry.date) : nil

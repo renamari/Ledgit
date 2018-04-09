@@ -20,7 +20,7 @@ extension String {
         formatter.numberStyle = .decimal
         
         guard
-            let amount = Double(self),
+            let amount = Double(self.trimmingCharacters(in: CharacterSet(charactersIn: ".1234567890").inverted)),
             let formattedNumber = formatter.string(from: NSNumber(value: amount))
             else {
                 return ""

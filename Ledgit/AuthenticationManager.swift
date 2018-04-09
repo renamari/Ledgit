@@ -10,6 +10,7 @@ import Foundation
 import Firebase
 import FacebookCore
 import FacebookLogin
+import CoreData
 
 typealias ErrorDictionary = [String:String]
 
@@ -22,9 +23,16 @@ protocol AuthenticationManagerDelegate: class {
 class AuthenticationManager {
     static let shared = AuthenticationManager()
     weak var delegate: AuthenticationManagerDelegate?
-    let users = Database.database().reference().child("users")
-    let facebook = LoginManager()
-    let auth = Auth.auth()
+    var users: DatabaseReference { return Database.database().reference().child("users") }
+    var facebook: LoginManager { return LoginManager() }
+    var auth: Auth { return Auth.auth() }
+    var coreData: NSManagedObjectContext {
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
+            fatalError("Application Delegate wasn't found. Something went terribly wrong.")
+        }
+        
+        return appDelegate.persistentContainer.viewContext
+    }
     
     #if DEBUG
     var isConnected: Bool = false
@@ -42,6 +50,51 @@ class AuthenticationManager {
 }
 
 extension AuthenticationManager {
+    func performCoreDataSignUp() {
+        guard let entity = NSEntityDescription.entity(forEntityName: Constants.ledgitEntity.user, in: coreData) else {
+            Log.warning("Could not create user entity")
+            return
+        }
+        
+        let user = NSManagedObject(entity: entity, insertInto: coreData)
+        let name = ""
+        let email = ""
+        let key = UUID().uuidString.lowercased()
+        let provider = "Ledgit"
+        let subscription = "Free"
+        let homeCurrency = "USD"
+        let categories = ["Transportation", "Food", "Lodging", "Entertainment", "Emergency", "Miscellaneous"]
+        
+        let data: NSDictionary = [
+            LedgitUser.Keys.key: key,
+            LedgitUser.Keys.email: email,
+            LedgitUser.Keys.provider: provider,
+            LedgitUser.Keys.categories: categories,
+            LedgitUser.Keys.subscription: subscription,
+            LedgitUser.Keys.homeCurrency: homeCurrency
+        ]
+        
+        user.setValue(email, forKey: LedgitUser.Keys.email)
+        user.setValue(name, forKey: LedgitUser.Keys.name)
+        user.setValue(provider, forKey: LedgitUser.Keys.provider)
+        user.setValue(subscription, forKey: LedgitUser.Keys.subscription)
+        user.setValue(homeCurrency, forKey: LedgitUser.Keys.homeCurrency)
+        user.setValue(key, forKey: LedgitUser.Keys.key)
+        user.setValue(categories, forKey: LedgitUser.Keys.categories)
+        
+        do {
+            try coreData.save()
+            UserDefaults.standard.set(key, forKey: Constants.userDefaultKeys.uid)
+            UserDefaults.standard.set(true, forKey: Constants.userDefaultKeys.sampleTrip)
+            
+            let ledgitUser = LedgitUser(dict: data)
+            self.delegate?.userAuthenticated(ledgitUser)
+            
+        } catch let error as NSError {
+            Log.warning("Could not add user object to core data. \(error), \(error.userInfo)")
+            self.delegate?.authenticationError(dict: Constants.authErrorMessages.coreDataFault)
+        }
+    }
     
     func performFirebaseSignUp(with email: String, password: String) {
         
@@ -66,17 +119,15 @@ extension AuthenticationManager {
             }
             
             let data: NSDictionary = [
-                "provider": user.providerID,
-                "email": email,
-                "uid": user.uid,
-                "profileImageURL": ""
+                LedgitUser.Keys.provider: user.providerID,
+                LedgitUser.Keys.email: email,
+                LedgitUser.Keys.key: user.uid
             ]
             
             self.users.child(user.uid).setValue(data)
             UserDefaults.standard.set(user.uid, forKey: Constants.userDefaultKeys.uid)
             UserDefaults.standard.set(true, forKey: Constants.userDefaultKeys.sampleTrip)
             let authenticatedUser = LedgitUser(dict: data)
-            LedgitUser.current = authenticatedUser
             self.delegate?.userAuthenticated(authenticatedUser)
         }
     }
@@ -110,7 +161,6 @@ extension AuthenticationManager {
                 
                 UserDefaults.standard.set(user.uid, forKey: Constants.userDefaultKeys.uid)
                 let authenticatedUser = LedgitUser(dict: snapshot)
-                LedgitUser.current = authenticatedUser
                 self.delegate?.userAuthenticated(authenticatedUser)
             })
         }
@@ -147,18 +197,16 @@ extension AuthenticationManager {
                     }
                     
                     let data: NSDictionary = [
-                        "provider": user.providerID,
-                        "email": user.email!,
-                        "name": user.displayName!,
-                        "uid": user.uid,
-                        "profileImageURL": (user.photoURL?.absoluteString)!
+                        LedgitUser.Keys.provider: user.providerID,
+                        LedgitUser.Keys.email: user.email!,
+                        LedgitUser.Keys.name: user.displayName!,
+                        LedgitUser.Keys.key: user.uid,
                     ]
                     
                     self.users.child(user.uid).setValue(data)
                     UserDefaults.standard.set(user.uid, forKey: Constants.userDefaultKeys.uid)
                     UserDefaults.standard.set(true, forKey: Constants.userDefaultKeys.sampleTrip)
                     let authenticatedUser = LedgitUser(dict: data)
-                    LedgitUser.current = authenticatedUser
                     self.delegate?.userAuthenticated(authenticatedUser)
                 })
             }
@@ -198,7 +246,6 @@ extension AuthenticationManager {
                         guard let snapshot = snapshot.value as? NSDictionary else { return }
                         let authenticatedUser = LedgitUser(dict: snapshot)
                         UserDefaults.standard.set(user.uid, forKey: Constants.userDefaultKeys.uid)
-                        LedgitUser.current = authenticatedUser
                         self.delegate?.userAuthenticated(authenticatedUser)
                     })
                 })

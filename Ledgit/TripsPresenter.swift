@@ -11,6 +11,7 @@ import Foundation
 protocol TripsPresenterDelegate: class {
     func retrievedSampleTrip()
     func retrievedTrip()
+    func addedTrip()
 }
 
 class TripsPresenter {
@@ -24,16 +25,11 @@ class TripsPresenter {
     }
     
     func retrieveTrips() {
-        guard let currentUserKey = UserDefaults.standard.value(forKey: Constants.userDefaultKeys.uid) as? String else {
-            return
-        }
+        // Always check to see if sample trip is needed
+        manager.fetchSampleTrip()
         
-        AuthenticationManager.shared.users.child(currentUserKey).observeSingleEvent(of: .value, with: { (snapshot) in
-            guard let snapshot = snapshot.value as? NSDictionary else { return }
-            LedgitUser.current = LedgitUser(dict: snapshot)
-            self.manager.fetchSampleTrip()
-            self.manager.fetchTrip()
-        })
+        // Fetch rest of trips
+        manager.fetchTrips()
     }
     
     func removeTrip(at index: Int) {
@@ -62,7 +58,8 @@ extension TripsPresenter: TripsManagerDelegate{
         delegate?.retrievedTrip()
     }
     
-    func addedTrip() {
-        
+    func addedTrip(_ trip: LedgitTrip) {
+        trips.append(trip)
+        delegate?.addedTrip()
     }
 }

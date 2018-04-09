@@ -14,7 +14,7 @@ struct Constants {
     }
     
     struct projectID {
-        static let sample = "-KrcJuMyMi0EtFAlpAlf"
+        static let sample = "ledgit1234567890"
     }
     
     struct userDefaultKeys {
@@ -56,6 +56,12 @@ struct Constants {
         static let entryAction = "toAddEntryViewController"
         static let currencySelection = "toCurrencySelectionViewController"
         static let categorySelection = "toCategorySelectionViewController"
+    }
+    
+    struct ledgitEntity {
+        static let user = "User"
+        static let trip = "Trip"
+        static let entry = "Entry"
     }
     
     static let pageColors: [UIColor] = {
@@ -178,6 +184,11 @@ struct Constants {
     }
     
     struct authErrorMessages {
+        static let coreDataFault = [
+            "title": "Error",
+            "message": "Could not create your initial account. Sorry about that!"
+        ]
+        
         static let cancelled = [
             "title": "Hmmm...",
             "message": "It looks like you cancelled, try again or select another method."

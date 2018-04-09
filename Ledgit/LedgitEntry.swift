@@ -21,30 +21,52 @@ struct LedgitEntry: Equatable {
     var convertedCost: Double
     var owningTrip: String
     var exchangeRate: Double
+    var homeCurrency: Currency
     var dictionaryRepresentation: NSDictionary
     
+    struct Keys {
+        static let key = "key"
+        static let date = "date"
+        static let currency = "currency"
+        static let location = "location"
+        static let description = "entryDescription"
+        static let category = "category"
+        static let paidBy = "paidBy"
+        static let paymentType = "paymentType"
+        static let owningTrip = "owningTrip"
+        static let cost = "cost"
+        static let convertedCost = "convertedCost"
+        static let exchangeRate = "exchangeRate"
+        static let homeCurrency = "homeCurrency"
+    }
+        
     init?(dict: NSDictionary) {
         guard
-            let keyString = dict["key"] as? String,
-            let dateString = dict["date"] as? String,
-            let descriptionString = dict["description"] as? String,
-            let currencyString = dict["currency"] as? String,
+            let keyString = dict[LedgitEntry.Keys.key] as? String,
+            let dateString = dict[LedgitEntry.Keys.date] as? String,
+            let descriptionString = dict[LedgitEntry.Keys.description] as? String,
+            let currencyString = dict[LedgitEntry.Keys.currency] as? String,
             let currencyValue = Currency.get(with: currencyString),
-            let locationString = dict["location"] as? String,
-            let categoryString = dict["category"] as? String,
-            let paidByString = dict["paidBy"] as? String,
-            let paymentTypeString = dict["paymentType"] as? String,
-            let owningTripString = dict["owningTrip"] as? String,
-            let costDouble = dict["cost"] as? Double,
-            let convertedCostDouble = dict["convertedCost"] as? Double,
-            let exchangeRateDouble = dict["exchangeRate"] as? Double,
+            let homeCurrencyString = dict[LedgitEntry.Keys.homeCurrency] as? String,
+            let homeCurrencyValue = Currency.get(with: homeCurrencyString),
+            let locationString = dict[LedgitEntry.Keys.location] as? String,
+            let categoryString = dict[LedgitEntry.Keys.category] as? String,
+            let paidByString = dict[LedgitEntry.Keys.paidBy] as? String,
+            let paymentTypeString = dict[LedgitEntry.Keys.paymentType] as? String,
+            let owningTripString = dict[LedgitEntry.Keys.owningTrip] as? String,
+            let costDouble = dict[LedgitEntry.Keys.cost] as? Double,
+            let convertedCostDouble = dict[LedgitEntry.Keys.convertedCost] as? Double,
+            let exchangeRateDouble = dict[LedgitEntry.Keys.exchangeRate] as? Double,
             let paymentTypeValue = PaymentType(rawValue: paymentTypeString)
-        else { return nil }
+        else {
+            return nil
+        }
         
         key = keyString
         date = dateString.toDate()
         description = descriptionString
         currency = currencyValue
+        homeCurrency = homeCurrencyValue
         location = locationString
         category = categoryString
         paidBy = paidByString

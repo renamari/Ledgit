@@ -39,10 +39,13 @@ class CategoryCollectionViewCell: UICollectionViewCell, ChartViewDelegate {
     }
     
     func setup(with entries: [LedgitEntry]) {
-        guard !entries.isEmpty else { return }
-        
         var categories:[String:Double] = [:]
         var values:[PieChartDataEntry] = []
+        
+        guard !entries.isEmpty else {
+            pieChart.clear()
+            return
+        }
         
         for item in entries {
             if categories.keys.contains(item.category) {

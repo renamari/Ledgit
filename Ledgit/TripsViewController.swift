@@ -91,7 +91,7 @@ extension TripsViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if indexPath.row == presenter.trips.count { //Is last index path
+        if indexPath.row == tableView.lastRow() { //Is last index path
             let cell = tableView.dequeueReusableCell(withIdentifier: Constants.cellIdentifiers.add, for: indexPath) as! AddTripTableViewCell
             cell.configure()
             
@@ -175,7 +175,7 @@ extension TripsViewController: TripsPresenterDelegate {
     
     func retrievedTrip() {
         tripsTableView.beginUpdates()
-        tripsTableView.insertRows(at: [IndexPath(row: tripsTableView.lastRow(), section: 0)], with: .right)
+        tripsTableView.insertRows(at: [IndexPath(row: 1, section: 0)], with: .right)
         tripsTableView.endUpdates()
         
         var index: Double = 0
@@ -188,5 +188,9 @@ extension TripsViewController: TripsPresenterDelegate {
             
             index += 1
         }
+    }
+    
+    func addedTrip() {
+        tripsTableView.reloadData()
     }
 }

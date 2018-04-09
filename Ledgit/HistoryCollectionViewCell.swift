@@ -72,11 +72,9 @@ class HistoryCollectionViewCell: UICollectionViewCell {
     }
     
     func setup(with entries:[LedgitEntry]) {
-        guard !entries.isEmpty else { return }
-        
         dateEntries = []
         cityEntries = []
-    
+        
         for item in entries {
             if let index = dateEntries.index(where: { $0.date.isInSameDayOf(date: item.date) }) {
                 dateEntries[index].entries.append(item)

@@ -211,23 +211,19 @@ class TripActionViewController: UIViewController {
             return
         }
         
-        guard let key = presenter?.manager.trips.childByAutoId().key else {
-            showAlert(with: Constants.clientErrorMessages.authenticationError)
-            return
-        }
-         
+        let key = UUID().uuidString
+        
          let dict: NSDictionary = [
-         "name": name,
-         "startDate": startDate,
-         "endDate": endDate,
-         "currencies": selectedCurrencies.map{ $0.code },
-         "tripLength": tripLength,
-         "dailyBudget": budget.toDouble(),
-         "budgetSelection": budgetSelection.rawValue,
-         "image": "rome-icon",
-         "users": "",
-         "key": key,
-         "owner": LedgitUser.current.key
+         LedgitTrip.Keys.name: name,
+         LedgitTrip.Keys.startDate: startDate,
+         LedgitTrip.Keys.endDate: endDate,
+         LedgitTrip.Keys.currencies: selectedCurrencies.map{ $0.code },
+         LedgitTrip.Keys.length: tripLength,
+         LedgitTrip.Keys.budget: budget.toDouble(),
+         LedgitTrip.Keys.budgetSelection: budgetSelection.rawValue,
+         LedgitTrip.Keys.users: "",
+         LedgitTrip.Keys.key: key,
+         LedgitTrip.Keys.owner: LedgitUser.current.key
          ]
         
         delegate?.added(trip: dict)

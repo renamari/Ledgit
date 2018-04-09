@@ -282,26 +282,29 @@ class EntryActionViewController: UIViewController {
             let owningTripKey = presenter?.trip.key
         else { return }
         
+        let convertedCost = Double(amount / exchangeRate)
+        
         var key = ""
         if action == .edit, let entry = entry {
             key = entry.key
         } else {
-            key = Service.shared.entries.childByAutoId().key
+            key = UUID().uuidString
         }
         
         let entryData: NSDictionary = [
-            "key": key,
-            "date": date,
-            "location": location,
-            "description": description,
-            "category": category,
-            "currency": selectedCurrency.code,
-            "homeCurrency": LedgitUser.current.homeCurrency.code,
-            "exchangeRate": exchangeRate,
-            "paymentType": paymentType.rawValue,
-            "cost": amount,
-            "paidBy": LedgitUser.current.key,
-            "owningTrip": owningTripKey
+            LedgitEntry.Keys.key: key,
+            LedgitEntry.Keys.date: date,
+            LedgitEntry.Keys.location: location,
+            LedgitEntry.Keys.description: description,
+            LedgitEntry.Keys.category: category,
+            LedgitEntry.Keys.currency: selectedCurrency.code,
+            LedgitEntry.Keys.homeCurrency: LedgitUser.current.homeCurrency.code,
+            LedgitEntry.Keys.exchangeRate: exchangeRate,
+            LedgitEntry.Keys.paymentType: paymentType.rawValue,
+            LedgitEntry.Keys.cost: amount,
+            LedgitEntry.Keys.convertedCost: convertedCost,
+            LedgitEntry.Keys.paidBy: LedgitUser.current.key,
+            LedgitEntry.Keys.owningTrip: owningTripKey
         ]
         
         if action == .edit {
@@ -326,6 +329,7 @@ extension EntryActionViewController: CurrencySelectionDelegate {
         guard let currency = currencies.first else { return }
         selectedCurrency = currency
         currencyTextField.text(currency.name)
+        amountTextField.title = "AMOUNT IN \(currency.code.uppercased())"
         amountTextFieldChanged(amountTextField)
     }
 }
@@ -418,8 +422,9 @@ extension EntryActionViewController: UITextFieldDelegate {
         
         case amountTextField:
             guard let text = textField.text else { return }
-            textField.text(text.components(separatedBy: CharacterSet.decimalDigits.inverted).joined(separator: ""))
-            
+            let cleanedText = text.trimmingCharacters(in: CharacterSet(charactersIn: ".1234567890").inverted)
+            textField.text(cleanedText.replacingOccurrences(of: ",", with: ""))
+
         default: break
         }
     }
@@ -427,7 +432,8 @@ extension EntryActionViewController: UITextFieldDelegate {
     func textFieldDidEndEditing(_ textField: UITextField) {
         if textField == amountTextField {
             guard let text = textField.text else { return }
-            textField.text(text.currencyFormat())
+            let cleanedText = text.trimmingCharacters(in: CharacterSet(charactersIn: ".1234567890").inverted)
+            textField.text(cleanedText.currencyFormat(with: selectedCurrency.symbol))
         }
     }
     

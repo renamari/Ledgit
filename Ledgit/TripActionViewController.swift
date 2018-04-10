@@ -281,7 +281,7 @@ class TripActionViewController: UIViewController {
         if segue.identifier == Constants.segueIdentifiers.currencySelection {
             guard let destinationViewController = segue.destination as? CurrencySelectionViewController else { return }
             destinationViewController.delegate = self
-            destinationViewController.currencies = selectedCurrencies
+            destinationViewController.selectedCurrencies = selectedCurrencies
         }
     }
 }

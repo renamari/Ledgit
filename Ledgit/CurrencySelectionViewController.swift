@@ -16,8 +16,9 @@ class CurrencySelectionViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var searchBar: UISearchBar!
     weak var delegate: CurrencySelectionDelegate?
-    lazy var currencies: [Currency] = []
+    lazy var selectedCurrencies: [Currency] = []
     lazy var filteredCurrencies: [Currency] = []
+    var limitedCurrencies: [Currency]?
     var allowsMultipleSelection = true
     
     override func viewDidLoad() {
@@ -27,7 +28,7 @@ class CurrencySelectionViewController: UIViewController {
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        delegate?.selected(currencies)
+        delegate?.selected(selectedCurrencies)
     }
     
     func setupSearchBar() {
@@ -51,7 +52,8 @@ class CurrencySelectionViewController: UIViewController {
 
 extension CurrencySelectionViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        filteredCurrencies = Currency.all.filter {
+        let visibleCurrencies = limitedCurrencies ?? Currency.all
+        filteredCurrencies = visibleCurrencies.filter {
             $0.code.lowercased().contains(searchText.lowercased()) ||
             $0.name.lowercased().contains(searchText.lowercased())
         }
@@ -65,16 +67,18 @@ extension CurrencySelectionViewController: UISearchBarDelegate {
 
 extension CurrencySelectionViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return !filteredCurrencies.isEmpty ? filteredCurrencies.count : Currency.all.count
+        let visibleCurrencies = limitedCurrencies ?? Currency.all
+        return !filteredCurrencies.isEmpty ? filteredCurrencies.count : visibleCurrencies.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let visibleCurrencies = limitedCurrencies ?? Currency.all
         let cell = tableView.dequeueReusableCell(withIdentifier: Constants.cellIdentifiers.currency, for: indexPath) as! CurrencyTableViewCell
-        let currency = !filteredCurrencies.isEmpty ? filteredCurrencies[indexPath.row] : Currency.all[indexPath.row]
+        let currency = !filteredCurrencies.isEmpty ? filteredCurrencies[indexPath.row] : visibleCurrencies[indexPath.row]
 
         cell.configure(with: currency)
         
-        if currencies.contains(currency) {
+        if selectedCurrencies.contains(currency) {
             cell.accessoryType = .checkmark
         } else {
             cell.accessoryType = .none
@@ -85,20 +89,21 @@ extension CurrencySelectionViewController: UITableViewDelegate, UITableViewDataS
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let cell = tableView.cellForRow(at: indexPath) as! CurrencyTableViewCell
-        let selectedCurrency = !filteredCurrencies.isEmpty ? filteredCurrencies[indexPath.row] : Currency.all[indexPath.row]
+        let visibleCurrencies = limitedCurrencies ?? Currency.all
+        let selectedCurrency = !filteredCurrencies.isEmpty ? filteredCurrencies[indexPath.row] : visibleCurrencies[indexPath.row]
         
         if allowsMultipleSelection == false {
-            currencies.append(selectedCurrency)
-            delegate?.selected(currencies)
+            selectedCurrencies.append(selectedCurrency)
+            delegate?.selected(selectedCurrencies)
             dismiss(animated: true, completion: nil)
             
         } else {
             if cell.accessoryType == .none {
-                currencies.append(selectedCurrency)
+                selectedCurrencies.append(selectedCurrency)
                 cell.accessoryType = .checkmark
             } else {
-                guard let index = currencies.index(of: selectedCurrency) else { return }
-                currencies.remove(at: index)
+                guard let index = selectedCurrencies.index(of: selectedCurrency) else { return }
+                selectedCurrencies.remove(at: index)
                 cell.accessoryType = .none
             }
             tableView.deselectRow(at: indexPath, animated: true)

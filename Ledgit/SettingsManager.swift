@@ -53,47 +53,6 @@ class SettingsManager {
         
         return user
     }
-    /*
- 
-     guard let uid = UserDefaults.standard.value(forKey: Constants.userDefaultKeys.uid) as? String else {
-     navigateToMain()
-     return true
-     }
-     
-     // If uid exist, search for a core data user
-     let request = NSFetchRequest<NSFetchRequestResult>(entityName: Constants.ledgitEntity.user)
-     request.predicate = NSPredicate(format: "\(Constants.userDefaultKeys.uid) == %@", uid)
-     request.fetchLimit = 1
-     
-     do {
-     let users = try persistentContainer.viewContext.fetch(request)
-     
-     guard let user = users.first as? NSManagedObject else {
-     navigateToMain()
-     return true
-     }
-     
-     let data: NSDictionary = [
-     "uid": uid,
-     "key": user.value(forKey: "key") as Any,
-     "name": user.value(forKey: "name") as Any,
-     "email": user.value(forKey: "email") as Any,
-     "provider": user.value(forKey: "provider") as Any,
-     "categories": user.value(forKey: "categories") as Any,
-     "subscription": user.value(forKey: "subscription") as Any,
-     "homeCurrency": user.value(forKey: "homeCurrency") as Any
-     ]
-     
-     LedgitUser.current = LedgitUser(dict: data)
-     navigateToTrips()
-     return true
-     
-     } catch {
-     
-     Log.critical("Something is wrong. There is a user default uid value, but it didn't get the core data member")
-     navigateToMain()
-     return true
-     }*/
 }
 
 extension SettingsManager {

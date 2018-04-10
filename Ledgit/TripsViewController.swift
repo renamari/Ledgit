@@ -18,7 +18,6 @@ class TripsViewController: UIViewController {
         
         setupTableView()
         setupPresenter()
-        Currency.getRates()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -64,6 +63,7 @@ class TripsViewController: UIViewController {
         } else if segue.identifier == Constants.segueIdentifiers.detail {
             guard  let destinationViewController = segue.destination as? TripDetailViewController else { return }
             guard let selectedRow = tripsTableView.indexPathForSelectedRow?.row else { return }
+            destinationViewController.title = presenter.trips[selectedRow].name
             destinationViewController.currentTrip = presenter.trips[selectedRow]
         }
     }

@@ -39,7 +39,7 @@ class EntryActionViewController: UIViewController {
     var datePicker: UIDatePicker?
     var presenter: TripDetailPresenter?
     var entry: LedgitEntry?
-    
+    var parentTrip: LedgitTrip?
     var paymentType: PaymentType = .cash {
         didSet {
             switch paymentType {
@@ -160,7 +160,7 @@ class EntryActionViewController: UIViewController {
         let toolBar = UIToolbar()
         toolBar.barStyle = .default
         toolBar.isTranslucent = true
-        toolBar.tintColor = UIColor(red: 92/255, green: 216/255, blue: 255/255, alpha: 1)
+        toolBar.tintColor = LedgitColor.coreBlue//UIColor(red: 92/255, green: 216/255, blue: 255/255, alpha: 1)
         toolBar.sizeToFit()
         
         let doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(doneTapped))
@@ -362,6 +362,7 @@ extension EntryActionViewController: UITextFieldDelegate {
             let currencySelectionViewController = CurrencySelectionViewController.instantiate(from: .trips)
             currencySelectionViewController.delegate = self
             currencySelectionViewController.allowsMultipleSelection = false
+            currencySelectionViewController.limitedCurrencies = parentTrip?.currencies
             currencySelectionViewController.title = "Select Currency"
             
             let navigationController = UINavigationController(rootViewController: currencySelectionViewController)

@@ -26,11 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Ledgit/EntryActionViewController.swift"
-            timestampString = "544939360.191967"
+            timestampString = "545023137.557323"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "458"
-            endingLineNumber = "458"
+            startingLineNumber = "459"
+            endingLineNumber = "459"
             landmarkName = "textFieldShouldReturn(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -42,11 +42,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Ledgit/SettingsManager.swift"
-            timestampString = "544939360.192045"
+            timestampString = "545023137.557404"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "182"
-            endingLineNumber = "182"
+            startingLineNumber = "141"
+            endingLineNumber = "141"
             landmarkName = "updateUser(name:email:)"
             landmarkType = "7">
          </BreakpointContent>

@@ -152,12 +152,17 @@ extension TripsManager {
     }
     
     private func removeCoreDataTrip(_ key: String) {
-        let request = NSFetchRequest<NSFetchRequestResult>(entityName: Constants.ledgitEntity.trip)
-        request.predicate = NSPredicate(format: "\(LedgitTrip.Keys.key) == %@", key)
-        request.fetchLimit = 1
+        let tripRequest = NSFetchRequest<NSFetchRequestResult>(entityName: Constants.ledgitEntity.trip)
+        tripRequest.predicate = NSPredicate(format: "\(LedgitTrip.Keys.key) == %@", key)
+        tripRequest.fetchLimit = 1
+        
+        let entryRequest = NSFetchRequest<NSFetchRequestResult>(entityName: Constants.ledgitEntity.entry)
+        entryRequest.predicate = NSPredicate(format: "\(LedgitEntry.Keys.owningTrip) == %@", key)
+        entryRequest.fetchLimit = 1
         
         do {
-            let trips = try coreData.fetch(request)
+            let trips = try coreData.fetch(tripRequest)
+            let entries = try coreData.fetch(entryRequest)
             
             guard let trip = trips.first as? NSManagedObject else {
                 Log.warning("Could not fetch trip with key")
@@ -165,6 +170,15 @@ extension TripsManager {
             }
             
             coreData.delete(trip)
+            
+            guard let entryManagedObjects = entries as? [NSManagedObject] else {
+                Log.critical("Successfully deleted trip, but could not create managed objects of entries associated with trip")
+                return
+            }
+            
+            entryManagedObjects.forEach { coreData.delete($0) }
+            
+            try coreData.save()
             
         } catch {
             Log.critical("Something is wrong. Could not get core data trips")

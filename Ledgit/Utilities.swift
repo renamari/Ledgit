@@ -135,3 +135,42 @@ struct Log {
         print("\(Date()): <ERROR>\t\t\(error.localizedDescription)")
     }
 }
+
+struct Utilities {
+    static func createCSV(with trip: LedgitTrip, and entries: [LedgitEntry]) -> URL? {
+        let reportName = "\(trip.name.strip())-Expenses.csv"
+        
+        let path = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(reportName)
+        
+        let tripAmount = trip.budgetSelection == .daily ? trip.budget * Double(trip.length) : trip.budget
+        let tripText = """
+        Trip Name, \(trip.name)
+        Start Date, \(trip.startDate.replacingOccurrences(of: ",", with: ""))
+        End Date, \(trip.endDate.replacingOccurrences(of: ",", with: ""))
+        Trip Length, \(trip.length)
+        Total Amount, \(String(tripAmount).currencyFormat())
+        ,,
+        ,,
+        """
+        //let entryHeaders = "Location, Date, Description, Category, Payment, Cost, Exchange Rate, Converted Cost, Payment Currency, Original Currency\n"
+        
+        var entryText = "\nLocation, Date, Description, Category, Payment, Cost, Exchange Rate, Converted Cost, Payment Currency, Original Currency\n"
+        
+        entries.forEach { entry in
+            entryText += "\(entry.location), \(entry.date.toString(style: .full).replacingOccurrences(of: ",", with: "")), \(entry.description), \(entry.category), \(entry.paymentType.rawValue), \(entry.cost), \(entry.exchangeRate), \(entry.convertedCost), \(entry.currency.code), \(entry.homeCurrency.code)\n"
+        }
+        
+        let finalText = tripText + entryText
+        
+        do {
+            
+            try finalText.write(to: path, atomically: true, encoding: String.Encoding.utf8)
+            
+        } catch let error {
+            
+            Log.critical("Could not gerated csv due to \(error.localizedDescription)")
+        }
+    
+        return path
+    }
+}

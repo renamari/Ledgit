@@ -33,6 +33,7 @@
 		8D707B4C1F9D3BAC00CABA0F /* TripsNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D707B4B1F9D3BAC00CABA0F /* TripsNavigationController.swift */; };
 		8D707B4E1F9D3EEE00CABA0F /* TripsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D707B4D1F9D3EEE00CABA0F /* TripsPresenter.swift */; };
 		8D707B501F9D3F9000CABA0F /* TripsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D707B4F1F9D3F9000CABA0F /* TripsManager.swift */; };
+		8D8E5EED207DC9F50094686D /* Double+Content.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D8E5EEC207DC9F50094686D /* Double+Content.swift */; };
 		8D926690204C639D00A4B5B2 /* UIViewController+Content.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D92668F204C639D00A4B5B2 /* UIViewController+Content.swift */; };
 		8D926692204C641B00A4B5B2 /* LedgitFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D926691204C641B00A4B5B2 /* LedgitFont.swift */; };
 		8D926694204C644000A4B5B2 /* Date+Content.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D926693204C644000A4B5B2 /* Date+Content.swift */; };
@@ -140,6 +141,7 @@
 		8D707B4B1F9D3BAC00CABA0F /* TripsNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripsNavigationController.swift; sourceTree = "<group>"; };
 		8D707B4D1F9D3EEE00CABA0F /* TripsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripsPresenter.swift; sourceTree = "<group>"; };
 		8D707B4F1F9D3F9000CABA0F /* TripsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripsManager.swift; sourceTree = "<group>"; };
+		8D8E5EEC207DC9F50094686D /* Double+Content.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+Content.swift"; sourceTree = "<group>"; };
 		8D92668F204C639D00A4B5B2 /* UIViewController+Content.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Content.swift"; sourceTree = "<group>"; };
 		8D926691204C641B00A4B5B2 /* LedgitFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LedgitFont.swift; sourceTree = "<group>"; };
 		8D926693204C644000A4B5B2 /* Date+Content.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Content.swift"; sourceTree = "<group>"; };
@@ -346,6 +348,7 @@
 				8D92668F204C639D00A4B5B2 /* UIViewController+Content.swift */,
 				8DDD131B202AB0F600998AA5 /* LedgitColor.swift */,
 				8D926691204C641B00A4B5B2 /* LedgitFont.swift */,
+				8D8E5EEC207DC9F50094686D /* Double+Content.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -885,6 +888,7 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-Ledgit/Pods-Ledgit-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/AMPopTip/AMPopTip.framework",
 				"${BUILT_PRODUCTS_DIR}/BetterSegmentedControl/BetterSegmentedControl.framework",
 				"${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework",
 				"${BUILT_PRODUCTS_DIR}/BubbleTransition/BubbleTransition.framework",
@@ -911,6 +915,7 @@
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AMPopTip.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BetterSegmentedControl.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bolts.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BubbleTransition.framework",
@@ -1018,6 +1023,7 @@
 				8D9266A7204C679100A4B5B2 /* UIImageView+Content.swift in Sources */,
 				8DA3B2231F3FC00500FC31AF /* MainViewController.swift in Sources */,
 				8D488ABE203A714A00A9798B /* Configuration.swift in Sources */,
+				8D8E5EED207DC9F50094686D /* Double+Content.swift in Sources */,
 				8D2AEC1B1F4D147800227FC6 /* CityTableViewCell.swift in Sources */,
 				8DA3B2271F3FC01B00FC31AF /* TutorialViewController.swift in Sources */,
 				8DDD13362030F4FC00998AA5 /* TripBudgetInformationView.swift in Sources */,

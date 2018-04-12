@@ -73,6 +73,7 @@ class CategoryCollectionViewCell: UICollectionViewCell, ChartViewDelegate {
         legend.yEntrySpace = 0.0
         legend.yOffset = 0.0
         legend.textColor = .kColor4E4E4E
+        legend.font = .futuraMedium14
         
         pieChart.chartDescription = nil
         pieChart.usePercentValuesEnabled = true
@@ -91,7 +92,10 @@ class CategoryCollectionViewCell: UICollectionViewCell, ChartViewDelegate {
         let dataSet = PieChartDataSet(values: values, label: nil)
         dataSet.drawIconsEnabled = false
         dataSet.sliceSpace = 2.0
-        dataSet.colors = [.kColor003559,.kColor061A40,.kColorB9D6F2,.kColor76DDFB,.kColor2C82BE]
+        dataSet.entryLabelColor = .white
+        dataSet.colors = [LedgitColor.pieChartBlue1, LedgitColor.pieChartBlue2,
+                          LedgitColor.pieChartBlue3, LedgitColor.pieChartBlue4,
+                          LedgitColor.pieChartBlue5, LedgitColor.pieChartBlue6]
         
         let data = PieChartData(dataSet: dataSet)
         let format = NumberFormatter()
@@ -101,10 +105,10 @@ class CategoryCollectionViewCell: UICollectionViewCell, ChartViewDelegate {
         format.percentSymbol = "%"
         let formatter = DefaultValueFormatter(formatter: format)
         data.setValueFormatter(formatter)
-        data.setValueFont(UIFont(name: "HelveticaNeue-Light", size: 12))
-        data.setValueTextColor(.kColor4E4E4E)
+        data.setValueFont(.futuraMedium12)
+        data.setValueTextColor(.white)
         dataSet.yValuePosition = .insideSlice
-        
+
         pieChart.data = data
         pieChart.highlightValues(nil)
     }

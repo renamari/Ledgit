@@ -1,4 +1,5 @@
 PODS:
+  - AMPopTip (3.1.3)
   - BetterSegmentedControl (0.9)
   - Bolts (1.9.0):
     - Bolts/AppLinks (= 1.9.0)
@@ -108,6 +109,7 @@ PODS:
   - SwiftDate (4.5.1)
 
 DEPENDENCIES:
+  - AMPopTip
   - BetterSegmentedControl
   - BubbleTransition
   - Charts
@@ -126,6 +128,7 @@ DEPENDENCIES:
   - SwiftDate
 
 SPEC CHECKSUMS:
+  AMPopTip: 0eba2f6fe939ca06f1ba5c5db1f0d0d10f4a758a
   BetterSegmentedControl: 40b2b6a08bbc59663149624d1b5235efa8d43a3c
   Bolts: ac6567323eac61e203f6a9763667d0f711be34c8
   BubbleTransition: 7d98ed7d56f0940e83f350a98103ad473491c769
@@ -159,6 +162,6 @@ SPEC CHECKSUMS:
   SnapKit: a42d492c16e80209130a3379f73596c3454b7694
   SwiftDate: 7b56d42a221f582047287deb256b23fc5ed49a60
 
-PODFILE CHECKSUM: bc2344619e942cafb385503e5979f94195fdf926
+PODFILE CHECKSUM: 673f90d435a7f2cf6e3334089a5d4eec74331a44
 
 COCOAPODS: 1.4.0

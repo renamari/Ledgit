@@ -44,6 +44,10 @@ class WeeklyCollectionViewCell: UICollectionViewCell, ChartViewDelegate {
         weeklyChart.noDataText = "Wow, such empty 😿"
         weeklyChart.noDataFont = .futuraMedium14
         weeklyChart.noDataTextColor = LedgitColor.navigationTextGray
+        weeklyChart.pinchZoomEnabled = false
+        weeklyChart.doubleTapToZoomEnabled = false
+        weeklyChart.scaleXEnabled = false
+        weeklyChart.scaleYEnabled = false
     }
     
     func resetValues() {
@@ -53,10 +57,21 @@ class WeeklyCollectionViewCell: UICollectionViewCell, ChartViewDelegate {
         dates = []
         values = []
         amounts = [0, 0, 0, 0, 0, 0, 0]
+        
+        dayCostLabel.color(LedgitColor.navigationTextGray)
+        remainingLabel.color(LedgitColor.navigationTextGray)
+        averageLabel.color(LedgitColor.navigationTextGray)
+        budgetLabel.color(LedgitColor.navigationTextGray)
+        dayCostLabel.text(Double(0).currencyFormat())
+        remainingLabel.text(Double(0).currencyFormat())
+        averageLabel.text(Double(0).currencyFormat())
+        budgetLabel.text(Double(0).currencyFormat())
     }
     
-    func setup(with entries: [LedgitEntry], budget: Double) {
+    func setup(with entries: [LedgitEntry], trip: LedgitTrip) {
         resetValues()
+        
+        updateDefaultLabelValues(budgetAmount: trip.budget)
         
         guard !entries.isEmpty else {
             weeklyChart.clear()
@@ -67,7 +82,6 @@ class WeeklyCollectionViewCell: UICollectionViewCell, ChartViewDelegate {
             !dates.contains(entry.date) ? dates.append(entry.date) : nil
             costToday += entry.date.isToday ? entry.convertedCost : 0
             totalCost += entry.convertedCost
-            averageCost = totalCost / Double(dates.count)
             
             /*
              * Chart is laid out with today being on the far right of the chart
@@ -103,9 +117,10 @@ class WeeklyCollectionViewCell: UICollectionViewCell, ChartViewDelegate {
             }
         }
         
+        averageCost = totalCost / Double(dates.count)
+        
         updateLabels(dayAmount: costToday,
-                     budgetAmount: budget,
-                     remainingAmount: budget - costToday,
+                     remainingAmount: trip.budget - costToday,
                      averageAmount: averageCost)
         
         for (index, amount) in amounts.enumerated() {
@@ -133,18 +148,21 @@ class WeeklyCollectionViewCell: UICollectionViewCell, ChartViewDelegate {
         layer.shadowPath = UIBezierPath(roundedRect:bounds, cornerRadius:contentView.layer.cornerRadius).cgPath
     }
     
-    private func updateLabels(dayAmount: Double, budgetAmount: Double, remainingAmount: Double, averageAmount: Double) {
-        let currencySymbol = LedgitUser.current.homeCurrency.symbol
-        
-        dayLabel.text(Date().toString(style: .long))
-        dayCostLabel.text(generateText(from: dayAmount, symbol: currencySymbol))
-        budgetLabel.text(generateText(from: budgetAmount, symbol: currencySymbol))
-        remainingLabel.text(generateText(from: remainingAmount, symbol: currencySymbol))
-        averageLabel.text(generateText(from: averageAmount, symbol: currencySymbol))
+    func updateDefaultLabelValues(budgetAmount: Double) {
+        dayLabel.text(Date().toString(style: .full))
+        budgetLabel.text(budgetAmount.currencyFormat())
     }
     
-    func generateText(from amount: Double, symbol: String) -> String {
-        return symbol + String(format: "%.2f", amount)
+    private func updateLabels(dayAmount: Double, remainingAmount: Double, averageAmount: Double) {
+        dayCostLabel.text(dayAmount.currencyFormat())
+        
+        let averageDisplayAmount = averageAmount >= 0 ? averageAmount : (-1 * averageAmount)
+        averageLabel.text(averageDisplayAmount.currencyFormat())
+        
+        let remainingDisplayAmount = remainingAmount >= 0 ? remainingAmount : (-1 * remainingAmount)
+        let remainingDisplayColor = remainingAmount > 0 ? LedgitColor.coreGreen : LedgitColor.coreRed
+        remainingLabel.color(remainingDisplayColor)
+        remainingLabel.text(remainingDisplayAmount.currencyFormat())
     }
     
     fileprivate func drawChart(with values: [BarChartDataEntry]){

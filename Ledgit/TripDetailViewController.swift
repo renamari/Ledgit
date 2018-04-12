@@ -60,6 +60,7 @@ class TripDetailViewController: UIViewController {
     
     func setupButton(){
         actionButton.roundedCorners(radius: actionButton.frame.height / 2)
+        pageControl.isUserInteractionEnabled = false
     }
     
     func setupCollectionView(){
@@ -77,6 +78,10 @@ class TripDetailViewController: UIViewController {
     func setupGestureRecognizers() {
         let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(handleLongGesture))
         collectionView.addGestureRecognizer(longPressGesture)
+        
+        let swipeRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(swipedDown(gesture:)))
+        swipeRecognizer.direction = .up
+        view.addGestureRecognizer(swipeRecognizer)
     }
     
     func setupExportButton() {
@@ -117,6 +122,12 @@ class TripDetailViewController: UIViewController {
         let shareViewController = UIActivityViewController(activityItems: [message, expenseFile], applicationActivities: nil)
         shareViewController.excludedActivityTypes = [.addToReadingList]
         present(shareViewController, animated: true, completion: nil)
+    }
+    
+    @objc func swipedDown(gesture: UIGestureRecognizer) {
+        guard currentTrip?.key != Constants.projectID.sample else { return }
+        guard let swipe = gesture as? UISwipeGestureRecognizer else { return }
+        swipe.direction == .up ? performSegue(withIdentifier: Constants.segueIdentifiers.entryAction, sender: nil) : nil
     }
     
     @IBAction func actionButtonPressed(_ sender: Any) {
@@ -187,7 +198,7 @@ extension TripDetailViewController: UICollectionViewDataSource, UICollectionView
             
         case Constants.cellIdentifiers.weekly:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath) as! WeeklyCollectionViewCell
-            cell.setup(with: presenter.entries, budget: presenter.trip.budget)
+            cell.setup(with: presenter.entries, trip: presenter.trip)
             return cell
             
         case Constants.cellIdentifiers.category:

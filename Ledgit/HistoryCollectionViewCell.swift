@@ -59,6 +59,8 @@ class HistoryCollectionViewCell: UICollectionViewCell {
         segmentedControl.layer.borderWidth = 1
         segmentedControl.layer.borderColor = LedgitColor.coreBlue.cgColor
         segmentedControl.titles = ["Date", "City"]
+        segmentedControl.titleFont = .futuraMedium16
+        segmentedControl.selectedTitleFont = .futuraMedium16
         segmentedControl.addTarget(self, action: #selector(segmentedControlChanged), for: .valueChanged)
     }
     

@@ -18,6 +18,7 @@ class TripsViewController: UIViewController {
         
         setupTableView()
         setupPresenter()
+        setupGestureRecognizers()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -36,6 +37,19 @@ class TripsViewController: UIViewController {
         tripsTableView.delegate = self
         tripsTableView.dataSource = self
         tripsTableView.rowHeight = 215
+    }
+    
+    func setupGestureRecognizers() {
+        let edgeRecognizer = UIScreenEdgePanGestureRecognizer(target: self, action: #selector(swipedEdge(gesture:)))
+        edgeRecognizer.edges = .left
+        view.addGestureRecognizer(edgeRecognizer)
+    }
+    
+    @objc func swipedEdge(gesture: UIGestureRecognizer) {
+        guard let gesture = gesture as? UIScreenEdgePanGestureRecognizer else { return }
+        guard gesture.edges == .left else { return }
+        
+        settingsButtonPressed(gesture)
     }
     
     @IBAction func settingsButtonPressed(_ sender: Any) {

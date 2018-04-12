@@ -18,13 +18,22 @@ extension String {
     func currencyFormat(with symbol: String = LedgitUser.current.homeCurrency.symbol) -> String {
         let formatter = NumberFormatter()
         formatter.numberStyle = .decimal
+        formatter.maximumFractionDigits = 2
         
         guard
-            let amount = Double(self.trimmingCharacters(in: CharacterSet(charactersIn: ".1234567890").inverted)),
-            let formattedNumber = formatter.string(from: NSNumber(value: amount))
-            else {
-                return ""
+            let amount = Double(trimmingCharacters(in: CharacterSet(charactersIn: ".1234567890").inverted)),
+            var formattedNumber = formatter.string(from: NSNumber(value: amount))
+        else { return "" }
+        
+        if formattedNumber.contains(".") {
+            let split = formattedNumber.split(separator: ".")
+            guard let decimals = split.last else { return "" }
+            if decimals.count == 1 { formattedNumber += "0" }
+            
+        } else {
+            formattedNumber += ".00"
         }
+        
         return "\(symbol)\(formattedNumber)"
     }
     

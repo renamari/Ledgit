@@ -31,6 +31,7 @@ class SettingsViewController: UIViewController {
         setupTableView()
         setupPresenter()
         setupView()
+        setupRecognizers()
     }
     
     func setupView() {
@@ -44,6 +45,17 @@ class SettingsViewController: UIViewController {
     func setupTableView(){
         settingsTableView.delegate = self
         settingsTableView.dataSource = self
+    }
+    
+    func setupRecognizers() {
+        let swipeRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(swipedDown(gesture:)))
+        swipeRecognizer.direction = .down
+        view.addGestureRecognizer(swipeRecognizer)
+    }
+    
+    @objc func swipedDown(gesture: UIGestureRecognizer) {
+        guard let swipe = gesture as? UISwipeGestureRecognizer else { return }
+        swipe.direction == .down ? backButtonPressed(gesture) : nil
     }
     
     @IBAction func backButtonPressed(_ sender: Any) {

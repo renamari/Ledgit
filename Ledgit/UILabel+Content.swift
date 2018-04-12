@@ -21,4 +21,10 @@ extension UILabel {
         text(NSLocalizedString(t, comment: ""))
         return self
     }
+    
+    @discardableResult
+    public func color(_ c: UIColor) -> Self {
+        textColor = c
+        return self
+    }
 }

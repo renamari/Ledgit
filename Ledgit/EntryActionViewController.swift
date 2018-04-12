@@ -28,11 +28,16 @@ class EntryActionViewController: UIViewController {
     var editedEntry: Bool = false
     var isConnected: Bool { return Reachability.isConnectedToNetwork() }
     var activeTextField: UITextField?
-    var selectedCurrency: Currency = .USD {
+    var selectedCurrency: Currency = LedgitUser.current.homeCurrency {
         didSet {
             if let exchangeRate =  Currency.rates[selectedCurrency.code] {
                 exchangeRateTextField.text("\(exchangeRate)")
+                
+            } else if selectedCurrency == LedgitUser.current.homeCurrency {
+                exchangeRateTextField.text("1.00")
             }
+            
+            amountTextField.title = "AMOUNT IN \(selectedCurrency.code.uppercased())"
         }
     }
     var selectedCategory: String?
@@ -65,6 +70,7 @@ class EntryActionViewController: UIViewController {
         setupButtons()
         setupTextFields()
         setupObservers()
+        setupRecognizers()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -77,6 +83,12 @@ class EntryActionViewController: UIViewController {
         super.viewWillDisappear(animated)
         UIApplication.shared.statusBarStyle = .default
         activeTextField?.resignFirstResponder()
+    }
+    
+    func setupRecognizers() {
+        let swipeRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(swipedDown(gesture:)))
+        swipeRecognizer.direction = .down
+        view.addGestureRecognizer(swipeRecognizer)
     }
     
     func setupButtons() {
@@ -105,6 +117,7 @@ class EntryActionViewController: UIViewController {
             locationTextField.text(entry.location)
             descriptionTextField.text(entry.description)
             amountTextField.text("\(entry.cost)".currencyFormat(with: entry.currency.symbol))
+            amountTextField.title = "AMOUNT IN \(selectedCurrency.code.uppercased())"
             exchangeRateTextField.text("\(entry.exchangeRate)")
             
             paymentType = entry.paymentType
@@ -169,6 +182,11 @@ class EntryActionViewController: UIViewController {
         toolBar.isUserInteractionEnabled = true
         
         return toolBar
+    }
+    
+    @objc func swipedDown(gesture: UIGestureRecognizer) {
+        guard let swipe = gesture as? UISwipeGestureRecognizer else { return }
+        swipe.direction == .down ? dismiss(animated: true, completion: nil) : nil
     }
     
     @objc func doneTapped() {
@@ -261,7 +279,7 @@ class EntryActionViewController: UIViewController {
         }
         
         if exchangeRateTextField.text?.isEmpty == true {
-            exchangeRateTextField.errorMessage = "Enter an exchange rate"
+            exchangeRateTextField.errorMessage = "Enter a rate"
             validated = false
         }
         
@@ -277,10 +295,11 @@ class EntryActionViewController: UIViewController {
             let amountString = amountTextField.text?.strip(),
             let exchangeRateString = exchangeRateTextField.text?.strip(),
             let exchangeRate = Double(exchangeRateString),
-            let amount = Double(amountString.components(separatedBy: CharacterSet.decimalDigits.inverted).joined(separator: "")),
             let date = dateTextField.text?.strip(),
             let owningTripKey = presenter?.trip.key
         else { return }
+        
+        let amount = amountString.toDouble()
         
         let convertedCost = Double(amount / exchangeRate)
         
@@ -329,7 +348,6 @@ extension EntryActionViewController: CurrencySelectionDelegate {
         guard let currency = currencies.first else { return }
         selectedCurrency = currency
         currencyTextField.text(currency.name)
-        amountTextField.title = "AMOUNT IN \(currency.code.uppercased())"
         amountTextFieldChanged(amountTextField)
     }
 }
@@ -432,34 +450,18 @@ extension EntryActionViewController: UITextFieldDelegate {
     
     func textFieldDidEndEditing(_ textField: UITextField) {
         if textField == amountTextField {
-            guard let text = textField.text else { return }
+            guard let text = textField.text else {
+                amountTextField.errorMessage = "Enter an amount"
+                return
+            }
             let cleanedText = text.trimmingCharacters(in: CharacterSet(charactersIn: ".1234567890").inverted)
             textField.text(cleanedText.currencyFormat(with: selectedCurrency.symbol))
+            amountTextField.errorMessage = nil
         }
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
-        
-        if textField.isEmpty {
-            switch textField {
-            case locationTextField:
-                locationTextField.errorMessage = "Enter a city"
-
-            case descriptionTextField:
-                descriptionTextField.errorMessage = "Enter a description"
-
-            case currencyTextField:
-                currencyTextField.errorMessage = "Select a currency"
-
-            case categoryTextField:
-                categoryTextField.errorMessage = "Select a category"
-
-            case amountTextField:
-                amountTextField.errorMessage = "Enter an amount"
-            default: break
-            }
-        }
         return true
     }
 }

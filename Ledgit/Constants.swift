@@ -19,6 +19,7 @@ struct Constants {
     
     struct userDefaultKeys {
         static let sampleTrip = "needsSampleTrip"
+        static let defaultTrip = "defaultTrip"
         static let uid = "uid"
     }
     

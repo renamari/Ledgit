@@ -355,13 +355,18 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="A2X-0w-zyZ" customClass="PieChartView" customModule="Charts">
-                                                    <rect key="frame" x="0.0" y="84" width="335" height="390"/>
+                                                    <rect key="frame" x="5" y="64" width="325" height="384"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </view>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XWg-wV-YHl">
-                                                    <rect key="frame" x="282" y="49" width="30" height="30"/>
+                                                    <rect key="frame" x="275" y="64" width="30" height="30"/>
+                                                    <color key="backgroundColor" red="0.18823529411764706" green="0.5490196078431373" blue="0.97647058823529409" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="30" id="5ne-W2-4gT"/>
+                                                        <constraint firstAttribute="width" constant="30" id="jFY-QC-cnE"/>
+                                                    </constraints>
                                                     <state key="normal" title="%">
-                                                        <color key="titleColor" red="0.18823529410000001" green="0.54901960780000003" blue="0.97647058819999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     </state>
                                                     <connections>
                                                         <action selector="displayButtonPressed:" destination="2bM-AW-NC7" eventType="touchUpInside" id="jOW-9e-XQE"/>
@@ -371,15 +376,15 @@
                                         </view>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
-                                            <constraint firstAttribute="trailing" secondItem="WEi-M0-0qN" secondAttribute="trailing" constant="20" id="1CJ-EW-5Lc"/>
-                                            <constraint firstAttribute="trailingMargin" secondItem="XWg-wV-YHl" secondAttribute="trailing" constant="15" id="35N-G8-avc"/>
-                                            <constraint firstAttribute="trailing" secondItem="A2X-0w-zyZ" secondAttribute="trailing" id="3yZ-f1-mgc"/>
-                                            <constraint firstItem="XWg-wV-YHl" firstAttribute="top" secondItem="WEi-M0-0qN" secondAttribute="bottom" constant="5" id="GME-uQ-jW9"/>
-                                            <constraint firstItem="A2X-0w-zyZ" firstAttribute="leading" secondItem="2bM-AW-NC7" secondAttribute="leading" id="JK2-Tb-IRp"/>
-                                            <constraint firstItem="A2X-0w-zyZ" firstAttribute="top" secondItem="XWg-wV-YHl" secondAttribute="bottom" constant="5" id="PFa-gm-l7y"/>
-                                            <constraint firstItem="WEi-M0-0qN" firstAttribute="top" secondItem="2bM-AW-NC7" secondAttribute="top" constant="20" id="Wbc-y7-OcM"/>
-                                            <constraint firstItem="WEi-M0-0qN" firstAttribute="leading" secondItem="2bM-AW-NC7" secondAttribute="leading" constant="20" id="oKY-DA-xiG"/>
-                                            <constraint firstItem="A2X-0w-zyZ" firstAttribute="height" secondItem="2bM-AW-NC7" secondAttribute="height" multiplier="0.8" id="xLN-VS-bRk"/>
+                                            <constraint firstItem="WEi-M0-0qN" firstAttribute="top" secondItem="2bM-AW-NC7" secondAttribute="top" constant="20" id="13Q-dF-3e3"/>
+                                            <constraint firstAttribute="trailing" secondItem="XWg-wV-YHl" secondAttribute="trailing" constant="30" id="ALW-id-hr6"/>
+                                            <constraint firstAttribute="trailing" secondItem="WEi-M0-0qN" secondAttribute="trailing" constant="20" id="C4Q-TU-GB5"/>
+                                            <constraint firstItem="A2X-0w-zyZ" firstAttribute="leading" secondItem="2bM-AW-NC7" secondAttribute="leading" constant="5" id="M5v-z8-QYV"/>
+                                            <constraint firstItem="XWg-wV-YHl" firstAttribute="top" secondItem="A2X-0w-zyZ" secondAttribute="top" id="Opb-aC-SQT"/>
+                                            <constraint firstItem="WEi-M0-0qN" firstAttribute="leading" secondItem="2bM-AW-NC7" secondAttribute="leading" constant="20" id="STJ-uP-fxB"/>
+                                            <constraint firstAttribute="trailing" secondItem="A2X-0w-zyZ" secondAttribute="trailing" constant="5" id="ds6-za-qaa"/>
+                                            <constraint firstItem="A2X-0w-zyZ" firstAttribute="top" secondItem="WEi-M0-0qN" secondAttribute="bottom" constant="20" id="lB8-OR-sCw"/>
+                                            <constraint firstAttribute="bottom" secondItem="A2X-0w-zyZ" secondAttribute="bottom" constant="40" id="ldm-Bl-12L"/>
                                         </constraints>
                                         <connections>
                                             <outlet property="displayButton" destination="XWg-wV-YHl" id="rMQ-vO-pm2"/>
@@ -575,7 +580,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oJj-3k-BW0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="184.80000000000001" y="965.6671664167917"/>
+            <point key="canvasLocation" x="184.05797101449278" y="965.21739130434787"/>
         </scene>
         <!--Entry Action View Controller-->
         <scene sceneID="zLD-ZQ-Oal">

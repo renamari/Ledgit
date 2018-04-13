@@ -208,7 +208,7 @@ class WeeklyCollectionViewCell: UICollectionViewCell, ChartViewDelegate {
         let data = BarChartData(dataSet: dataSet)
         data.setValueFormatter(dataFormatter)
         data.setValueFont(.futuraMedium8)
-        data.setValueTextColor(.kColor4E4E4E)
+        data.setValueTextColor(LedgitColor.coreBlue)
         
         weeklyChart.data = data
         weeklyChart.rightAxis.enabled = false

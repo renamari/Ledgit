@@ -15,6 +15,17 @@ class CategoryCollectionViewCell: UICollectionViewCell, ChartViewDelegate {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        setupChart()
+        setupButton()
+    }
+    
+    func setupButton(){
+        displayButton.roundedCorners(radius: 15)
+        displayButton.color(LedgitColor.coreBlue)
+        displayButton.setTitleColor(.white, for: .normal)
+    }
+    
+    func setupChart() {
         pieChart.delegate = self
         pieChart.noDataText = Constants.chartText.empty
         pieChart.noDataFont = .futuraMedium14
@@ -78,7 +89,7 @@ class CategoryCollectionViewCell: UICollectionViewCell, ChartViewDelegate {
         pieChart.chartDescription = nil
         pieChart.usePercentValuesEnabled = true
         pieChart.drawSlicesUnderHoleEnabled = false
-        pieChart.holeRadiusPercent = 0.5
+        pieChart.holeRadiusPercent = 0.6
         pieChart.transparentCircleRadiusPercent = 1
         pieChart.drawCenterTextEnabled = true
         pieChart.drawHoleEnabled = true

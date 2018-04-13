@@ -92,12 +92,8 @@ extension CurrencySelectionViewController: UITableViewDelegate, UITableViewDataS
         let visibleCurrencies = limitedCurrencies ?? Currency.all
         let selectedCurrency = !filteredCurrencies.isEmpty ? filteredCurrencies[indexPath.row] : visibleCurrencies[indexPath.row]
         
-        if allowsMultipleSelection == false {
-            selectedCurrencies.append(selectedCurrency)
-            delegate?.selected(selectedCurrencies)
-            dismiss(animated: true, completion: nil)
+        if allowsMultipleSelection {
             
-        } else {
             if cell.accessoryType == .none {
                 selectedCurrencies.append(selectedCurrency)
                 cell.accessoryType = .checkmark
@@ -107,6 +103,11 @@ extension CurrencySelectionViewController: UITableViewDelegate, UITableViewDataS
                 cell.accessoryType = .none
             }
             tableView.deselectRow(at: indexPath, animated: true)
+            
+        } else {
+            selectedCurrencies.append(selectedCurrency)
+            delegate?.selected(selectedCurrencies)
+            dismiss(animated: true, completion: nil)
         }
     }
 }

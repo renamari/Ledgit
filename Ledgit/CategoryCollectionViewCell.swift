@@ -72,13 +72,13 @@ class CategoryCollectionViewCell: UICollectionViewCell, ChartViewDelegate {
         legend.xEntrySpace = 7.0
         legend.yEntrySpace = 0.0
         legend.yOffset = 0.0
-        legend.textColor = .kColor4E4E4E
+        legend.textColor = LedgitColor.navigationTextGray
         legend.font = .futuraMedium14
         
         pieChart.chartDescription = nil
         pieChart.usePercentValuesEnabled = true
         pieChart.drawSlicesUnderHoleEnabled = false
-        pieChart.holeRadiusPercent = 0.60
+        pieChart.holeRadiusPercent = 0.5
         pieChart.transparentCircleRadiusPercent = 1
         pieChart.drawCenterTextEnabled = true
         pieChart.drawHoleEnabled = true

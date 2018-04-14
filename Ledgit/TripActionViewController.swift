@@ -103,7 +103,7 @@ class TripActionViewController: UIViewController {
         if method == .edit {
             guard let trip = trip else {
                 navigationController?.popViewController(animated: true)
-                showAlert(with: Constants.clientErrorMessages.errorGettingTrip)
+                showAlert(with: LedgitError.errorGettingTrip)
                 return
             }
             
@@ -132,15 +132,17 @@ class TripActionViewController: UIViewController {
         budgetPickerDailyButton.roundedCorners(radius: budgetPickerButtonHeight / 2, borderColor: LedgitColor.navigationTextGray)
         budgetPickerTripButton.roundedCorners(radius: budgetPickerButtonHeight / 2, borderColor: LedgitColor.navigationTextGray)
         
-        if method == .edit {
+        switch method {
+        case .edit:
             guard let trip = trip else {
                 navigationController?.popViewController(animated: true)
-                showAlert(with: Constants.clientErrorMessages.errorGettingTrip)
+                showAlert(with: LedgitError.errorGettingTrip)
                 return
             }
             
             budgetSelection = trip.budgetSelection
-        } else {
+            
+        case .add:
             budgetSelection = .daily
         }
     }
@@ -177,22 +179,22 @@ class TripActionViewController: UIViewController {
         var validated = true
         
         if nameTextField.text?.isEmpty == true {
-            nameTextField.errorMessage = "Enter a city"
+            nameTextField.errorMessage = "Enter a trip name"
             validated = false
         }
         
         if startDateTextField.text?.isEmpty == true {
-            startDateTextField.errorMessage = "Enter a description"
+            startDateTextField.errorMessage = "Set a start date"
             validated = false
         }
         
-        if endDateTextField == nil {
-            endDateTextField.errorMessage = "Select a category"
+        if endDateTextField.text?.isEmpty == true {
+            endDateTextField.errorMessage = "Set an end date"
             validated = false
         }
         
         if budgetTextField.text?.isEmpty == true {
-            budgetTextField.errorMessage = "Enter an amount"
+            budgetTextField.errorMessage = "Enter an budget"
             validated = false
         }
 
@@ -207,7 +209,7 @@ class TripActionViewController: UIViewController {
             let endDate = endDateTextField.text,
             let budget = budgetTextField.text
         else {
-            showAlert(with: Constants.clientErrorMessages.emptyTextFields)
+            showAlert(with: LedgitError.emptyTextFields)
             return
         }
         
@@ -238,7 +240,7 @@ class TripActionViewController: UIViewController {
             let endDate = endDateTextField.text,
             let budget = budgetTextField.text
         else {
-            showAlert(with: Constants.clientErrorMessages.emptyTextFields)
+            showAlert(with: LedgitError.emptyTextFields)
             return
         }
         
@@ -296,7 +298,7 @@ extension TripActionViewController: UITextFieldDelegate {
     }
     
     @objc func keyboardWillHide(notification:NSNotification){
-        let contentInset:UIEdgeInsets = .zero
+        let contentInset: UIEdgeInsets = .zero
         scrollView.contentInset = contentInset
     }
 

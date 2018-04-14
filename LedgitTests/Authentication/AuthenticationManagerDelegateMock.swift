@@ -12,7 +12,7 @@ import Foundation
 class AuthenticationManagerDelegateMock: AuthenticationManagerDelegate {
     var didAuthenticate = false
     var didReceiveAuthenticationError = false
-    var errorDictionary: [String:String] = [:]
+    var error = LedgitError()
     var authenticatedUser: LedgitUser = LedgitUser()
     
     func userAuthenticated(_ user: LedgitUser) {
@@ -20,8 +20,8 @@ class AuthenticationManagerDelegateMock: AuthenticationManagerDelegate {
         authenticatedUser = user
     }
     
-    func authenticationError(dict: ErrorDictionary) {
+    func authenticationError(error: LedgitError) {
         didReceiveAuthenticationError = true
-        errorDictionary = dict
+        error = error
     }
 }

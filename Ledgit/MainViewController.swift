@@ -182,8 +182,8 @@ extension MainViewController: AuthenticationPresenterDelegate {
         present(navigationController, animated: true, completion: nil)
     }
     
-    func displayError(_ dict: ErrorDictionary) {
+    func displayError(_ error: LedgitError) {
         isLoading = false
-        showAlert(with: dict)
+        showAlert(with: error)
     }
 }

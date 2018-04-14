@@ -49,7 +49,7 @@ class TripDetailViewController: UIViewController {
     
     func setupPresenter() {
         guard let trip = currentTrip else {
-            showAlert(with: Constants.clientErrorMessages.errorGettingTrip)
+            showAlert(with: LedgitError.errorGettingTrip)
             dismiss(animated: true, completion: nil)
             return
         }
@@ -132,7 +132,7 @@ class TripDetailViewController: UIViewController {
     
     @IBAction func actionButtonPressed(_ sender: Any) {
         guard currentTrip?.key != Constants.projectID.sample else {
-            showAlert(with: Constants.clientErrorMessages.cannotAddEntriesToSample)
+            showAlert(with: LedgitError.cannotAddEntriesToSample)
             return
         }
         performSegue(withIdentifier: Constants.segueIdentifiers.entryAction, sender: actionButton)
@@ -282,7 +282,7 @@ extension TripDetailViewController: UIViewControllerTransitioningDelegate {
 extension TripDetailViewController: DayTableCellDelegate {
     func selected(entry: LedgitEntry, at cell: UITableViewCell) {
         if currentTrip?.key == Constants.projectID.sample {
-            showAlert(with: Constants.clientErrorMessages.cannotAddEntriesToSample)
+            showAlert(with: LedgitError.cannotAddEntriesToSample)
         } else {
             performSegue(withIdentifier: Constants.segueIdentifiers.entryAction, sender: entry)
         }

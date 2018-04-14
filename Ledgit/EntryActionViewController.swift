@@ -103,7 +103,7 @@ class EntryActionViewController: UIViewController {
     func setupTextFields() {
         if action == .edit {
             guard let entry = entry else {
-                showAlert(with: Constants.clientErrorMessages.errorGettingEntry)
+                showAlert(with: LedgitError.errorGettingEntry)
                 dismiss(animated: true, completion: nil)
                 return
             }

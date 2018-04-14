@@ -95,7 +95,7 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource{
             performSegue(withIdentifier: Constants.segueIdentifiers.category, sender: self)
             
         case "Subscription":
-            showAlert(with: Constants.clientErrorMessages.freeSubscriptions)
+            showAlert(with: LedgitError.freeSubscriptions)
             //performSegue(withIdentifier: Constants.segueIdentifiers.subscription, sender: self)
             
         case "Account":

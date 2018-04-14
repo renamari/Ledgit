@@ -17,7 +17,7 @@ typealias ErrorDictionary = [String:String]
 protocol AuthenticationManagerDelegate: class {
     // MANAGER -> INTERACTOR
     func userAuthenticated(_ user: LedgitUser)
-    func authenticationError(dict: ErrorDictionary)
+    func authenticationError(error: LedgitError)
 }
 
 class AuthenticationManager {
@@ -92,29 +92,29 @@ extension AuthenticationManager {
             
         } catch let error as NSError {
             Log.warning("Could not add user object to core data. \(error), \(error.userInfo)")
-            self.delegate?.authenticationError(dict: Constants.authErrorMessages.coreDataFault)
+            self.delegate?.authenticationError(error: LedgitError.coreDataFault)
         }
     }
     
     func performFirebaseSignUp(with email: String, password: String) {
         
         guard isConnected else {
-            self.delegate?.authenticationError(dict: Constants.clientErrorMessages.noNetworkConnection)
+            self.delegate?.authenticationError(error: LedgitError.noNetworkConnection)
             return
         }
         
         guard !email.isEmpty, !password.isEmpty else {
-            self.delegate?.authenticationError(dict: Constants.clientErrorMessages.emptyTextFields)
+            self.delegate?.authenticationError(error: LedgitError.emptyTextFields)
             return
         }
         
         auth.createUser(withEmail: email, password: password) { [unowned self] (user, error) in
             if let error = error, let code = AuthErrorCode(rawValue: error._code){
-                self.delegate?.authenticationError(dict: self.handleError(with: code))
+                self.delegate?.authenticationError(error: self.handleError(with: code))
             }
             
             guard let user = user else {
-                self.delegate?.authenticationError(dict: Constants.authErrorMessages.general)
+                self.delegate?.authenticationError(error: LedgitError.general)
                 return
             }
             
@@ -134,28 +134,28 @@ extension AuthenticationManager {
     
     func performFirebaseSignIn(with email:String, password: String) {
         guard isConnected else {
-            self.delegate?.authenticationError(dict: Constants.clientErrorMessages.noNetworkConnection)
+            self.delegate?.authenticationError(error: LedgitError.noNetworkConnection)
             return
         }
         
         guard !email.isEmpty, !password.isEmpty else {
-            self.delegate?.authenticationError(dict: Constants.clientErrorMessages.emptyTextFields)
+            self.delegate?.authenticationError(error: LedgitError.emptyTextFields)
             return
         }
         
         auth.signIn(withEmail: email, password: password) { (user, error) in
             if let error = error, let code = AuthErrorCode(rawValue: error._code){
-                self.delegate?.authenticationError(dict: self.handleError(with: code))
+                self.delegate?.authenticationError(error: self.handleError(with: code))
             }
             
             guard let user = user else {
-                self.delegate?.authenticationError(dict: Constants.authErrorMessages.general)
+                self.delegate?.authenticationError(error: LedgitError.general)
                 return
             }
             
             self.users.child(user.uid).observeSingleEvent(of: .value, with: { (snapshot) in
                 guard let snapshot = snapshot.value as? NSDictionary else {
-                    self.delegate?.authenticationError(dict: Constants.authErrorMessages.general)
+                    self.delegate?.authenticationError(error: LedgitError.general)
                     return
                 }
                 
@@ -168,7 +168,7 @@ extension AuthenticationManager {
     
     func peformFacebookSignUp() {
         guard isConnected else {
-            self.delegate?.authenticationError(dict: Constants.clientErrorMessages.noNetworkConnection)
+            self.delegate?.authenticationError(error: LedgitError.noNetworkConnection)
             return
         }
         
@@ -177,22 +177,22 @@ extension AuthenticationManager {
             case .failed(let error):
                 
                 if let code = AuthErrorCode(rawValue: error._code){
-                    self.delegate?.authenticationError(dict: self.handleError(with: code))
+                    self.delegate?.authenticationError(error: self.handleError(with: code))
                 }
                 
             case .cancelled:
-                self.delegate?.authenticationError(dict: Constants.authErrorMessages.general)
+                self.delegate?.authenticationError(error: LedgitError.general)
                 
             case .success( _,  _, let accessToken):
                 let credential = FacebookAuthProvider.credential(withAccessToken: accessToken.authenticationToken)
                 
                 self.auth.signIn(with: credential, completion: { (user, error) in
                     if let error = error, let code = AuthErrorCode(rawValue: error._code){
-                        self.delegate?.authenticationError(dict: self.handleError(with: code))
+                        self.delegate?.authenticationError(error: self.handleError(with: code))
                     }
                     
                     guard let user = user else {
-                        self.delegate?.authenticationError(dict: Constants.authErrorMessages.general)
+                        self.delegate?.authenticationError(error: LedgitError.general)
                         return
                     }
                     
@@ -215,7 +215,7 @@ extension AuthenticationManager {
     
     func performFacebookSignIn() {
         guard isConnected else {
-            self.delegate?.authenticationError(dict: Constants.clientErrorMessages.noNetworkConnection)
+            self.delegate?.authenticationError(error: LedgitError.noNetworkConnection)
             return
         }
         
@@ -224,21 +224,21 @@ extension AuthenticationManager {
             case .failed(let error):
                 
                 guard let code = AuthErrorCode(rawValue: error._code) else { return }
-                self.delegate?.authenticationError(dict: self.handleError(with: code))
+                self.delegate?.authenticationError(error: self.handleError(with: code))
             
             case .cancelled:
-                self.delegate?.authenticationError(dict: Constants.authErrorMessages.cancelled)
+                self.delegate?.authenticationError(error: LedgitError.cancelled)
                 
             case .success( _,  _, let result):
                 let credential = FacebookAuthProvider.credential(withAccessToken: result.authenticationToken)
                 
                 self.auth.signIn(with: credential, completion: { (user, error) in
                     if let error = error, let code = AuthErrorCode(rawValue: error._code) {
-                        self.delegate?.authenticationError(dict: self.handleError(with: code))
+                        self.delegate?.authenticationError(error: self.handleError(with: code))
                     }
                     
                     guard let user = user else {
-                        self.delegate?.authenticationError(dict: Constants.authErrorMessages.general)
+                        self.delegate?.authenticationError(error: LedgitError.general)
                         return
                     }
                     
@@ -253,26 +253,26 @@ extension AuthenticationManager {
         }
     }
     
-    func handleError(with code: AuthErrorCode) -> ErrorDictionary {
+    func handleError(with code: AuthErrorCode) -> LedgitError {
         switch code {
             
         case .emailAlreadyInUse:
-            return Constants.authErrorMessages.emailAlreadyInUse
+            return LedgitError.emailAlreadyInUse
             
         case .userDisabled:
-            return Constants.authErrorMessages.userDisabled
+            return LedgitError.userDisabled
             
         case .invalidEmail:
-            return Constants.authErrorMessages.invalidEmail
+            return LedgitError.invalidEmail
             
         case .wrongPassword:
-            return Constants.authErrorMessages.wrongPassword
+            return LedgitError.wrongPassword
             
         case .userNotFound:
-            return Constants.authErrorMessages.userNotFound
+            return LedgitError.userNotFound
             
         default:
-            return Constants.authErrorMessages.general
+            return LedgitError.general
         }
     }
 }

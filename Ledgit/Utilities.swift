@@ -17,12 +17,12 @@ enum Storyboard: String {
         return UIStoryboard(name: self.rawValue, bundle: nil)
     }
     
-    func viewController<Element: UIViewController>(of viewControllerClass: Element.Type) -> Element{
+    func viewController<Element: UIViewController>(of viewControllerClass: Element.Type) -> Element {
         let storyboardID = (viewControllerClass as UIViewController.Type).storyboardID
         return instance.instantiateViewController(withIdentifier: storyboardID) as! Element
     }
     
-    func initialViewController() -> UIViewController?{
+    func initialViewController() -> UIViewController? {
         return instance.instantiateInitialViewController()
     }
 }
@@ -138,28 +138,37 @@ struct Log {
 
 struct Utilities {
     static func createCSV(with trip: LedgitTrip, and entries: [LedgitEntry]) -> URL? {
+        
+        // The name of the report
         let reportName = "\(trip.name.strip())-Expenses.csv"
         
+        // The path of the report
         let path = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(reportName)
         
+        // Compute final trip amount
         let tripAmount = trip.budgetSelection == .daily ? trip.budget * Double(trip.length) : trip.budget
-        let tripText = """
-        Trip Name, \(trip.name)
-        Start Date, \(trip.startDate.replacingOccurrences(of: ",", with: ""))
-        End Date, \(trip.endDate.replacingOccurrences(of: ",", with: ""))
-        Trip Length, \(trip.length)
-        Total Amount, \(String(tripAmount).currencyFormat())
-        ,,
-        ,,
-        """
-        //let entryHeaders = "Location, Date, Description, Category, Payment, Cost, Exchange Rate, Converted Cost, Payment Currency, Original Currency\n"
         
+        // Lay out the trip information
+        let tripText =  """
+                        Trip Name, \(trip.name)
+                        Start Date, \(trip.startDate.replacingOccurrences(of: ",", with: ""))
+                        End Date, \(trip.endDate.replacingOccurrences(of: ",", with: ""))
+                        Trip Length, \(trip.length)
+                        Total Amount, \(String(tripAmount).currencyFormat())
+                        ,,
+                        ,,
+                        """
+        
+        // Setup the headers
         var entryText = "\nLocation, Date, Description, Category, Payment, Cost, Exchange Rate, Converted Cost, Payment Currency, Original Currency\n"
         
+        
+        // Add entry information for each header
         entries.forEach { entry in
             entryText += "\(entry.location), \(entry.date.toString(style: .full).replacingOccurrences(of: ",", with: "")), \(entry.description), \(entry.category), \(entry.paymentType.rawValue), \(entry.cost), \(entry.exchangeRate), \(entry.convertedCost), \(entry.currency.code), \(entry.homeCurrency.code)\n"
         }
         
+        // Create final string for csv file
         let finalText = tripText + entryText
         
         do {

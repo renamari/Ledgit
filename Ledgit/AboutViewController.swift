@@ -11,14 +11,9 @@ import UIKit
 class AboutViewController: UIViewController {
     @IBOutlet weak var webView: UIWebView!
     
-    var isLoading:Bool = false{
+    var isLoading:Bool = false {
         didSet{
-            switch isLoading{
-            case true:
-                startLoading()
-            default:
-                stopLoading()
-            }
+            isLoading ? startLoading() : stopLoading()
         }
     }
     
@@ -30,7 +25,12 @@ class AboutViewController: UIViewController {
     func setupWebView(){
         webView.delegate = self
         
-        let request = URLRequest(url: URL(string: "http://camden-developers.weebly.com")!)
+        guard let requestURL = URL(string: "http://camden-developers.weebly.com") else {
+            doneButtonPressed(self)
+            return
+        }
+        
+        let request = URLRequest(url: requestURL)
         
         webView.loadRequest(request)
     }

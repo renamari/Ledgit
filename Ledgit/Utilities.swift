@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AMPopTip
 
 enum Storyboard: String {
     case main = "Main"
@@ -181,5 +182,39 @@ struct Utilities {
         }
     
         return path
+    }
+}
+
+struct PopStyle {
+    static let `default` = { (tip: PopTip) in
+        tip.bubbleColor = LedgitColor.coreBlue
+        tip.shouldDismissOnTap = true
+        tip.actionAnimation = .pulse(1.05)
+        tip.entranceAnimation = .scale
+        tip.exitAnimation = .scale
+    }
+    
+    static let critical = { (tip: PopTip) in
+        tip.bubbleColor = LedgitColor.coreRed
+        tip.shouldDismissOnTap = true
+        tip.actionAnimation = .pulse(1.05)
+        tip.entranceAnimation = .scale
+        tip.exitAnimation = .scale
+    }
+    
+    static let warning = { (tip: PopTip) in
+        tip.bubbleColor = LedgitColor.coreYellow
+        tip.shouldDismissOnTap = true
+        tip.actionAnimation = .pulse(1.05)
+        tip.entranceAnimation = .scale
+        tip.exitAnimation = .scale
+    }
+    
+    static let confirm = { (tip: PopTip) in
+        tip.bubbleColor = LedgitColor.coreYellow
+        tip.shouldDismissOnTap = true
+        tip.actionAnimation = .pulse(1.05)
+        tip.entranceAnimation = .scale
+        tip.exitAnimation = .scale
     }
 }

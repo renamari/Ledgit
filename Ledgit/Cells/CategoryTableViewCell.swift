@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AMPopTip
 
 class CategoryTableViewCell: UITableViewCell {
     @IBOutlet weak var titleLabel: UILabel!
@@ -17,15 +18,11 @@ class CategoryTableViewCell: UITableViewCell {
         informationLabel.isHidden = true
     }
     
-    func displayInformationLabel() {
-        UIView.animate(withDuration: 0.25, delay: 0, options: .curveEaseInOut, animations: {
-            self.informationLabel.isHidden = false
-        }) { (success) in
-            
-            let delay = DispatchTime.now() + 2
-            DispatchQueue.main.asyncAfter(deadline: delay) {
-                self.informationLabel.isHidden = true
-            }
-        }
+    func displayInformationLabel(on view: UIView) {
+        let popTip = PopTip()
+        popTip.style(PopStyle.default)
+        popTip.show(text: "Swipe cells for actions",
+                    direction: .down, maxWidth: 200,
+                    in: view, from: frame, duration: 3)
     }
 }

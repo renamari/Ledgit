@@ -154,10 +154,12 @@ class TripActionViewController: UIViewController {
     }
     
     func setupBars(){
-        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
-        navigationController?.navigationBar.shadowImage = UIImage()
-        navigationController?.navigationBar.isTranslucent = false
-        navigationController?.navigationBar.isOpaque = true
+        navigationController?.navigationBar.style { bar in
+            bar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
+            bar.shadowImage = UIImage()
+            bar.isTranslucent = false
+            bar.isOpaque = true
+        }
     }
     
     func createToolbar() -> UIToolbar {
@@ -422,10 +424,12 @@ extension TripActionViewController: UITextFieldDelegate {
         
         infoView.configure(with: budgetText, selection: budgetSelection, tripLength: tripLength)
         banner = NotificationBanner(customView: infoView)
-        banner?.dismissOnTap = true
-        banner?.bannerHeight = 110
-        banner?.duration = 3.0
-        banner?.show(queuePosition: .front, bannerPosition: .top, queue: .default, on: nil)
+        banner?.style { banner in
+            banner.dismissOnTap = true
+            banner.bannerHeight = 110
+            banner.duration = 3.0
+            banner.show(queuePosition: .front, bannerPosition: .top, queue: .default, on: nil)
+        }
     }
 }
 

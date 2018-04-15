@@ -27,4 +27,10 @@ extension UILabel {
         textColor = c
         return self
     }
+    
+    @discardableResult
+    public func font(_ f: UIFont) -> Self {
+        font = f
+        return self
+    }
 }

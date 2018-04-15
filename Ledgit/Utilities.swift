@@ -99,7 +99,7 @@ class CurrencyFormatter : NumberFormatter, FormatterProtocol {
 }
 
 func makeError(_ string: String) -> Error {
-    return NSError(domain: "RenameMeErrorDomain",
+    return NSError(domain: "LedgitErrorDomain",
                    code: 1,
                    userInfo: [NSLocalizedDescriptionKey: string])
 }

@@ -22,7 +22,7 @@ class WeeklyCollectionViewCell: UICollectionViewCell, ChartViewDelegate {
     var totalCost: Double = 0
     var dates: [Date] = []
     var values:[BarChartDataEntry] = []
-    var amounts:[Double] = [0, 0, 0, 0, 0, 0, 0]
+    var amounts = [Double](repeating: 0, count: 7)
     
     var weekdays:[String] = [
         (Date() - 6.day).toString(style: .day),
@@ -56,7 +56,7 @@ class WeeklyCollectionViewCell: UICollectionViewCell, ChartViewDelegate {
         averageCost = 0
         dates = []
         values = []
-        amounts = [0, 0, 0, 0, 0, 0, 0]
+        amounts = [Double](repeating: 0, count: 7)
         
         dayCostLabel.color(LedgitColor.navigationTextGray)
         remainingLabel.color(LedgitColor.navigationTextGray)
@@ -68,17 +68,17 @@ class WeeklyCollectionViewCell: UICollectionViewCell, ChartViewDelegate {
         budgetLabel.text(Double(0).currencyFormat())
     }
     
-    func setup(with entries: [LedgitEntry], trip: LedgitTrip) {
+    func setup(with presenter: TripDetailPresenter) {
         resetValues()
         
-        updateDefaultLabelValues(budgetAmount: trip.budget)
+        updateDefaultLabelValues(budgetAmount: presenter.trip.budget)
         
-        guard !entries.isEmpty else {
+        guard !presenter.entries.isEmpty else {
             weeklyChart.clear()
             return
         }
         
-        entries.forEach { entry in
+        presenter.entries.forEach { entry in
             !dates.contains(entry.date) ? dates.append(entry.date) : nil
             costToday += entry.date.isToday ? entry.convertedCost : 0
             totalCost += entry.convertedCost
@@ -120,7 +120,7 @@ class WeeklyCollectionViewCell: UICollectionViewCell, ChartViewDelegate {
         averageCost = totalCost / Double(dates.count)
         
         updateLabels(dayAmount: costToday,
-                     remainingAmount: trip.budget - costToday,
+                     remainingAmount: presenter.trip.budget - costToday,
                      averageAmount: averageCost)
         
         for (index, amount) in amounts.enumerated() {

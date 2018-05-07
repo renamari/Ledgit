@@ -103,7 +103,7 @@ class TripActionViewController: UIViewController {
         if method == .edit {
             guard let trip = trip else {
                 navigationController?.popViewController(animated: true)
-                showAlert(with: Constants.clientErrorMessages.errorGettingTrip)
+                showAlert(with: LedgitError.errorGettingTrip)
                 return
             }
             
@@ -132,15 +132,17 @@ class TripActionViewController: UIViewController {
         budgetPickerDailyButton.roundedCorners(radius: budgetPickerButtonHeight / 2, borderColor: LedgitColor.navigationTextGray)
         budgetPickerTripButton.roundedCorners(radius: budgetPickerButtonHeight / 2, borderColor: LedgitColor.navigationTextGray)
         
-        if method == .edit {
+        switch method {
+        case .edit:
             guard let trip = trip else {
                 navigationController?.popViewController(animated: true)
-                showAlert(with: Constants.clientErrorMessages.errorGettingTrip)
+                showAlert(with: LedgitError.errorGettingTrip)
                 return
             }
             
             budgetSelection = trip.budgetSelection
-        } else {
+            
+        case .add:
             budgetSelection = .daily
         }
     }
@@ -152,10 +154,12 @@ class TripActionViewController: UIViewController {
     }
     
     func setupBars(){
-        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
-        navigationController?.navigationBar.shadowImage = UIImage()
-        navigationController?.navigationBar.isTranslucent = false
-        navigationController?.navigationBar.isOpaque = true
+        navigationController?.navigationBar.style { bar in
+            bar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
+            bar.shadowImage = UIImage()
+            bar.isTranslucent = false
+            bar.isOpaque = true
+        }
     }
     
     func createToolbar() -> UIToolbar {
@@ -177,22 +181,22 @@ class TripActionViewController: UIViewController {
         var validated = true
         
         if nameTextField.text?.isEmpty == true {
-            nameTextField.errorMessage = "Enter a city"
+            nameTextField.errorMessage = "Enter a trip name"
             validated = false
         }
         
         if startDateTextField.text?.isEmpty == true {
-            startDateTextField.errorMessage = "Enter a description"
+            startDateTextField.errorMessage = "Set a start date"
             validated = false
         }
         
-        if endDateTextField == nil {
-            endDateTextField.errorMessage = "Select a category"
+        if endDateTextField.text?.isEmpty == true {
+            endDateTextField.errorMessage = "Set an end date"
             validated = false
         }
         
         if budgetTextField.text?.isEmpty == true {
-            budgetTextField.errorMessage = "Enter an amount"
+            budgetTextField.errorMessage = "Enter an budget"
             validated = false
         }
 
@@ -207,27 +211,23 @@ class TripActionViewController: UIViewController {
             let endDate = endDateTextField.text,
             let budget = budgetTextField.text
         else {
-            showAlert(with: Constants.clientErrorMessages.emptyTextFields)
+            showAlert(with: LedgitError.emptyTextFields)
             return
         }
         
-        guard let key = presenter?.manager.trips.childByAutoId().key else {
-            showAlert(with: Constants.clientErrorMessages.authenticationError)
-            return
-        }
-         
+        let key = UUID().uuidString
+        
          let dict: NSDictionary = [
-         "name": name,
-         "startDate": startDate,
-         "endDate": endDate,
-         "currencies": selectedCurrencies.map{ $0.code },
-         "tripLength": tripLength,
-         "dailyBudget": budget.toDouble(),
-         "budgetSelection": budgetSelection.rawValue,
-         "image": "rome-icon",
-         "users": "",
-         "key": key,
-         "owner": LedgitUser.current.key
+         LedgitTrip.Keys.name: name,
+         LedgitTrip.Keys.startDate: startDate,
+         LedgitTrip.Keys.endDate: endDate,
+         LedgitTrip.Keys.currencies: selectedCurrencies.map{ $0.code },
+         LedgitTrip.Keys.length: tripLength,
+         LedgitTrip.Keys.budget: budget.toDouble(),
+         LedgitTrip.Keys.budgetSelection: budgetSelection.rawValue,
+         LedgitTrip.Keys.users: "",
+         LedgitTrip.Keys.key: key,
+         LedgitTrip.Keys.owner: LedgitUser.current.key
          ]
         
         delegate?.added(trip: dict)
@@ -242,7 +242,7 @@ class TripActionViewController: UIViewController {
             let endDate = endDateTextField.text,
             let budget = budgetTextField.text
         else {
-            showAlert(with: Constants.clientErrorMessages.emptyTextFields)
+            showAlert(with: LedgitError.emptyTextFields)
             return
         }
         
@@ -285,7 +285,7 @@ class TripActionViewController: UIViewController {
         if segue.identifier == Constants.segueIdentifiers.currencySelection {
             guard let destinationViewController = segue.destination as? CurrencySelectionViewController else { return }
             destinationViewController.delegate = self
-            destinationViewController.currencies = selectedCurrencies
+            destinationViewController.selectedCurrencies = selectedCurrencies
         }
     }
 }
@@ -300,7 +300,7 @@ extension TripActionViewController: UITextFieldDelegate {
     }
     
     @objc func keyboardWillHide(notification:NSNotification){
-        let contentInset:UIEdgeInsets = .zero
+        let contentInset: UIEdgeInsets = .zero
         scrollView.contentInset = contentInset
     }
 
@@ -424,10 +424,12 @@ extension TripActionViewController: UITextFieldDelegate {
         
         infoView.configure(with: budgetText, selection: budgetSelection, tripLength: tripLength)
         banner = NotificationBanner(customView: infoView)
-        banner?.dismissOnTap = true
-        banner?.bannerHeight = 110
-        banner?.duration = 3.0
-        banner?.show(queuePosition: .front, bannerPosition: .top, queue: .default, on: nil)
+        banner?.style { banner in
+            banner.dismissOnTap = true
+            banner.bannerHeight = 110
+            banner.duration = 3.0
+            banner.show(queuePosition: .front, bannerPosition: .top, queue: .default, on: nil)
+        }
     }
 }
 

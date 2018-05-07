@@ -24,10 +24,8 @@ extension UIViewController {
         return storyboard.viewController(of: self)
     }
     
-    func showAlert(with dict: [String:String]){
-        let title = dict["title"]
-        let message = dict["message"]
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+    func showAlert(with error: LedgitError) {
+        let alert = UIAlertController(title: error.title, message: error.message, preferredStyle: .alert)
         let action = UIAlertAction(title: "OK", style: .default, handler: nil)
         
         alert.addAction(action)

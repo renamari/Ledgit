@@ -12,12 +12,29 @@ import Firebase
 import SwiftDate
 
 class MainViewController: UIViewController {
-    @IBOutlet weak var signupButton: UIButton!
-    @IBOutlet weak var signinButton: UIButton!
-    @IBOutlet weak var exploreButton: UIButton!
+    // NOTE: Removing sign up/in and explore buttons here
+    // because opting for coredata first
+    // so there is no need to get members to authenticate.
+    // Not removing the IBOutlets/IBAction declarations in
+    // case I want to add them back later
+    //@IBOutlet weak var signupButton: UIButton!
+    //@IBOutlet weak var signinButton: UIButton!
+    //@IBOutlet weak var exploreButton: UIButton!
+    @IBOutlet weak var startButton: UIButton!
     @IBOutlet weak var pageControl: UIPageControl!
     @IBOutlet weak var tutorialView: UIView!
     private var pageViewController = UIPageViewController()
+    private var presenter = AuthenticationPresenter(manager: AuthenticationManager())
+    var isLoading: Bool = false {
+        didSet {
+            switch isLoading {
+            case true:
+                startLoading()
+            case false:
+                stopLoading()
+            }
+        }
+    }
 
     var method: AuthenticationMethod = .signin
     var currentIndex = 0
@@ -33,12 +50,20 @@ class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
+        setupPresenter()
         setupPageViewController()
     }
     
+    func setupPresenter() {
+        presenter.delegate = self
+    }
+    
     func setupUI() {
-        signupButton.roundedCorners(radius: Constants.cornerRadius.button)
-        signinButton.roundedCorners(radius: Constants.cornerRadius.button, borderColor: LedgitColor.coreBlue)
+        startButton.roundedCorners(radius: Constants.cornerRadius.button)
+        
+        // NOTE: Look at the note at the top of the file
+        //signupButton.roundedCorners(radius: Constants.cornerRadius.button)
+        ///signinButton.roundedCorners(radius: Constants.cornerRadius.button, borderColor: LedgitColor.coreBlue)
     }
     
     func setupPageViewController() {
@@ -68,18 +93,26 @@ class MainViewController: UIViewController {
     }
     
     // MARK: - IBActions
+    @IBAction func startButtonPressed(_ sender: Any) {
+        // Always create a core data member by default
+        isLoading = true
+        presenter.authenticateUser(platform: .coreData, method: .signup)
+    }
+    
+    // NOTE: Look at the note at the top of the file
     @IBAction func signupButtonPressed(_ sender: Any) {
         method = .signup
         performSegue(withIdentifier: Constants.segueIdentifiers.authenticate, sender: nil)
     }
     
+    // NOTE: Look at the note at the top of the file
     @IBAction func signinButtonPressed(_ sender: Any) {
         method = .signin
         performSegue(withIdentifier: Constants.segueIdentifiers.authenticate, sender: nil)
     }
     
-    @IBAction func exploreButtonPressed(_ sender: Any) {
-    }
+    // NOTE: Look at the note at the top of the file
+    @IBAction func exploreButtonPressed(_ sender: Any) {}
 
     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -140,22 +173,17 @@ extension MainViewController: UIPageViewControllerDelegate {
     }
 }
 
-extension UIViewController {
-    
-    #if DEBUG
-    @objc func injected() {
+extension MainViewController: AuthenticationPresenterDelegate {
+    func successfulAuthentication(of user: LedgitUser) {
+        isLoading = false
+        LedgitUser.current = user
         
-        for subview in view.subviews {
-            subview.removeFromSuperview()
-        }
-        
-        if let sublayers = view.layer.sublayers {
-            for sublayer in sublayers {
-                sublayer.removeFromSuperlayer()
-            }
-        }
-        
-        viewDidLoad()
+        let navigationController = TripsNavigationController.instantiate(from: .trips)
+        present(navigationController, animated: true, completion: nil)
     }
-    #endif
+    
+    func displayError(_ error: LedgitError) {
+        isLoading = false
+        showAlert(with: error)
+    }
 }

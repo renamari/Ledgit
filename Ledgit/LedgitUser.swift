@@ -12,25 +12,37 @@ struct LedgitUser: Equatable {
     var key: String = ""
     var name: String = ""
     var email: String = ""
+    var provider: String = "Ledgit"
     var subscription: Subscription = .free
     var homeCurrency: Currency = .USD
     var categories = ["Transportation", "Food", "Lodging", "Entertainment", "Emergency", "Miscellaneous"]
     var dictionaryRepresentation: NSDictionary = [:]
     
+    struct Keys {
+        static let key = "uid"
+        static let name = "name"
+        static let email = "email"
+        static let subscription = "subscription"
+        static let homeCurrency = "homeCurrency"
+        static let categories = "categories"
+        static let provider = "provider"
+    }
+    
     init() {}
     
     init(dict: NSDictionary) {
-        key <= dict["uid"] as? String
-        name <= dict["name"] as? String
-        email <= dict["email"] as? String
-        categories <= dict["categories"] as? [String]
+        key <= dict[LedgitUser.Keys.key] as? String
+        name <= dict[LedgitUser.Keys.name] as? String
+        email <= dict[LedgitUser.Keys.email] as? String
+        provider <= dict[LedgitUser.Keys.provider] as? String
+        categories <= dict[LedgitUser.Keys.categories] as? [String]
         dictionaryRepresentation = dict
         
-        if let currencyString = dict["homeCurrency"] as? String {
+        if let currencyString = dict[LedgitUser.Keys.homeCurrency] as? String {
             homeCurrency <= Currency.get(with: currencyString)
         }
         
-        if let subscriptionString = dict["subscription"] as? String {
+        if let subscriptionString = dict[LedgitUser.Keys.subscription] as? String {
             subscription <= Subscription(rawValue: subscriptionString)
         }
     }

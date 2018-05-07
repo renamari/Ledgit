@@ -8,6 +8,7 @@
 
 import UIKit
 import SwiftDate
+import MessageUI
 import BubbleTransition
 
 class TripDetailViewController: UIViewController {
@@ -23,19 +24,12 @@ class TripDetailViewController: UIViewController {
                        Constants.cellIdentifiers.category,
                        Constants.cellIdentifiers.history]
     var currentTrip: LedgitTrip?
-    var isLoading: Bool = false {
-        didSet {
-            switch isLoading {
-            case true: startLoading()
-            case false: stopLoading()
-            }
-        }
-    }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setupButton()
         setupPresenter()
+        setupExportButton()
         setupGestureRecognizers()
         setupNavigationBar()
         setupCollectionView()
@@ -47,7 +41,7 @@ class TripDetailViewController: UIViewController {
     
     func setupPresenter() {
         guard let trip = currentTrip else {
-            showAlert(with: Constants.clientErrorMessages.errorGettingTrip)
+            showAlert(with: LedgitError.errorGettingTrip)
             dismiss(animated: true, completion: nil)
             return
         }
@@ -58,6 +52,7 @@ class TripDetailViewController: UIViewController {
     
     func setupButton(){
         actionButton.roundedCorners(radius: actionButton.frame.height / 2)
+        pageControl.isUserInteractionEnabled = false
     }
     
     func setupCollectionView(){
@@ -75,11 +70,61 @@ class TripDetailViewController: UIViewController {
     func setupGestureRecognizers() {
         let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(handleLongGesture))
         collectionView.addGestureRecognizer(longPressGesture)
+        
+        let swipeRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(swipedDown(gesture:)))
+        swipeRecognizer.direction = .up
+        view.addGestureRecognizer(swipeRecognizer)
+    }
+    
+    func setupExportButton() {
+        guard currentTrip?.key != Constants.projectID.sample else {
+            Log.info("Did not set up export button because it was sample trip")
+            return
+        }
+        
+        guard presenter.entries.count > 0 else {
+            Log.info("Did not set up export because there are no entries in the trip")
+            return
+        }
+        
+        let rightButton:UIButton = UIButton()
+        rightButton.titleLabel?.font = .futuraMedium16
+        rightButton.setTitle("Export", for: .normal)
+        rightButton.setTitleColor(LedgitColor.navigationTextGray, for: .normal)
+        rightButton.addTarget(self, action: #selector(exportButtonPressed), for: .touchUpInside)
+        
+        let barButton = UIBarButtonItem(customView: rightButton)
+        navigationItem.rightBarButtonItem = barButton
+    }
+    
+    @objc func exportButtonPressed() {
+        //Set the default sharing message.
+        guard let trip = currentTrip else {
+            Log.warning("Tried to begin export process, but no trip available")
+            return
+        }
+        
+        // Create expense file
+        guard let expenseFile = Utilities.createCSV(with: trip, and: presenter.entries) else {
+            Log.critical("Could not create expense file")
+            return
+        }
+        
+        let message = "The expense report for your \(trip.name) trip."
+        let shareViewController = UIActivityViewController(activityItems: [message, expenseFile], applicationActivities: nil)
+        shareViewController.excludedActivityTypes = [.addToReadingList]
+        present(shareViewController, animated: true, completion: nil)
+    }
+    
+    @objc func swipedDown(gesture: UIGestureRecognizer) {
+        guard currentTrip?.key != Constants.projectID.sample else { return }
+        guard let swipe = gesture as? UISwipeGestureRecognizer else { return }
+        swipe.direction == .up ? performSegue(withIdentifier: Constants.segueIdentifiers.entryAction, sender: nil) : nil
     }
     
     @IBAction func actionButtonPressed(_ sender: Any) {
         guard currentTrip?.key != Constants.projectID.sample else {
-            showAlert(with: Constants.clientErrorMessages.cannotAddEntriesToSample)
+            showAlert(with: LedgitError.cannotAddEntriesToSample)
             return
         }
         performSegue(withIdentifier: Constants.segueIdentifiers.entryAction, sender: actionButton)
@@ -90,9 +135,7 @@ class TripDetailViewController: UIViewController {
         switch gesture.state {
             
         case .began:
-            guard let selectedIndexPath = collectionView.indexPathForItem(at: gesture.location(in: collectionView)) else {
-                break
-            }
+            guard let selectedIndexPath = collectionView.indexPathForItem(at: gesture.location(in: collectionView)) else { return }
             collectionView.beginInteractiveMovementForItem(at: selectedIndexPath)
             
         case .changed:
@@ -108,20 +151,16 @@ class TripDetailViewController: UIViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        guard let identifier = segue.identifier else { return }
-        
-        switch identifier {
-        case Constants.segueIdentifiers.entryAction:
+        if segue.identifier == Constants.segueIdentifiers.entryAction {
             guard let entryActionViewController = segue.destination as? EntryActionViewController else { return }
             entryActionViewController.presenter = presenter
             entryActionViewController.transitioningDelegate = self
             entryActionViewController.modalPresentationStyle = .custom
+            entryActionViewController.parentTrip = currentTrip
             if let entry = sender as? LedgitEntry {
                 entryActionViewController.entry = entry
                 entryActionViewController.action = .edit
             }
-            
-        default: break
         }
     }
 }
@@ -144,17 +183,17 @@ extension TripDetailViewController: UICollectionViewDataSource, UICollectionView
             
         case Constants.cellIdentifiers.weekly:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath) as! WeeklyCollectionViewCell
-            cell.setup(with: presenter.entries, budget: presenter.trip.budget)
+            cell.setup(with: presenter)
             return cell
             
         case Constants.cellIdentifiers.category:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath) as! CategoryCollectionViewCell
-            cell.setup(with: presenter.entries)
+            cell.setup(with: presenter)
             return cell
             
         case Constants.cellIdentifiers.history:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath) as! HistoryCollectionViewCell
-            cell.setup(with: presenter.entries)
+            cell.setup(with: presenter)
             cell.delegate = self
             
             return cell
@@ -227,6 +266,10 @@ extension TripDetailViewController: UIViewControllerTransitioningDelegate {
 
 extension TripDetailViewController: DayTableCellDelegate {
     func selected(entry: LedgitEntry, at cell: UITableViewCell) {
-        performSegue(withIdentifier: Constants.segueIdentifiers.entryAction, sender: entry)
+        if currentTrip?.key == Constants.projectID.sample {
+            showAlert(with: LedgitError.cannotAddEntriesToSample)
+        } else {
+            performSegue(withIdentifier: Constants.segueIdentifiers.entryAction, sender: entry)
+        }
     }
 }

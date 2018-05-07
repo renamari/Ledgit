@@ -12,10 +12,15 @@ import SkyFloatingLabelTextField
 extension UITextField {
 
     var isEmpty: Bool {
-        guard let text = text, text.isEmpty else {
+        if text == nil {
             return true
+            
+        } else if text!.isEmpty {
+            return true
+            
+        } else {
+            return false
         }
-        return false
     }
     
     @discardableResult

@@ -24,6 +24,8 @@ target 'Ledgit' do
 
   pod 'BubbleTransition'
 
+  pod 'AMPopTip'
+
   pod 'Charts'
   
   pod 'BetterSegmentedControl'

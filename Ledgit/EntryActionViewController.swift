@@ -28,18 +28,23 @@ class EntryActionViewController: UIViewController {
     var editedEntry: Bool = false
     var isConnected: Bool { return Reachability.isConnectedToNetwork() }
     var activeTextField: UITextField?
-    var selectedCurrency: Currency = .USD {
+    var selectedCurrency: Currency = LedgitUser.current.homeCurrency {
         didSet {
             if let exchangeRate =  Currency.rates[selectedCurrency.code] {
                 exchangeRateTextField.text("\(exchangeRate)")
+                
+            } else if selectedCurrency == LedgitUser.current.homeCurrency {
+                exchangeRateTextField.text("1.00")
             }
+            
+            amountTextField.title = "AMOUNT IN \(selectedCurrency.code.uppercased())"
         }
     }
     var selectedCategory: String?
     var datePicker: UIDatePicker?
     var presenter: TripDetailPresenter?
     var entry: LedgitEntry?
-    
+    var parentTrip: LedgitTrip?
     var paymentType: PaymentType = .cash {
         didSet {
             switch paymentType {
@@ -65,6 +70,7 @@ class EntryActionViewController: UIViewController {
         setupButtons()
         setupTextFields()
         setupObservers()
+        setupRecognizers()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -79,6 +85,12 @@ class EntryActionViewController: UIViewController {
         activeTextField?.resignFirstResponder()
     }
     
+    func setupRecognizers() {
+        let swipeRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(swipedDown(gesture:)))
+        swipeRecognizer.direction = .down
+        view.addGestureRecognizer(swipeRecognizer)
+    }
+    
     func setupButtons() {
         closeButton.transform = CGAffineTransform(rotationAngle: CGFloat.pi / 4)
         closeButton.roundedCorners(radius: 25)
@@ -91,7 +103,7 @@ class EntryActionViewController: UIViewController {
     func setupTextFields() {
         if action == .edit {
             guard let entry = entry else {
-                showAlert(with: Constants.clientErrorMessages.errorGettingEntry)
+                showAlert(with: LedgitError.errorGettingEntry)
                 dismiss(animated: true, completion: nil)
                 return
             }
@@ -105,6 +117,7 @@ class EntryActionViewController: UIViewController {
             locationTextField.text(entry.location)
             descriptionTextField.text(entry.description)
             amountTextField.text("\(entry.cost)".currencyFormat(with: entry.currency.symbol))
+            amountTextField.title = "AMOUNT IN \(selectedCurrency.code.uppercased())"
             exchangeRateTextField.text("\(entry.exchangeRate)")
             
             paymentType = entry.paymentType
@@ -160,7 +173,7 @@ class EntryActionViewController: UIViewController {
         let toolBar = UIToolbar()
         toolBar.barStyle = .default
         toolBar.isTranslucent = true
-        toolBar.tintColor = UIColor(red: 92/255, green: 216/255, blue: 255/255, alpha: 1)
+        toolBar.tintColor = LedgitColor.coreBlue//UIColor(red: 92/255, green: 216/255, blue: 255/255, alpha: 1)
         toolBar.sizeToFit()
         
         let doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(doneTapped))
@@ -169,6 +182,11 @@ class EntryActionViewController: UIViewController {
         toolBar.isUserInteractionEnabled = true
         
         return toolBar
+    }
+    
+    @objc func swipedDown(gesture: UIGestureRecognizer) {
+        guard let swipe = gesture as? UISwipeGestureRecognizer else { return }
+        swipe.direction == .down ? dismiss(animated: true, completion: nil) : nil
     }
     
     @objc func doneTapped() {
@@ -261,7 +279,7 @@ class EntryActionViewController: UIViewController {
         }
         
         if exchangeRateTextField.text?.isEmpty == true {
-            exchangeRateTextField.errorMessage = "Enter an exchange rate"
+            exchangeRateTextField.errorMessage = "Enter a rate"
             validated = false
         }
         
@@ -277,31 +295,35 @@ class EntryActionViewController: UIViewController {
             let amountString = amountTextField.text?.strip(),
             let exchangeRateString = exchangeRateTextField.text?.strip(),
             let exchangeRate = Double(exchangeRateString),
-            let amount = Double(amountString.components(separatedBy: CharacterSet.decimalDigits.inverted).joined(separator: "")),
             let date = dateTextField.text?.strip(),
             let owningTripKey = presenter?.trip.key
         else { return }
+        
+        let amount = amountString.toDouble()
+        
+        let convertedCost = Double(amount / exchangeRate)
         
         var key = ""
         if action == .edit, let entry = entry {
             key = entry.key
         } else {
-            key = Service.shared.entries.childByAutoId().key
+            key = UUID().uuidString
         }
         
         let entryData: NSDictionary = [
-            "key": key,
-            "date": date,
-            "location": location,
-            "description": description,
-            "category": category,
-            "currency": selectedCurrency.code,
-            "homeCurrency": LedgitUser.current.homeCurrency.code,
-            "exchangeRate": exchangeRate,
-            "paymentType": paymentType.rawValue,
-            "cost": amount,
-            "paidBy": LedgitUser.current.key,
-            "owningTrip": owningTripKey
+            LedgitEntry.Keys.key: key,
+            LedgitEntry.Keys.date: date,
+            LedgitEntry.Keys.location: location,
+            LedgitEntry.Keys.description: description,
+            LedgitEntry.Keys.category: category,
+            LedgitEntry.Keys.currency: selectedCurrency.code,
+            LedgitEntry.Keys.homeCurrency: LedgitUser.current.homeCurrency.code,
+            LedgitEntry.Keys.exchangeRate: exchangeRate,
+            LedgitEntry.Keys.paymentType: paymentType.rawValue,
+            LedgitEntry.Keys.cost: amount,
+            LedgitEntry.Keys.convertedCost: convertedCost,
+            LedgitEntry.Keys.paidBy: LedgitUser.current.key,
+            LedgitEntry.Keys.owningTrip: owningTripKey
         ]
         
         if action == .edit {
@@ -358,6 +380,7 @@ extension EntryActionViewController: UITextFieldDelegate {
             let currencySelectionViewController = CurrencySelectionViewController.instantiate(from: .trips)
             currencySelectionViewController.delegate = self
             currencySelectionViewController.allowsMultipleSelection = false
+            currencySelectionViewController.limitedCurrencies = parentTrip?.currencies
             currencySelectionViewController.title = "Select Currency"
             
             let navigationController = UINavigationController(rootViewController: currencySelectionViewController)
@@ -418,41 +441,27 @@ extension EntryActionViewController: UITextFieldDelegate {
         
         case amountTextField:
             guard let text = textField.text else { return }
-            textField.text(text.components(separatedBy: CharacterSet.decimalDigits.inverted).joined(separator: ""))
-            
+            let cleanedText = text.trimmingCharacters(in: CharacterSet(charactersIn: ".1234567890").inverted)
+            textField.text(cleanedText.replacingOccurrences(of: ",", with: ""))
+
         default: break
         }
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
         if textField == amountTextField {
-            guard let text = textField.text else { return }
-            textField.text(text.currencyFormat())
+            guard let text = textField.text else {
+                amountTextField.errorMessage = "Enter an amount"
+                return
+            }
+            let cleanedText = text.trimmingCharacters(in: CharacterSet(charactersIn: ".1234567890").inverted)
+            textField.text(cleanedText.currencyFormat(with: selectedCurrency.symbol))
+            amountTextField.errorMessage = nil
         }
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
-        
-        if textField.isEmpty {
-            switch textField {
-            case locationTextField:
-                locationTextField.errorMessage = "Enter a city"
-
-            case descriptionTextField:
-                descriptionTextField.errorMessage = "Enter a description"
-
-            case currencyTextField:
-                currencyTextField.errorMessage = "Select a currency"
-
-            case categoryTextField:
-                categoryTextField.errorMessage = "Select a category"
-
-            case amountTextField:
-                amountTextField.errorMessage = "Enter an amount"
-            default: break
-            }
-        }
         return true
     }
 }

@@ -30,23 +30,68 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         ROX.setup(withKey:"59e7e1a2832daa14ceb21736")
         window = UIWindow(frame: UIScreen.main.bounds)
         
+        // Request currency exchange rates
+        Currency.getRates()
+        
         // Request on demand resources
         ResourceManager.shared.requestFlagImages()
         
         // Determine which screen to go to depending on current user status
-        if AuthenticationManager.shared.isAuthenticated() {
-            let navigationController = TripsNavigationController.instantiate(from: .trips)
-            
-            window?.rootViewController = navigationController
+        // If there is no uid in user defaults, that can mean:
+        //   1) First time launch of the app
+        //   2) User deleted app, and all core data associated with it,
+        //      which means they either had a free version, or they will have to login
         
-        } else {
-            let navigationController = MainNavigationController.instantiate(from: .main)
-            window?.rootViewController = navigationController
+        guard let uid = UserDefaults.standard.value(forKey: Constants.userDefaultKeys.uid) as? String else {
+            navigateToMain()
+            return true
         }
         
+        // If uid exist, search for a core data user
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: Constants.ledgitEntity.user)
+        request.predicate = NSPredicate(format: "\(Constants.userDefaultKeys.uid) == %@", uid)
+        request.fetchLimit = 1
+        
+        do {
+            let users = try persistentContainer.viewContext.fetch(request)
+            
+            guard let user = users.first as? NSManagedObject else {
+                navigateToMain()
+                return true
+            }
+            
+            let data: NSDictionary = [
+                LedgitUser.Keys.key: user.value(forKey: LedgitUser.Keys.key) as Any,
+                LedgitUser.Keys.name: user.value(forKey: LedgitUser.Keys.name) as Any,
+                LedgitUser.Keys.email: user.value(forKey: LedgitUser.Keys.email) as Any,
+                LedgitUser.Keys.provider: user.value(forKey: LedgitUser.Keys.provider) as Any,
+                LedgitUser.Keys.categories: user.value(forKey: LedgitUser.Keys.categories) as Any,
+                LedgitUser.Keys.subscription: user.value(forKey: LedgitUser.Keys.subscription) as Any,
+                LedgitUser.Keys.homeCurrency: user.value(forKey: LedgitUser.Keys.homeCurrency) as Any
+            ]
+            
+            LedgitUser.current = LedgitUser(dict: data)
+            navigateToTrips()
+            return true
+            
+        } catch {
+            
+            Log.critical("Something is wrong. There is a user default uid value, but it didn't get the core data member")
+            navigateToMain()
+            return true
+        }
+    }
+    
+    func navigateToMain() {
+        let navigationController = MainNavigationController.instantiate(from: .main)
+        window?.rootViewController = navigationController
         window?.makeKeyAndVisible()
- 
-        return true
+    }
+    
+    func navigateToTrips() {
+        let navigationController = TripsNavigationController.instantiate(from: .trips)
+        window?.rootViewController = navigationController
+        window?.makeKeyAndVisible()
     }
     
     func application(_ application: UIApplication, performActionFor shortcutItem: UIApplicationShortcutItem, completionHandler: @escaping (Bool) -> Void) {

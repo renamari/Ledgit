@@ -59,6 +59,8 @@ class HistoryCollectionViewCell: UICollectionViewCell {
         segmentedControl.layer.borderWidth = 1
         segmentedControl.layer.borderColor = LedgitColor.coreBlue.cgColor
         segmentedControl.titles = ["Date", "City"]
+        segmentedControl.titleFont = .futuraMedium16
+        segmentedControl.selectedTitleFont = .futuraMedium16
         segmentedControl.addTarget(self, action: #selector(segmentedControlChanged), for: .valueChanged)
     }
     
@@ -71,13 +73,11 @@ class HistoryCollectionViewCell: UICollectionViewCell {
         }
     }
     
-    func setup(with entries:[LedgitEntry]) {
-        guard !entries.isEmpty else { return }
-        
+    func setup(with presenter: TripDetailPresenter) {
         dateEntries = []
         cityEntries = []
-    
-        for item in entries {
+        
+        for item in presenter.entries {
             if let index = dateEntries.index(where: { $0.date.isInSameDayOf(date: item.date) }) {
                 dateEntries[index].entries.append(item)
             } else {
@@ -96,7 +96,7 @@ class HistoryCollectionViewCell: UICollectionViewCell {
         }
         
         dateEntries = dateEntries.sorted { $0.date > $1.date }
-    
+        
         cityTableView.reloadData()
         dayTableView.reloadData()
     }

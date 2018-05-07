@@ -55,14 +55,14 @@ class AuthenticationPresenterTests: XCTestCase {
             return
         }
         
-        let dictionary = manager.handleError(with: error)
+        let ledgitError = manager.handleError(with: error)
         
         // Act
-        presenterDelegate.displayError(dictionary)
+        presenterDelegate.displayError(ledgitError)
         
         // Assert
         XCTAssertTrue(presenterDelegate.didReceiveAuthenticationError)
-        XCTAssertEqual(dictionary, presenterDelegate.errorDictionary)
+        XCTAssertEqual(ledgitError, presenterDelegate.error)
     }
     
     func presenterDidReceiveUser() {

@@ -63,13 +63,18 @@ extension TripDetailPresenter: TripDetailManagerDelegate {
     }
     
     func removedEntry(_ entry: LedgitEntry) {
-        guard let index = entries.index(where: {$0 == entry}) else { return }
+        guard let index = entries.index(where: { $0.key == entry.key }) else { return }
         entries.remove(at: index)
         delegate?.receivedEntryUpdate()
     }
     
     func retrievedEntry(_ entry: LedgitEntry) {
         entries.append(entry)
+        delegate?.receivedEntryUpdate()
+    }
+    
+    func retrievedSampleEntries(_ entries: [LedgitEntry]) {
+        self.entries = entries
         delegate?.receivedEntryUpdate()
     }
 }

@@ -9,7 +9,7 @@
 import UIKit
 
 extension UITableView {
-    func lastRow(at section: Int = 0) -> Int{
+    func lastRow(at section: Int = 0) -> Int {
         return numberOfRows(inSection: section) - 1
     }
 }

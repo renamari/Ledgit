@@ -94,8 +94,8 @@ extension CategoriesViewController: UITableViewDelegate, UITableViewDataSource{
         let cell = tableView.dequeueReusableCell(withIdentifier: Constants.cellIdentifiers.categoryName, for: indexPath) as! CategoryTableViewCell
         cell.titleLabel.text(presenter?.categories[indexPath.row])
         
-        if indexPath.row == 0 && !displayedInformationLabel {
-            cell.displayInformationLabel()
+        if indexPath.row == tableView.lastRow() && !displayedInformationLabel {
+            cell.displayInformationLabel(on: categoriesTableView)
             displayedInformationLabel = true
         }
         return cell

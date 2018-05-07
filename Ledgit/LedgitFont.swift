@@ -13,6 +13,7 @@ extension UIFont {
     static var futuraMedium10: UIFont { return UIFont(name: "Futura-Medium", size: 10.0)!}
     static var futuraMedium12: UIFont { return UIFont(name: "Futura-Medium", size: 12.0)!}
     static var futuraMedium14: UIFont { return UIFont(name: "Futura-Medium", size: 14.0)!}
+    static var futuraMedium16: UIFont { return UIFont(name: "Futura-Medium", size: 16.0)!}
     static var futuraMedium15: UIFont { return UIFont(name: "Futura-Medium", size: 15.0)!}
     static var futuraMedium17: UIFont { return UIFont(name: "Futura-Medium", size: 17.0)!}
     static var futuraMedium18: UIFont { return UIFont(name: "Futura-Medium", size: 18.0)!}

@@ -13,12 +13,15 @@ class AccountViewController: UIViewController {
     @IBOutlet weak var cardView: UIView!
     @IBOutlet weak var nameTextField: SkyFloatingLabelTextField!
     @IBOutlet weak var emailTextField: SkyFloatingLabelTextField!
+    @IBOutlet weak var homeCurrencyTextField: SkyFloatingLabelTextField!
     @IBOutlet weak var saveButton: UIButton!
     @IBOutlet var cardViewCenterConstraint: NSLayoutConstraint!
     @IBOutlet var cardViewBottomConstraint: NSLayoutConstraint!
     weak var presenter: SettingsPresenter?
     var previousFrame: CGRect?
     let padding:CGFloat = 20
+    var currentCurrency: Currency = LedgitUser.current.homeCurrency
+    var updatedCurrency: Currency?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,9 +54,11 @@ class AccountViewController: UIViewController {
     func setupTextFields() {
         nameTextField.delegate = self
         emailTextField.delegate = self
+        homeCurrencyTextField.delegate = self
     
         nameTextField.text(LedgitUser.current.name)
         emailTextField.text(LedgitUser.current.email)
+        homeCurrencyTextField.text(currentCurrency.name)
     }
     
     func setupRecognizers() {
@@ -79,18 +84,31 @@ class AccountViewController: UIViewController {
         dismiss(animated: true, completion: nil)
     }
     
-    @IBAction func saveButtonPressed(_ sender: Any) {
-        guard let name = nameTextField.text?.strip(), !name.isEmpty else {
+    func textFieldsValidated() -> Bool {
+        var validated = true
+        if let name = nameTextField.text?.strip(), !name.isEmpty {
             nameTextField.errorMessage = "Cannot leave name empty"
-            return
+            validated = false
         }
         
-        guard let email = emailTextField.text?.strip(), !email.isEmpty else {
+        if let email = emailTextField.text?.strip(), !email.isEmpty {
             emailTextField.errorMessage = "Cannot leave email empty"
-            return
+            validated = false
         }
         
-        presenter?.updateUser(name: name, email: email)
+        return validated
+    }
+    
+    @IBAction func saveButtonPressed(_ sender: Any) {
+        guard textFieldsValidated() else { return }
+        presenter?.updateUser(name: nameTextField.text!.strip(),
+                              email: emailTextField.text!.strip())
+        
+        // Only perform update action if a new currency was selected
+        // since its a heavy action that will require all entries to be updated
+        if let updatedCurrency = updatedCurrency, updatedCurrency != currentCurrency {
+            presenter?.updateHomeCurrency(with: currentCurrency)
+        }
         dismiss(animated: true, completion: nil)
     }
     

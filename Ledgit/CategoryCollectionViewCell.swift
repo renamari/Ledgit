@@ -15,6 +15,17 @@ class CategoryCollectionViewCell: UICollectionViewCell, ChartViewDelegate {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        setupChart()
+        setupButton()
+    }
+    
+    func setupButton(){
+        displayButton.roundedCorners(radius: 15)
+        displayButton.color(LedgitColor.coreBlue)
+        displayButton.setTitleColor(.white, for: .normal)
+    }
+    
+    func setupChart() {
         pieChart.delegate = self
         pieChart.noDataText = Constants.chartText.empty
         pieChart.noDataFont = .futuraMedium14
@@ -38,13 +49,16 @@ class CategoryCollectionViewCell: UICollectionViewCell, ChartViewDelegate {
         layer.shadowPath = UIBezierPath(roundedRect:bounds, cornerRadius:contentView.layer.cornerRadius).cgPath
     }
     
-    func setup(with entries: [LedgitEntry]) {
-        guard !entries.isEmpty else { return }
-        
+    func setup(with presenter: TripDetailPresenter) {
         var categories:[String:Double] = [:]
         var values:[PieChartDataEntry] = []
         
-        for item in entries {
+        guard !presenter.entries.isEmpty else {
+            pieChart.clear()
+            return
+        }
+        
+        for item in presenter.entries {
             if categories.keys.contains(item.category) {
                 categories[item.category]! += item.convertedCost
             } else {
@@ -69,12 +83,13 @@ class CategoryCollectionViewCell: UICollectionViewCell, ChartViewDelegate {
         legend.xEntrySpace = 7.0
         legend.yEntrySpace = 0.0
         legend.yOffset = 0.0
-        legend.textColor = .kColor4E4E4E
+        legend.textColor = LedgitColor.navigationTextGray
+        legend.font = .futuraMedium14
         
         pieChart.chartDescription = nil
         pieChart.usePercentValuesEnabled = true
         pieChart.drawSlicesUnderHoleEnabled = false
-        pieChart.holeRadiusPercent = 0.60
+        pieChart.holeRadiusPercent = 0.6
         pieChart.transparentCircleRadiusPercent = 1
         pieChart.drawCenterTextEnabled = true
         pieChart.drawHoleEnabled = true
@@ -88,7 +103,10 @@ class CategoryCollectionViewCell: UICollectionViewCell, ChartViewDelegate {
         let dataSet = PieChartDataSet(values: values, label: nil)
         dataSet.drawIconsEnabled = false
         dataSet.sliceSpace = 2.0
-        dataSet.colors = [.kColor003559,.kColor061A40,.kColorB9D6F2,.kColor76DDFB,.kColor2C82BE]
+        dataSet.entryLabelColor = .white
+        dataSet.colors = [LedgitColor.pieChartBlue1, LedgitColor.pieChartBlue2,
+                          LedgitColor.pieChartBlue3, LedgitColor.pieChartBlue4,
+                          LedgitColor.pieChartBlue5, LedgitColor.pieChartBlue6]
         
         let data = PieChartData(dataSet: dataSet)
         let format = NumberFormatter()
@@ -98,10 +116,10 @@ class CategoryCollectionViewCell: UICollectionViewCell, ChartViewDelegate {
         format.percentSymbol = "%"
         let formatter = DefaultValueFormatter(formatter: format)
         data.setValueFormatter(formatter)
-        data.setValueFont(UIFont(name: "HelveticaNeue-Light", size: 12))
-        data.setValueTextColor(.kColor4E4E4E)
+        data.setValueFont(.futuraMedium12)
+        data.setValueTextColor(.white)
         dataSet.yValuePosition = .insideSlice
-        
+
         pieChart.data = data
         pieChart.highlightValues(nil)
     }

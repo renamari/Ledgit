@@ -35,16 +35,16 @@ class AuthenticationManagerTests: XCTestCase {
 
     func testManagerErrorHandling() {
         // Arrange
-        guard let error = AuthErrorCode(rawValue: 17007) else {
+        guard let code = AuthErrorCode(rawValue: 17007) else {
             XCTFail("Error code not generated")
             return
         }
         
         // Act
-        let dictionary = manager.handleError(with: error)
+        let error = manager.handleError(with: code)
         
         // Assert
-        XCTAssertEqual(dictionary, Constants.authErrorMessages.emailAlreadyInUse)
+        XCTAssertEqual(error, LedgitError.emailAlreadyInUse)
     }
     
     func testDelegateDidReceiveUser() {
@@ -61,19 +61,19 @@ class AuthenticationManagerTests: XCTestCase {
     
     func testDelegateDidReceiveError() {
         // Arrange
-        guard let error = AuthErrorCode(rawValue: 17007) else {
+        guard let code = AuthErrorCode(rawValue: 17007) else {
             XCTFail("Error code not generated")
             return
         }
         
-        let dictionary = manager.handleError(with: error)
+        let error = manager.handleError(with: code)
         
         // Act
-        managerDelegate.authenticationError(dict: dictionary)
+        managerDelegate.authenticationError(error)
         
         // Assert
         XCTAssertTrue(managerDelegate.didReceiveAuthenticationError)
-        XCTAssertEqual(dictionary, managerDelegate.errorDictionary)
+        XCTAssertEqual(error, managerDelegate.error)
     }
     
     func testAuthenticationFailedWithNoNetwork() {
@@ -86,7 +86,7 @@ class AuthenticationManagerTests: XCTestCase {
         
         // Assert
         XCTAssertTrue(managerDelegate.didReceiveAuthenticationError)
-        XCTAssertEqual(managerDelegate.errorDictionary, Constants.clientErrorMessages.noNetworkConnection)
+        XCTAssertEqual(managerDelegate.error, LedgitError.noNetworkConnection)
     }
     
     func testAuthenticationFailedWithEmptyValues() {
@@ -99,6 +99,6 @@ class AuthenticationManagerTests: XCTestCase {
         
         // Assert
         XCTAssertTrue(managerDelegate.didReceiveAuthenticationError)
-        XCTAssertEqual(managerDelegate.errorDictionary, Constants.clientErrorMessages.emptyTextFields)
+        XCTAssertEqual(managerDelegate.error, LedgitError.emptyTextFields)
     }
 }

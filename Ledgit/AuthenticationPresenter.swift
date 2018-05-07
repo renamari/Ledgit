@@ -11,11 +11,12 @@ import Foundation
 enum Platform {
     case firebase
     case facebook
+    case coreData
 }
 
 protocol AuthenticationPresenterDelegate: class {
     func successfulAuthentication(of user: LedgitUser)
-    func displayError(_ dict: ErrorDictionary)
+    func displayError(_ error: LedgitError)
 }
 
 class AuthenticationPresenter {
@@ -27,13 +28,15 @@ class AuthenticationPresenter {
         self.manager.delegate = self
     }
     
-    func authenticateUser(platform: Platform, method: AuthenticationMethod, email: String, password: String) {
+    func authenticateUser(platform: Platform, method: AuthenticationMethod, email: String = "", password: String = "") {
         switch method {
         case .signin:
             platform == .firebase ? manager.performFirebaseSignIn(with: email, password: password) : manager.performFacebookSignIn()
 
         case .signup:
-            platform == .firebase ? manager.performFirebaseSignUp(with: email, password: password) : manager.peformFacebookSignUp()
+            if platform == .firebase { manager.performFirebaseSignUp(with: email, password: password) }
+            else if platform == .facebook { manager.peformFacebookSignUp() }
+            else { manager.performCoreDataSignUp() }
         }
     }
 }
@@ -43,8 +46,8 @@ extension AuthenticationPresenter: AuthenticationManagerDelegate {
         delegate?.successfulAuthentication(of: user)
     }
     
-    func authenticationError(dict: ErrorDictionary) {
-        delegate?.displayError(dict)
+    func authenticationError(_ error: LedgitError) {
+        delegate?.displayError(error)
     }
 }
 

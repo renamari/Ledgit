@@ -18,7 +18,7 @@ class TripsViewController: UIViewController {
         
         setupTableView()
         setupPresenter()
-        Currency.getRates()
+        setupGestureRecognizers()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -37,6 +37,19 @@ class TripsViewController: UIViewController {
         tripsTableView.delegate = self
         tripsTableView.dataSource = self
         tripsTableView.rowHeight = 215
+    }
+    
+    func setupGestureRecognizers() {
+        let edgeRecognizer = UIScreenEdgePanGestureRecognizer(target: self, action: #selector(swipedEdge(gesture:)))
+        edgeRecognizer.edges = .left
+        view.addGestureRecognizer(edgeRecognizer)
+    }
+    
+    @objc func swipedEdge(gesture: UIGestureRecognizer) {
+        guard let gesture = gesture as? UIScreenEdgePanGestureRecognizer else { return }
+        guard gesture.edges == .left else { return }
+        
+        settingsButtonPressed(gesture)
     }
     
     @IBAction func settingsButtonPressed(_ sender: Any) {
@@ -64,6 +77,7 @@ class TripsViewController: UIViewController {
         } else if segue.identifier == Constants.segueIdentifiers.detail {
             guard  let destinationViewController = segue.destination as? TripDetailViewController else { return }
             guard let selectedRow = tripsTableView.indexPathForSelectedRow?.row else { return }
+            destinationViewController.title = presenter.trips[selectedRow].name
             destinationViewController.currentTrip = presenter.trips[selectedRow]
         }
     }
@@ -91,7 +105,7 @@ extension TripsViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if indexPath.row == presenter.trips.count { //Is last index path
+        if indexPath.row == tableView.lastRow() { //Is last index path
             let cell = tableView.dequeueReusableCell(withIdentifier: Constants.cellIdentifiers.add, for: indexPath) as! AddTripTableViewCell
             cell.configure()
             
@@ -175,7 +189,7 @@ extension TripsViewController: TripsPresenterDelegate {
     
     func retrievedTrip() {
         tripsTableView.beginUpdates()
-        tripsTableView.insertRows(at: [IndexPath(row: tripsTableView.lastRow(), section: 0)], with: .right)
+        tripsTableView.insertRows(at: [IndexPath(row: 1, section: 0)], with: .right)
         tripsTableView.endUpdates()
         
         var index: Double = 0
@@ -188,5 +202,9 @@ extension TripsViewController: TripsPresenterDelegate {
             
             index += 1
         }
+    }
+    
+    func addedTrip() {
+        tripsTableView.reloadData()
     }
 }

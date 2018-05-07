@@ -22,14 +22,17 @@ class SettingsViewController: UIViewController {
                                                  SettingsContent(name: "Subscription", icon: #imageLiteral(resourceName: "subscription-icon")),
                                                  SettingsContent(name: "Account", icon: #imageLiteral(resourceName: "account-icon")),
                                                  SettingsContent(name: "About", icon: #imageLiteral(resourceName: "about-icon"))]
-    
-    fileprivate(set) lazy var settingsImages = [#imageLiteral(resourceName: "categories-icon"), #imageLiteral(resourceName: "subscription-icon"), #imageLiteral(resourceName: "account-icon"), #imageLiteral(resourceName: "about-icon")]
-    fileprivate(set) lazy var settingsTitleText = ["Categories", "Subscription", "Account", "About"]
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupView()
         setupTableView()
         setupPresenter()
+        setupRecognizers()
+    }
+    
+    func setupView() {
+        signoutButton.isHidden = LedgitUser.current.subscription == .free ? true : false
     }
     
     func setupPresenter() {
@@ -39,6 +42,17 @@ class SettingsViewController: UIViewController {
     func setupTableView(){
         settingsTableView.delegate = self
         settingsTableView.dataSource = self
+    }
+    
+    func setupRecognizers() {
+        let swipeRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(swipedDown(gesture:)))
+        swipeRecognizer.direction = .down
+        view.addGestureRecognizer(swipeRecognizer)
+    }
+    
+    @objc func swipedDown(gesture: UIGestureRecognizer) {
+        guard let swipe = gesture as? UISwipeGestureRecognizer else { return }
+        swipe.direction == .down ? backButtonPressed(gesture) : nil
     }
     
     @IBAction func backButtonPressed(_ sender: Any) {
@@ -78,7 +92,7 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource{
             performSegue(withIdentifier: Constants.segueIdentifiers.category, sender: self)
             
         case "Subscription":
-            showAlert(with: Constants.clientErrorMessages.freeSubscriptions)
+            showAlert(with: LedgitError.freeSubscriptions)
             //performSegue(withIdentifier: Constants.segueIdentifiers.subscription, sender: self)
             
         case "Account":
@@ -100,16 +114,13 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource{
         let content = settingsContent[indexPath.row]
         cell.iconImageView.image(content.icon)
         cell.titleLabel.text(content.name)
-        
         return cell
     }
 }
 
 extension SettingsViewController: SettingsPresenterDelegate {
     func signedout() {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let navigationController = storyboard.instantiateViewController(withIdentifier: Constants.navigationIdentifiers.main) as! UINavigationController
-        
-        self.present(navigationController, animated: true, completion: nil)
+        let navigationController = MainNavigationController.instantiate(from: .main)
+        present(navigationController, animated: true, completion: nil)
     }
 }

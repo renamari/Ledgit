@@ -15,7 +15,6 @@ class WeeklyCollectionViewCellTests: XCTestCase {
     override func setUp() {
         super.setUp()
         weeklyCollectionCell = WeeklyCollectionViewCell()
-        let view = weeklyCollectionCell.contentView
     }
     
     func testClearValuesFunction() {

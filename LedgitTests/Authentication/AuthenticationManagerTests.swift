@@ -69,7 +69,7 @@ class AuthenticationManagerTests: XCTestCase {
         let error = manager.handleError(with: code)
         
         // Act
-        managerDelegate.authenticationError(error: error)
+        managerDelegate.authenticationError(error)
         
         // Assert
         XCTAssertTrue(managerDelegate.didReceiveAuthenticationError)

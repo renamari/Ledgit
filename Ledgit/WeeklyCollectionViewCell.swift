@@ -36,7 +36,20 @@ class WeeklyCollectionViewCell: UICollectionViewCell, ChartViewDelegate {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        setupLabels()
         defaultChartSetup()
+        
+    }
+    
+    func setupLabels() {
+        dayCostLabel.color(LedgitColor.navigationTextGray)
+        remainingLabel.color(LedgitColor.navigationTextGray)
+        averageLabel.color(LedgitColor.navigationTextGray)
+        budgetLabel.color(LedgitColor.navigationTextGray)
+        dayCostLabel.text(0.0.currencyFormat())
+        remainingLabel.text(0.0.currencyFormat())
+        averageLabel.text(0.0.currencyFormat())
+        budgetLabel.text(0.0.currencyFormat())
     }
     
     func defaultChartSetup() {
@@ -57,15 +70,6 @@ class WeeklyCollectionViewCell: UICollectionViewCell, ChartViewDelegate {
         dates = []
         values = []
         amounts = [Double](repeating: 0, count: 7)
-        
-        dayCostLabel.color(LedgitColor.navigationTextGray)
-        remainingLabel.color(LedgitColor.navigationTextGray)
-        averageLabel.color(LedgitColor.navigationTextGray)
-        budgetLabel.color(LedgitColor.navigationTextGray)
-        dayCostLabel.text(Double(0).currencyFormat())
-        remainingLabel.text(Double(0).currencyFormat())
-        averageLabel.text(Double(0).currencyFormat())
-        budgetLabel.text(Double(0).currencyFormat())
     }
     
     func setup(with presenter: TripDetailPresenter) {

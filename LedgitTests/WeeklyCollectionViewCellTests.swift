@@ -15,6 +15,7 @@ class WeeklyCollectionViewCellTests: XCTestCase {
     override func setUp() {
         super.setUp()
         weeklyCollectionCell = WeeklyCollectionViewCell()
+        let view = weeklyCollectionCell.contentView
     }
     
     func testClearValuesFunction() {
@@ -41,7 +42,7 @@ class WeeklyCollectionViewCellTests: XCTestCase {
         let dayAmount: Double = 70
         
         // Act
-        let formattedAmount = weeklyCollectionCell.generateText(from: dayAmount, symbol: LedgitUser.current.homeCurrency.symbol)
+        let formattedAmount = dayAmount.currencyFormat()
         
         // Assert
         XCTAssertEqual(formattedAmount, "$70.00")

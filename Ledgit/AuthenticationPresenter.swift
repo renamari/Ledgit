@@ -46,7 +46,7 @@ extension AuthenticationPresenter: AuthenticationManagerDelegate {
         delegate?.successfulAuthentication(of: user)
     }
     
-    func authenticationError(error: LedgitError) {
+    func authenticationError(_ error: LedgitError) {
         delegate?.displayError(error)
     }
 }

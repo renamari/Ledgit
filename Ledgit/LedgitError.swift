@@ -89,3 +89,9 @@ extension LedgitError { //Authentication errors
     static let invalidCredential = LedgitError(title: "Could Not Sign In With Facebook",
                                                message: "Error getting your information. Please try again later.")
 }
+
+extension LedgitError: Equatable {
+    static func == (lhs: LedgitError, rhs: LedgitError) -> Bool {
+        return lhs.title == rhs.title && lhs.message == rhs.message
+    }
+}

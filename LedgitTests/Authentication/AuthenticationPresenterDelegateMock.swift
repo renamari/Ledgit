@@ -12,6 +12,7 @@ import Foundation
 class AuthenticationPresenterDelegateMock: AuthenticationPresenterDelegate {
     var didAuthenticate: Bool = false
     var didReceiveAuthenticationError: Bool = false
+    var error = LedgitError(title: "Mock", message: "Message")
     var errorDictionary: [String:String] = [:]
     var authenticatedUser: LedgitUser = LedgitUser()
     
@@ -20,8 +21,8 @@ class AuthenticationPresenterDelegateMock: AuthenticationPresenterDelegate {
         authenticatedUser = user
     }
     
-    func displayError(_ dict: ErrorDictionary) {
+    func displayError(_ error: LedgitError) {
         didReceiveAuthenticationError = true
-        errorDictionary = dict
+        self.error = error
     }
 }

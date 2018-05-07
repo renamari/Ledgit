@@ -57,6 +57,10 @@ extension SettingsPresenter {
     func updateUser(name: String, email: String) {
         manager.updateUser(name: name, email: email)
     }
+    
+    func updateHomeCurrency(with currency: Currency) {
+        manager.updateUserHomeCurrency(with: currency)
+    }
 }
 
 extension SettingsPresenter: SettingsManagerDelegate {

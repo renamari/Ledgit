@@ -236,19 +236,6 @@ extension Currency {
 }
 
 extension Currency {
-    static let all: [Currency] = [AUD, BGN, BRL, CAD, CHF,
-                                  CNY, CZK, DKK, GBP, HKD,
-                                  HRK, HUF, IDR, ILS, JPY,
-                                  KRW, MXN, MYR, NOK, NZD,
-                                  PHP, PLN, RON, RUB, SEK,
-                                  SGD, THB, TRY, USD, ZAR, EUR]
-    
-    static let codes: [String] = Currency.all.map { $0.code }
-    
-    static var rates: [String : Double] = [:]
-}
-
-extension Currency {
     static func get(from dict: [String]) -> [Currency] {
         var result: [Currency] = []
         dict.forEach { code in
@@ -263,29 +250,79 @@ extension Currency {
         return Currency.all.first(where: { $0.code == code })
     }
     
-    // https://api.fixer.io/latest?base=USD
-    static func getRates() {
-        guard let url = URL(string: "https://api.fixer.io/latest?base=\(LedgitUser.current.homeCurrency.code)") else { return }
-        
-        let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
-            if error != nil, let error = error { Log.error(error) }
-            guard let data = data else { return }
-            guard let result = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) as? NSDictionary else { return }
-            guard let rates = result?["rates"] as? [String:Double] else { return }
-            
-            Currency.rates = rates
-        }
-        task.resume()
+    static func ==(lhs:Currency, rhs:Currency) -> Bool {
+        return lhs.name == rhs.name && lhs.code == rhs.code && lhs.flagCode == rhs.flagCode && lhs.symbol == rhs.symbol
     }
 }
 
 extension Currency {
-    static func ==(lhs:Currency, rhs:Currency) -> Bool {
-        return
-            lhs.name == rhs.name &&
-            lhs.code == rhs.code &&
-            lhs.flagCode == rhs.flagCode &&
-            lhs.symbol == rhs.symbol
+    static let all: [Currency] = [AUD, BGN, BRL, CAD, CHF,
+                                  CNY, CZK, DKK, GBP, HKD,
+                                  HRK, HUF, IDR, ILS, JPY,
+                                  KRW, MXN, MYR, NOK, NZD,
+                                  PHP, PLN, RON, RUB, SEK,
+                                  SGD, THB, TRY, USD, ZAR, EUR]
+    
+    static let codes: [String] = Currency.all.map { $0.code }
+}
+
+extension Currency {
+    static var rates: [String: Double] {
+        set { UserDefaults.standard.set(newValue, forKey: Constants.userDefaultKeys.lastRates) }
+        get {
+            guard let lastUpdatedRates = UserDefaults.standard.value(forKey: Constants.userDefaultKeys.lastRates) as? [String: Double] else {
+                let rates: [String: Double] = [:]
+                UserDefaults.standard.set(rates, forKey: Constants.userDefaultKeys.lastRates)
+                return rates
+            }
+            return lastUpdatedRates
+        }
+    }
+    
+    static var lastUpdated: Date? {
+        set { UserDefaults.standard.set(newValue, forKey: Constants.userDefaultKeys.lastUpdated) }
+        get {
+            guard let lastUpdated = UserDefaults.standard.value(forKey: Constants.userDefaultKeys.lastUpdated) as? Date else { return nil }
+            return lastUpdated
+        }
+    }
+    
+    // https://api.fixer.io/latest?base=USD
+    static func getRates() {
+        
+        guard Reachability.isConnectedToNetwork() else {
+            Log.warning("Could not start exchange rate request because user is not connected to network.")
+            return
+        }
+        
+        // Weird, reverse guard
+        // Here if lastUpdated is NOT nil, check if lastUpdated is equal to today. If yes, skip update
+        // If lastUpdated IS nil, immediately go and update.
+        guard lastUpdated != nil, lastUpdated != Date() else {
+            Log.info("Starting update on rates")
+            
+            guard let url = URL(string: "https://api.fixer.io/latest?base=\(LedgitUser.current.homeCurrency.code)") else { return }
+            
+            let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
+                if error != nil, let error = error { Log.error(error) }
+                guard let data = data else { return }
+                guard let result = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) as? NSDictionary else { return }
+                guard let ratesData = result?["rates"] as? [String : Double] else { return }
+        
+                rates = ratesData
+                lastUpdated = Date()
+                Log.info("Sucessfully updated rates data and last updated \(Date())")
+            }
+            
+            task.resume()
+            return
+        }
+        
+        Log.warning("Either this was the first app usage, or the exchange rates were already refreshed today")
+    }
+    
+    static func getRate(between base: String, and currency: String) {
+        
     }
 }
 

@@ -174,4 +174,37 @@ extension SettingsManager {
             self.users.child(key).child("email").setValue(email)
         })
     }
+    
+    func updateUserHomeCurrency(with currency: Currency) {
+        // Quickly update the users home currency value
+        user?.setValue(currency.code, forKey: LedgitUser.Keys.homeCurrency)
+        
+        // Update each entry to reflect updated home currency
+        let entryRequest = NSFetchRequest<NSFetchRequestResult>(entityName: Constants.ledgitEntity.entry)
+        
+        do {
+            let entries = try coreData.fetch(entryRequest)
+            guard let entryManagedObjects = entries as? [NSManagedObject] else {
+                Log.critical("Could not create entry managed objects")
+                return
+            }
+            
+            entryManagedObjects.forEach { entry in
+                guard
+                    let entryHomeCurrencyCode = entry.value(forKey: LedgitEntry.Keys.homeCurrency) as? String,
+                    let entryHomeCurrency = Currency.get(with: entryHomeCurrencyCode),
+                    let entryCurrencyCode = entry.value(forKey: LedgitEntry.Keys.currency) as? String,
+                    let entryCurrency = Currency.get(with: entryCurrencyCode)
+                else {
+                    return
+                }
+            }
+            
+            try coreData.save()
+            LedgitUser.current.homeCurrency = currency
+            
+        } catch let error as NSError {
+            Log.error(error)
+        }
+    }
 }

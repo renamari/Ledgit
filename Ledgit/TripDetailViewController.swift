@@ -24,15 +24,7 @@ class TripDetailViewController: UIViewController {
                        Constants.cellIdentifiers.category,
                        Constants.cellIdentifiers.history]
     var currentTrip: LedgitTrip?
-    var isLoading: Bool = false {
-        didSet {
-            switch isLoading {
-            case true: startLoading()
-            case false: stopLoading()
-            }
-        }
-    }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setupButton()
@@ -143,9 +135,7 @@ class TripDetailViewController: UIViewController {
         switch gesture.state {
             
         case .began:
-            guard let selectedIndexPath = collectionView.indexPathForItem(at: gesture.location(in: collectionView)) else {
-                break
-            }
+            guard let selectedIndexPath = collectionView.indexPathForItem(at: gesture.location(in: collectionView)) else { return }
             collectionView.beginInteractiveMovementForItem(at: selectedIndexPath)
             
         case .changed:
@@ -161,10 +151,7 @@ class TripDetailViewController: UIViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        guard let identifier = segue.identifier else { return }
-        
-        switch identifier {
-        case Constants.segueIdentifiers.entryAction:
+        if segue.identifier == Constants.segueIdentifiers.entryAction {
             guard let entryActionViewController = segue.destination as? EntryActionViewController else { return }
             entryActionViewController.presenter = presenter
             entryActionViewController.transitioningDelegate = self
@@ -174,8 +161,6 @@ class TripDetailViewController: UIViewController {
                 entryActionViewController.entry = entry
                 entryActionViewController.action = .edit
             }
-            
-        default: break
         }
     }
 }

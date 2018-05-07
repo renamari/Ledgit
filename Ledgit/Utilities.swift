@@ -109,13 +109,13 @@ struct Log {
     static func debug(_ string: String,
                       _ method: String = #function,
                       _ line: Int = #line) {
-        print("\(Date()): <DEBUG>\t\t\(string)")
+        print("\(Date()): <DEBUG>\t\(string)")
     }
     
     static func info(_ string: String,
                      _ method: String = #function,
                      _ line: Int = #line) {
-        print("\(Date()): <INFO>\t\t\(string)")
+        print("\(Date()): <INFO>\t\(string)")
     }
     
     static func warning(_ string: String,
@@ -133,7 +133,7 @@ struct Log {
     static func error(_ error: Error,
                       _ method: String = #function,
                       _ line: Int = #line) {
-        print("\(Date()): <ERROR>\t\t\(error.localizedDescription)")
+        print("\(Date()): <ERROR>\t\(error.localizedDescription)")
     }
 }
 

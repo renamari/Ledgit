@@ -16,7 +16,7 @@ struct LedgitError {
 extension LedgitError { // Client Side Errors
     
     static let freeSubscriptions = LedgitError(title: "Hooray For You!",
-                                               message: "We're still testing this")
+                                               message: "We're still testing this, so for now it's all free 😉")
     
     static let emptyUserPasswordTextFields = LedgitError(title: "Could Not Sign In",
                                                          message: "Email/password fields are empty.")

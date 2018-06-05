@@ -321,8 +321,40 @@ extension Currency {
         Log.warning("Either this was the first app usage, or the exchange rates were already refreshed today")
     }
     
-    static func getRate(between base: String, and currency: String) {
-        
+    static func getRate(between base: String, and currency: String) -> Promise<Double> {
+        return Promise { resolve, reject in
+            guard Reachability.isConnectedToNetwork() else {
+                Log.warning("Could not start exchange rate request because user is not connected to network.")
+                reject(makeError("Could not start exchange rate request because user is not connected to network."))
+                return
+            }
+            
+            guard let url = URL(string: "https://api.fixer.io/latest?base=\(base)") else {
+                reject(makeError("Could not create a url to get custom exchange rate"))
+                return
+            }
+            
+            let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
+                if error != nil, let error = error {
+                    reject(error)
+                }
+                guard
+                    let data = data,
+                    let result = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) as? NSDictionary,
+                    let ratesData = result?["rates"] as? [String : Double],
+                    let rate = ratesData[currency]
+                else {
+                    reject(makeError("Something went wrong with extracting the data for custom exchange rate"))
+                    return
+                }
+                
+                Log.info("Sucessfully got exchange rate between \(base) and \(currency)")
+                
+                resolve(rate)
+            }
+            
+            task.resume()
+        }
     }
 }
 

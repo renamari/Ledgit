@@ -5,27 +5,29 @@
 
 #import <Foundation/Foundation.h>
 #import "ROXProxyInfo.h"
-#import "ROXMetadata.h"
+#import "ROXFreeze.h"
+#import "ROXFetcherResult.h"
+#import "ROXReportingValue.h"
+#import "ROXExperiment.h"
 
 /**
  :nodoc:
  */
 typedef NSString * _Nonnull (^ROXProxy)(ROXProxyInfo* _Nonnull proxyInfo);
-/**
- The Callback definition for `ROXOptions.syncCompletionHandler`
- */
-typedef void (^ROXSyncCompletionHandler)(ROXMetadata* _Nonnull metadata);
+
+typedef void (^ROXConfigurationFetchedHandler)(ROXFetcherResult* _Nonnull result);
+typedef void (^ROXImpressionHandler)(ROXReportingValue* _Nonnull value, ROXExperiment* _Nullable experiment);
 
 /**
  The enum to define SDK verbosilty level 
  @see `ROXOptions.verbose`
  */
-typedef enum ROXOptionsVerboseLevel{
+typedef NS_ENUM (NSUInteger, ROXOptionsVerboseLevel){
     ///Silent log
     ROXOptionsVerboseLevelSilent,
     ///Verbsoe log
     ROXOptionsVerboseLevelDebug
-} /** :nodoc: */ ROXOptionsVerboseLevel;
+} /** :nodoc: */;
 
 /**
  This is the configuration class that is used when running `+[ROXCore setupWithKey:options:]`.
@@ -36,27 +38,10 @@ typedef enum ROXOptionsVerboseLevel{
  :nodoc:
  */
 @property (nonatomic, copy, nullable) ROXProxy proxy;
-/**
- The completion handler that is called when the SDK has synced and applied the configuration
- 
- 
- ```objc
- ROXOptions *options = [[ROXOptions alloc] init];
- options.syncCompletionHandler = ^(ROXMetadata * _Nonnull metadata) {
-    for (ROXTargetGroup *t in metadata.targetGroups){
-        NSLog(@"%@:%@", t.name, t.isEnabled ? @"in" : @"out");
-    }
-    for (ROXFlag* f in metadata.flags) {
-        NSLog(@"%@:%@", f.name, f.isEnabled ? @"in" : @"out");
-    }
-    for (ROXExperiment* e in metadata.experiments){
-        NSLog(@"%@:%@", e.name, e.isEnabled ? @"enabled" : @"disbaled");
-    }
- };
- [ROXCore setupWithKey:APP_KEY options:options];
-```
- */
-@property (nonatomic, copy, nullable) ROXSyncCompletionHandler syncCompletionHandler;
+
+@property (nonatomic, copy, nullable) ROXConfigurationFetchedHandler onConfigurationFetched;
+
+@property (nonatomic, copy, nullable) ROXImpressionHandler impressionHandler;
 /**
  :nodoc:
  */
@@ -85,6 +70,8 @@ typedef enum ROXOptionsVerboseLevel{
  :nodoc:
  */
 @property (nonatomic, copy) NSString * _Nullable defaultConfigurationPath;
+
+@property (nonatomic) ROXFreeze defaultFreezeLevel;
 
 @end
 

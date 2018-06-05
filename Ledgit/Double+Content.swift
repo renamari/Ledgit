@@ -9,22 +9,12 @@
 import Foundation
 
 extension Double {
-    func currencyFormat(with symbol: String = "$") -> String {
+    func currencyFormat(with symbol: String = LedgitUser.current.homeCurrency.symbol) -> String {
+        let value = NSNumber(value: self)
         let formatter = NumberFormatter()
-        formatter.numberStyle = .decimal
+        formatter.numberStyle = .currency
         formatter.maximumFractionDigits = 2
-        
-        guard var formattedNumber = formatter.string(from: NSNumber(value: self)) else { return "" }
-        
-        if formattedNumber.contains(".") {
-            let split = formattedNumber.split(separator: ".")
-            guard let decimals = split.last else { return "" }
-            if decimals.count == 1 { formattedNumber += "0" }
-            
-        } else {
-            formattedNumber += ".00"
-        }
-        
-        return "\(symbol)\(formattedNumber)"
+        formatter.currencyCode = symbol
+        return formatter.string(from: value) ?? ""
     }
 }

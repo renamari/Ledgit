@@ -107,7 +107,7 @@ class AccountViewController: UIViewController {
         // Only perform update action if a new currency was selected
         // since its a heavy action that will require all entries to be updated
         if let updatedCurrency = updatedCurrency, updatedCurrency != currentCurrency {
-            presenter?.updateHomeCurrency(with: currentCurrency)
+            presenter?.updateHomeCurrency(with: updatedCurrency)
         }
         dismiss(animated: true, completion: nil)
     }
@@ -137,9 +137,35 @@ extension AccountViewController: UIGestureRecognizerDelegate{
     }
 }
 
-extension AccountViewController: UITextFieldDelegate{
+extension AccountViewController: UITextFieldDelegate {
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        if textField == homeCurrencyTextField {
+            homeCurrencyTextField.errorMessage = nil
+            let currencySelectionViewController = CurrencySelectionViewController.instantiate(from: .trips)
+            currencySelectionViewController.delegate = self
+            currencySelectionViewController.allowsMultipleSelection = false
+            currencySelectionViewController.title = "Select Currency"
+            
+            let navigationController = UINavigationController(rootViewController: currencySelectionViewController)
+            let doneButton = UIBarButtonItem(title: "Done", style: .done, target: currencySelectionViewController, action: #selector(CurrencySelectionViewController.dismissViewController))
+            doneButton.tintColor = LedgitColor.coreBlue
+            navigationController.navigationBar.isTranslucent = false
+            navigationController.topViewController?.navigationItem.setRightBarButton(doneButton, animated: true)
+            
+            homeCurrencyTextField.resignFirstResponder()
+            present(navigationController, animated: true, completion: nil)
+        }
+    }
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
+    }
+}
+
+extension AccountViewController: CurrencySelectionDelegate {
+    func selected(_ currencies: [Currency]) {
+        guard let currency = currencies.first else { return }
+        updatedCurrency = currency
+        homeCurrencyTextField.text(currency.name)
     }
 }

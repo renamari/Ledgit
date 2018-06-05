@@ -14,7 +14,7 @@
  */
 @interface ROXConfigurationInt : ROXRemoteVariable
 
-
+NS_ASSUME_NONNULL_BEGIN
 /**
  :nodoc:
  */
@@ -28,10 +28,12 @@
  */
 - (_Nonnull instancetype) initWithDefaultValue:(int)defaultValue;
 
+- (_Nonnull instancetype) initWithDefaultValue:(int)defaultValue freeze:(ROXFreeze)freeze;
+
 /**
  The int value, if nothing is configured on ROX dashboard, the default value will be returned
  */
 @property (nonatomic, readonly) int value;
-
+NS_ASSUME_NONNULL_END
 @end
 

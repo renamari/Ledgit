@@ -1,5 +1,34 @@
 import Foundation
 import ROXCore
+
+
+/**
+ This class is the API for options that can be send in setup to control SDK options.
+ 
+ 
+ - SeeAlso: [ROXOptions](../objc/Classes/ROXOptions.html)
+ 
+ 
+ ```swift ???
+ open class ROXOptions : NSObject {
+ 
+    ROXConfigurationFetchedHandler onConfigurationFetched;
+    ROXImpressionHandler impressionHandler;
+    ROXOptionsVerboseLevel verbose;
+ 
+ }
+ 
+ ```
+ 
+ 
+ */
+public typealias RoxOptions = ROXOptions
+public typealias RoxOptionsVerboseLevel = ROXOptionsVerboseLevel
+public typealias RoxExperiment = ROXExperiment
+public typealias RoxReportingValue = ROXReportingValue
+public typealias RoxFetcherResult = ROXFetcherResult
+public typealias RoxFreeze = ROXFreeze
+
 /**
  This class is the API for flags that are controlled by ROX server, Flags are assigned to an experiment and their value is based on experiment container.
  
@@ -105,7 +134,6 @@ public typealias RoxConfigurationBool = ROXConfigurationBool
     
     - Intialize ROX SDK using `ROX.setup(withKey:)`
     - Register container instances using `ROX.register(_:)`
-    - Retrieve container instances using `ROX.getContainer(_:)`
     - Load custom properties with `ROX.setCustomProperty(key:value:)`
     - Present the flags view controller with `ROX.flagsViewController()`
 
@@ -113,8 +141,6 @@ public typealias RoxConfigurationBool = ROXConfigurationBool
 
 
 public class ROX {
-    static var store = [String: RoxContainer]()
-    
     /**
      Loads the SDK, usually called as part of `AppDelegate.application:didFinishLaunchingWithOptions:`
      
@@ -147,46 +173,17 @@ public class ROX {
 
     
     /**
-     Register a container instance to ROX system, the same instance can be retrieved by using `ROX.getContainer(_:)` function
+     Register a container instance to ROX system.
      
-     - parameter  container: The instance to register, this instance values are set at `ROX.sync()`, `ROX.setup(withKey:)`, or a if the app goes into foreground
+     - parameter namespace: The namespace to register the instance too.
      
-     - Note: this method should be called **only once** for a given class
+     - parameter  container: The instance to register, this instance values are set at `ROX.setup(withKey:)`, or a if the app goes into foreground.
      
-     */
-    public static func register(_ container: RoxContainer) {
-        Register.handleContainer(reflecting: container)
-        
-        let containerClass = type(of: container)
-        store[NSStringFromClass(containerClass)] = container
-    }
-    
-    /**
-     Retrieve an instance from type clazz that was registered with `ROX.register(_:)`
-     
-     - Parameter  clazz: The type of instance you want to retrieve
-     - Returns: The instance that was registered
-    
-     */
-    public static func getContainer<T:RoxContainer>(_ clazz: T.Type) -> T? {
-        let container = store[NSStringFromClass(clazz)]
-        
-        return container as? T
-    }
-    
-    /**
-     Recalculate the rules of experiments allocation base on new data
-     
-     
-     - SeeAlso: `ROX.unfreeze()`
-     
-     - Note: Usually called after the user has logged in to refresh ROX custom properties
-     - Note: if a flag has already been used (had impression) is is freezed and the calculation will not change the flag state, to change the flag state you need to unfreeze the flag right after the sync call
+     - Note: This method should be called **only once** for a given namespace.
      
      */
-    
-    public static func sync() {
-        ROXCore.sync()
+    public static func register(_ namespace: String, container: RoxContainer) {
+        Register.handleContainer(namespace : namespace, container : container)
     }
     
     /**
@@ -262,8 +259,24 @@ public class ROX {
      - Parameter value: a code block to returns the value of the custom property
      
      */
-    public static func setCustomProperty(key: String, value: @escaping () -> String) {
+    public static func setCustomProperty(key: String, value: @escaping (String?) -> String) {
         self.setCustomProperty(key: key, asSemver: false, value: value)
+    }
+    
+    /**
+     Sets a computed custom property value that can be used when creating target groups.
+     
+     This method is used when you wish to supply a block of code that will be evaluated on foreground event or when either `ROX.sync()` , `ROX.setup(withKey:)` is called.
+     
+     
+     - SeeAlso: [Creating a target group](https://support.rollout.io/docs/creating-target-groups)
+     
+     - Parameter key: The name of the custom property
+     - Parameter value: a code block to returns the value of the custom property
+     
+     */
+    public static func setCustomProperty(key: String, value: @escaping () -> String) {
+        self.setCustomProperty(key: key, asSemver: false, value: {(_ : String?) -> String in  value() } )
     }
     
     /**
@@ -279,7 +292,7 @@ public class ROX {
      
      */
 
-    public static func setCustomProperty(key: String, asSemver: Bool, value: @escaping () -> String) {
+    public static func setCustomProperty(key: String, asSemver: Bool, value: @escaping (String?) -> String) {
         if (!asSemver) {
             ROXCore.setCustomComputedStringProperty(value, forKey: key)
         }
@@ -287,6 +300,24 @@ public class ROX {
             ROXCore.setCustomComputedSemverProperty(value, forKey: key)
         }
     }
+    
+    /**
+     Sets a computed custom property value that can be used when creating target groups.
+     
+     This method is used when you wish to supply a block of code that will be evaluated on foreground event or when either `ROX.sync()` , `ROX.setup(withKey:)` is called.
+     
+     
+     - SeeAlso: [Creating a target group](https://support.rollout.io/docs/creating-target-groups)
+     
+     - Parameter asSemver: Should the string be computed and treated as a semver ([What is Semantic Versioning(http://semver.org/))
+     - Parameter value: a code block to returns the value of the custom property
+     
+     */
+    
+    public static func setCustomProperty(key: String, asSemver: Bool, value: @escaping () -> String) {
+        return self.setCustomProperty(key:key, asSemver:asSemver, value:{ (_: String?) -> String in value() })
+    }
+    
     /**
      Sets a custom property value that can be used when creating target groups.
      
@@ -313,8 +344,24 @@ public class ROX {
      - Parameter value: a code block to returns the value of the custom property
      
      */
-    public static func setCustomProperty(key: String, value: @escaping () -> Bool) {
+    public static func setCustomProperty(key: String, value: @escaping (String?) -> Bool) {
         ROXCore.setCustomComputedBooleanProperty(value, forKey: key)
+    }
+    
+    /**
+     Sets a computed custom property value that can be used when creating target groups.
+     
+     This method is used when you wish to supply a block of code that will be evaluated on foreground event or when either `ROX.sync()` , `ROX.setup(withKey:)` is called.
+     
+     
+     - SeeAlso: [Creating a target group](https://support.rollout.io/docs/creating-target-groups)
+     
+     - Parameter key: The name of the custom property
+     - Parameter value: a code block to returns the value of the custom property
+     
+     */
+    public static func setCustomProperty(key: String, value: @escaping () -> Bool) {
+        return self.setCustomProperty(key: key, value: { (_ : String?) -> Bool in value() })
     }
     /**
      Sets a custom property value that can be used when creating target groups.
@@ -341,8 +388,24 @@ public class ROX {
      - Parameter value: a code block to returns the value of the custom property
      
      */
-    public static func setCustomProperty(key: String, value: @escaping () -> Int32) {
+    public static func setCustomProperty(key: String, value: @escaping (String?) -> Int32) {
         ROXCore.setCustomComputedIntProperty(value, forKey: key)
+    }
+    
+    /**
+     Sets a computed custom property value that can be used when creating target groups.
+     
+     This method is used when you wish to supply a block of code that will be evaluated on foreground event or when either `ROX.sync()` , `ROX.setup(withKey:)` is called.
+     
+     
+     - SeeAlso: [Creating a target group](https://support.rollout.io/docs/creating-target-groups)
+     
+     - Parameter key: The name of the custom property
+     - Parameter value: a code block to returns the value of the custom property
+     
+     */
+    public static func setCustomProperty(key: String, value: @escaping () -> Int32) {
+        return self.setCustomProperty(key:key, value: {(_ : String?) -> Int32 in value() });
     }
     /**
      Sets a custom property value that can be used when creating target groups.
@@ -369,8 +432,24 @@ public class ROX {
      - Parameter value: a code block to returns the value of the custom property
      
      */
-    public static func setCustomProperty(key: String, value: @escaping () -> Double) {
+    public static func setCustomProperty(key: String, value: @escaping (String?) -> Double) {
         ROXCore.setCustomComputedDoubleProperty(value, forKey: key)
+    }
+    
+    /**
+     Sets a computed custom property value that can be used when creating target groups.
+     
+     This method is used when you wish to supply a block of code that will be evaluated on foreground event or when either `ROX.sync()` , `ROX.setup(withKey:)` is called.
+     
+     
+     - SeeAlso: [Creating a target group](https://support.rollout.io/docs/creating-target-groups)
+     
+     - Parameter key: The name of the custom property
+     - Parameter value: a code block to returns the value of the custom property
+     
+     */
+    public static func setCustomProperty(key: String, value: @escaping () -> Double) {
+        return self.setCustomProperty(key:key, value: {(_ : String?) -> Double in value() })
     }
     
     /**
@@ -380,5 +459,9 @@ public class ROX {
      */
     public static func roxDisabled() -> Bool {
         return ROXCore.roxDisabled()
+    }
+    
+    public static func fetch() -> Void {
+        return ROXCore.fetch()
     }
 }

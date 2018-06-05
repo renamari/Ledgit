@@ -9,12 +9,13 @@
 #import <Foundation/Foundation.h>
 #import "ROXVariant.h"
 
+
 /**
  This class is the API for flags that are controlled by ROX server, Flags are assigned to an experiment and their value is based on experiment container.
  */
 
 @interface ROXFlag : ROXVariant
-
+NS_ASSUME_NONNULL_BEGIN
 /**
  a property to indicate if the flag is enabled or disabled
  */
@@ -57,4 +58,8 @@
  */
 
 - (instancetype)initWithDefault:(BOOL)defaultValue;
+
+- (instancetype)initWithDefault:(BOOL)defaultValue freeze:(ROXFreeze)freeze;
+
 @end
+NS_ASSUME_NONNULL_END

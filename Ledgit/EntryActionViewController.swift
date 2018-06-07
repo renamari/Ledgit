@@ -30,14 +30,24 @@ class EntryActionViewController: UIViewController {
     var activeTextField: UITextField?
     var selectedCurrency: Currency = LedgitUser.current.homeCurrency {
         didSet {
-            if let exchangeRate =  Currency.rates[selectedCurrency.code] {
-                exchangeRateTextField.text("\(exchangeRate)")
+            guard selectedCurrency != LedgitUser.current.homeCurrency else {
+                self.exchangeRateTextField.text("1.00")
                 
-            } else if selectedCurrency == LedgitUser.current.homeCurrency {
-                exchangeRateTextField.text("1.00")
+                return
             }
             
+            Currency.getRate(between: LedgitUser.current.homeCurrency.code, and: selectedCurrency.code).then { rate in
+                self.exchangeRateTextField.text("\(rate)")
+                
+            }.catch { error in
+                Log.critical("In \(self), we were unable to fetch rate between \(LedgitUser.current.homeCurrency.code) selecting \(self.selectedCurrency.code)")
+                Log.error(error)
+                
+                self.exchangeRateTextField.text("1.00")
+            }
+        
             amountTextField.title = "AMOUNT IN \(selectedCurrency.code.uppercased())"
+            amountTextField.selectedTitle = "AMOUNT IN \(selectedCurrency.code.uppercased())"
         }
     }
     var selectedCategory: String?
@@ -451,7 +461,7 @@ extension EntryActionViewController: UITextFieldDelegate {
     func textFieldDidEndEditing(_ textField: UITextField) {
         if textField == amountTextField {
             guard let text = textField.text else {
-                amountTextField.errorMessage = "Enter an amount"
+                amountTextField.errorMessage = "Enter an amount in \(selectedCurrency.code)"
                 return
             }
             let cleanedText = text.trimmingCharacters(in: CharacterSet(charactersIn: ".1234567890").inverted)

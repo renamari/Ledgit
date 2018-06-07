@@ -301,7 +301,7 @@ extension Currency {
         guard lastUpdated != nil, lastUpdated != Date() else {
             Log.info("Starting update on rates")
             
-            guard let url = URL(string: "https://api.fixer.io/latest?base=\(LedgitUser.current.homeCurrency.code)") else { return }
+            guard let url = URL(string: "http://data.fixer.io/api/latest?access_key=\(Constants.fixerKey)&base=\(LedgitUser.current.homeCurrency.code)") else { return }
             
             let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
                 if error != nil, let error = error { Log.error(error) }
@@ -323,13 +323,15 @@ extension Currency {
     
     static func getRate(between base: String, and currency: String) -> Promise<Double> {
         return Promise { resolve, reject in
+        
             guard Reachability.isConnectedToNetwork() else {
                 Log.warning("Could not start exchange rate request because user is not connected to network.")
                 reject(makeError("Could not start exchange rate request because user is not connected to network."))
                 return
             }
             
-            guard let url = URL(string: "https://api.fixer.io/latest?base=\(base)") else {
+            let queryString = "\(base)_\(currency)"
+            guard let url = URL(string: "http://free.currencyconverterapi.com/api/v5/convert?q=\(queryString)&compact=ultra") else {
                 reject(makeError("Could not create a url to get custom exchange rate"))
                 return
             }
@@ -340,9 +342,8 @@ extension Currency {
                 }
                 guard
                     let data = data,
-                    let result = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) as? NSDictionary,
-                    let ratesData = result?["rates"] as? [String : Double],
-                    let rate = ratesData[currency]
+                    let result = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: Double],
+                    let rate = result?[queryString]
                 else {
                     reject(makeError("Something went wrong with extracting the data for custom exchange rate"))
                     return

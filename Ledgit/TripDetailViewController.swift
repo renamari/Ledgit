@@ -10,6 +10,7 @@ import UIKit
 import SwiftDate
 import MessageUI
 import BubbleTransition
+import NotificationBannerSwift
 
 class TripDetailViewController: UIViewController {
     @IBOutlet weak var actionButton: UIButton!
@@ -98,6 +99,14 @@ class TripDetailViewController: UIViewController {
     }
     
     @objc func exportButtonPressed() {
+        let banner = NotificationBanner(title: "Creating your expense report.")
+        banner.backgroundColor = LedgitColor.coreBlue
+        banner.autoDismiss = false
+        
+        banner.show(queuePosition: .front, bannerPosition: .top, queue: .default, on: nil)
+    
+        startLoading()
+        
         //Set the default sharing message.
         guard let trip = currentTrip else {
             Log.warning("Tried to begin export process, but no trip available")
@@ -113,7 +122,11 @@ class TripDetailViewController: UIViewController {
         let message = "The expense report for your \(trip.name) trip."
         let shareViewController = UIActivityViewController(activityItems: [message, expenseFile], applicationActivities: nil)
         shareViewController.excludedActivityTypes = [.addToReadingList]
-        present(shareViewController, animated: true, completion: nil)
+        
+        present(shareViewController, animated: true) {
+            self.stopLoading()
+            banner.dismiss()
+        }
     }
     
     @objc func swipedDown(gesture: UIGestureRecognizer) {

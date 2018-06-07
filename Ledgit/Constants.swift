@@ -9,6 +9,8 @@
 import UIKit
 
 struct Constants {
+    static var fixerKey = "fda225b8e7deaacea241f2a705dc5681"
+    
     struct chartText {
         static let empty = "Wow, such empty 😿"
     }

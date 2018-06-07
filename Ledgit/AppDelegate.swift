@@ -31,7 +31,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window = UIWindow(frame: UIScreen.main.bounds)
         
         // Request currency exchange rates
-        Currency.getRates()
+        //Currency.getRates()
         
         // Request on demand resources
         ResourceManager.shared.requestFlagImages()

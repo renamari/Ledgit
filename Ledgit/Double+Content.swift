@@ -14,7 +14,7 @@ extension Double {
         let formatter = NumberFormatter()
         formatter.numberStyle = .currency
         formatter.maximumFractionDigits = 2
-        formatter.currencyCode = symbol
+        formatter.currencySymbol = symbol
         return formatter.string(from: value) ?? ""
     }
 }

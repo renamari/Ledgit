@@ -49,7 +49,7 @@ class Configuration {
     }
     
     func activateDebugMode() {
-        guard let debugSettings = RemoteConfigSettings(developerModeEnabled: true) else { return }
+        let debugSettings = RemoteConfigSettings(developerModeEnabled: true)
         configuration.configSettings = debugSettings
     }
 }

@@ -108,12 +108,12 @@ extension AuthenticationManager {
             return
         }
         
-        auth.createUser(withEmail: email, password: password) { [unowned self] (user, error) in
+        auth.createUser(withEmail: email, password: password) { [unowned self] (result, error) in
             if let error = error, let code = AuthErrorCode(rawValue: error._code){
                 self.delegate?.authenticationError(self.handleError(with: code))
             }
             
-            guard let user = user else {
+            guard let user = result?.user else {
                 self.delegate?.authenticationError(.general)
                 return
             }
@@ -143,12 +143,12 @@ extension AuthenticationManager {
             return
         }
         
-        auth.signIn(withEmail: email, password: password) { (user, error) in
+        auth.signIn(withEmail: email, password: password) { (result, error) in
             if let error = error, let code = AuthErrorCode(rawValue: error._code){
                 self.delegate?.authenticationError(self.handleError(with: code))
             }
             
-            guard let user = user else {
+            guard let user = result?.user else {
                 self.delegate?.authenticationError(.general)
                 return
             }
@@ -186,12 +186,12 @@ extension AuthenticationManager {
             case .success( _,  _, let accessToken):
                 let credential = FacebookAuthProvider.credential(withAccessToken: accessToken.authenticationToken)
                 
-                self.auth.signIn(with: credential, completion: { (user, error) in
+                self.auth.signInAndRetrieveData(with: credential, completion: { result, error in
                     if let error = error, let code = AuthErrorCode(rawValue: error._code){
                         self.delegate?.authenticationError(self.handleError(with: code))
                     }
                     
-                    guard let user = user else {
+                    guard let user = result?.user else {
                         self.delegate?.authenticationError(.general)
                         return
                     }
@@ -201,7 +201,7 @@ extension AuthenticationManager {
                         LedgitUser.Keys.email: user.email!,
                         LedgitUser.Keys.name: user.displayName!,
                         LedgitUser.Keys.key: user.uid,
-                    ]
+                        ]
                     
                     self.users.child(user.uid).setValue(data)
                     UserDefaults.standard.set(user.uid, forKey: Constants.userDefaultKeys.uid)
@@ -232,12 +232,12 @@ extension AuthenticationManager {
             case .success( _,  _, let result):
                 let credential = FacebookAuthProvider.credential(withAccessToken: result.authenticationToken)
                 
-                self.auth.signIn(with: credential, completion: { (user, error) in
+                self.auth.signInAndRetrieveData(with: credential, completion: { (result, error) in
                     if let error = error, let code = AuthErrorCode(rawValue: error._code) {
                         self.delegate?.authenticationError(self.handleError(with: code))
                     }
                     
-                    guard let user = user else {
+                    guard let user = result?.user else {
                         self.delegate?.authenticationError(.general)
                         return
                     }

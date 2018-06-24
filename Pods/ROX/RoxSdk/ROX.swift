@@ -464,4 +464,12 @@ public class ROX {
     public static func fetch() -> Void {
         return ROXCore.fetch()
     }
+    
+    public static func overrides() -> ROXFlagsOverrides {
+        return ROXCore.overrides()
+    }
+    
+    public static func flags() -> [ROXVariant] {
+        return ROXCore.flags()
+    }
 }

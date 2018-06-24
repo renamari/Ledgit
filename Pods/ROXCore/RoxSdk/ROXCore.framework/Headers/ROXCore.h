@@ -1,5 +1,5 @@
 //
-//  ROXCore SDK version 2.0.1, Build 475
+//  ROXCore SDK version 3.0.1, Build 484
 //
 //  Copyright (c) 2017 rollout.io. All rights reserved.
 //
@@ -18,6 +18,7 @@
 #import "ROXFetcherResult.h"
 #import "ROXReportingValue.h"
 #import "ROXExperiment.h"
+#import "ROXFlagsOverrides.h"
 
 #define ROX ROXCore
 
@@ -231,6 +232,9 @@
  :nodoc:
  */
 +(void)fetch;
+
++ (ROXFlagsOverrides*)overrides;
++ (NSArray<ROXVariant*>*)flags;
 
 #ifdef DEBUG
 void resetROXDispatchOnce(void);

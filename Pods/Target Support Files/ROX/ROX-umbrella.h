@@ -10,6 +10,7 @@
 #endif
 #endif
 
+#import "ROX.h"
 #import "RoxSdk.h"
 
 FOUNDATION_EXPORT double ROXVersionNumber;

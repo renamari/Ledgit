@@ -107,6 +107,14 @@ open class PopTip: UIView {
   @objc open dynamic var cornerRadius = CGFloat(4.0)
   /// The `BOOL` that determines wether the poptip is rounded. If set to `true` the radius will equal `frame.height / 2`
   @objc open dynamic var isRounded = false
+  /// The `UIColor` with the poptip's shadow color
+  @objc open dynamic var shadowColor: UIColor = .clear
+  /// The `CGSize` with the poptip's shadow offset
+  @objc open dynamic var shadowOffset: CGSize = .zero
+  /// The `Float` with the poptip's shadow radius
+  @objc open dynamic var shadowRadius: Float = 0
+  /// The `Float` with the poptip's shadow opacity
+  @objc open dynamic var shadowOpacity: Float = 0
   /// Holds the offset between the poptip and origin
   @objc open dynamic var offset = CGFloat(0.0)
   /// Holds the CGFloat with the padding used for the inner text
@@ -115,6 +123,8 @@ open class PopTip: UIView {
   @objc open dynamic var edgeInsets = UIEdgeInsets.zero
   /// Holds the CGSize with the width and height of the arrow
   @objc open dynamic var arrowSize = CGSize(width: 8, height: 8)
+  /// CGfloat value that determines the radius of the vertex for the pointing arrow
+  @objc open dynamic var arrowRadius = CGFloat(0.0)
   /// Holds the NSTimeInterval with the duration of the revealing animation
   @objc open dynamic var animationIn: TimeInterval = 0.4
   /// Holds the NSTimeInterval with the duration of the disappearing animation
@@ -457,7 +467,13 @@ open class PopTip: UIView {
       cornerRadius = (frame.size.height - (showHorizontally ? 0 : arrowSize.height)) / 2
     }
     
-    let path = PopTip.pathWith(rect: rect, frame: frame, direction: direction, arrowSize: arrowSize, arrowPosition: arrowPosition, borderWidth: borderWidth, radius: cornerRadius)
+    let path = PopTip.pathWith(rect: rect, frame: frame, direction: direction, arrowSize: arrowSize, arrowPosition: arrowPosition, arrowRadius: arrowRadius, borderWidth: borderWidth, radius: cornerRadius)
+    
+    layer.shadowPath = path.cgPath
+    layer.shadowOpacity = shadowOpacity
+    layer.shadowRadius = CGFloat(shadowRadius)
+    layer.shadowOffset = shadowOffset
+    layer.shadowColor = shadowColor.cgColor
     
     bubbleColor.setFill()
     path.fill()
@@ -682,14 +698,14 @@ open class PopTip: UIView {
     }
     tapHandler?(self)
   }
-
+  
   @objc fileprivate func handleTapOutside(_ gesture: UITapGestureRecognizer) {
     if shouldDismissOnTapOutside {
       hide()
     }
     tapOutsideHandler?(self)
   }
-
+  
   @objc fileprivate func handleSwipeOutside(_ gesture: UITapGestureRecognizer) {
     if shouldDismissOnSwipeOutside {
       hide()
@@ -794,4 +810,3 @@ fileprivate extension UIEdgeInsets {
     return self.top + self.bottom
   }
 }
-

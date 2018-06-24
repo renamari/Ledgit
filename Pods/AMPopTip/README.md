@@ -223,6 +223,11 @@ actionDelayIn = <#TimeInterval#>
 actionDelayOut = <#TimeInterval#>
 edgeMargin = <#CGFloat#>
 bubbleOffset = <#CGFloat#> // Offset between the bubble and the arrow
+arrowRadius = <#CGFloat#>
+shadowOpacity = <#Float#>
+shadowRadius = <#Float#>
+shadowOffset = <#CGSize#>
+shadowColor = <#UIColor#> 
 ```
 
 # Author

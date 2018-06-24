@@ -176,7 +176,7 @@ extension SettingsManager {
     }
     
     func updateUserHomeCurrency(with currency: LedgitCurrency) {
-        // Creating this flag to make sure we only update the value if at least on
+        // Creating this flag to make sure we only update the value if at least one
         // entry successfully converts on entry amount
         var successfullyUpdated: Bool = false
         

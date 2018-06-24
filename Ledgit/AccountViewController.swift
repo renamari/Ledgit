@@ -84,31 +84,18 @@ class AccountViewController: UIViewController {
         dismiss(animated: true, completion: nil)
     }
     
-    func textFieldsValidated() -> Bool {
-        var validated = true
-        if let name = nameTextField.text?.strip(), !name.isEmpty {
-            nameTextField.errorMessage = "Cannot leave name empty"
-            validated = false
-        }
-        
-        if let email = emailTextField.text?.strip(), !email.isEmpty {
-            emailTextField.errorMessage = "Cannot leave email empty"
-            validated = false
-        }
-        
-        return validated
-    }
-    
     @IBAction func saveButtonPressed(_ sender: Any) {
-        guard textFieldsValidated() else { return }
-        presenter?.updateUser(name: nameTextField.text!.strip(),
-                              email: emailTextField.text!.strip())
+        let name = nameTextField.text?.strip() ?? ""
+        let email = emailTextField.text?.strip() ?? ""
+        
+        presenter?.updateUser(name: name, email: email)
         
         // Only perform update action if a new currency was selected
         // since its a heavy action that will require all entries to be updated
         if let updatedCurrency = updatedCurrency, updatedCurrency != currentCurrency {
             presenter?.updateHomeCurrency(with: updatedCurrency)
         }
+        
         dismiss(animated: true, completion: nil)
     }
     

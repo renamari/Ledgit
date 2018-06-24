@@ -11,7 +11,7 @@ import Foundation
 struct LedgitEntry: Equatable {
     var key: String
     let date: Date
-    let currency: Currency
+    let currency: LedgitCurrency
     var location: String
     var description: String
     var category: String
@@ -21,7 +21,7 @@ struct LedgitEntry: Equatable {
     var convertedCost: Double
     var owningTrip: String
     var exchangeRate: Double
-    var homeCurrency: Currency
+    var homeCurrency: LedgitCurrency
     var dictionaryRepresentation: NSDictionary
     
     struct Keys {
@@ -46,9 +46,9 @@ struct LedgitEntry: Equatable {
             let dateString = dict[LedgitEntry.Keys.date] as? String,
             let descriptionString = dict[LedgitEntry.Keys.description] as? String,
             let currencyString = dict[LedgitEntry.Keys.currency] as? String,
-            let currencyValue = Currency.get(with: currencyString),
+            let currencyValue = LedgitCurrency.get(with: currencyString),
             let homeCurrencyString = dict[LedgitEntry.Keys.homeCurrency] as? String,
-            let homeCurrencyValue = Currency.get(with: homeCurrencyString),
+            let homeCurrencyValue = LedgitCurrency.get(with: homeCurrencyString),
             let locationString = dict[LedgitEntry.Keys.location] as? String,
             let categoryString = dict[LedgitEntry.Keys.category] as? String,
             let paidByString = dict[LedgitEntry.Keys.paidBy] as? String,

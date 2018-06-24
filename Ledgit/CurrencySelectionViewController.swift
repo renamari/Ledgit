@@ -9,16 +9,16 @@
 import UIKit
 
 protocol CurrencySelectionDelegate: class {
-    func selected(_ currencies: [Currency])
+    func selected(_ currencies: [LedgitCurrency])
 }
 
 class CurrencySelectionViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var searchBar: UISearchBar!
     weak var delegate: CurrencySelectionDelegate?
-    lazy var selectedCurrencies: [Currency] = []
-    lazy var filteredCurrencies: [Currency] = []
-    var limitedCurrencies: [Currency]?
+    lazy var selectedCurrencies: [LedgitCurrency] = []
+    lazy var filteredCurrencies: [LedgitCurrency] = []
+    var limitedCurrencies: [LedgitCurrency]?
     var allowsMultipleSelection = true
     
     override func viewDidLoad() {
@@ -52,7 +52,7 @@ class CurrencySelectionViewController: UIViewController {
 
 extension CurrencySelectionViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        let visibleCurrencies = limitedCurrencies ?? Currency.all
+        let visibleCurrencies = limitedCurrencies ?? LedgitCurrency.all
         filteredCurrencies = visibleCurrencies.filter {
             $0.code.lowercased().contains(searchText.lowercased()) ||
             $0.name.lowercased().contains(searchText.lowercased())
@@ -67,12 +67,12 @@ extension CurrencySelectionViewController: UISearchBarDelegate {
 
 extension CurrencySelectionViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let visibleCurrencies = limitedCurrencies ?? Currency.all
+        let visibleCurrencies = limitedCurrencies ?? LedgitCurrency.all
         return !filteredCurrencies.isEmpty ? filteredCurrencies.count : visibleCurrencies.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let visibleCurrencies = limitedCurrencies ?? Currency.all
+        let visibleCurrencies = limitedCurrencies ?? LedgitCurrency.all
         let cell = tableView.dequeueReusableCell(withIdentifier: Constants.cellIdentifiers.currency, for: indexPath) as! CurrencyTableViewCell
         let currency = !filteredCurrencies.isEmpty ? filteredCurrencies[indexPath.row] : visibleCurrencies[indexPath.row]
 
@@ -89,7 +89,7 @@ extension CurrencySelectionViewController: UITableViewDelegate, UITableViewDataS
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let cell = tableView.cellForRow(at: indexPath) as! CurrencyTableViewCell
-        let visibleCurrencies = limitedCurrencies ?? Currency.all
+        let visibleCurrencies = limitedCurrencies ?? LedgitCurrency.all
         let selectedCurrency = !filteredCurrencies.isEmpty ? filteredCurrencies[indexPath.row] : visibleCurrencies[indexPath.row]
         
         if allowsMultipleSelection {

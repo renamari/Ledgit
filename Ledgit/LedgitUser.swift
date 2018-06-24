@@ -14,7 +14,7 @@ struct LedgitUser: Equatable {
     var email: String = ""
     var provider: String = "Ledgit"
     var subscription: Subscription = .free
-    var homeCurrency: Currency = .USD
+    var homeCurrency: LedgitCurrency = .USD
     var categories = ["Transportation", "Food", "Lodging", "Entertainment", "Emergency", "Miscellaneous"]
     var dictionaryRepresentation: NSDictionary = [:]
     
@@ -39,7 +39,7 @@ struct LedgitUser: Equatable {
         dictionaryRepresentation = dict
         
         if let currencyString = dict[LedgitUser.Keys.homeCurrency] as? String {
-            homeCurrency <= Currency.get(with: currencyString)
+            homeCurrency <= LedgitCurrency.get(with: currencyString)
         }
         
         if let subscriptionString = dict[LedgitUser.Keys.subscription] as? String {

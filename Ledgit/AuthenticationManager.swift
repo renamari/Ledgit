@@ -15,7 +15,6 @@ import CoreData
 typealias ErrorDictionary = [String:String]
 
 protocol AuthenticationManagerDelegate: class {
-    // MANAGER -> INTERACTOR
     func userAuthenticated(_ user: LedgitUser)
     func authenticationError(_ error: LedgitError)
 }
@@ -278,7 +277,7 @@ extension AuthenticationManager {
 }
 
 extension AuthenticationManager {
-    func isAuthenticated() -> Bool{
+    func isAuthenticated() -> Bool {
         guard auth.currentUser != nil else { return false }
         
         guard UserDefaults.standard.value(forKey: Constants.userDefaultKeys.uid) != nil else { return false }

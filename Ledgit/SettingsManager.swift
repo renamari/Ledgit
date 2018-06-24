@@ -175,7 +175,7 @@ extension SettingsManager {
         })
     }
     
-    func updateUserHomeCurrency(with currency: Currency) {
+    func updateUserHomeCurrency(with currency: LedgitCurrency) {
         // Creating this flag to make sure we only update the value if at least on
         // entry successfully converts on entry amount
         var successfullyUpdated: Bool = false
@@ -198,7 +198,7 @@ extension SettingsManager {
             
                 entry.setValue(currency.code, forKey: LedgitEntry.Keys.homeCurrency)
                 
-                Currency.getRate(between: currency.code, and: entryCurrencyCode).then { rate in
+                LedgitCurrency.getRate(between: currency.code, and: entryCurrencyCode).then { rate in
                     let newConvertedCost = Double(cost / rate)
                     entry.setValue(newConvertedCost, forKey: LedgitEntry.Keys.convertedCost)
                     successfullyUpdated = true

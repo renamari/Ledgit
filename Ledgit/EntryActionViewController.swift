@@ -28,7 +28,7 @@ class EntryActionViewController: UIViewController {
     var editedEntry: Bool = false
     var isConnected: Bool { return Reachability.isConnectedToNetwork() }
     var activeTextField: UITextField?
-    var selectedCurrency: Currency = LedgitUser.current.homeCurrency {
+    var selectedCurrency: LedgitCurrency = LedgitUser.current.homeCurrency {
         didSet {
             guard selectedCurrency != LedgitUser.current.homeCurrency else {
                 self.exchangeRateTextField.text("1.00")
@@ -36,7 +36,7 @@ class EntryActionViewController: UIViewController {
                 return
             }
             
-            Currency.getRate(between: LedgitUser.current.homeCurrency.code, and: selectedCurrency.code).then { rate in
+            LedgitCurrency.getRate(between: LedgitUser.current.homeCurrency.code, and: selectedCurrency.code).then { rate in
                 self.exchangeRateTextField.text("\(rate)")
                 
             }.catch { error in
@@ -140,7 +140,7 @@ class EntryActionViewController: UIViewController {
             currencyTextField.text(selectedCurrency.name)
             
             // Initially hide the exchange rate text field
-            if !Currency.rates.isEmpty, let exchangeRate =  Currency.rates[selectedCurrency.code] {
+            if !LedgitCurrency.rates.isEmpty, let exchangeRate =  LedgitCurrency.rates[selectedCurrency.code] {
                 exchangeRateTextField.text("\(exchangeRate)")
             } else if selectedCurrency == LedgitUser.current.homeCurrency {
                 exchangeRateTextField.text("1.00")
@@ -354,7 +354,7 @@ extension EntryActionViewController: CategorySelectionDelegate {
 }
 
 extension EntryActionViewController: CurrencySelectionDelegate {
-    func selected(_ currencies: [Currency]) {
+    func selected(_ currencies: [LedgitCurrency]) {
         guard let currency = currencies.first else { return }
         selectedCurrency = currency
         currencyTextField.text(currency.name)

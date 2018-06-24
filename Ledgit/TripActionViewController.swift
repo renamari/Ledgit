@@ -38,7 +38,7 @@ class TripActionViewController: UIViewController {
     var trip: LedgitTrip?
     var banner: NotificationBanner?
     var method: LedgitAction = .add
-    var selectedCurrencies: [Currency] = [.USD]
+    var selectedCurrencies: [LedgitCurrency] = [.USD]
     var activeTextField = UITextField()
     var datePicker: UIDatePicker?
     var tripLength: Int = 1
@@ -434,7 +434,7 @@ extension TripActionViewController: UITextFieldDelegate {
 }
 
 extension TripActionViewController: CurrencySelectionDelegate {
-    func selected(_ currencies: [Currency]) {
+    func selected(_ currencies: [LedgitCurrency]) {
         selectedCurrencies = currencies
         currenciesTextField.text(currencies.map{ $0.code }.joined(separator: ", "))
         currenciesTextField.resignFirstResponder()

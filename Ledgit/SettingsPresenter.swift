@@ -9,6 +9,11 @@
 import Foundation
 import Firebase
 
+enum SignoutResult {
+    case success
+    case failure(Error)
+}
+
 protocol SettingsPresenterDelegate: class {
     func signedout()
 }
@@ -58,7 +63,7 @@ extension SettingsPresenter {
         manager.updateUser(name: name, email: email)
     }
     
-    func updateHomeCurrency(with currency: Currency) {
+    func updateHomeCurrency(with currency: LedgitCurrency) {
         manager.updateUserHomeCurrency(with: currency)
     }
 }

@@ -20,8 +20,8 @@ class AccountViewController: UIViewController {
     weak var presenter: SettingsPresenter?
     var previousFrame: CGRect?
     let padding:CGFloat = 20
-    var currentCurrency: Currency = LedgitUser.current.homeCurrency
-    var updatedCurrency: Currency?
+    var currentCurrency: LedgitCurrency = LedgitUser.current.homeCurrency
+    var updatedCurrency: LedgitCurrency?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -163,7 +163,7 @@ extension AccountViewController: UITextFieldDelegate {
 }
 
 extension AccountViewController: CurrencySelectionDelegate {
-    func selected(_ currencies: [Currency]) {
+    func selected(_ currencies: [LedgitCurrency]) {
         guard let currency = currencies.first else { return }
         updatedCurrency = currency
         homeCurrencyTextField.text(currency.name)

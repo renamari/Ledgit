@@ -13,7 +13,7 @@ struct LedgitTrip {
     var name: String
     var startDate: String
     var endDate: String
-    var currencies: [Currency] = []
+    var currencies: [LedgitCurrency] = []
     var users: String
     var owner: String
     var budget: Double
@@ -60,7 +60,7 @@ struct LedgitTrip {
         dictionaryRepresentation = dict
         
         currencyStrings.forEach { item in
-            guard let currency = Currency.get(with: item) else { return }
+            guard let currency = LedgitCurrency.get(with: item) else { return }
             currencies.append(currency)
         }
     }

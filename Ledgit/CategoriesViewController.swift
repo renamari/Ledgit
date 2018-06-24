@@ -38,12 +38,12 @@ class CategoriesViewController: UIViewController {
     }
     
     @IBAction func addButtonPressed(_ sender: Any) {
-        performSegue(withIdentifier: Constants.segueIdentifiers.categoryAction, sender: Action.add)
+        performSegue(withIdentifier: Constants.segueIdentifiers.categoryAction, sender: CategoryAction.add)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard let categoryActionViewController = segue.destination as? CategoryActionViewController else { return }
-        guard let action = sender as? Action else { return }
+        guard let action = sender as? CategoryAction else { return }
         
         categoryActionViewController.action = action
         categoryActionViewController.presenter = presenter
@@ -73,7 +73,7 @@ extension CategoriesViewController: UITableViewDelegate, UITableViewDataSource{
         selectedIndexPath = indexPath
         
         let edit = UITableViewRowAction(style: .destructive, title: "Edit") { (action, path) in
-           self.performSegue(withIdentifier: Constants.segueIdentifiers.categoryAction, sender: Action.edit)
+           self.performSegue(withIdentifier: Constants.segueIdentifiers.categoryAction, sender: CategoryAction.edit)
         }
         edit.backgroundColor = LedgitColor.coreYellow
         

@@ -9,7 +9,7 @@
 import UIKit
 import SkyFloatingLabelTextField
 
-enum Action {
+enum CategoryAction {
     case add
     case edit
 }
@@ -22,7 +22,7 @@ class CategoryActionViewController: UIViewController {
     @IBOutlet var cardViewBottomConstraint: NSLayoutConstraint!
     @IBOutlet var cardViewCenterConstraint: NSLayoutConstraint!
     weak var presenter: SettingsPresenter?
-    var action: Action = .add
+    var action: CategoryAction = .add
     var category: String?
     var previousFrame: CGRect?
     let defaultCardScale: CGFloat = 40

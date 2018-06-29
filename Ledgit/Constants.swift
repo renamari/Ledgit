@@ -12,7 +12,11 @@ struct Constants {
     static var fixerKey = "fda225b8e7deaacea241f2a705dc5681"
     
     struct chartText {
-        static let empty = "Wow, such empty 😿"
+        static let empty = "No trip expenses logged yet."
+        static let noWeeklyActivity = """
+                                Looks like you have no expenses this week.
+                                Get out there and explore.
+                                """
     }
     
     struct projectID {
@@ -20,6 +24,11 @@ struct Constants {
     }
     
     struct userDefaultKeys {
+        static let hasShowFirstWeeklyCellTips = "hasShowFirstWeeklyCellTips"
+        static let hasShownFirstCategoryCellTips = "hasShownFirstCategoryCellTips"
+        static let hasShownFirstHistoryCellTips = "hasShownFirstHistoryCellTips"
+        static let hasShownFirstTripTips = "hasShownFirstTripTips"
+        static let hasShownSampleTripTip = "hasShownSampleTripTip"
         static let lastRates = "lastRates"
         static let lastUpdated = "lastUpdated"
         static let sampleTrip = "needsSampleTrip"

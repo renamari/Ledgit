@@ -17,6 +17,7 @@ class SettingsViewController: UIViewController {
     @IBOutlet weak var backButton: UIButton!
     @IBOutlet weak var settingsTableView: UITableView!
     @IBOutlet weak var signoutButton: UIButton!
+    @IBOutlet var separator: UIView!
     private var presenter = SettingsPresenter(manager: SettingsManager())
     fileprivate(set) lazy var settingsContent = [SettingsContent(name: "Categories", icon: #imageLiteral(resourceName: "categories-icon")),
                                                  SettingsContent(name: "Subscription", icon: #imageLiteral(resourceName: "subscription-icon")),
@@ -32,7 +33,15 @@ class SettingsViewController: UIViewController {
     }
     
     func setupView() {
-        signoutButton.isHidden = LedgitUser.current.subscription == .free ? true : false
+        backButton.transform = CGAffineTransform(rotationAngle: -90 * .pi / 180)
+        
+        if LedgitUser.current.subscription == .free {
+            signoutButton.isHidden = true
+            separator.isHidden = true
+        } else {
+            signoutButton.isHidden = false
+            separator.isHidden = false
+        }   
     }
     
     func setupPresenter() {

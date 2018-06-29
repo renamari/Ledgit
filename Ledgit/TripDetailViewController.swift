@@ -11,6 +11,7 @@ import SwiftDate
 import MessageUI
 import BubbleTransition
 import NotificationBannerSwift
+import AMPopTip
 
 class TripDetailViewController: UIViewController {
     @IBOutlet weak var actionButton: UIButton!
@@ -34,10 +35,28 @@ class TripDetailViewController: UIViewController {
         setupGestureRecognizers()
         setupNavigationBar()
         setupCollectionView()
+        displayTipsIfNeeded()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         setupNavigationBar()
+    }
+    
+    func displayTipsIfNeeded() {
+        // Make sure to display tips only on sample trips
+        guard currentTrip?.key != Constants.projectID.sample else { return }
+        
+        // Wait 2 seconds for UI to populate
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            // Only display tips once
+            guard !UserDefaults.standard.bool(forKey: Constants.userDefaultKeys.hasShownFirstTripTips) else { return }
+            let actionButtonTip = PopTip()
+            actionButtonTip.style(PopStyle.default)
+            actionButtonTip.show(text: "Add entries here",
+                                 direction: .up, maxWidth: 200,
+                                 in: self.view, from: self.actionButton.frame, duration: 4)
+            UserDefaults.standard.set(true, forKey: Constants.userDefaultKeys.hasShownFirstTripTips)
+        }
     }
     
     func setupPresenter() {
@@ -56,7 +75,7 @@ class TripDetailViewController: UIViewController {
         pageControl.isUserInteractionEnabled = false
     }
     
-    func setupCollectionView(){
+    func setupCollectionView() {
         collectionView.delegate = self
         collectionView.dataSource = self
     }

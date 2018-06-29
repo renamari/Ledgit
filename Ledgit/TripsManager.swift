@@ -60,7 +60,7 @@ extension TripsManager {
         let endDate = Date().nextMonth(at: .start)
         let tripLength = Calendar.current.dateComponents([.day], from: startDate, to: endDate).day ?? 61
 
-        let tripDictionary: NSDictionary = [LedgitTrip.Keys.key: "ledgit1234567890",
+        let tripDictionary: NSDictionary = [LedgitTrip.Keys.key: Constants.projectID.sample,
                                             LedgitTrip.Keys.name: "Europe \(Date().year)",
                                             LedgitTrip.Keys.startDate: "\(startDate.toString(style: .full))",
                                             LedgitTrip.Keys.endDate: "\(endDate.toString(style: .full))",

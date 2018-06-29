@@ -74,18 +74,21 @@ class CategoryCollectionViewCell: UICollectionViewCell, ChartViewDelegate {
         drawChart(with: values)
     }
     
-    fileprivate func drawChart(with values: [PieChartDataEntry]){
-        let legend:Legend = pieChart.legend
+    fileprivate func drawChart(with values: [PieChartDataEntry]) {
+        let legend: Legend = pieChart.legend
+        legend.form = .circle
+        legend.formSize = 12
         legend.horizontalAlignment = .center
         legend.verticalAlignment = .bottom
         legend.orientation = .horizontal
         legend.drawInside = true
-        legend.xEntrySpace = 7.0
-        legend.yEntrySpace = 0.0
+        legend.xEntrySpace = 20.0
+        legend.yEntrySpace = 15.0
         legend.yOffset = 0.0
         legend.textColor = LedgitColor.navigationTextGray
-        legend.font = .futuraMedium14
+        legend.font = .futuraMedium12
         
+        pieChart.drawEntryLabelsEnabled = false
         pieChart.chartDescription = nil
         pieChart.usePercentValuesEnabled = true
         pieChart.drawSlicesUnderHoleEnabled = false
@@ -94,31 +97,39 @@ class CategoryCollectionViewCell: UICollectionViewCell, ChartViewDelegate {
         pieChart.drawCenterTextEnabled = true
         pieChart.drawHoleEnabled = true
         pieChart.rotationAngle = 0.0
-        pieChart.rotationEnabled = false
+        pieChart.rotationEnabled = true
         pieChart.highlightPerTapEnabled = false
-        pieChart.entryLabelColor = .white
-        pieChart.entryLabelFont = UIFont(name: "HelveticaNeue-Light", size: 12)
         pieChart.animate(xAxisDuration: 1.4, easingOption: .easeInOutBack)
         
         let dataSet = PieChartDataSet(values: values, label: nil)
+        dataSet.yValuePosition = .insideSlice
         dataSet.drawIconsEnabled = false
         dataSet.sliceSpace = 2.0
         dataSet.entryLabelColor = .white
-        dataSet.colors = [LedgitColor.pieChartBlue1, LedgitColor.pieChartBlue2,
-                          LedgitColor.pieChartBlue3, LedgitColor.pieChartBlue4,
-                          LedgitColor.pieChartBlue5, LedgitColor.pieChartBlue6]
+        dataSet.colors = [LedgitColor.pieChartLightPurple,
+                          LedgitColor.pieChartDarkGray,
+                          LedgitColor.pieChartBlue1,
+                          LedgitColor.pieChartOrange,
+                          LedgitColor.pieChartRed,
+                          LedgitColor.pieChartBlue3,
+                          LedgitColor.pieChartDarkPurple,
+                          LedgitColor.pieChartBlue2,
+                          LedgitColor.pieChartBlue4,
+                          LedgitColor.pieChartBlue6,
+                          LedgitColor.pieChartGreen,
+                          LedgitColor.pieChartBlue5]
         
         let data = PieChartData(dataSet: dataSet)
         let format = NumberFormatter()
         format.numberStyle = .percent
-        format.maximumFractionDigits = 1
+        format.maximumFractionDigits = 2
         format.multiplier = 1.0
         format.percentSymbol = "%"
+        
         let formatter = DefaultValueFormatter(formatter: format)
         data.setValueFormatter(formatter)
         data.setValueFont(.futuraMedium12)
         data.setValueTextColor(.white)
-        dataSet.yValuePosition = .insideSlice
 
         pieChart.data = data
         pieChart.highlightValues(nil)
@@ -128,17 +139,17 @@ class CategoryCollectionViewCell: UICollectionViewCell, ChartViewDelegate {
         guard let title = displayButton.currentTitle else { return }
         
         switch title {
-        case "$":
+        case "%":
             let format = NumberFormatter()
             format.numberStyle = .percent
-            format.maximumFractionDigits = 1
+            format.maximumFractionDigits = 2
             format.multiplier = 1.0
             format.percentSymbol = "%"
             let formatter = DefaultValueFormatter(formatter: format)
             
             pieChart.data?.setValueFormatter(formatter)
             pieChart.usePercentValuesEnabled = true
-            displayButton.setTitle("%", for: .normal)
+            displayButton.setTitle("$", for: .normal)
         default:
             let format = NumberFormatter()
             format.numberStyle = .currency
@@ -147,7 +158,7 @@ class CategoryCollectionViewCell: UICollectionViewCell, ChartViewDelegate {
             
             pieChart.data?.setValueFormatter(formatter)
             pieChart.usePercentValuesEnabled = false
-            displayButton.setTitle("$", for: .normal)
+            displayButton.setTitle("%", for: .normal)
         }
     }
 }

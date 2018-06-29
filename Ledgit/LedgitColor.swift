@@ -21,12 +21,21 @@ class LedgitColor: UIColor {
     static let navigationBarGray    = UIColor(hex: 0xF2F5F7)!
     
     // Bar chart colors
+    
     static let pieChartBlue1        = UIColor(hex: 0x479AFF)!
     static let pieChartBlue2        = UIColor(hex: 0x0D4FDD)!
     static let pieChartBlue3        = UIColor(hex: 0x0C2E7C)!
     static let pieChartBlue4        = UIColor(hex: 0x4472CA)!
     static let pieChartBlue5        = UIColor(hex: 0x1B4079)!
     static let pieChartBlue6        = UIColor(hex: 0x064789)!
+    static let pieChartRed          = UIColor(hex: 0xF3494C)!
+    static let pieChartOrange       = UIColor(hex: 0xF07851)!
+    static let pieChartGreen        = UIColor(hex: 0x169776)!
+    static let pieChartLightPurple  = UIColor(hex: 0xBD92D2)!
+    static let pieChartDarkPurple   = UIColor(hex: 0x653797)!
+    static let pieChartDarkGray     = UIColor(hex: 0x22313F)!
+    
+    
 }
 
 extension UIColor {

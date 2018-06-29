@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AMPopTip
 
 class TripsViewController: UIViewController {
     @IBOutlet weak var tripsTableView: UITableView!
@@ -115,6 +116,17 @@ extension TripsViewController: UITableViewDataSource {
             let cell = tableView.dequeueReusableCell(withIdentifier: Constants.cellIdentifiers.trip, for: indexPath) as! TripTableViewCell
             let trip = presenter.trips[indexPath.row]
             cell.configure(with: trip, at: indexPath)
+            
+            // We are going to display a pop tip if the trip is a sample one
+            if trip.key == Constants.projectID.sample && !UserDefaults.standard.bool(forKey: Constants.userDefaultKeys.hasShownSampleTripTip) {
+                UserDefaults.standard.set(true, forKey: Constants.userDefaultKeys.hasShownSampleTripTip)
+                let popTip = PopTip()
+                popTip.style(PopStyle.default)
+                popTip.shouldDismissOnTap = true
+                popTip.show(text: "Check out this sample trip. Swipe left to remove.",
+                            direction: .down, maxWidth: 300,
+                            in: view, from: cell.frame, duration: 5)
+            }
             
             return cell
         }

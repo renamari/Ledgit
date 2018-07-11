@@ -16,7 +16,11 @@ class TripsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        if #available(iOS 11.0, *) {
+            navigationController?.navigationBar.prefersLargeTitles = true
+        } else {
+            // Fallback on earlier versions
+        }
         setupTableView()
         setupPresenter()
         setupGestureRecognizers()

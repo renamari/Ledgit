@@ -74,6 +74,10 @@ class TripActionViewController: UIViewController {
         }
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        setupNavigationBar()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupBudgetPicker()
@@ -81,6 +85,13 @@ class TripActionViewController: UIViewController {
         setupObservers()
         setupBars()
         setupView()
+    }
+    
+    func setupNavigationBar() {
+        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        navigationController?.navigationBar.shadowImage = UIImage()
+        navigationController?.navigationBar.isTranslucent = true
+        navigationController?.view.backgroundColor = .white
     }
     
     func setupView() {

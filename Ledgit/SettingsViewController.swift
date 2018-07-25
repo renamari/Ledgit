@@ -14,7 +14,6 @@ struct SettingsContent {
 }
 
 class SettingsViewController: UIViewController {
-    @IBOutlet weak var backButton: UIButton!
     @IBOutlet weak var settingsTableView: UITableView!
     @IBOutlet weak var signoutButton: UIButton!
     @IBOutlet var separator: UIView!
@@ -26,15 +25,21 @@ class SettingsViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupNavigationBar()
         setupView()
         setupTableView()
         setupPresenter()
         setupRecognizers()
     }
     
+    func setupNavigationBar() {
+        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        navigationController?.navigationBar.shadowImage = UIImage()
+        navigationController?.navigationBar.isTranslucent = true
+        navigationController?.view.backgroundColor = .white
+    }
+    
     func setupView() {
-        backButton.transform = CGAffineTransform(rotationAngle: -90 * .pi / 180)
-        
         if LedgitUser.current.subscription == .free {
             signoutButton.isHidden = true
             separator.isHidden = true

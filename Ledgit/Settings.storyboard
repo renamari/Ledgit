@@ -143,10 +143,10 @@
             </objects>
             <point key="canvasLocation" x="2692" y="890"/>
         </scene>
-        <!--Categories View Controller-->
+        <!--Categories-->
         <scene sceneID="aKf-5a-hiU">
             <objects>
-                <viewController storyboardIdentifier="CategoriesViewController" id="e2H-jA-ZHT" customClass="CategoriesViewController" customModule="Ledgit" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="CategoriesViewController" title="Categories" id="e2H-jA-ZHT" customClass="CategoriesViewController" customModule="Ledgit" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="yMC-FF-Fwf"/>
                         <viewControllerLayoutGuide type="bottom" id="xI7-dR-zR9"/>
@@ -155,36 +155,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="672"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Categories" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Svj-iI-wvu">
-                                <rect key="frame" x="143" y="15" width="89" height="24"/>
-                                <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="18"/>
-                                <color key="textColor" red="0.34509803919999998" green="0.46274509800000002" blue="0.52156862749999999" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="r5M-tm-zf6">
-                                <rect key="frame" x="20" y="15" width="20" height="20"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="20" id="3Ft-CB-u9I"/>
-                                    <constraint firstAttribute="height" constant="20" id="J0C-9N-JhU"/>
-                                </constraints>
-                                <state key="normal" image="back-icon"/>
-                                <connections>
-                                    <action selector="backButtonPressed:" destination="e2H-jA-ZHT" eventType="touchUpInside" id="T3M-4y-6fb"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DRq-aU-foU">
-                                <rect key="frame" x="330" y="15" width="25" height="25"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="25" id="v07-0x-As8"/>
-                                    <constraint firstAttribute="width" constant="25" id="yDP-fz-B4j"/>
-                                </constraints>
-                                <state key="normal" image="add-icon"/>
-                                <connections>
-                                    <action selector="addButtonPressed:" destination="e2H-jA-ZHT" eventType="touchUpInside" id="Zbu-WC-1ip"/>
-                                </connections>
-                            </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="60" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ijX-r8-wxj">
-                                <rect key="frame" x="0.0" y="80" width="375" height="558"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="672"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="CategoryNameCell" rowHeight="65" id="Rky-zd-ck6" customClass="CategoryTableViewCell" customModule="Ledgit" customModuleProvider="target">
@@ -225,27 +197,20 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="ijX-r8-wxj" secondAttribute="trailing" id="5vf-oB-DKz"/>
-                            <constraint firstItem="DRq-aU-foU" firstAttribute="top" secondItem="yMC-FF-Fwf" secondAttribute="bottom" constant="15" id="9q4-ka-lv2"/>
-                            <constraint firstItem="r5M-tm-zf6" firstAttribute="leading" secondItem="jnR-kq-LNr" secondAttribute="leading" constant="20" id="LDu-7T-Ifu"/>
-                            <constraint firstItem="r5M-tm-zf6" firstAttribute="top" secondItem="yMC-FF-Fwf" secondAttribute="bottom" constant="15" id="LcI-wl-bEd"/>
-                            <constraint firstItem="Svj-iI-wvu" firstAttribute="centerX" secondItem="jnR-kq-LNr" secondAttribute="centerX" id="QIE-NC-oY8"/>
-                            <constraint firstAttribute="trailing" secondItem="DRq-aU-foU" secondAttribute="trailing" constant="20" id="W5l-xb-IbI"/>
-                            <constraint firstItem="ijX-r8-wxj" firstAttribute="leading" secondItem="jnR-kq-LNr" secondAttribute="leading" id="Z64-cO-vvu"/>
-                            <constraint firstItem="ijX-r8-wxj" firstAttribute="top" secondItem="DRq-aU-foU" secondAttribute="bottom" constant="40" id="ah9-63-46x"/>
-                            <constraint firstItem="xI7-dR-zR9" firstAttribute="top" secondItem="ijX-r8-wxj" secondAttribute="bottom" id="uaz-2w-OEF"/>
-                            <constraint firstItem="Svj-iI-wvu" firstAttribute="top" secondItem="yMC-FF-Fwf" secondAttribute="bottom" constant="15" id="vcf-BJ-2A7"/>
+                            <constraint firstItem="ijX-r8-wxj" firstAttribute="top" secondItem="yMC-FF-Fwf" secondAttribute="bottom" id="B32-xE-c82"/>
+                            <constraint firstItem="ijX-r8-wxj" firstAttribute="leading" secondItem="jnR-kq-LNr" secondAttribute="leading" id="SGz-B5-Ydy"/>
+                            <constraint firstAttribute="bottom" secondItem="ijX-r8-wxj" secondAttribute="bottom" id="iKh-xa-Bxq"/>
+                            <constraint firstAttribute="trailing" secondItem="ijX-r8-wxj" secondAttribute="trailing" id="nQz-mV-snI"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="addButton" destination="DRq-aU-foU" id="JhZ-xD-CGb"/>
                         <outlet property="categoriesTableView" destination="ijX-r8-wxj" id="V1R-pn-BIj"/>
                         <segue destination="0C7-wY-GmF" kind="presentation" identifier="toCategoryActionViewController" modalPresentationStyle="overCurrentContext" modalTransitionStyle="crossDissolve" id="3Tg-20-tSf"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Cfr-6s-r5h" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1441" y="1772"/>
+            <point key="canvasLocation" x="1440.8" y="1771.92118226601"/>
         </scene>
         <!--Category Action View Controller-->
         <scene sceneID="i58-FM-B57">
@@ -561,38 +526,16 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <webView clipsSubviews="YES" contentMode="scaleToFill" scalesPageToFit="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4Mz-R9-8xY">
-                                <rect key="frame" x="0.0" y="20" width="375" height="569"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="712"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </webView>
-                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EIr-O6-7zh">
-                                <rect key="frame" x="0.0" y="589" width="375" height="49"/>
-                                <items>
-                                    <barButtonItem title="Previous Page" id="wPx-jM-9ga">
-                                        <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <connections>
-                                            <action selector="backButtonPressed:" destination="ufK-oy-aPV" id="Sbm-NT-JvV"/>
-                                        </connections>
-                                    </barButtonItem>
-                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="9So-9n-fuj"/>
-                                    <barButtonItem title="Return to Ledgit" id="ktj-1Q-Hud">
-                                        <color key="tintColor" red="0.22862672805786133" green="0.63179117441177368" blue="0.98476523160934448" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <connections>
-                                            <action selector="doneButtonPressed:" destination="ufK-oy-aPV" id="pVC-gu-dgn"/>
-                                        </connections>
-                                    </barButtonItem>
-                                </items>
-                            </toolbar>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="4Mz-R9-8xY" firstAttribute="leading" secondItem="wdW-Kv-Tyd" secondAttribute="leading" id="0ub-r9-TMr"/>
-                            <constraint firstItem="GFe-g8-HjY" firstAttribute="top" secondItem="EIr-O6-7zh" secondAttribute="bottom" id="7vG-cU-2ut"/>
-                            <constraint firstItem="EIr-O6-7zh" firstAttribute="top" secondItem="4Mz-R9-8xY" secondAttribute="bottom" id="K6C-r6-7aq"/>
-                            <constraint firstAttribute="trailing" secondItem="EIr-O6-7zh" secondAttribute="trailing" id="Ktb-Fc-gz7"/>
-                            <constraint firstAttribute="trailing" secondItem="4Mz-R9-8xY" secondAttribute="trailing" id="Zix-Xq-HcY"/>
-                            <constraint firstItem="EIr-O6-7zh" firstAttribute="leading" secondItem="wdW-Kv-Tyd" secondAttribute="leading" id="lQQ-4l-SeK"/>
-                            <constraint firstItem="4Mz-R9-8xY" firstAttribute="top" secondItem="Kbe-co-5g4" secondAttribute="bottom" constant="20" id="xcw-XI-Apm"/>
-                            <constraint firstItem="EIr-O6-7zh" firstAttribute="top" secondItem="4Mz-R9-8xY" secondAttribute="bottom" id="yIK-to-KkU"/>
+                            <constraint firstItem="4Mz-R9-8xY" firstAttribute="leading" secondItem="wdW-Kv-Tyd" secondAttribute="leading" id="8gs-J5-mak"/>
+                            <constraint firstAttribute="trailing" secondItem="4Mz-R9-8xY" secondAttribute="trailing" id="EM2-J9-dXb"/>
+                            <constraint firstItem="4Mz-R9-8xY" firstAttribute="top" secondItem="Kbe-co-5g4" secondAttribute="bottom" id="hDc-FI-XV3"/>
+                            <constraint firstAttribute="bottom" secondItem="4Mz-R9-8xY" secondAttribute="bottom" constant="-40" id="zm3-h1-vwM"/>
                         </constraints>
                     </view>
                     <connections>
@@ -601,7 +544,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="61K-4X-1PR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4057" y="1772"/>
+            <point key="canvasLocation" x="4056.8000000000002" y="1771.92118226601"/>
         </scene>
         <!--Settings Navigation Controller-->
         <scene sceneID="Cqa-lU-PNI">
@@ -611,6 +554,7 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" largeTitles="YES" id="QZX-6w-8KV">
                         <rect key="frame" x="0.0" y="44" width="375" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="tintColor" red="0.2470588235" green="0.37647058820000001" blue="0.44705882349999998" alpha="1" colorSpace="calibratedRGB"/>
                         <textAttributes key="titleTextAttributes">
                             <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="18"/>
                             <color key="textColor" red="0.2470588235" green="0.37647058820000001" blue="0.44705882349999998" alpha="1" colorSpace="calibratedRGB"/>
@@ -630,8 +574,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="add-icon" width="24" height="24"/>
-        <image name="back-icon" width="25" height="25"/>
         <image name="categories-icon" width="21" height="21"/>
         <image name="close-icon" width="20" height="20"/>
         <image name="done-icon" width="35" height="35"/>

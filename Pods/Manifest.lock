@@ -1,35 +1,10 @@
 PODS:
   - AMPopTip (3.3.0)
   - BetterSegmentedControl (0.9)
-  - Bolts (1.9.0):
-    - Bolts/AppLinks (= 1.9.0)
-    - Bolts/Tasks (= 1.9.0)
-  - Bolts/AppLinks (1.9.0):
-    - Bolts/Tasks
-  - Bolts/Tasks (1.9.0)
   - BubbleTransition (3.0.2)
   - Charts (3.1.1):
     - Charts/Core (= 3.1.1)
   - Charts/Core (3.1.1)
-  - FacebookCore (0.3.1):
-    - Bolts (~> 1.8)
-    - FBSDKCoreKit (~> 4.33)
-  - FacebookLogin (0.3.1):
-    - Bolts (~> 1.8)
-    - FacebookCore (~> 0.3.1)
-    - FBSDKCoreKit (~> 4.33)
-    - FBSDKLoginKit (~> 4.33)
-  - FacebookShare (0.3.1):
-    - Bolts (~> 1.8)
-    - FacebookCore (~> 0.3.1)
-    - FBSDKCoreKit (~> 4.33)
-    - FBSDKShareKit (~> 4.33)
-  - FBSDKCoreKit (4.34.0):
-    - Bolts (~> 1.7)
-  - FBSDKLoginKit (4.34.0):
-    - FBSDKCoreKit
-  - FBSDKShareKit (4.34.0):
-    - FBSDKCoreKit (~> 4.34.0)
   - Firebase/Auth (5.3.0):
     - Firebase/CoreOnly
     - FirebaseAuth (= 5.0.1)
@@ -105,9 +80,6 @@ DEPENDENCIES:
   - BetterSegmentedControl
   - BubbleTransition
   - Charts
-  - FacebookCore
-  - FacebookLogin
-  - FacebookShare
   - Firebase/Auth
   - Firebase/Core
   - Firebase/Database
@@ -122,15 +94,8 @@ DEPENDENCIES:
 SPEC CHECKSUMS:
   AMPopTip: 45f3f87362d76abe59b971d35e33eff4e56ac2ad
   BetterSegmentedControl: 40b2b6a08bbc59663149624d1b5235efa8d43a3c
-  Bolts: ac6567323eac61e203f6a9763667d0f711be34c8
   BubbleTransition: 6bdf7d8af460b5c3696beb0adbf4bcb17176ee11
   Charts: 90a4d61da0f6e06684c591e3bcab11940fe61736
-  FacebookCore: 33078ef1d7d76b73f7e8c990dca7d3ea6db8d22f
-  FacebookLogin: 6f15bf4fefd7a8865abbfa8fcd7f3dfd87aa275f
-  FacebookShare: c9ee8e5399d961fda00ded9befccacfe04fccf93
-  FBSDKCoreKit: 0ff57f093b85c8c9d5aba697d3edf68a8960ce78
-  FBSDKLoginKit: 8c78f57a145afb756e4755e69195ebe08a42466e
-  FBSDKShareKit: 511d1dfc71204c0a8d69e6c5e3c964dcf0d4f3d9
   Firebase: 68afeeb05461db02d7c9e3215cda28068670f4aa
   FirebaseABTesting: 1f50b8d50f5e3469eea54e7463a7b7fe221d1f5e
   FirebaseAnalytics: b3628aea54c50464c32c393fb2ea032566e7ecc2
@@ -154,6 +119,6 @@ SPEC CHECKSUMS:
   SnapKit: a42d492c16e80209130a3379f73596c3454b7694
   SwiftDate: 7b56d42a221f582047287deb256b23fc5ed49a60
 
-PODFILE CHECKSUM: 673f90d435a7f2cf6e3334089a5d4eec74331a44
+PODFILE CHECKSUM: 65abe3eb7ce8c08a79fe186b8a2ac023e9283605
 
 COCOAPODS: 1.4.0

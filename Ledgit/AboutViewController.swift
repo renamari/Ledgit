@@ -17,6 +17,16 @@ class AboutViewController: UIViewController {
         }
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        if #available(iOS 11.0, *) { navigationItem.largeTitleDisplayMode = .never }
+        super.viewWillAppear(animated)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        if #available(iOS 11.0, *) { navigationItem.largeTitleDisplayMode = .always }
+        super.viewWillDisappear(animated)
+    }
+ 
     override func viewDidLoad() {
         super.viewDidLoad()
         setupWebView()

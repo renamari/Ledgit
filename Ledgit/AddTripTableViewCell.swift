@@ -12,13 +12,30 @@ class AddTripTableViewCell: UITableViewCell {
     @IBOutlet weak var mainView: UIView!
     @IBOutlet weak var contentStackView: UIStackView!
     
+    var stackView: UIStackView {
+        let addImageView = UIImageView(image: #imageLiteral(resourceName: "add-icon"))
+        let label = UILabel()
+        label.text = "Add Trip"
+        label.font(.futuraMedium21)
+        label.color(LedgitColor.navigationTextGray)
+        
+       let stackView = UIStackView(arrangedSubviews: [addImageView, label])
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.spacing = 10
+        stackView.axis = .horizontal
+        
+        return stackView
+    }
+    
     override func layoutSubviews() {
         super.layoutSubviews()
         mainView.dashedBorder(withColor: LedgitColor.navigationTextGray.cgColor)
-        mainView.addSubview(contentStackView)
     }
     
     func configure() {
         contentView.layoutIfNeeded()
+        mainView.addSubview(stackView)
+        stackView.centerXAnchor.constraint(equalTo: mainView.centerXAnchor)
+        stackView.centerYAnchor.constraint(equalTo: mainView.centerYAnchor)
     }
 }

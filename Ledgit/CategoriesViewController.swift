@@ -9,7 +9,6 @@
 import UIKit
 
 class CategoriesViewController: UIViewController {
-    @IBOutlet weak var addButton: UIButton!
     @IBOutlet weak var categoriesTableView: UITableView!
     weak var presenter: SettingsPresenter?
     var selectedIndexPath = IndexPath()
@@ -21,6 +20,7 @@ class CategoriesViewController: UIViewController {
         super.viewDidLoad()
         setupPresenter()
         setupTableView()
+        setupAddButton()
     }
     
     func setupPresenter() {
@@ -33,14 +33,19 @@ class CategoriesViewController: UIViewController {
         categoriesTableView.dataSource = self
     }
     
-    @IBAction func backButtonPressed(_ sender: Any) {
-        navigationController?.popViewController(animated: true)
+    func setupAddButton() {
+        let rightButton:UIButton = UIButton()
+        rightButton.setImage(#imageLiteral(resourceName: "add-icon"), for: .normal)
+        rightButton.addTarget(self, action: #selector(addButtonPressed), for: .touchUpInside)
+        
+        let barButton = UIBarButtonItem(customView: rightButton)
+        navigationItem.rightBarButtonItem = barButton
     }
     
-    @IBAction func addButtonPressed(_ sender: Any) {
+    @objc func addButtonPressed() {
         performSegue(withIdentifier: Constants.segueIdentifiers.categoryAction, sender: CategoryAction.add)
     }
-    
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard let categoryActionViewController = segue.destination as? CategoryActionViewController else { return }
         guard let action = sender as? CategoryAction else { return }

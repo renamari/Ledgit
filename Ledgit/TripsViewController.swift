@@ -13,6 +13,8 @@ class TripsViewController: UIViewController {
     @IBOutlet weak var tripsTableView: UITableView!
     private let presenter = TripsPresenter(manager: TripsManager())
     private var selectedIndexPath = IndexPath()
+    private var defaultTripIndexPath: IndexPath?
+    private var editingIndexPath: IndexPath?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -81,9 +83,8 @@ class TripsViewController: UIViewController {
             
         } else if segue.identifier == Constants.segueIdentifiers.detail {
             guard  let destinationViewController = segue.destination as? TripDetailViewController else { return }
-            guard let selectedRow = tripsTableView.indexPathForSelectedRow?.row else { return }
-            destinationViewController.title = presenter.trips[selectedRow].name
-            destinationViewController.currentTrip = presenter.trips[selectedRow]
+            destinationViewController.title = presenter.trips[selectedIndexPath.row].name
+            destinationViewController.currentTrip = presenter.trips[selectedIndexPath.row]
         }
     }
 }
@@ -94,12 +95,15 @@ extension TripsViewController: TripActionDelegate {
     }
     
     func edited(_ trip: LedgitTrip) {
-        if let index = presenter.trips.index(where: { $0.key == trip.key }) {
-            presenter.trips.remove(at: index)
-            presenter.trips.insert(trip, at: index)
-            presenter.edited(trip)
-            tripsTableView.reloadData()
-        }
+        guard let index = presenter.trips.index(where: { $0.key == trip.key }) else { return }
+        presenter.edited(trip)
+        
+        presenter.trips.remove(at: index)
+        presenter.trips.insert(trip, at: index)
+        
+        guard let path = editingIndexPath else { return }
+        tripsTableView.reloadRows(at: [path], with: .fade)
+        editingIndexPath = nil
     }
 }
 
@@ -110,7 +114,7 @@ extension TripsViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if indexPath.row == tableView.lastRow() { //Is last index path
+        if indexPath.row == tableView.lastRow() {
             let cell = tableView.dequeueReusableCell(withIdentifier: Constants.cellIdentifiers.add, for: indexPath) as! AddTripTableViewCell
             cell.configure()
             
@@ -120,6 +124,10 @@ extension TripsViewController: UITableViewDataSource {
             let cell = tableView.dequeueReusableCell(withIdentifier: Constants.cellIdentifiers.trip, for: indexPath) as! TripTableViewCell
             let trip = presenter.trips[indexPath.row]
             cell.configure(with: trip, at: indexPath)
+            
+            if trip.key == UserDefaults.standard.value(forKey: Constants.userDefaultKeys.defaultTrip) as? String && editingIndexPath == nil {
+                self.tableView(tripsTableView, didSelectRowAt: indexPath)
+            }
             
             // We are going to display a pop tip if the trip is a sample one
             if trip.key == Constants.projectID.sample && !UserDefaults.standard.bool(forKey: Constants.userDefaultKeys.hasShownSampleTripTip) {
@@ -137,7 +145,7 @@ extension TripsViewController: UITableViewDataSource {
     }
 }
 
-extension TripsViewController: UITableViewDelegate{
+extension TripsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         selectedIndexPath = indexPath
         
@@ -145,6 +153,7 @@ extension TripsViewController: UITableViewDelegate{
             performSegue(withIdentifier: Constants.segueIdentifiers.action, sender: indexPath.row)
         
         } else {
+            
             performSegue(withIdentifier: Constants.segueIdentifiers.detail, sender: self)
         }
     }
@@ -160,6 +169,7 @@ extension TripsViewController: UITableViewDelegate{
         let selectedRow = indexPath.row
         
         let edit = UITableViewRowAction(style: .normal, title: "Edit") { [unowned self] (row, index) in
+            self.editingIndexPath = indexPath
             self.performSegue(withIdentifier: Constants.segueIdentifiers.action, sender: indexPath.row)
         }
         

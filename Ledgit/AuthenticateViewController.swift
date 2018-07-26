@@ -18,8 +18,6 @@ class AuthenticateViewController: UIViewController {
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var authenticateButton: UIButton!
-    @IBOutlet weak var descriptionLabel: UILabel!
-    @IBOutlet weak var facebookButton: UIButton!
     @IBOutlet weak var forgotPasswordButton: UIButton!
     
     private var presenter = AuthenticationPresenter(manager: AuthenticationManager())
@@ -61,13 +59,11 @@ class AuthenticateViewController: UIViewController {
         case .signup:
             titleLabel.text(Constants.authenticateText.signup)
             authenticateButton.text("Sign Up")
-            descriptionLabel.text(Constants.authenticateText.signupDescription)
             forgotPasswordButton.isHidden = true
             
         case .signin:
             titleLabel.text(Constants.authenticateText.signin)
             authenticateButton.text("Sign In")
-            descriptionLabel.text(Constants.authenticateText.signinDescription)
             forgotPasswordButton.isHidden = false
         }
     }
@@ -79,7 +75,6 @@ class AuthenticateViewController: UIViewController {
     
     func setupButtons(){
         authenticateButton.roundedCorners(radius: Constants.cornerRadius.button)
-        facebookButton.roundedCorners(radius: Constants.cornerRadius.button)
     }
     
     func setupViews(){
@@ -102,15 +97,6 @@ class AuthenticateViewController: UIViewController {
         guard let password = passwordTextField.text?.strip() else { return }
         
         presenter.authenticateUser(platform: .firebase, method: method, email: email, password: password)
-    }
-    
-    @IBAction func facebookButtonPressed(_ sender: Any) {
-        isLoading = true
-        
-        guard let email = emailTextField.text?.strip() else { return }
-        guard let password = passwordTextField.text?.strip() else { return }
-        
-        presenter.authenticateUser(platform: .facebook, method: method, email: email, password: password)
     }
     
     @IBAction func forgotPasswordButton(_ sender: Any) {

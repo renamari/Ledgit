@@ -14,10 +14,6 @@ target 'Ledgit' do
   pod 'Firebase/Storage'
   pod 'Firebase/RemoteConfig'
 
-  pod 'FacebookCore'
-  pod 'FacebookLogin'
-  pod 'FacebookShare'
-
   pod 'NVActivityIndicatorView'
 
   pod 'NotificationBannerSwift'

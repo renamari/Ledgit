@@ -39,7 +39,7 @@ class TripActionViewController: UIViewController {
     var banner: NotificationBanner?
     var method: LedgitAction = .add
     var selectedCurrencies: [LedgitCurrency] = [.USD]
-    var activeTextField = UITextField()
+    var activeTextField: UITextField?
     var datePicker: UIDatePicker?
     var tripLength: Int = 1
     
@@ -73,7 +73,10 @@ class TripActionViewController: UIViewController {
             }
         }
     }
-    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        activeTextField?.resignFirstResponder()
+    }
     override func viewWillAppear(_ animated: Bool) {
         setupNavigationBar()
     }
@@ -133,10 +136,6 @@ class TripActionViewController: UIViewController {
         endDateTextField.delegate = self
         budgetTextField.delegate = self
         currenciesTextField.delegate = self
-        
-        startDateTextField.inputAccessoryView = createToolbar()
-        endDateTextField.inputAccessoryView = createToolbar()
-        budgetTextField.inputAccessoryView = createToolbar()
     }
     
     func setupBudgetPicker() {
@@ -241,6 +240,7 @@ class TripActionViewController: UIViewController {
          LedgitTrip.Keys.owner: LedgitUser.current.key
          ]
         
+        UserDefaults.standard.set(key, forKey: Constants.userDefaultKeys.defaultTrip)
         delegate?.added(trip: dict)
         navigationController?.popViewController(animated: true)
     }
@@ -292,7 +292,6 @@ class TripActionViewController: UIViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        activeTextField.resignFirstResponder()
         if segue.identifier == Constants.segueIdentifiers.currencySelection {
             guard let destinationViewController = segue.destination as? CurrencySelectionViewController else { return }
             destinationViewController.delegate = self
@@ -310,7 +309,7 @@ extension TripActionViewController: UITextFieldDelegate {
         scrollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: keyboard.height, right: 0)
     }
     
-    @objc func keyboardWillHide(notification:NSNotification){
+    @objc func keyboardWillHide(notification:NSNotification) {
         let contentInset: UIEdgeInsets = .zero
         scrollView.contentInset = contentInset
     }
@@ -324,6 +323,7 @@ extension TripActionViewController: UITextFieldDelegate {
             datePicker?.backgroundColor = .white
             datePicker?.addTarget(self, action: #selector(datePickerValueChanged), for: .valueChanged)
             textField.inputView = datePicker
+            textField.inputAccessoryView = createToolbar()
             
             // If there is previous text before
             if let text = textField.text, !text.isEmpty {
@@ -355,12 +355,16 @@ extension TripActionViewController: UITextFieldDelegate {
             }
             
         } else if textField == currenciesTextField {
+            
             performSegue(withIdentifier: Constants.segueIdentifiers.currencySelection, sender: self)
             
         } else if textField == budgetTextField {
-            guard let text = textField.text else { return }
-            let budgetText = text.replacingOccurrences(of: LedgitUser.current.homeCurrency.symbol, with: "").replacingOccurrences(of: ",", with: "")
-            textField.text(budgetText)
+            if let text = textField.text {
+                let budgetText = text.replacingOccurrences(of: LedgitUser.current.homeCurrency.symbol, with: "").replacingOccurrences(of: ",", with: "")
+                textField.text(budgetText)
+            }
+        
+            textField.inputAccessoryView = createToolbar()
         }
     }
     
@@ -373,6 +377,8 @@ extension TripActionViewController: UITextFieldDelegate {
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        activeTextField = nil
+        
         switch textField {
         case nameTextField, budgetTextField, currenciesTextField:
             textField.resignFirstResponder()
@@ -383,11 +389,12 @@ extension TripActionViewController: UITextFieldDelegate {
     }
     
     @objc func doneTapped() {
-        activeTextField.resignFirstResponder()
+        activeTextField?.resignFirstResponder()
     }
     
     @objc func datePickerValueChanged(sender: UIDatePicker) {
-        activeTextField.text(formatter.string(from: sender.date))
+        guard let textField = activeTextField else { return }
+        textField.text(formatter.string(from: sender.date))
         
         guard
             let startDateText = startDateTextField.text?.strip(),

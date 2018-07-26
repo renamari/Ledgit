@@ -8,8 +8,6 @@
 
 import Foundation
 import Firebase
-import FacebookCore
-import FacebookLogin
 import CoreData
 
 typealias ErrorDictionary = [String:String]
@@ -23,7 +21,6 @@ class AuthenticationManager {
     static let shared = AuthenticationManager()
     weak var delegate: AuthenticationManagerDelegate?
     var users: DatabaseReference { return Database.database().reference().child("users") }
-    var facebook: LoginManager { return LoginManager() }
     var auth: Auth { return Auth.auth() }
     var coreData: NSManagedObjectContext {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
@@ -162,93 +159,6 @@ extension AuthenticationManager {
                 let authenticatedUser = LedgitUser(dict: snapshot)
                 self.delegate?.userAuthenticated(authenticatedUser)
             })
-        }
-    }
-    
-    func peformFacebookSignUp() {
-        guard isConnected else {
-            self.delegate?.authenticationError(.noNetworkConnection)
-            return
-        }
-        
-        facebook.logIn(readPermissions: [.publicProfile, .email, .userFriends], viewController: nil) { [unowned self] (result) in
-            switch result{
-            case .failed(let error):
-                
-                if let code = AuthErrorCode(rawValue: error._code){
-                    self.delegate?.authenticationError(self.handleError(with: code))
-                }
-                
-            case .cancelled:
-                self.delegate?.authenticationError(.general)
-                
-            case .success( _,  _, let accessToken):
-                let credential = FacebookAuthProvider.credential(withAccessToken: accessToken.authenticationToken)
-                
-                self.auth.signInAndRetrieveData(with: credential, completion: { result, error in
-                    if let error = error, let code = AuthErrorCode(rawValue: error._code){
-                        self.delegate?.authenticationError(self.handleError(with: code))
-                    }
-                    
-                    guard let user = result?.user else {
-                        self.delegate?.authenticationError(.general)
-                        return
-                    }
-                    
-                    let data: NSDictionary = [
-                        LedgitUser.Keys.provider: user.providerID,
-                        LedgitUser.Keys.email: user.email!,
-                        LedgitUser.Keys.name: user.displayName!,
-                        LedgitUser.Keys.key: user.uid,
-                        ]
-                    
-                    self.users.child(user.uid).setValue(data)
-                    UserDefaults.standard.set(user.uid, forKey: Constants.userDefaultKeys.uid)
-                    UserDefaults.standard.set(true, forKey: Constants.userDefaultKeys.sampleTrip)
-                    let authenticatedUser = LedgitUser(dict: data)
-                    self.delegate?.userAuthenticated(authenticatedUser)
-                })
-            }
-        }
-    }
-    
-    func performFacebookSignIn() {
-        guard isConnected else {
-            self.delegate?.authenticationError(.noNetworkConnection)
-            return
-        }
-        
-        facebook.logIn(readPermissions: [.publicProfile, .email, .userFriends], viewController: nil) { [unowned self] (result) in
-            switch result {
-            case .failed(let error):
-                
-                guard let code = AuthErrorCode(rawValue: error._code) else { return }
-                self.delegate?.authenticationError(self.handleError(with: code))
-            
-            case .cancelled:
-                self.delegate?.authenticationError(.cancelled)
-                
-            case .success( _,  _, let result):
-                let credential = FacebookAuthProvider.credential(withAccessToken: result.authenticationToken)
-                
-                self.auth.signInAndRetrieveData(with: credential, completion: { (result, error) in
-                    if let error = error, let code = AuthErrorCode(rawValue: error._code) {
-                        self.delegate?.authenticationError(self.handleError(with: code))
-                    }
-                    
-                    guard let user = result?.user else {
-                        self.delegate?.authenticationError(.general)
-                        return
-                    }
-                    
-                    self.users.child(user.uid).observeSingleEvent(of: .value, with: { (snapshot) in
-                        guard let snapshot = snapshot.value as? NSDictionary else { return }
-                        let authenticatedUser = LedgitUser(dict: snapshot)
-                        UserDefaults.standard.set(user.uid, forKey: Constants.userDefaultKeys.uid)
-                        self.delegate?.userAuthenticated(authenticatedUser)
-                    })
-                })
-            }
         }
     }
     

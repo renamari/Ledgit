@@ -42,7 +42,7 @@ extension UIView {
     
     func dashedBorder(withColor color: CGColor){
         self.layer.sublayers?.last?.removeFromSuperlayer()
-        
+
         let layer = CAShapeLayer()
         let frame = CGRect(x: 0, y: 0, width: self.frame.width, height: self.frame.height)
         layer.frame = frame
@@ -54,6 +54,7 @@ extension UIView {
         layer.path = UIBezierPath(roundedRect: frame, cornerRadius: 5).cgPath
         layer.masksToBounds = true
         self.layer.addSublayer(layer)
+
     }
     
     // view1: represents view which should be hidden and from which we are starting

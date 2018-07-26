@@ -10,7 +10,6 @@ import Foundation
 
 enum Platform {
     case firebase
-    case facebook
     case coreData
 }
 
@@ -31,11 +30,10 @@ class AuthenticationPresenter {
     func authenticateUser(platform: Platform, method: AuthenticationMethod, email: String = "", password: String = "") {
         switch method {
         case .signin:
-            platform == .firebase ? manager.performFirebaseSignIn(with: email, password: password) : manager.performFacebookSignIn()
+            platform == .firebase ? manager.performFirebaseSignIn(with: email, password: password) : nil
 
         case .signup:
             if platform == .firebase { manager.performFirebaseSignUp(with: email, password: password) }
-            else if platform == .facebook { manager.peformFacebookSignUp() }
             else { manager.performCoreDataSignUp() }
         }
     }

@@ -1302,7 +1302,8 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = AA493BC4D136EA66D5B690DD /* Pods-LedgitUITests.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
+				BUNDLE_LOADER = "";
 				DEVELOPMENT_TEAM = KD674EGM5X;
 				INFOPLIST_FILE = LedgitUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -1318,7 +1319,8 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 93C41B92AC4C35C569819F18 /* Pods-LedgitUITests.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
+				BUNDLE_LOADER = "";
 				DEVELOPMENT_TEAM = KD674EGM5X;
 				INFOPLIST_FILE = LedgitUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";

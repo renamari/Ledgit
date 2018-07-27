@@ -190,6 +190,9 @@ extension SettingsManager {
                 return
             }
             
+            // Creating a temporary dictionary to hold rates previous fetched rates
+            var rates: [String: Double] = [:]
+
             entryManagedObjects.forEach { entry in
                 guard let entryCurrencyCode = entry.value(forKey: LedgitEntry.Keys.currency) as? String,
                 let cost = entry.value(forKey: LedgitEntry.Keys.cost) as? Double else {
@@ -198,15 +201,26 @@ extension SettingsManager {
             
                 entry.setValue(currency.code, forKey: LedgitEntry.Keys.homeCurrency)
                 
-                LedgitCurrency.getRate(between: currency.code, and: entryCurrencyCode).then { rate in
-                    let newConvertedCost = Double(cost / rate)
+                // If rates contains the updated currency rate, just use that
+                // rather than making a brand new rate fetch
+                if let previouslyFetchedRated = rates[entryCurrencyCode] {
+                    let newConvertedCost = Double(cost / previouslyFetchedRated)
                     entry.setValue(newConvertedCost, forKey: LedgitEntry.Keys.convertedCost)
                     successfullyUpdated = true
                     
-                    
-                }.catch { error in
-                    Log.critical("Something went wrong when updating conversion cost \(error.localizedDescription)")
-                    return
+                } else {
+                    LedgitCurrency.getRate(between: currency.code, and: entryCurrencyCode).then { rate in
+                        // Update our rates dictionary with the newly fetch rate
+                        rates[entryCurrencyCode] = rate
+                        
+                        let newConvertedCost = Double(cost / rate)
+                        entry.setValue(newConvertedCost, forKey: LedgitEntry.Keys.convertedCost)
+                        successfullyUpdated = true
+                        
+                        }.catch { error in
+                            Log.critical("Something went wrong when updating conversion cost \(error.localizedDescription)")
+                            return
+                    }
                 }
             }
             

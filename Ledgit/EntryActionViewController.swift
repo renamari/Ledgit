@@ -32,7 +32,6 @@ class EntryActionViewController: UIViewController {
         didSet {
             guard selectedCurrency != LedgitUser.current.homeCurrency else {
                 self.exchangeRateTextField.text("1.00")
-                
                 return
             }
             
@@ -139,10 +138,7 @@ class EntryActionViewController: UIViewController {
             dateTextField.text(Date().toString(style: .long))
             currencyTextField.text(selectedCurrency.name)
             
-            // Initially hide the exchange rate text field
-            if !LedgitCurrency.rates.isEmpty, let exchangeRate =  LedgitCurrency.rates[selectedCurrency.code] {
-                exchangeRateTextField.text("\(exchangeRate)")
-            } else if selectedCurrency == LedgitUser.current.homeCurrency {
+            if selectedCurrency == LedgitUser.current.homeCurrency {
                 exchangeRateTextField.text("1.00")
             }
         }

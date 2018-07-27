@@ -266,61 +266,7 @@ extension LedgitCurrency {
     static let codes: [String] = LedgitCurrency.all.map { $0.code }
 }
 
-extension LedgitCurrency {
-    static var rates: [String: Double] {
-        set { UserDefaults.standard.set(newValue, forKey: Constants.userDefaultKeys.lastRates) }
-        get {
-            guard let lastUpdatedRates = UserDefaults.standard.value(forKey: Constants.userDefaultKeys.lastRates) as? [String: Double] else {
-                let rates: [String: Double] = [:]
-                UserDefaults.standard.set(rates, forKey: Constants.userDefaultKeys.lastRates)
-                return rates
-            }
-            return lastUpdatedRates
-        }
-    }
-    
-    static var lastUpdated: Date? {
-        set { UserDefaults.standard.set(newValue, forKey: Constants.userDefaultKeys.lastUpdated) }
-        get {
-            guard let lastUpdated = UserDefaults.standard.value(forKey: Constants.userDefaultKeys.lastUpdated) as? Date else { return nil }
-            return lastUpdated
-        }
-    }
-    
-    // https://api.fixer.io/latest?base=USD
-    static func getRates() {
-        
-        guard Reachability.isConnectedToNetwork() else {
-            Log.warning("Could not start exchange rate request because user is not connected to network.")
-            return
-        }
-        
-        // Weird, reverse guard
-        // Here if lastUpdated is NOT nil, check if lastUpdated is equal to today. If yes, skip update
-        // If lastUpdated IS nil, immediately go and update.
-        guard lastUpdated != nil, lastUpdated != Date() else {
-            Log.info("Starting update on rates")
-            
-            guard let url = URL(string: "http://data.fixer.io/api/latest?access_key=\(Constants.fixerKey)&base=\(LedgitUser.current.homeCurrency.code)") else { return }
-            
-            let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
-                if error != nil, let error = error { Log.error(error) }
-                guard let data = data else { return }
-                guard let result = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) as? NSDictionary else { return }
-                guard let ratesData = result?["rates"] as? [String : Double] else { return }
-        
-                rates = ratesData
-                lastUpdated = Date()
-                Log.info("Sucessfully updated rates data and last updated \(Date())")
-            }
-            
-            task.resume()
-            return
-        }
-        
-        Log.warning("Either this was the first app usage, or the exchange rates were already refreshed today")
-    }
-    
+extension LedgitCurrency {    
     static func getRate(between base: String, and currency: String) -> Promise<Double> {
         return Promise { resolve, reject in
         

@@ -7,6 +7,7 @@
 //
 
 import XCTest
+import UIKit
 import SwiftDate
 @testable import Ledgit
 

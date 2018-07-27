@@ -52,7 +52,7 @@ class CurrencySelectionViewController: UIViewController {
 
 extension CurrencySelectionViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        let visibleCurrencies = limitedCurrencies ?? LedgitCurrency.all
+        let visibleCurrencies = LedgitCurrency.all
         filteredCurrencies = visibleCurrencies.filter {
             $0.code.lowercased().contains(searchText.lowercased()) ||
             $0.name.lowercased().contains(searchText.lowercased())

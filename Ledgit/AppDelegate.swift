@@ -25,9 +25,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         ROX.setup(withKey:"59e7e1a2832daa14ceb21736")
         window = UIWindow(frame: UIScreen.main.bounds)
         
-        // Request currency exchange rates
-        //Currency.getRates()
-        
         // Request on demand resources
         ResourceManager.shared.requestFlagImages()
         

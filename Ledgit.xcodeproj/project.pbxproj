@@ -55,7 +55,6 @@
 		8DA3B1B11F3F875B00FC31AF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8DA3B1B01F3F875B00FC31AF /* Assets.xcassets */; };
 		8DA3B1B41F3F875B00FC31AF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8DA3B1B21F3F875B00FC31AF /* LaunchScreen.storyboard */; };
 		8DA3B1BF1F3F875B00FC31AF /* LedgitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA3B1BE1F3F875B00FC31AF /* LedgitTests.swift */; };
-		8DA3B1CA1F3F875B00FC31AF /* LedgitUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA3B1C91F3F875B00FC31AF /* LedgitUITests.swift */; };
 		8DA3B1D81F3F880800FC31AF /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8DA3B1D71F3F880800FC31AF /* GoogleService-Info.plist */; };
 		8DA3B2201F3FBEF300FC31AF /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA3B21F1F3FBEF300FC31AF /* Utilities.swift */; };
 		8DA3B2231F3FC00500FC31AF /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA3B2221F3FC00500FC31AF /* MainViewController.swift */; };
@@ -167,7 +166,6 @@
 		8DA3B1BE1F3F875B00FC31AF /* LedgitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LedgitTests.swift; sourceTree = "<group>"; };
 		8DA3B1C01F3F875B00FC31AF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8DA3B1C51F3F875B00FC31AF /* LedgitUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LedgitUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		8DA3B1C91F3F875B00FC31AF /* LedgitUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LedgitUITests.swift; sourceTree = "<group>"; };
 		8DA3B1CB1F3F875B00FC31AF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8DA3B1D71F3F880800FC31AF /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		8DA3B21F1F3FBEF300FC31AF /* Utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
@@ -428,7 +426,6 @@
 		8DA3B1C81F3F875B00FC31AF /* LedgitUITests */ = {
 			isa = PBXGroup;
 			children = (
-				8DA3B1C91F3F875B00FC31AF /* LedgitUITests.swift */,
 				8DA3B1CB1F3F875B00FC31AF /* Info.plist */,
 			);
 			path = LedgitUITests;
@@ -1084,7 +1081,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8DA3B1CA1F3F875B00FC31AF /* LedgitUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -6,7 +6,7 @@
 //  Copyright © 2018 Camden Developers. All rights reserved.
 //
 
-import Foundation
+import UIKit
 @testable import Ledgit
 
 class AuthenticationManagerDelegateMock: AuthenticationManagerDelegate {

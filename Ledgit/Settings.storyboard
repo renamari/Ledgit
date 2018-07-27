@@ -117,7 +117,7 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Settings" id="WQX-xv-T89">
-                        <barButtonItem key="leftBarButtonItem" title="Item" style="plain" id="42e-jL-Voa">
+                        <barButtonItem key="leftBarButtonItem" title="Item" style="done" id="42e-jL-Voa">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="G1V-wG-BFo">
                                 <rect key="frame" x="16" y="4.6666666666666679" width="35" height="35"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -141,7 +141,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NlX-f1-ASm" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2692" y="890"/>
+            <point key="canvasLocation" x="2692" y="642"/>
         </scene>
         <!--Categories-->
         <scene sceneID="aKf-5a-hiU">
@@ -340,7 +340,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3ww-Vw-uEz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1440.5797101449277" y="2571.1956521739135"/>
+            <point key="canvasLocation" x="1441" y="2751"/>
         </scene>
         <!--Account View Controller-->
         <scene sceneID="aOj-2Z-CJI">
@@ -570,7 +570,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ggC-5z-woH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2692" y="143.47826086956522"/>
+            <point key="canvasLocation" x="2692" y="-351"/>
         </scene>
     </scenes>
     <resources>

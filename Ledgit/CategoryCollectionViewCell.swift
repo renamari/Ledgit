@@ -29,7 +29,7 @@ class CategoryCollectionViewCell: UICollectionViewCell, ChartViewDelegate {
         pieChart.delegate = self
         pieChart.noDataText = Constants.chartText.empty
         pieChart.noDataFont = .futuraMedium14
-        pieChart.noDataTextColor = LedgitColor.navigationTextGray
+        pieChart.noDataTextColor = LedgitColor.coreBlue
     }
     
     override func layoutSubviews() {
@@ -81,10 +81,9 @@ class CategoryCollectionViewCell: UICollectionViewCell, ChartViewDelegate {
         legend.horizontalAlignment = .center
         legend.verticalAlignment = .bottom
         legend.orientation = .horizontal
-        legend.drawInside = true
         legend.xEntrySpace = 20.0
-        legend.yEntrySpace = 15.0
-        legend.yOffset = 0.0
+        legend.yEntrySpace = 8.0
+        legend.yOffset = 10.0
         legend.textColor = LedgitColor.navigationTextGray
         legend.font = .futuraMedium12
         
@@ -97,7 +96,7 @@ class CategoryCollectionViewCell: UICollectionViewCell, ChartViewDelegate {
         pieChart.drawCenterTextEnabled = true
         pieChart.drawHoleEnabled = true
         pieChart.rotationAngle = 0.0
-        pieChart.rotationEnabled = true
+        pieChart.rotationEnabled = false
         pieChart.highlightPerTapEnabled = false
         pieChart.animate(xAxisDuration: 1.4, easingOption: .easeInOutBack)
         
@@ -118,7 +117,7 @@ class CategoryCollectionViewCell: UICollectionViewCell, ChartViewDelegate {
                           LedgitColor.pieChartBlue6,
                           LedgitColor.pieChartGreen,
                           LedgitColor.pieChartBlue5]
-        
+
         let data = PieChartData(dataSet: dataSet)
         let format = NumberFormatter()
         format.numberStyle = .percent

@@ -46,7 +46,7 @@ extension LedgitError { // Client Side Errors
                                                    message: "We sent you an email to reset your password.")
 
     static let cannotAddEntriesToSample = LedgitError(title: "Not So Fast",
-                                                      message: "You can't add entries to this sample trip. Go back and create one if you haven't done so already.")
+                                                      message: "You can't change entries on this sample trip. Go back and create one if you haven't done so already.")
     
     static let errorGettingTrip = LedgitError(title: "Please Excuse Us",
                                               message: "We had some trouble getting your trip details. Try again later.")

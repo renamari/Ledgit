@@ -155,10 +155,6 @@ class TripDetailViewController: UIViewController {
     }
     
     @IBAction func actionButtonPressed(_ sender: Any) {
-        guard currentTrip?.key != Constants.projectID.sample else {
-            showAlert(with: LedgitError.cannotAddEntriesToSample)
-            return
-        }
         performSegue(withIdentifier: Constants.segueIdentifiers.entryAction, sender: actionButton)
     }
     
@@ -298,10 +294,6 @@ extension TripDetailViewController: UIViewControllerTransitioningDelegate {
 
 extension TripDetailViewController: DayTableCellDelegate {
     func selected(entry: LedgitEntry, at cell: UITableViewCell) {
-        if currentTrip?.key == Constants.projectID.sample {
-            showAlert(with: LedgitError.cannotAddEntriesToSample)
-        } else {
-            performSegue(withIdentifier: Constants.segueIdentifiers.entryAction, sender: entry)
-        }
+        performSegue(withIdentifier: Constants.segueIdentifiers.entryAction, sender: entry)
     }
 }

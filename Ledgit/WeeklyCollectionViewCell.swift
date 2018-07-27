@@ -58,7 +58,7 @@ class WeeklyCollectionViewCell: UICollectionViewCell, ChartViewDelegate {
         weeklyChart.delegate = self
         weeklyChart.noDataTextAlignment = .center
         weeklyChart.noDataFont = .futuraMedium14
-        weeklyChart.noDataTextColor = LedgitColor.navigationTextGray
+        weeklyChart.noDataTextColor = LedgitColor.coreBlue
         weeklyChart.pinchZoomEnabled = false
         weeklyChart.doubleTapToZoomEnabled = false
         weeklyChart.scaleXEnabled = false

@@ -221,12 +221,17 @@ class EntryActionViewController: UIViewController {
         paymentType = .credit
     }
     
-    @IBAction func amountTextFieldChanged(_ sender: SkyFloatingLabelTextField) {
+    func amountTextFieldChanged(_ sender: SkyFloatingLabelTextField) {
         guard let text = sender.text else { return }
         sender.text(text.currencyFormat(with: selectedCurrency.symbol))
     }
     
     @IBAction func deleteButtonPressed(_ sender: Any) {
+        guard parentTrip?.key != Constants.projectID.sample else {
+            showAlert(with: LedgitError.cannotAddEntriesToSample)
+            return
+        }
+        
         guard let entry = entry else { return }
         let alert = UIAlertController(title: "Warning", message: "Are you sure you want to remove this entry? This can't be undone.", preferredStyle: .actionSheet)
 
@@ -297,6 +302,11 @@ class EntryActionViewController: UIViewController {
     }
     
     @IBAction func saveButtonPressed(_ sender: Any) {
+        guard parentTrip?.key != Constants.projectID.sample else {
+            showAlert(with: LedgitError.cannotAddEntriesToSample)
+            return
+        }
+        
         guard
             textFieldsValidated(),
             let location = locationTextField.text?.strip(),

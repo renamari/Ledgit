@@ -355,7 +355,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="A2X-0w-zyZ" customClass="PieChartView" customModule="Charts">
-                                                    <rect key="frame" x="5" y="64" width="325" height="384"/>
+                                                    <rect key="frame" x="5" y="64" width="325" height="424"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </view>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XWg-wV-YHl">
@@ -384,7 +384,7 @@
                                             <constraint firstItem="WEi-M0-0qN" firstAttribute="leading" secondItem="2bM-AW-NC7" secondAttribute="leading" constant="20" id="STJ-uP-fxB"/>
                                             <constraint firstAttribute="trailing" secondItem="A2X-0w-zyZ" secondAttribute="trailing" constant="5" id="ds6-za-qaa"/>
                                             <constraint firstItem="A2X-0w-zyZ" firstAttribute="top" secondItem="WEi-M0-0qN" secondAttribute="bottom" constant="20" id="lB8-OR-sCw"/>
-                                            <constraint firstAttribute="bottom" secondItem="A2X-0w-zyZ" secondAttribute="bottom" constant="40" id="ldm-Bl-12L"/>
+                                            <constraint firstAttribute="bottom" secondItem="A2X-0w-zyZ" secondAttribute="bottom" id="ldm-Bl-12L"/>
                                         </constraints>
                                         <connections>
                                             <outlet property="displayButton" destination="XWg-wV-YHl" id="rMQ-vO-pm2"/>

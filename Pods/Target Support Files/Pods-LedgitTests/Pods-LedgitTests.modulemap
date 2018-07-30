@@ -1,6 +1,0 @@
-framework module Pods_LedgitTests {
-  umbrella header "Pods-LedgitTests-umbrella.h"
-
-  export *
-  module * { export * }
-}

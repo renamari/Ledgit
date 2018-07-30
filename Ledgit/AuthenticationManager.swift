@@ -18,7 +18,6 @@ protocol AuthenticationManagerDelegate: class {
 }
 
 class AuthenticationManager {
-    static let shared = AuthenticationManager()
     weak var delegate: AuthenticationManagerDelegate?
     var users: DatabaseReference { return Database.database().reference().child("users") }
     var auth: Auth { return Auth.auth() }
@@ -183,15 +182,5 @@ extension AuthenticationManager {
         default:
             return .general
         }
-    }
-}
-
-extension AuthenticationManager {
-    func isAuthenticated() -> Bool {
-        guard auth.currentUser != nil else { return false }
-        
-        guard UserDefaults.standard.value(forKey: Constants.userDefaultKeys.uid) != nil else { return false }
-        
-        return true
     }
 }

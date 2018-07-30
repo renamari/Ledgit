@@ -8,11 +8,11 @@ target 'Ledgit' do
   # Pods for Ledgit
   pod 'SwiftDate', '4.5.1'
 
-  pod 'Firebase/Core'
-  pod 'Firebase/Auth'
-  pod 'Firebase/Database'
-  pod 'Firebase/Storage'
-  pod 'Firebase/RemoteConfig'
+  pod 'Firebase/Core', '5.3.0'
+  pod 'Firebase/Auth', '5.3.0'
+  pod 'Firebase/Database', '5.3.0'
+  pod 'Firebase/Storage', '5.3.0'
+  pod 'Firebase/RemoteConfig', '5.3.0'
 
   pod 'NVActivityIndicatorView', '4.2.1'
 
@@ -31,11 +31,11 @@ target 'Ledgit' do
   target 'LedgitTests' do
     inherit! :search_paths
     # Pods for testing
-    pod 'Firebase/Core'
-    pod 'Firebase/Auth'
-    pod 'Firebase/Database'
-    pod 'Firebase/Storage'
-    pod 'Firebase/RemoteConfig'
+    pod 'Firebase/Core', '5.3.0'
+    pod 'Firebase/Auth', '5.3.0'
+    pod 'Firebase/Database', '5.3.0'
+    pod 'Firebase/Storage', '5.3.0'
+    pod 'Firebase/RemoteConfig', '5.3.0'
 
   end
 

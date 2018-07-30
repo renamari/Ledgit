@@ -78,7 +78,7 @@
         <!--Authenticate View Controller-->
         <scene sceneID="Drc-Er-4SU">
             <objects>
-                <viewController id="fKe-OU-Oon" customClass="AuthenticateViewController" customModule="Ledgit" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="AuthenticateViewController" id="fKe-OU-Oon" customClass="AuthenticateViewController" customModule="Ledgit" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="owb-ho-9an"/>
                         <viewControllerLayoutGuide type="bottom" id="uaz-Uv-grq"/>

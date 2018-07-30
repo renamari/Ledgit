@@ -37,7 +37,7 @@ class AuthenticationPresenterTests: XCTestCase {
         controller = AuthenticateViewController.instantiate(from: .main)
     }
     
-    func delegateDidReceiveUser() {
+    func testDelegateDidReceiveUser() {
         // Arrange
         let user = LedgitUser(dict: userData)
         
@@ -49,7 +49,7 @@ class AuthenticationPresenterTests: XCTestCase {
         XCTAssertEqual(user, presenterDelegate.authenticatedUser)
     }
     
-    func delegateDidReceiveError() {
+    func testDelegateDidReceiveError() {
         // Arrange
         guard let error = AuthErrorCode(rawValue: 17007) else {
             XCTFail("Error code not generated")
@@ -64,17 +64,5 @@ class AuthenticationPresenterTests: XCTestCase {
         // Assert
         XCTAssertTrue(presenterDelegate.didReceiveAuthenticationError)
         XCTAssertEqual(ledgitError, presenterDelegate.error)
-    }
-    
-    func presenterDidReceiveUser() {
-        // Arrange
-        let user = LedgitUser(dict: userData)
-        
-        // Act
-        presenter.userAuthenticated(user)
-        
-        // Assert
-        XCTAssertEqual(LedgitUser.current, user)
-        XCTAssertEqual(controller.isLoading, false)
     }
 }

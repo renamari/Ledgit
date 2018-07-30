@@ -6,7 +6,7 @@ target 'Ledgit' do
   use_frameworks!
 
   # Pods for Ledgit
-  pod 'SwiftDate'
+  pod 'SwiftDate', '4.5.1'
 
   pod 'Firebase/Core'
   pod 'Firebase/Auth'
@@ -14,19 +14,19 @@ target 'Ledgit' do
   pod 'Firebase/Storage'
   pod 'Firebase/RemoteConfig'
 
-  pod 'NVActivityIndicatorView'
+  pod 'NVActivityIndicatorView', '4.2.1'
 
-  pod 'NotificationBannerSwift'
+  pod 'NotificationBannerSwift', '1.6.3'
 
-  pod 'BubbleTransition'
+  pod 'BubbleTransition', '3.0.2'
 
-  pod 'AMPopTip'
+  pod 'AMPopTip', '3.3.0'
 
-  pod 'Charts'
+  pod 'Charts', '3.1.1'
   
-  pod 'BetterSegmentedControl'
+  pod 'BetterSegmentedControl', '0.9'
 
-  pod 'SkyFloatingLabelTextField'
+  pod 'SkyFloatingLabelTextField', '3.5.1'
 
   target 'LedgitTests' do
     inherit! :search_paths

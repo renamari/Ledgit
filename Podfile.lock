@@ -73,19 +73,19 @@ PODS:
   - SwiftDate (4.5.1)
 
 DEPENDENCIES:
-  - AMPopTip
-  - BetterSegmentedControl
-  - BubbleTransition
-  - Charts
+  - AMPopTip (= 3.3.0)
+  - BetterSegmentedControl (= 0.9)
+  - BubbleTransition (= 3.0.2)
+  - Charts (= 3.1.1)
   - Firebase/Auth
   - Firebase/Core
   - Firebase/Database
   - Firebase/RemoteConfig
   - Firebase/Storage
-  - NotificationBannerSwift
-  - NVActivityIndicatorView
-  - SkyFloatingLabelTextField
-  - SwiftDate
+  - NotificationBannerSwift (= 1.6.3)
+  - NVActivityIndicatorView (= 4.2.1)
+  - SkyFloatingLabelTextField (= 3.5.1)
+  - SwiftDate (= 4.5.1)
 
 SPEC CHECKSUMS:
   AMPopTip: 45f3f87362d76abe59b971d35e33eff4e56ac2ad
@@ -113,6 +113,6 @@ SPEC CHECKSUMS:
   SnapKit: a42d492c16e80209130a3379f73596c3454b7694
   SwiftDate: 7b56d42a221f582047287deb256b23fc5ed49a60
 
-PODFILE CHECKSUM: 565646b377f5cdab67009e747d389d88050a8cc1
+PODFILE CHECKSUM: 823224f85a2a54d27565c6a13c78fc1fdeac9887
 
 COCOAPODS: 1.4.0

@@ -1,0 +1,1386 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		0AEC39872D7A188B128C430A /* Pods_LedgitTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7EB21902AE594012FF148F96 /* Pods_LedgitTests.framework */; };
+		5FA2B0A65D5BA7817E8BA1AB /* Pods_Ledgit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 440E18801682C6FA72C78822 /* Pods_Ledgit.framework */; };
+		82E5542861F21775516C139F /* Pods_LedgitUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8521A36C51FB5EBE2134AD85 /* Pods_LedgitUITests.framework */; };
+		8D171ED5201EAD370058891E /* CollapsibleDateHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D171ED4201EAD370058891E /* CollapsibleDateHeaderView.swift */; };
+		8D173EBF1F997B4100EC8527 /* AuthenticationPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D173EBE1F997B4100EC8527 /* AuthenticationPresenter.swift */; };
+		8D173EC31F99803400EC8527 /* AuthenticationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D173EC21F99803400EC8527 /* AuthenticationManager.swift */; };
+		8D18DCB61F43E07100BD5EBA /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D18DCB51F43E07100BD5EBA /* SettingsViewController.swift */; };
+		8D18DCB81F43E34B00BD5EBA /* SettingsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D18DCB71F43E34B00BD5EBA /* SettingsTableViewCell.swift */; };
+		8D265067207B08F400B7B56A /* Entries.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D265066207B08F400B7B56A /* Entries.swift */; };
+		8D29168C1FB8EA2F008ED9F2 /* CurrencySelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D29168B1FB8EA2F008ED9F2 /* CurrencySelectionViewController.swift */; };
+		8D29168E1FB8EA42008ED9F2 /* CurrencyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D29168D1FB8EA42008ED9F2 /* CurrencyTableViewCell.swift */; };
+		8D2AEC0D1F4AAFE400227FC6 /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8D2AEC0C1F4AAFE400227FC6 /* Settings.storyboard */; };
+		8D2AEC0F1F4AB2F300227FC6 /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D2AEC0E1F4AB2F300227FC6 /* AboutViewController.swift */; };
+		8D2AEC191F4D146900227FC6 /* DateTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D2AEC181F4D146900227FC6 /* DateTableViewCell.swift */; };
+		8D2AEC1B1F4D147800227FC6 /* CityTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D2AEC1A1F4D147800227FC6 /* CityTableViewCell.swift */; };
+		8D2C37F320DF4AD60085E10B /* LedgitPromise.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D2C37F220DF4AD60085E10B /* LedgitPromise.swift */; };
+		8D39F94B1FC51B470055BA4E /* SettingsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D39F94A1FC51B470055BA4E /* SettingsManager.swift */; };
+		8D488AC1203BAF7F00A9798B /* WeeklyCollectionViewCellTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D488AC0203BAF7F00A9798B /* WeeklyCollectionViewCellTests.swift */; };
+		8D656AA31F94480800C85A0F /* EntryActionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D656AA21F94480800C85A0F /* EntryActionViewController.swift */; };
+		8D6F4B641F4E8CFC0046847C /* CategoriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D6F4B631F4E8CFC0046847C /* CategoriesViewController.swift */; };
+		8D6F4B661F4E8D050046847C /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D6F4B651F4E8D050046847C /* AccountViewController.swift */; };
+		8D6F4B681F4E8D100046847C /* SubscriptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D6F4B671F4E8D100046847C /* SubscriptionViewController.swift */; };
+		8D707B4A1F9D3B7F00CABA0F /* MainNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D707B491F9D3B7F00CABA0F /* MainNavigationController.swift */; };
+		8D707B4C1F9D3BAC00CABA0F /* TripsNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D707B4B1F9D3BAC00CABA0F /* TripsNavigationController.swift */; };
+		8D707B4E1F9D3EEE00CABA0F /* TripsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D707B4D1F9D3EEE00CABA0F /* TripsPresenter.swift */; };
+		8D707B501F9D3F9000CABA0F /* TripsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D707B4F1F9D3F9000CABA0F /* TripsManager.swift */; };
+		8D7D284B20829A5400C305FE /* LedgitError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D7D284A20829A5400C305FE /* LedgitError.swift */; };
+		8D8E5EED207DC9F50094686D /* Double+Content.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D8E5EEC207DC9F50094686D /* Double+Content.swift */; };
+		8D926690204C639D00A4B5B2 /* UIViewController+Content.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D92668F204C639D00A4B5B2 /* UIViewController+Content.swift */; };
+		8D926692204C641B00A4B5B2 /* LedgitFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D926691204C641B00A4B5B2 /* LedgitFont.swift */; };
+		8D926694204C644000A4B5B2 /* Date+Content.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D926693204C644000A4B5B2 /* Date+Content.swift */; };
+		8D926696204C645F00A4B5B2 /* String+Content.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D926695204C645F00A4B5B2 /* String+Content.swift */; };
+		8D926698204C648A00A4B5B2 /* UIView+Content.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D926697204C648A00A4B5B2 /* UIView+Content.swift */; };
+		8D92669A204C64B100A4B5B2 /* Appearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D926699204C64B100A4B5B2 /* Appearance.swift */; };
+		8D92669C204C64CB00A4B5B2 /* UITableView+Content.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D92669B204C64CB00A4B5B2 /* UITableView+Content.swift */; };
+		8D92669E204C64F100A4B5B2 /* UILayout+Content.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D92669D204C64F100A4B5B2 /* UILayout+Content.swift */; };
+		8D9266A1204C671B00A4B5B2 /* UIButton+Content.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9266A0204C671B00A4B5B2 /* UIButton+Content.swift */; };
+		8D9266A3204C674C00A4B5B2 /* UITextField+Content.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9266A2204C674C00A4B5B2 /* UITextField+Content.swift */; };
+		8D9266A5204C676900A4B5B2 /* UILabel+Content.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9266A4204C676900A4B5B2 /* UILabel+Content.swift */; };
+		8D9266A7204C679100A4B5B2 /* UIImageView+Content.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9266A6204C679100A4B5B2 /* UIImageView+Content.swift */; };
+		8D9266A92059F4FC00A4B5B2 /* LedgitAnalytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9266A82059F4FC00A4B5B2 /* LedgitAnalytics.swift */; };
+		8D9778F41F4F5364008DD68C /* CategoryActionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9778F31F4F5364008DD68C /* CategoryActionViewController.swift */; };
+		8DA3B1A71F3F875B00FC31AF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA3B1A61F3F875B00FC31AF /* AppDelegate.swift */; };
+		8DA3B1AC1F3F875B00FC31AF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8DA3B1AA1F3F875B00FC31AF /* Main.storyboard */; };
+		8DA3B1AF1F3F875B00FC31AF /* Ledgit.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8DA3B1AD1F3F875B00FC31AF /* Ledgit.xcdatamodeld */; };
+		8DA3B1B11F3F875B00FC31AF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8DA3B1B01F3F875B00FC31AF /* Assets.xcassets */; };
+		8DA3B1B41F3F875B00FC31AF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8DA3B1B21F3F875B00FC31AF /* LaunchScreen.storyboard */; };
+		8DA3B1BF1F3F875B00FC31AF /* LedgitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA3B1BE1F3F875B00FC31AF /* LedgitTests.swift */; };
+		8DA3B1D81F3F880800FC31AF /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8DA3B1D71F3F880800FC31AF /* GoogleService-Info.plist */; };
+		8DA3B2201F3FBEF300FC31AF /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA3B21F1F3FBEF300FC31AF /* Utilities.swift */; };
+		8DA3B2231F3FC00500FC31AF /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA3B2221F3FC00500FC31AF /* MainViewController.swift */; };
+		8DA3B2251F3FC01000FC31AF /* AuthenticateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA3B2241F3FC01000FC31AF /* AuthenticateViewController.swift */; };
+		8DA3B2271F3FC01B00FC31AF /* TutorialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA3B2261F3FC01B00FC31AF /* TutorialViewController.swift */; };
+		8DA3B2291F3FC3C600FC31AF /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA3B2281F3FC3C600FC31AF /* Constants.swift */; };
+		8DA3B22B1F4004EB00FC31AF /* LedgitCurrency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA3B22A1F4004EB00FC31AF /* LedgitCurrency.swift */; };
+		8DA3B22D1F40055700FC31AF /* Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA3B22C1F40055700FC31AF /* Device.swift */; };
+		8DAD43E71F9D46270054EDD8 /* SettingsNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DAD43E61F9D46270054EDD8 /* SettingsNavigationController.swift */; };
+		8DB4679D1FC1F16700E44863 /* LedgitUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB4679C1FC1F16700E44863 /* LedgitUser.swift */; };
+		8DB4679F1FC1F2FA00E44863 /* LedgitEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB4679E1FC1F2FA00E44863 /* LedgitEntry.swift */; };
+		8DB467A11FC1F3A500E44863 /* LedgitTrip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB467A01FC1F3A500E44863 /* LedgitTrip.swift */; };
+		8DB467F51FC3E01900E44863 /* SettingsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB467F41FC3E01900E44863 /* SettingsPresenter.swift */; };
+		8DBBB5F81FAFC99F002D0984 /* TripActionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DBBB5F71FAFC99F002D0984 /* TripActionViewController.swift */; };
+		8DC243D61F43ADA400B3E080 /* TripsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DC243D51F43ADA400B3E080 /* TripsViewController.swift */; };
+		8DC243D81F43ADBB00B3E080 /* Trips.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8DC243D71F43ADBB00B3E080 /* Trips.storyboard */; };
+		8DC243DA1F43BE2B00B3E080 /* TripTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DC243D91F43BE2B00B3E080 /* TripTableViewCell.swift */; };
+		8DC243DC1F43BE3900B3E080 /* AddTripTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DC243DB1F43BE3900B3E080 /* AddTripTableViewCell.swift */; };
+		8DDD131C202AB0F600998AA5 /* LedgitColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDD131B202AB0F600998AA5 /* LedgitColor.swift */; };
+		8DDD1321202D5CC300998AA5 /* AuthenticationManagerDelegateMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDD1320202D5CC300998AA5 /* AuthenticationManagerDelegateMock.swift */; };
+		8DDD1323202D5F4E00998AA5 /* AuthenticationPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDD1322202D5F4E00998AA5 /* AuthenticationPresenterTests.swift */; };
+		8DDD1327202F8B2500998AA5 /* AuthenticationManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDD1326202F8B2500998AA5 /* AuthenticationManagerTests.swift */; };
+		8DDD132A202F8CE600998AA5 /* LedgitUserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDD1329202F8CE600998AA5 /* LedgitUserTests.swift */; };
+		8DDD132C202F935100998AA5 /* AuthenticationPresenterDelegateMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDD132B202F935100998AA5 /* AuthenticationPresenterDelegateMock.swift */; };
+		8DDD1330202F9D6300998AA5 /* AuthenticationPresenterMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDD132F202F9D6300998AA5 /* AuthenticationPresenterMock.swift */; };
+		8DDD13332030B81300998AA5 /* TripActionViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDD13322030B81300998AA5 /* TripActionViewControllerTests.swift */; };
+		8DDD13362030F4FC00998AA5 /* TripBudgetInformationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDD13352030F4FC00998AA5 /* TripBudgetInformationView.swift */; };
+		8DDDD6B31F473EFA0053146B /* TripDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDDD6B21F473EFA0053146B /* TripDetailViewController.swift */; };
+		8DDDD6B51F47ECDD0053146B /* WeeklyCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDDD6B41F47ECDD0053146B /* WeeklyCollectionViewCell.swift */; };
+		8DDDD6B71F47ECF00053146B /* CategoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDDD6B61F47ECF00053146B /* CategoryCollectionViewCell.swift */; };
+		8DDDD6B91F47ECFD0053146B /* HistoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDDD6B81F47ECFD0053146B /* HistoryCollectionViewCell.swift */; };
+		8DE6F568201532DD0081DB6E /* Flags.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8DE6F567201532DD0081DB6E /* Flags.xcassets */; };
+		8DE6F56C20154CD90081DB6E /* ResourceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DE6F56B20154CD90081DB6E /* ResourceManager.swift */; };
+		8DFAE8991FCA930000B4734B /* CategoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DFAE8981FCA930000B4734B /* CategoryTableViewCell.swift */; };
+		8DFAE89B1FCB103F00B4734B /* TripDetailManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DFAE89A1FCB103F00B4734B /* TripDetailManager.swift */; };
+		8DFAE89D1FCB104C00B4734B /* TripDetailPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DFAE89C1FCB104C00B4734B /* TripDetailPresenter.swift */; };
+		8DFAE89F1FCB9B1500B4734B /* CategorySelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DFAE89E1FCB9B1500B4734B /* CategorySelectionViewController.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		8DA3B1BB1F3F875B00FC31AF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8DA3B19B1F3F875B00FC31AF /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8DA3B1A21F3F875B00FC31AF;
+			remoteInfo = Ledgit;
+		};
+		8DA3B1C61F3F875B00FC31AF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8DA3B19B1F3F875B00FC31AF /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8DA3B1A21F3F875B00FC31AF;
+			remoteInfo = Ledgit;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		31B35902AAD4A6860DB0AC73 /* Pods-Ledgit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Ledgit.release.xcconfig"; path = "Pods/Target Support Files/Pods-Ledgit/Pods-Ledgit.release.xcconfig"; sourceTree = "<group>"; };
+		440E18801682C6FA72C78822 /* Pods_Ledgit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Ledgit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		7EB21902AE594012FF148F96 /* Pods_LedgitTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LedgitTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8521A36C51FB5EBE2134AD85 /* Pods_LedgitUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LedgitUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8D171ED4201EAD370058891E /* CollapsibleDateHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollapsibleDateHeaderView.swift; sourceTree = "<group>"; };
+		8D173EBE1F997B4100EC8527 /* AuthenticationPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationPresenter.swift; sourceTree = "<group>"; };
+		8D173EC21F99803400EC8527 /* AuthenticationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationManager.swift; sourceTree = "<group>"; };
+		8D18DCB51F43E07100BD5EBA /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		8D18DCB71F43E34B00BD5EBA /* SettingsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTableViewCell.swift; sourceTree = "<group>"; };
+		8D265066207B08F400B7B56A /* Entries.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entries.swift; sourceTree = "<group>"; };
+		8D29168B1FB8EA2F008ED9F2 /* CurrencySelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencySelectionViewController.swift; sourceTree = "<group>"; };
+		8D29168D1FB8EA42008ED9F2 /* CurrencyTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyTableViewCell.swift; sourceTree = "<group>"; };
+		8D2AEC0C1F4AAFE400227FC6 /* Settings.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Settings.storyboard; sourceTree = "<group>"; };
+		8D2AEC0E1F4AB2F300227FC6 /* AboutViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
+		8D2AEC181F4D146900227FC6 /* DateTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateTableViewCell.swift; sourceTree = "<group>"; };
+		8D2AEC1A1F4D147800227FC6 /* CityTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CityTableViewCell.swift; sourceTree = "<group>"; };
+		8D2C37F220DF4AD60085E10B /* LedgitPromise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LedgitPromise.swift; sourceTree = "<group>"; };
+		8D39F94A1FC51B470055BA4E /* SettingsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsManager.swift; sourceTree = "<group>"; };
+		8D488AC0203BAF7F00A9798B /* WeeklyCollectionViewCellTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyCollectionViewCellTests.swift; sourceTree = "<group>"; };
+		8D656AA21F94480800C85A0F /* EntryActionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryActionViewController.swift; sourceTree = "<group>"; };
+		8D6F4B631F4E8CFC0046847C /* CategoriesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoriesViewController.swift; sourceTree = "<group>"; };
+		8D6F4B651F4E8D050046847C /* AccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountViewController.swift; sourceTree = "<group>"; };
+		8D6F4B671F4E8D100046847C /* SubscriptionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubscriptionViewController.swift; sourceTree = "<group>"; };
+		8D707B491F9D3B7F00CABA0F /* MainNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainNavigationController.swift; sourceTree = "<group>"; };
+		8D707B4B1F9D3BAC00CABA0F /* TripsNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripsNavigationController.swift; sourceTree = "<group>"; };
+		8D707B4D1F9D3EEE00CABA0F /* TripsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripsPresenter.swift; sourceTree = "<group>"; };
+		8D707B4F1F9D3F9000CABA0F /* TripsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripsManager.swift; sourceTree = "<group>"; };
+		8D7D284A20829A5400C305FE /* LedgitError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LedgitError.swift; sourceTree = "<group>"; };
+		8D8E5EEC207DC9F50094686D /* Double+Content.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+Content.swift"; sourceTree = "<group>"; };
+		8D92668F204C639D00A4B5B2 /* UIViewController+Content.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Content.swift"; sourceTree = "<group>"; };
+		8D926691204C641B00A4B5B2 /* LedgitFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LedgitFont.swift; sourceTree = "<group>"; };
+		8D926693204C644000A4B5B2 /* Date+Content.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Content.swift"; sourceTree = "<group>"; };
+		8D926695204C645F00A4B5B2 /* String+Content.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Content.swift"; sourceTree = "<group>"; };
+		8D926697204C648A00A4B5B2 /* UIView+Content.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Content.swift"; sourceTree = "<group>"; };
+		8D926699204C64B100A4B5B2 /* Appearance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Appearance.swift; sourceTree = "<group>"; };
+		8D92669B204C64CB00A4B5B2 /* UITableView+Content.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Content.swift"; sourceTree = "<group>"; };
+		8D92669D204C64F100A4B5B2 /* UILayout+Content.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILayout+Content.swift"; sourceTree = "<group>"; };
+		8D9266A0204C671B00A4B5B2 /* UIButton+Content.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Content.swift"; sourceTree = "<group>"; };
+		8D9266A2204C674C00A4B5B2 /* UITextField+Content.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Content.swift"; sourceTree = "<group>"; };
+		8D9266A4204C676900A4B5B2 /* UILabel+Content.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+Content.swift"; sourceTree = "<group>"; };
+		8D9266A6204C679100A4B5B2 /* UIImageView+Content.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+Content.swift"; sourceTree = "<group>"; };
+		8D9266A82059F4FC00A4B5B2 /* LedgitAnalytics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LedgitAnalytics.swift; sourceTree = "<group>"; };
+		8D9778F31F4F5364008DD68C /* CategoryActionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryActionViewController.swift; sourceTree = "<group>"; };
+		8DA3B1A31F3F875B00FC31AF /* Ledgit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Ledgit.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		8DA3B1A61F3F875B00FC31AF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		8DA3B1AB1F3F875B00FC31AF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		8DA3B1AE1F3F875B00FC31AF /* Ledgit.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Ledgit.xcdatamodel; sourceTree = "<group>"; };
+		8DA3B1B01F3F875B00FC31AF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		8DA3B1B31F3F875B00FC31AF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		8DA3B1B51F3F875B00FC31AF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8DA3B1BA1F3F875B00FC31AF /* LedgitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LedgitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		8DA3B1BE1F3F875B00FC31AF /* LedgitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LedgitTests.swift; sourceTree = "<group>"; };
+		8DA3B1C01F3F875B00FC31AF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8DA3B1C51F3F875B00FC31AF /* LedgitUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LedgitUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		8DA3B1CB1F3F875B00FC31AF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8DA3B1D71F3F880800FC31AF /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		8DA3B21F1F3FBEF300FC31AF /* Utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
+		8DA3B2221F3FC00500FC31AF /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		8DA3B2241F3FC01000FC31AF /* AuthenticateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthenticateViewController.swift; sourceTree = "<group>"; };
+		8DA3B2261F3FC01B00FC31AF /* TutorialViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TutorialViewController.swift; sourceTree = "<group>"; };
+		8DA3B2281F3FC3C600FC31AF /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		8DA3B22A1F4004EB00FC31AF /* LedgitCurrency.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LedgitCurrency.swift; sourceTree = "<group>"; };
+		8DA3B22C1F40055700FC31AF /* Device.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Device.swift; sourceTree = "<group>"; };
+		8DAD43E61F9D46270054EDD8 /* SettingsNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsNavigationController.swift; sourceTree = "<group>"; };
+		8DB4679C1FC1F16700E44863 /* LedgitUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LedgitUser.swift; sourceTree = "<group>"; };
+		8DB4679E1FC1F2FA00E44863 /* LedgitEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LedgitEntry.swift; sourceTree = "<group>"; };
+		8DB467A01FC1F3A500E44863 /* LedgitTrip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LedgitTrip.swift; sourceTree = "<group>"; };
+		8DB467F41FC3E01900E44863 /* SettingsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsPresenter.swift; sourceTree = "<group>"; };
+		8DBBB5F71FAFC99F002D0984 /* TripActionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripActionViewController.swift; sourceTree = "<group>"; };
+		8DC243D51F43ADA400B3E080 /* TripsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TripsViewController.swift; sourceTree = "<group>"; };
+		8DC243D71F43ADBB00B3E080 /* Trips.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Trips.storyboard; sourceTree = "<group>"; };
+		8DC243D91F43BE2B00B3E080 /* TripTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TripTableViewCell.swift; sourceTree = "<group>"; };
+		8DC243DB1F43BE3900B3E080 /* AddTripTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddTripTableViewCell.swift; sourceTree = "<group>"; };
+		8DDD131B202AB0F600998AA5 /* LedgitColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LedgitColor.swift; sourceTree = "<group>"; };
+		8DDD1320202D5CC300998AA5 /* AuthenticationManagerDelegateMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationManagerDelegateMock.swift; sourceTree = "<group>"; };
+		8DDD1322202D5F4E00998AA5 /* AuthenticationPresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationPresenterTests.swift; sourceTree = "<group>"; };
+		8DDD1326202F8B2500998AA5 /* AuthenticationManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationManagerTests.swift; sourceTree = "<group>"; };
+		8DDD1329202F8CE600998AA5 /* LedgitUserTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LedgitUserTests.swift; sourceTree = "<group>"; };
+		8DDD132B202F935100998AA5 /* AuthenticationPresenterDelegateMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationPresenterDelegateMock.swift; sourceTree = "<group>"; };
+		8DDD132F202F9D6300998AA5 /* AuthenticationPresenterMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationPresenterMock.swift; sourceTree = "<group>"; };
+		8DDD13322030B81300998AA5 /* TripActionViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripActionViewControllerTests.swift; sourceTree = "<group>"; };
+		8DDD13352030F4FC00998AA5 /* TripBudgetInformationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripBudgetInformationView.swift; sourceTree = "<group>"; };
+		8DDDD6B21F473EFA0053146B /* TripDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TripDetailViewController.swift; sourceTree = "<group>"; };
+		8DDDD6B41F47ECDD0053146B /* WeeklyCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeeklyCollectionViewCell.swift; sourceTree = "<group>"; };
+		8DDDD6B61F47ECF00053146B /* CategoryCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryCollectionViewCell.swift; sourceTree = "<group>"; };
+		8DDDD6B81F47ECFD0053146B /* HistoryCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryCollectionViewCell.swift; sourceTree = "<group>"; };
+		8DE6F567201532DD0081DB6E /* Flags.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Flags.xcassets; sourceTree = "<group>"; };
+		8DE6F56B20154CD90081DB6E /* ResourceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceManager.swift; sourceTree = "<group>"; };
+		8DFAE8981FCA930000B4734B /* CategoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryTableViewCell.swift; sourceTree = "<group>"; };
+		8DFAE89A1FCB103F00B4734B /* TripDetailManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripDetailManager.swift; sourceTree = "<group>"; };
+		8DFAE89C1FCB104C00B4734B /* TripDetailPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripDetailPresenter.swift; sourceTree = "<group>"; };
+		8DFAE89E1FCB9B1500B4734B /* CategorySelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategorySelectionViewController.swift; sourceTree = "<group>"; };
+		93C41B92AC4C35C569819F18 /* Pods-LedgitUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LedgitUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-LedgitUITests/Pods-LedgitUITests.release.xcconfig"; sourceTree = "<group>"; };
+		AA493BC4D136EA66D5B690DD /* Pods-LedgitUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LedgitUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LedgitUITests/Pods-LedgitUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		CD08D377859521F30867A19F /* Pods-LedgitTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LedgitTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-LedgitTests/Pods-LedgitTests.release.xcconfig"; sourceTree = "<group>"; };
+		F29C3F89F31358098A8B0B37 /* Pods-LedgitTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LedgitTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LedgitTests/Pods-LedgitTests.debug.xcconfig"; sourceTree = "<group>"; };
+		F8E6204D85EEE0A99523E00F /* Pods-Ledgit.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Ledgit.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Ledgit/Pods-Ledgit.debug.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		8DA3B1A01F3F875B00FC31AF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5FA2B0A65D5BA7817E8BA1AB /* Pods_Ledgit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8DA3B1B71F3F875B00FC31AF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0AEC39872D7A188B128C430A /* Pods_LedgitTests.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8DA3B1C21F3F875B00FC31AF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				82E5542861F21775516C139F /* Pods_LedgitUITests.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		02408C0E999886688D32A045 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				440E18801682C6FA72C78822 /* Pods_Ledgit.framework */,
+				7EB21902AE594012FF148F96 /* Pods_LedgitTests.framework */,
+				8521A36C51FB5EBE2134AD85 /* Pods_LedgitUITests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		4BF351F33A88F4878B55A3DC /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				F8E6204D85EEE0A99523E00F /* Pods-Ledgit.debug.xcconfig */,
+				31B35902AAD4A6860DB0AC73 /* Pods-Ledgit.release.xcconfig */,
+				F29C3F89F31358098A8B0B37 /* Pods-LedgitTests.debug.xcconfig */,
+				CD08D377859521F30867A19F /* Pods-LedgitTests.release.xcconfig */,
+				AA493BC4D136EA66D5B690DD /* Pods-LedgitUITests.debug.xcconfig */,
+				93C41B92AC4C35C569819F18 /* Pods-LedgitUITests.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		8D173EC41F99A4E200EC8527 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				8D707B491F9D3B7F00CABA0F /* MainNavigationController.swift */,
+				8DA3B2221F3FC00500FC31AF /* MainViewController.swift */,
+				8DA3B2261F3FC01B00FC31AF /* TutorialViewController.swift */,
+				8DA3B2241F3FC01000FC31AF /* AuthenticateViewController.swift */,
+				8DA3B1AA1F3F875B00FC31AF /* Main.storyboard */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		8D173EC51F99A4FA00EC8527 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				8D173EC21F99803400EC8527 /* AuthenticationManager.swift */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		8D173EC61F99A50100EC8527 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				8D173EBE1F997B4100EC8527 /* AuthenticationPresenter.swift */,
+			);
+			name = Presenter;
+			sourceTree = "<group>";
+		};
+		8D18DCB91F43E68F00BD5EBA /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				8DB467F31FC3DFD900E44863 /* Presenter */,
+				8DB467F21FC3DFD300E44863 /* Model */,
+				8DB467F11FC3DFC500E44863 /* View */,
+			);
+			name = Settings;
+			sourceTree = "<group>";
+		};
+		8D2AEBC31F48912D00227FC6 /* Trip Detail */ = {
+			isa = PBXGroup;
+			children = (
+				8DB467A21FC226B600E44863 /* Model */,
+				8DB467A41FC226C400E44863 /* Presenter */,
+				8DB467A31FC226BE00E44863 /* View */,
+			);
+			name = "Trip Detail";
+			sourceTree = "<group>";
+		};
+		8D2AEC1C1F4D148200227FC6 /* History Table View Cell */ = {
+			isa = PBXGroup;
+			children = (
+				8D2AEC1A1F4D147800227FC6 /* CityTableViewCell.swift */,
+				8D171ED4201EAD370058891E /* CollapsibleDateHeaderView.swift */,
+				8D2AEC181F4D146900227FC6 /* DateTableViewCell.swift */,
+			);
+			name = "History Table View Cell";
+			sourceTree = "<group>";
+		};
+		8D2C37F020DF49FD0085E10B /* Ledgit Objects */ = {
+			isa = PBXGroup;
+			children = (
+				8DA3B22A1F4004EB00FC31AF /* LedgitCurrency.swift */,
+				8DB4679C1FC1F16700E44863 /* LedgitUser.swift */,
+				8DB4679E1FC1F2FA00E44863 /* LedgitEntry.swift */,
+				8DB467A01FC1F3A500E44863 /* LedgitTrip.swift */,
+				8D7D284A20829A5400C305FE /* LedgitError.swift */,
+			);
+			name = "Ledgit Objects";
+			sourceTree = "<group>";
+		};
+		8D2C37F120DF4A710085E10B /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				8DA3B21F1F3FBEF300FC31AF /* Utilities.swift */,
+				8D2C37F220DF4AD60085E10B /* LedgitPromise.swift */,
+				8DA3B22C1F40055700FC31AF /* Device.swift */,
+				8DA3B2281F3FC3C600FC31AF /* Constants.swift */,
+				8DE6F56B20154CD90081DB6E /* ResourceManager.swift */,
+				8D9266A82059F4FC00A4B5B2 /* LedgitAnalytics.swift */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		8D488ABF203A811D00A9798B /* Trip Detail */ = {
+			isa = PBXGroup;
+			children = (
+				8D488AC0203BAF7F00A9798B /* WeeklyCollectionViewCellTests.swift */,
+			);
+			name = "Trip Detail";
+			sourceTree = "<group>";
+		};
+		8D92669F204C655600A4B5B2 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				8D92669D204C64F100A4B5B2 /* UILayout+Content.swift */,
+				8D92669B204C64CB00A4B5B2 /* UITableView+Content.swift */,
+				8D926699204C64B100A4B5B2 /* Appearance.swift */,
+				8D926697204C648A00A4B5B2 /* UIView+Content.swift */,
+				8D9266A0204C671B00A4B5B2 /* UIButton+Content.swift */,
+				8D9266A2204C674C00A4B5B2 /* UITextField+Content.swift */,
+				8D9266A4204C676900A4B5B2 /* UILabel+Content.swift */,
+				8D9266A6204C679100A4B5B2 /* UIImageView+Content.swift */,
+				8D926695204C645F00A4B5B2 /* String+Content.swift */,
+				8D926693204C644000A4B5B2 /* Date+Content.swift */,
+				8D92668F204C639D00A4B5B2 /* UIViewController+Content.swift */,
+				8DDD131B202AB0F600998AA5 /* LedgitColor.swift */,
+				8D926691204C641B00A4B5B2 /* LedgitFont.swift */,
+				8D8E5EEC207DC9F50094686D /* Double+Content.swift */,
+			);
+			name = Extensions;
+			sourceTree = "<group>";
+		};
+		8DA3B19A1F3F875B00FC31AF = {
+			isa = PBXGroup;
+			children = (
+				8DA3B1A51F3F875B00FC31AF /* Ledgit */,
+				8DA3B1BD1F3F875B00FC31AF /* LedgitTests */,
+				8DA3B1C81F3F875B00FC31AF /* LedgitUITests */,
+				8DA3B1A41F3F875B00FC31AF /* Products */,
+				4BF351F33A88F4878B55A3DC /* Pods */,
+				02408C0E999886688D32A045 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		8DA3B1A41F3F875B00FC31AF /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8DA3B1A31F3F875B00FC31AF /* Ledgit.app */,
+				8DA3B1BA1F3F875B00FC31AF /* LedgitTests.xctest */,
+				8DA3B1C51F3F875B00FC31AF /* LedgitUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		8DA3B1A51F3F875B00FC31AF /* Ledgit */ = {
+			isa = PBXGroup;
+			children = (
+				8DA3B22E1F40136C00FC31AF /* Authentication */,
+				8DC243D41F43AD8C00B3E080 /* Trips */,
+				8D2AEBC31F48912D00227FC6 /* Trip Detail */,
+				8D18DCB91F43E68F00BD5EBA /* Settings */,
+				8DA3B21C1F3FBE3500FC31AF /* Utilities */,
+				8DA3B2211F3FBF1400FC31AF /* Foundation Files */,
+			);
+			path = Ledgit;
+			sourceTree = "<group>";
+		};
+		8DA3B1BD1F3F875B00FC31AF /* LedgitTests */ = {
+			isa = PBXGroup;
+			children = (
+				8D488ABF203A811D00A9798B /* Trip Detail */,
+				8DDD131D202D59B400998AA5 /* Authentication */,
+				8DDD13312030B7FC00998AA5 /* Trips */,
+				8DDD1328202F8CD400998AA5 /* Utilities */,
+				8DBFF0261F9ED67B0069FB3A /* Trips Mocks */,
+				8DA3B1BE1F3F875B00FC31AF /* LedgitTests.swift */,
+				8DA3B1C01F3F875B00FC31AF /* Info.plist */,
+			);
+			path = LedgitTests;
+			sourceTree = "<group>";
+		};
+		8DA3B1C81F3F875B00FC31AF /* LedgitUITests */ = {
+			isa = PBXGroup;
+			children = (
+				8DA3B1CB1F3F875B00FC31AF /* Info.plist */,
+			);
+			path = LedgitUITests;
+			sourceTree = "<group>";
+		};
+		8DA3B21C1F3FBE3500FC31AF /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				8D92669F204C655600A4B5B2 /* Extensions */,
+				8D2C37F020DF49FD0085E10B /* Ledgit Objects */,
+				8D2C37F120DF4A710085E10B /* Supporting Files */,
+			);
+			name = Utilities;
+			sourceTree = "<group>";
+		};
+		8DA3B2211F3FBF1400FC31AF /* Foundation Files */ = {
+			isa = PBXGroup;
+			children = (
+				8DA3B1A61F3F875B00FC31AF /* AppDelegate.swift */,
+				8DA3B1B01F3F875B00FC31AF /* Assets.xcassets */,
+				8DE6F567201532DD0081DB6E /* Flags.xcassets */,
+				8DA3B1B21F3F875B00FC31AF /* LaunchScreen.storyboard */,
+				8DA3B1B51F3F875B00FC31AF /* Info.plist */,
+				8DA3B1D71F3F880800FC31AF /* GoogleService-Info.plist */,
+				8DA3B1AD1F3F875B00FC31AF /* Ledgit.xcdatamodeld */,
+			);
+			name = "Foundation Files";
+			sourceTree = "<group>";
+		};
+		8DA3B22E1F40136C00FC31AF /* Authentication */ = {
+			isa = PBXGroup;
+			children = (
+				8D173EC51F99A4FA00EC8527 /* Model */,
+				8D173EC41F99A4E200EC8527 /* View */,
+				8D173EC61F99A50100EC8527 /* Presenter */,
+			);
+			name = Authentication;
+			sourceTree = "<group>";
+		};
+		8DAD43E81F9D54D50054EDD8 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				8DDD13342030F4CB00998AA5 /* Custom Views */,
+				8DDDD6BB1F47EFCF0053146B /* Table View Cell */,
+				8DC243D71F43ADBB00B3E080 /* Trips.storyboard */,
+				8D29168B1FB8EA2F008ED9F2 /* CurrencySelectionViewController.swift */,
+				8D707B4B1F9D3BAC00CABA0F /* TripsNavigationController.swift */,
+				8DC243D51F43ADA400B3E080 /* TripsViewController.swift */,
+				8DBBB5F71FAFC99F002D0984 /* TripActionViewController.swift */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		8DAD43E91F9D54DE0054EDD8 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				8D707B4D1F9D3EEE00CABA0F /* TripsPresenter.swift */,
+			);
+			name = Presenter;
+			sourceTree = "<group>";
+		};
+		8DAD43EA1F9D54E60054EDD8 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				8D707B4F1F9D3F9000CABA0F /* TripsManager.swift */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		8DB467A21FC226B600E44863 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				8DFAE89A1FCB103F00B4734B /* TripDetailManager.swift */,
+				8D265066207B08F400B7B56A /* Entries.swift */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		8DB467A31FC226BE00E44863 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				8DDDD6BA1F47ED100053146B /* Collection View Cells */,
+				8DDDD6B21F473EFA0053146B /* TripDetailViewController.swift */,
+				8D656AA21F94480800C85A0F /* EntryActionViewController.swift */,
+				8DFAE89E1FCB9B1500B4734B /* CategorySelectionViewController.swift */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		8DB467A41FC226C400E44863 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				8DFAE89C1FCB104C00B4734B /* TripDetailPresenter.swift */,
+			);
+			name = Presenter;
+			sourceTree = "<group>";
+		};
+		8DB467F11FC3DFC500E44863 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				8DFAE8971FCA902D00B4734B /* Cells */,
+				8D2AEC0C1F4AAFE400227FC6 /* Settings.storyboard */,
+				8DAD43E61F9D46270054EDD8 /* SettingsNavigationController.swift */,
+				8D18DCB51F43E07100BD5EBA /* SettingsViewController.swift */,
+				8D6F4B631F4E8CFC0046847C /* CategoriesViewController.swift */,
+				8D9778F31F4F5364008DD68C /* CategoryActionViewController.swift */,
+				8D6F4B651F4E8D050046847C /* AccountViewController.swift */,
+				8D6F4B671F4E8D100046847C /* SubscriptionViewController.swift */,
+				8D2AEC0E1F4AB2F300227FC6 /* AboutViewController.swift */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		8DB467F21FC3DFD300E44863 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				8D39F94A1FC51B470055BA4E /* SettingsManager.swift */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		8DB467F31FC3DFD900E44863 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				8DB467F41FC3E01900E44863 /* SettingsPresenter.swift */,
+			);
+			name = Presenter;
+			sourceTree = "<group>";
+		};
+		8DBFF0261F9ED67B0069FB3A /* Trips Mocks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "Trips Mocks";
+			sourceTree = "<group>";
+		};
+		8DC243D41F43AD8C00B3E080 /* Trips */ = {
+			isa = PBXGroup;
+			children = (
+				8DAD43EA1F9D54E60054EDD8 /* Model */,
+				8DAD43E91F9D54DE0054EDD8 /* Presenter */,
+				8DAD43E81F9D54D50054EDD8 /* View */,
+			);
+			name = Trips;
+			sourceTree = "<group>";
+		};
+		8DDD131D202D59B400998AA5 /* Authentication */ = {
+			isa = PBXGroup;
+			children = (
+				8DDD1320202D5CC300998AA5 /* AuthenticationManagerDelegateMock.swift */,
+				8DDD132B202F935100998AA5 /* AuthenticationPresenterDelegateMock.swift */,
+				8DDD132F202F9D6300998AA5 /* AuthenticationPresenterMock.swift */,
+				8DDD1322202D5F4E00998AA5 /* AuthenticationPresenterTests.swift */,
+				8DDD1326202F8B2500998AA5 /* AuthenticationManagerTests.swift */,
+			);
+			path = Authentication;
+			sourceTree = "<group>";
+		};
+		8DDD1328202F8CD400998AA5 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				8DDD1329202F8CE600998AA5 /* LedgitUserTests.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		8DDD13312030B7FC00998AA5 /* Trips */ = {
+			isa = PBXGroup;
+			children = (
+				8DDD13322030B81300998AA5 /* TripActionViewControllerTests.swift */,
+			);
+			path = Trips;
+			sourceTree = "<group>";
+		};
+		8DDD13342030F4CB00998AA5 /* Custom Views */ = {
+			isa = PBXGroup;
+			children = (
+				8DDD13352030F4FC00998AA5 /* TripBudgetInformationView.swift */,
+			);
+			name = "Custom Views";
+			sourceTree = "<group>";
+		};
+		8DDDD6BA1F47ED100053146B /* Collection View Cells */ = {
+			isa = PBXGroup;
+			children = (
+				8DDDD6B41F47ECDD0053146B /* WeeklyCollectionViewCell.swift */,
+				8DDDD6B61F47ECF00053146B /* CategoryCollectionViewCell.swift */,
+				8DDDD6B81F47ECFD0053146B /* HistoryCollectionViewCell.swift */,
+				8D2AEC1C1F4D148200227FC6 /* History Table View Cell */,
+			);
+			name = "Collection View Cells";
+			sourceTree = "<group>";
+		};
+		8DDDD6BB1F47EFCF0053146B /* Table View Cell */ = {
+			isa = PBXGroup;
+			children = (
+				8DC243D91F43BE2B00B3E080 /* TripTableViewCell.swift */,
+				8DC243DB1F43BE3900B3E080 /* AddTripTableViewCell.swift */,
+				8D29168D1FB8EA42008ED9F2 /* CurrencyTableViewCell.swift */,
+			);
+			name = "Table View Cell";
+			sourceTree = "<group>";
+		};
+		8DFAE8971FCA902D00B4734B /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				8D18DCB71F43E34B00BD5EBA /* SettingsTableViewCell.swift */,
+				8DFAE8981FCA930000B4734B /* CategoryTableViewCell.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		8DA3B1A21F3F875B00FC31AF /* Ledgit */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8DA3B1CE1F3F875B00FC31AF /* Build configuration list for PBXNativeTarget "Ledgit" */;
+			buildPhases = (
+				83E21ED5E1E04F2D2D15D9F7 /* [CP] Check Pods Manifest.lock */,
+				8DA3B19F1F3F875B00FC31AF /* Sources */,
+				8DA3B1A01F3F875B00FC31AF /* Frameworks */,
+				8DA3B1A11F3F875B00FC31AF /* Resources */,
+				7BEB08FFD5BC12B944CE6A73 /* [CP] Embed Pods Frameworks */,
+				63D48F3ED7837363A552D161 /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Ledgit;
+			productName = Ledgit;
+			productReference = 8DA3B1A31F3F875B00FC31AF /* Ledgit.app */;
+			productType = "com.apple.product-type.application";
+		};
+		8DA3B1B91F3F875B00FC31AF /* LedgitTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8DA3B1D11F3F875B00FC31AF /* Build configuration list for PBXNativeTarget "LedgitTests" */;
+			buildPhases = (
+				1C36A8B1E9985C9EDC60E17E /* [CP] Check Pods Manifest.lock */,
+				8DA3B1B61F3F875B00FC31AF /* Sources */,
+				8DA3B1B71F3F875B00FC31AF /* Frameworks */,
+				8DA3B1B81F3F875B00FC31AF /* Resources */,
+				B6CE219918DDF7805DC6A2FC /* [CP] Embed Pods Frameworks */,
+				2311C4B3BB7F51042C0211BD /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				8DA3B1BC1F3F875B00FC31AF /* PBXTargetDependency */,
+			);
+			name = LedgitTests;
+			productName = LedgitTests;
+			productReference = 8DA3B1BA1F3F875B00FC31AF /* LedgitTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		8DA3B1C41F3F875B00FC31AF /* LedgitUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8DA3B1D41F3F875B00FC31AF /* Build configuration list for PBXNativeTarget "LedgitUITests" */;
+			buildPhases = (
+				1CE324A943B273EAEF95A2E9 /* [CP] Check Pods Manifest.lock */,
+				8DA3B1C11F3F875B00FC31AF /* Sources */,
+				8DA3B1C21F3F875B00FC31AF /* Frameworks */,
+				8DA3B1C31F3F875B00FC31AF /* Resources */,
+				68725C76DCBB4123605EEB38 /* [CP] Embed Pods Frameworks */,
+				368F550AD6D1DE91AF2D1CB0 /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				8DA3B1C71F3F875B00FC31AF /* PBXTargetDependency */,
+			);
+			name = LedgitUITests;
+			productName = LedgitUITests;
+			productReference = 8DA3B1C51F3F875B00FC31AF /* LedgitUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		8DA3B19B1F3F875B00FC31AF /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				KnownAssetTags = (
+					flags,
+				);
+				LastSwiftUpdateCheck = 0830;
+				LastUpgradeCheck = 0930;
+				ORGANIZATIONNAME = "Camden Developers";
+				TargetAttributes = {
+					8DA3B1A21F3F875B00FC31AF = {
+						CreatedOnToolsVersion = 8.3.3;
+						DevelopmentTeam = KD674EGM5X;
+						LastSwiftMigration = 0900;
+						ProvisioningStyle = Automatic;
+					};
+					8DA3B1B91F3F875B00FC31AF = {
+						CreatedOnToolsVersion = 8.3.3;
+						DevelopmentTeam = KD674EGM5X;
+						LastSwiftMigration = 0900;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 8DA3B1A21F3F875B00FC31AF;
+					};
+					8DA3B1C41F3F875B00FC31AF = {
+						CreatedOnToolsVersion = 8.3.3;
+						DevelopmentTeam = KD674EGM5X;
+						LastSwiftMigration = 0900;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 8DA3B1A21F3F875B00FC31AF;
+					};
+				};
+			};
+			buildConfigurationList = 8DA3B19E1F3F875B00FC31AF /* Build configuration list for PBXProject "Ledgit" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 8DA3B19A1F3F875B00FC31AF;
+			productRefGroup = 8DA3B1A41F3F875B00FC31AF /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				8DA3B1A21F3F875B00FC31AF /* Ledgit */,
+				8DA3B1B91F3F875B00FC31AF /* LedgitTests */,
+				8DA3B1C41F3F875B00FC31AF /* LedgitUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		8DA3B1A11F3F875B00FC31AF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8DA3B1B41F3F875B00FC31AF /* LaunchScreen.storyboard in Resources */,
+				8DA3B1D81F3F880800FC31AF /* GoogleService-Info.plist in Resources */,
+				8DC243D81F43ADBB00B3E080 /* Trips.storyboard in Resources */,
+				8D2AEC0D1F4AAFE400227FC6 /* Settings.storyboard in Resources */,
+				8DA3B1B11F3F875B00FC31AF /* Assets.xcassets in Resources */,
+				8DA3B1AC1F3F875B00FC31AF /* Main.storyboard in Resources */,
+				8DE6F568201532DD0081DB6E /* Flags.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8DA3B1B81F3F875B00FC31AF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8DA3B1C31F3F875B00FC31AF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		1C36A8B1E9985C9EDC60E17E /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-LedgitTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		1CE324A943B273EAEF95A2E9 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-LedgitUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		2311C4B3BB7F51042C0211BD /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-LedgitTests/Pods-LedgitTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		368F550AD6D1DE91AF2D1CB0 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-LedgitUITests/Pods-LedgitUITests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		63D48F3ED7837363A552D161 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Ledgit/Pods-Ledgit-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		68725C76DCBB4123605EEB38 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-LedgitUITests/Pods-LedgitUITests-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/ROX/ROX.framework",
+				"${PODS_ROOT}/ROXCore/RoxSdk/ROXCore.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ROX.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ROXCore.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-LedgitUITests/Pods-LedgitUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		7BEB08FFD5BC12B944CE6A73 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-Ledgit/Pods-Ledgit-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/AMPopTip/AMPopTip.framework",
+				"${BUILT_PRODUCTS_DIR}/BetterSegmentedControl/BetterSegmentedControl.framework",
+				"${BUILT_PRODUCTS_DIR}/BubbleTransition/BubbleTransition.framework",
+				"${BUILT_PRODUCTS_DIR}/Charts/Charts.framework",
+				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
+				"${BUILT_PRODUCTS_DIR}/MarqueeLabel/MarqueeLabel.framework",
+				"${BUILT_PRODUCTS_DIR}/NVActivityIndicatorView/NVActivityIndicatorView.framework",
+				"${BUILT_PRODUCTS_DIR}/NotificationBannerSwift/NotificationBannerSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
+				"${BUILT_PRODUCTS_DIR}/SkyFloatingLabelTextField/SkyFloatingLabelTextField.framework",
+				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftDate/SwiftDate.framework",
+				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AMPopTip.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BetterSegmentedControl.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BubbleTransition.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Charts.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MarqueeLabel.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NVActivityIndicatorView.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NotificationBannerSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SkyFloatingLabelTextField.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftDate.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Ledgit/Pods-Ledgit-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		83E21ED5E1E04F2D2D15D9F7 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Ledgit-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B6CE219918DDF7805DC6A2FC /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-LedgitTests/Pods-LedgitTests-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
+				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
+				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-LedgitTests/Pods-LedgitTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		8DA3B19F1F3F875B00FC31AF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8DFAE89D1FCB104C00B4734B /* TripDetailPresenter.swift in Sources */,
+				8D9266A5204C676900A4B5B2 /* UILabel+Content.swift in Sources */,
+				8D926696204C645F00A4B5B2 /* String+Content.swift in Sources */,
+				8D39F94B1FC51B470055BA4E /* SettingsManager.swift in Sources */,
+				8D9266A1204C671B00A4B5B2 /* UIButton+Content.swift in Sources */,
+				8D29168C1FB8EA2F008ED9F2 /* CurrencySelectionViewController.swift in Sources */,
+				8DFAE89B1FCB103F00B4734B /* TripDetailManager.swift in Sources */,
+				8D6F4B681F4E8D100046847C /* SubscriptionViewController.swift in Sources */,
+				8D92669A204C64B100A4B5B2 /* Appearance.swift in Sources */,
+				8D173EBF1F997B4100EC8527 /* AuthenticationPresenter.swift in Sources */,
+				8DA3B22D1F40055700FC31AF /* Device.swift in Sources */,
+				8DBBB5F81FAFC99F002D0984 /* TripActionViewController.swift in Sources */,
+				8D171ED5201EAD370058891E /* CollapsibleDateHeaderView.swift in Sources */,
+				8D656AA31F94480800C85A0F /* EntryActionViewController.swift in Sources */,
+				8D29168E1FB8EA42008ED9F2 /* CurrencyTableViewCell.swift in Sources */,
+				8DB4679F1FC1F2FA00E44863 /* LedgitEntry.swift in Sources */,
+				8DE6F56C20154CD90081DB6E /* ResourceManager.swift in Sources */,
+				8D265067207B08F400B7B56A /* Entries.swift in Sources */,
+				8D6F4B661F4E8D050046847C /* AccountViewController.swift in Sources */,
+				8D2AEC191F4D146900227FC6 /* DateTableViewCell.swift in Sources */,
+				8D2AEC0F1F4AB2F300227FC6 /* AboutViewController.swift in Sources */,
+				8D9266A92059F4FC00A4B5B2 /* LedgitAnalytics.swift in Sources */,
+				8DDDD6B91F47ECFD0053146B /* HistoryCollectionViewCell.swift in Sources */,
+				8D9266A7204C679100A4B5B2 /* UIImageView+Content.swift in Sources */,
+				8DA3B2231F3FC00500FC31AF /* MainViewController.swift in Sources */,
+				8D8E5EED207DC9F50094686D /* Double+Content.swift in Sources */,
+				8D2AEC1B1F4D147800227FC6 /* CityTableViewCell.swift in Sources */,
+				8DA3B2271F3FC01B00FC31AF /* TutorialViewController.swift in Sources */,
+				8DDD13362030F4FC00998AA5 /* TripBudgetInformationView.swift in Sources */,
+				8DA3B2201F3FBEF300FC31AF /* Utilities.swift in Sources */,
+				8D707B4E1F9D3EEE00CABA0F /* TripsPresenter.swift in Sources */,
+				8D926694204C644000A4B5B2 /* Date+Content.swift in Sources */,
+				8DAD43E71F9D46270054EDD8 /* SettingsNavigationController.swift in Sources */,
+				8D6F4B641F4E8CFC0046847C /* CategoriesViewController.swift in Sources */,
+				8D707B4C1F9D3BAC00CABA0F /* TripsNavigationController.swift in Sources */,
+				8DC243DC1F43BE3900B3E080 /* AddTripTableViewCell.swift in Sources */,
+				8D9266A3204C674C00A4B5B2 /* UITextField+Content.swift in Sources */,
+				8D926692204C641B00A4B5B2 /* LedgitFont.swift in Sources */,
+				8DDDD6B31F473EFA0053146B /* TripDetailViewController.swift in Sources */,
+				8D173EC31F99803400EC8527 /* AuthenticationManager.swift in Sources */,
+				8DA3B2251F3FC01000FC31AF /* AuthenticateViewController.swift in Sources */,
+				8D926690204C639D00A4B5B2 /* UIViewController+Content.swift in Sources */,
+				8D707B4A1F9D3B7F00CABA0F /* MainNavigationController.swift in Sources */,
+				8DA3B1A71F3F875B00FC31AF /* AppDelegate.swift in Sources */,
+				8DFAE89F1FCB9B1500B4734B /* CategorySelectionViewController.swift in Sources */,
+				8D18DCB61F43E07100BD5EBA /* SettingsViewController.swift in Sources */,
+				8D2C37F320DF4AD60085E10B /* LedgitPromise.swift in Sources */,
+				8DA3B22B1F4004EB00FC31AF /* LedgitCurrency.swift in Sources */,
+				8D18DCB81F43E34B00BD5EBA /* SettingsTableViewCell.swift in Sources */,
+				8DA3B1AF1F3F875B00FC31AF /* Ledgit.xcdatamodeld in Sources */,
+				8DDD131C202AB0F600998AA5 /* LedgitColor.swift in Sources */,
+				8DC243DA1F43BE2B00B3E080 /* TripTableViewCell.swift in Sources */,
+				8DB4679D1FC1F16700E44863 /* LedgitUser.swift in Sources */,
+				8D7D284B20829A5400C305FE /* LedgitError.swift in Sources */,
+				8DC243D61F43ADA400B3E080 /* TripsViewController.swift in Sources */,
+				8D92669E204C64F100A4B5B2 /* UILayout+Content.swift in Sources */,
+				8DDDD6B71F47ECF00053146B /* CategoryCollectionViewCell.swift in Sources */,
+				8D9778F41F4F5364008DD68C /* CategoryActionViewController.swift in Sources */,
+				8D926698204C648A00A4B5B2 /* UIView+Content.swift in Sources */,
+				8DB467A11FC1F3A500E44863 /* LedgitTrip.swift in Sources */,
+				8DFAE8991FCA930000B4734B /* CategoryTableViewCell.swift in Sources */,
+				8D92669C204C64CB00A4B5B2 /* UITableView+Content.swift in Sources */,
+				8DA3B2291F3FC3C600FC31AF /* Constants.swift in Sources */,
+				8DDDD6B51F47ECDD0053146B /* WeeklyCollectionViewCell.swift in Sources */,
+				8D707B501F9D3F9000CABA0F /* TripsManager.swift in Sources */,
+				8DB467F51FC3E01900E44863 /* SettingsPresenter.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8DA3B1B61F3F875B00FC31AF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8DA3B1BF1F3F875B00FC31AF /* LedgitTests.swift in Sources */,
+				8D488AC1203BAF7F00A9798B /* WeeklyCollectionViewCellTests.swift in Sources */,
+				8DDD132C202F935100998AA5 /* AuthenticationPresenterDelegateMock.swift in Sources */,
+				8DDD1321202D5CC300998AA5 /* AuthenticationManagerDelegateMock.swift in Sources */,
+				8DDD132A202F8CE600998AA5 /* LedgitUserTests.swift in Sources */,
+				8DDD1327202F8B2500998AA5 /* AuthenticationManagerTests.swift in Sources */,
+				8DDD13332030B81300998AA5 /* TripActionViewControllerTests.swift in Sources */,
+				8DDD1330202F9D6300998AA5 /* AuthenticationPresenterMock.swift in Sources */,
+				8DDD1323202D5F4E00998AA5 /* AuthenticationPresenterTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8DA3B1C11F3F875B00FC31AF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		8DA3B1BC1F3F875B00FC31AF /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8DA3B1A21F3F875B00FC31AF /* Ledgit */;
+			targetProxy = 8DA3B1BB1F3F875B00FC31AF /* PBXContainerItemProxy */;
+		};
+		8DA3B1C71F3F875B00FC31AF /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8DA3B1A21F3F875B00FC31AF /* Ledgit */;
+			targetProxy = 8DA3B1C61F3F875B00FC31AF /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		8DA3B1AA1F3F875B00FC31AF /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				8DA3B1AB1F3F875B00FC31AF /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		8DA3B1B21F3F875B00FC31AF /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				8DA3B1B31F3F875B00FC31AF /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		8DA3B1CC1F3F875B00FC31AF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		8DA3B1CD1F3F875B00FC31AF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		8DA3B1CF1F3F875B00FC31AF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F8E6204D85EEE0A99523E00F /* Pods-Ledgit.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = KD674EGM5X;
+				INFOPLIST_FILE = Ledgit/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.camdendev.Ledgit;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		8DA3B1D01F3F875B00FC31AF /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 31B35902AAD4A6860DB0AC73 /* Pods-Ledgit.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = KD674EGM5X;
+				INFOPLIST_FILE = Ledgit/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.camdendev.Ledgit;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+		8DA3B1D21F3F875B00FC31AF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F29C3F89F31358098A8B0B37 /* Pods-LedgitTests.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = KD674EGM5X;
+				INFOPLIST_FILE = LedgitTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.camdendev.LedgitTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
+				SWIFT_VERSION = 4.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Ledgit.app/Ledgit";
+			};
+			name = Debug;
+		};
+		8DA3B1D31F3F875B00FC31AF /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = CD08D377859521F30867A19F /* Pods-LedgitTests.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = KD674EGM5X;
+				INFOPLIST_FILE = LedgitTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.camdendev.LedgitTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
+				SWIFT_VERSION = 4.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Ledgit.app/Ledgit";
+			};
+			name = Release;
+		};
+		8DA3B1D51F3F875B00FC31AF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = AA493BC4D136EA66D5B690DD /* Pods-LedgitUITests.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
+				BUNDLE_LOADER = "";
+				DEVELOPMENT_TEAM = KD674EGM5X;
+				INFOPLIST_FILE = LedgitUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.camdendev.LedgitUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
+				SWIFT_VERSION = 4.0;
+				TEST_TARGET_NAME = Ledgit;
+			};
+			name = Debug;
+		};
+		8DA3B1D61F3F875B00FC31AF /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 93C41B92AC4C35C569819F18 /* Pods-LedgitUITests.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
+				BUNDLE_LOADER = "";
+				DEVELOPMENT_TEAM = KD674EGM5X;
+				INFOPLIST_FILE = LedgitUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.camdendev.LedgitUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
+				SWIFT_VERSION = 4.0;
+				TEST_TARGET_NAME = Ledgit;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		8DA3B19E1F3F875B00FC31AF /* Build configuration list for PBXProject "Ledgit" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8DA3B1CC1F3F875B00FC31AF /* Debug */,
+				8DA3B1CD1F3F875B00FC31AF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8DA3B1CE1F3F875B00FC31AF /* Build configuration list for PBXNativeTarget "Ledgit" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8DA3B1CF1F3F875B00FC31AF /* Debug */,
+				8DA3B1D01F3F875B00FC31AF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8DA3B1D11F3F875B00FC31AF /* Build configuration list for PBXNativeTarget "LedgitTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8DA3B1D21F3F875B00FC31AF /* Debug */,
+				8DA3B1D31F3F875B00FC31AF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8DA3B1D41F3F875B00FC31AF /* Build configuration list for PBXNativeTarget "LedgitUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8DA3B1D51F3F875B00FC31AF /* Debug */,
+				8DA3B1D61F3F875B00FC31AF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		8DA3B1AD1F3F875B00FC31AF /* Ledgit.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				8DA3B1AE1F3F875B00FC31AF /* Ledgit.xcdatamodel */,
+			);
+			currentVersion = 8DA3B1AE1F3F875B00FC31AF /* Ledgit.xcdatamodel */;
+			path = Ledgit.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = 8DA3B19B1F3F875B00FC31AF /* Project object */;
+}

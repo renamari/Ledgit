@@ -14,9 +14,9 @@ struct LedgitUser: Equatable {
     var email: String = ""
     var provider: String = "Ledgit"
     var subscription: Subscription = .free
-    var homeCurrency: LedgitCurrency = .USD
     var categories = ["Transportation", "Food", "Lodging", "Entertainment", "Emergency", "Miscellaneous"]
     var dictionaryRepresentation: NSDictionary = [:]
+    var homeCurrency: LedgitCurrency = .USD
     
     struct Keys {
         static let key = "uid"

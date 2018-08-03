@@ -224,7 +224,6 @@ class WeeklyCollectionViewCell: UICollectionViewCell, ChartViewDelegate {
         format.minimum = 0
         format.numberStyle = .currency
         format.allowsFloats = false
-        format.currencySymbol = LedgitUser.current.homeCurrency.symbol
         
         let xFormat = BarChartXAxisFormatter(labels: weekdays)
         

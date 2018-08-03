@@ -26,6 +26,7 @@ class EntryActionViewController: UIViewController {
     @IBOutlet weak var paymentPickerCreditButton: UIButton!
     var action: LedgitAction = .add
     var editedEntry: Bool = false
+    var keyboardShowing: Bool = false
     var isConnected: Bool { return Reachability.isConnectedToNetwork() }
     var activeTextField: UITextField?
     var selectedCurrency: LedgitCurrency = LedgitUser.current.homeCurrency {
@@ -369,17 +370,28 @@ extension EntryActionViewController: CurrencySelectionDelegate {
 }
 
 extension EntryActionViewController: UITextFieldDelegate {
+    func adjustInsetForKeyboardShow(_ show: Bool, notification: Notification) {
+        guard let info = notification.userInfo else { return }
+        guard let keyboard = info[UIKeyboardFrameEndUserInfoKey] as? CGRect else { return }
+        let adjustmentHeight = (keyboard.height + 20) * (show ? -1 : 1)
+        scrollView.contentInset.bottom += keyboard.height
+        scrollView.scrollIndicatorInsets.bottom += keyboard.height
+    }
     
-    @objc func keyboardWillShow(notification:NSNotification){
-        //give room at the bottom of the scroll view, so it doesn't cover up anything the user needs to tap
+    @objc func keyboardWillShow(notification: Notification) {
+        guard !keyboardShowing else { return }
         guard let info = notification.userInfo else { return }
         guard let keyboard = info[UIKeyboardFrameEndUserInfoKey] as? CGRect else { return }
         
-        scrollView.contentInset.bottom = keyboard.height
+        scrollView.contentInset.bottom += keyboard.height
+        scrollView.scrollIndicatorInsets.bottom += keyboard.height
+        keyboardShowing = true
     }
     
-    @objc func keyboardWillHide(notification:NSNotification){
-        scrollView.contentInset = .zero
+    @objc func keyboardWillHide(notification: Notification) {
+        scrollView.contentInset.bottom = 0
+        scrollView.scrollIndicatorInsets.bottom = 0
+        keyboardShowing = false
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {

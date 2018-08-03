@@ -176,10 +176,6 @@ extension SettingsManager {
     }
     
     func updateUserHomeCurrency(with currency: LedgitCurrency) {
-        // Creating this flag to make sure we only update the value if at least one
-        // entry successfully converts on entry amount
-        var successfullyUpdated: Bool = false
-        
         // Update each entry to reflect updated home currency
         let entryRequest = NSFetchRequest<NSFetchRequestResult>(entityName: Constants.ledgitEntity.entry)
         
@@ -206,7 +202,6 @@ extension SettingsManager {
                 if let previouslyFetchedRated = rates[entryCurrencyCode] {
                     let newConvertedCost = Double(cost / previouslyFetchedRated)
                     entry.setValue(newConvertedCost, forKey: LedgitEntry.Keys.convertedCost)
-                    successfullyUpdated = true
                     
                 } else {
                     LedgitCurrency.getRate(between: currency.code, and: entryCurrencyCode).then { rate in
@@ -215,22 +210,17 @@ extension SettingsManager {
                         
                         let newConvertedCost = Double(cost / rate)
                         entry.setValue(newConvertedCost, forKey: LedgitEntry.Keys.convertedCost)
-                        successfullyUpdated = true
+                        
+                        Log.info("Successfully update costs with new rate, trying to save to core data")
+                        try self.coreData.save()
+                        LedgitUser.current.homeCurrency = currency
+                        self.user?.setValue(currency.code, forKey: LedgitUser.Keys.homeCurrency)
                         
                         }.catch { error in
                             Log.critical("Something went wrong when updating conversion cost \(error.localizedDescription)")
                             return
                     }
                 }
-            }
-            
-            if successfullyUpdated {
-                Log.info("Successfully update costs with new rate, trying to save to core data")
-                
-                // Quickly update the users home currency value
-                try coreData.save()
-                LedgitUser.current.homeCurrency = currency
-                user?.setValue(currency.code, forKey: LedgitUser.Keys.homeCurrency)
             }
             
         } catch let error as NSError {

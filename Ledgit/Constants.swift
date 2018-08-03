@@ -34,6 +34,7 @@ struct Constants {
         static let sampleTrip = "needsSampleTrip"
         static let defaultTrip = "defaultTrip"
         static let uid = "uid"
+        static let homeCurrency = "homeCurrency"
     }
     
     struct cellIdentifiers {

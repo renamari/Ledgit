@@ -28,7 +28,7 @@ class TripDetailPresenter {
         self.manager.delegate = self
     }
     
-    func attachTrip(_ trip: LedgitTrip) {
+    func attach(_ trip: LedgitTrip) {
         self.trip = trip
     }
     

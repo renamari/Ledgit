@@ -31,7 +31,6 @@ class TripDetailViewController: UIViewController {
         super.viewDidLoad()
         setupButton()
         setupPresenter()
-        setupExportButton()
         setupGestureRecognizers()
         setupNavigationBar()
         setupCollectionView()
@@ -40,6 +39,8 @@ class TripDetailViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         setupNavigationBar()
+        
+        navigationItem.rightBarButtonItem = shouldDisplayExportButton ? setupExportButton() : nil
     }
     
     func displayTipsIfNeeded() {
@@ -66,7 +67,7 @@ class TripDetailViewController: UIViewController {
             return
         }
         presenter.delegate = self
-        presenter.attachTrip(trip)
+        presenter.attach(trip)
         presenter.fetchEntries()
     }
     
@@ -96,17 +97,21 @@ class TripDetailViewController: UIViewController {
         view.addGestureRecognizer(swipeRecognizer)
     }
     
-    func setupExportButton() {
+    var shouldDisplayExportButton: Bool {
         guard currentTrip?.key != Constants.projectID.sample else {
             Log.info("Did not set up export button because it was sample trip")
-            return
+            return false
         }
         
         guard presenter.entries.count > 0 else {
             Log.info("Did not set up export because there are no entries in the trip")
-            return
+            return false
         }
         
+        return true
+    }
+    
+    func setupExportButton() -> UIBarButtonItem {
         let rightButton:UIButton = UIButton()
         rightButton.titleLabel?.font = .futuraMedium16
         rightButton.setTitle("Export", for: .normal)
@@ -114,7 +119,8 @@ class TripDetailViewController: UIViewController {
         rightButton.addTarget(self, action: #selector(exportButtonPressed), for: .touchUpInside)
         
         let barButton = UIBarButtonItem(customView: rightButton)
-        navigationItem.rightBarButtonItem = barButton
+        
+        return barButton
     }
     
     @objc func exportButtonPressed() {

@@ -22,18 +22,7 @@ class AuthenticateViewController: UIViewController {
     
     private var presenter = AuthenticationPresenter(manager: AuthenticationManager())
     var method: AuthenticationMethod = .signin
-    
-    var isLoading: Bool = false {
-        didSet {
-            switch isLoading {
-            case true:
-                startLoading()
-            case false:
-                stopLoading()
-            }
-        }
-    }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setupRecognizers()
@@ -91,7 +80,7 @@ class AuthenticateViewController: UIViewController {
     }
     
     @IBAction func authenticateButtonPressed(_ sender: Any) {
-        isLoading = true
+        startLoading()
         
         guard let email = emailTextField.text?.strip() else { return }
         guard let password = passwordTextField.text?.strip() else { return }
@@ -110,7 +99,7 @@ class AuthenticateViewController: UIViewController {
 
 extension AuthenticateViewController: AuthenticationPresenterDelegate {
     func successfulAuthentication(of user: LedgitUser) {
-        isLoading = false
+        stopLoading()
         LedgitUser.current = user
         
         let navigationController = TripsNavigationController.instantiate(from: .trips)
@@ -118,7 +107,7 @@ extension AuthenticateViewController: AuthenticationPresenterDelegate {
     }
     
     func displayError(_ error: LedgitError) {
-        isLoading = false
+        stopLoading()
         showAlert(with: error)
     }
 }

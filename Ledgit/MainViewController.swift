@@ -25,22 +25,10 @@ class MainViewController: UIViewController {
     @IBOutlet weak var tutorialView: UIView!
     private var pageViewController = UIPageViewController()
     private var presenter = AuthenticationPresenter(manager: AuthenticationManager())
-    var isLoading: Bool = false {
-        didSet {
-            switch isLoading {
-            case true:
-                startLoading()
-            case false:
-                stopLoading()
-            }
-        }
-    }
-
-    var method: AuthenticationMethod = .signin
-    var currentIndex = 0
+    private var method: AuthenticationMethod = .signin
+    private var currentIndex = 0
     
-    lazy var pageColors: [UIColor] = Constants.pageColors
-    
+    lazy var content = Constants.tutorialContent
     lazy var orderedViewControllers: [UIViewController] = {
         return [createNewTutorialViewController(at: 0),
                 createNewTutorialViewController(at: 1),
@@ -86,7 +74,7 @@ class MainViewController: UIViewController {
         let tutorialViewController = TutorialViewController.instantiate(from: .main)
         
         // 2. Update its properties
-        tutorialViewController.index = index
+        tutorialViewController.configure(with: content[index], and: index)
         
         // 3. Return tutorial screen
         return tutorialViewController
@@ -95,7 +83,7 @@ class MainViewController: UIViewController {
     // MARK: - IBActions
     @IBAction func startButtonPressed(_ sender: Any) {
         // Always create a core data member by default
-        isLoading = true
+        startLoading()
         presenter.authenticateUser(platform: .coreData, method: .signup)
     }
     
@@ -158,24 +146,24 @@ extension MainViewController: UIPageViewControllerDelegate {
     func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
         
         // 1. Check if screen has finished transition from one view to next
-        guard completed == true else { return }
+        guard completed else { return }
             
         // 2. If yes, update the page control current indicator to change to index
         pageControl.currentPage = currentIndex
-        pageControl.currentPageIndicatorTintColor = pageColors[currentIndex]
+        pageControl.currentPageIndicatorTintColor = content[currentIndex].color
     }
     
     func pageViewController(_ pageViewController: UIPageViewController, willTransitionTo pendingViewControllers: [UIViewController]) {
         
         // 1. Update the current index to the view controller index user will transition to
         guard let controller = pendingViewControllers.first as? TutorialViewController else { return }
-        currentIndex = controller.index
+        currentIndex = controller.pageIndex
     }
 }
 
 extension MainViewController: AuthenticationPresenterDelegate {
     func successfulAuthentication(of user: LedgitUser) {
-        isLoading = false
+        stopLoading()
         LedgitUser.current = user
         
         let navigationController = TripsNavigationController.instantiate(from: .trips)
@@ -183,7 +171,7 @@ extension MainViewController: AuthenticationPresenterDelegate {
     }
     
     func displayError(_ error: LedgitError) {
-        isLoading = false
+        stopLoading()
         showAlert(with: error)
     }
 }

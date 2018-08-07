@@ -79,6 +79,19 @@ struct Constants {
         static let entry = "Entry"
     }
     
+    static let tutorialContent: [LedgitTutorial] = [
+            LedgitTutorial(color: LedgitColor.coreBlue,
+                           image: #imageLiteral(resourceName: "tutorial-icon-0"), title: "Create New Trips",
+                           description: "Add new trips quickly in advanced or in the moment"),
+            LedgitTutorial(color: LedgitColor.lightPink,
+                           image: #imageLiteral(resourceName: "tutorial-icon-1"), title: "Add Expenses Quickly",
+                           description: "Quickly jot down your expense information"),
+            LedgitTutorial(color: LedgitColor.lightAqua,
+                           image: #imageLiteral(resourceName: "tutorial-icon-2"),
+                           title: "Analyze Your Budget",
+                           description: "Get intelligent reports of your expenses as your trip goes on")
+    ]
+
     static let pageColors: [UIColor] = {
         return [
             LedgitColor.coreBlue,
@@ -87,26 +100,6 @@ struct Constants {
         ]
     }()
     
-    static let pageTitles: [String] = {
-        return [
-            "Create New Trips",
-            "Add Expenses Quickly",
-            "Analyze Your Budget"
-        ]
-    }()
-    
-    static let pageDescriptions: [String] = {
-        return [
-            "Add new trips quickly in advanced or in the moment",
-            "Quickly jot down your expense information",
-            "Get intelligent reports of your expenses as your trip goes on"
-        ]
-    }()
-    
-    static let pageImages: [UIImage] = {
-        return [#imageLiteral(resourceName: "tutorial-icon-0"),#imageLiteral(resourceName: "tutorial-icon-1"),#imageLiteral(resourceName: "tutorial-icon-2")]
-    }()
-
     struct authenticateText {
         static let signin = "Sign in to see your trips."
         static let signup = "Sign up to get started."

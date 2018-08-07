@@ -43,15 +43,6 @@ class TripActionViewController: UIViewController {
     var datePicker: UIDatePicker?
     var tripLength: Int = 1
     
-    var isLoading:Bool = false {
-        didSet {
-            switch isLoading {
-            case true: startLoading()
-            case false: stopLoading()
-            }
-        }
-    }
-    
     var formatter: DateFormatter {
         let formatter = DateFormatter()
         formatter.dateFormat = LedgitDateStyle.full.rawValue
@@ -381,6 +372,7 @@ extension TripActionViewController: UITextFieldDelegate {
         
         switch textField {
         case nameTextField, budgetTextField, currenciesTextField:
+            (textField as? SkyFloatingLabelTextField)?.errorMessage = nil
             textField.resignFirstResponder()
             
         default: break
@@ -389,6 +381,7 @@ extension TripActionViewController: UITextFieldDelegate {
     }
     
     @objc func doneTapped() {
+        (activeTextField as? SkyFloatingLabelTextField)?.errorMessage = nil
         activeTextField?.resignFirstResponder()
     }
     

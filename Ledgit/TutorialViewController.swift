@@ -8,23 +8,21 @@
 
 import UIKit
 
-class TutorialViewController: UIViewController {
-    @IBOutlet weak var backgroundImageView: UIImageView!
-    @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var descriptionLabel: UILabel!
-    fileprivate var pageTitles: [String] = Constants.pageTitles
-    fileprivate var pageImages: [UIImage] = Constants.pageImages
-    fileprivate var pageDescriptions: [String] = Constants.pageDescriptions
-    var index: Int = 0
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        configure()
-    }
+struct TutorialContent {
     
-    func configure() {
-        titleLabel.text(pageTitles[index])
-        backgroundImageView.image(pageImages[index])
-        descriptionLabel.text(pageDescriptions[index])
+}
+
+class TutorialViewController: UIViewController {
+    @IBOutlet private var backgroundImageView: UIImageView!
+    @IBOutlet private var titleLabel: UILabel!
+    @IBOutlet private var descriptionLabel: UILabel!
+    private(set) var pageIndex: Int!
+
+    func configure(with content: LedgitTutorial, and index: Int) {
+        _ = view
+        titleLabel.text(content.title)
+        backgroundImageView.image(content.image)
+        descriptionLabel.text(content.description)
+        pageIndex = index
     }
 }

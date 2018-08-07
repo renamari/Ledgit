@@ -16,6 +16,7 @@
 		8D18DCB61F43E07100BD5EBA /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D18DCB51F43E07100BD5EBA /* SettingsViewController.swift */; };
 		8D18DCB81F43E34B00BD5EBA /* SettingsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D18DCB71F43E34B00BD5EBA /* SettingsTableViewCell.swift */; };
 		8D265067207B08F400B7B56A /* Entries.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D265066207B08F400B7B56A /* Entries.swift */; };
+		8D265F7C211922360017770F /* LedgitTutorial.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D265F7B211922360017770F /* LedgitTutorial.swift */; };
 		8D29168C1FB8EA2F008ED9F2 /* CurrencySelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D29168B1FB8EA2F008ED9F2 /* CurrencySelectionViewController.swift */; };
 		8D29168E1FB8EA42008ED9F2 /* CurrencyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D29168D1FB8EA42008ED9F2 /* CurrencyTableViewCell.swift */; };
 		8D2AEC0D1F4AAFE400227FC6 /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8D2AEC0C1F4AAFE400227FC6 /* Settings.storyboard */; };
@@ -121,6 +122,7 @@
 		8D18DCB51F43E07100BD5EBA /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		8D18DCB71F43E34B00BD5EBA /* SettingsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTableViewCell.swift; sourceTree = "<group>"; };
 		8D265066207B08F400B7B56A /* Entries.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entries.swift; sourceTree = "<group>"; };
+		8D265F7B211922360017770F /* LedgitTutorial.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LedgitTutorial.swift; sourceTree = "<group>"; };
 		8D29168B1FB8EA2F008ED9F2 /* CurrencySelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencySelectionViewController.swift; sourceTree = "<group>"; };
 		8D29168D1FB8EA42008ED9F2 /* CurrencyTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyTableViewCell.swift; sourceTree = "<group>"; };
 		8D2AEC0C1F4AAFE400227FC6 /* Settings.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Settings.storyboard; sourceTree = "<group>"; };
@@ -326,6 +328,7 @@
 				8DB4679E1FC1F2FA00E44863 /* LedgitEntry.swift */,
 				8DB467A01FC1F3A500E44863 /* LedgitTrip.swift */,
 				8D7D284A20829A5400C305FE /* LedgitError.swift */,
+				8D265F7B211922360017770F /* LedgitTutorial.swift */,
 			);
 			name = "Ledgit Objects";
 			sourceTree = "<group>";
@@ -1011,6 +1014,7 @@
 				8D9266A7204C679100A4B5B2 /* UIImageView+Content.swift in Sources */,
 				8DA3B2231F3FC00500FC31AF /* MainViewController.swift in Sources */,
 				8D8E5EED207DC9F50094686D /* Double+Content.swift in Sources */,
+				8D265F7C211922360017770F /* LedgitTutorial.swift in Sources */,
 				8D2AEC1B1F4D147800227FC6 /* CityTableViewCell.swift in Sources */,
 				8DA3B2271F3FC01B00FC31AF /* TutorialViewController.swift in Sources */,
 				8DDD13362030F4FC00998AA5 /* TripBudgetInformationView.swift in Sources */,

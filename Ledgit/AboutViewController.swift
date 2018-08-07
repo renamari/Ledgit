@@ -10,13 +10,7 @@ import UIKit
 
 class AboutViewController: UIViewController {
     @IBOutlet weak var webView: UIWebView!
-    
-    var isLoading:Bool = false {
-        didSet{
-            isLoading ? startLoading() : stopLoading()
-        }
-    }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         if #available(iOS 11.0, *) { navigationItem.largeTitleDisplayMode = .never }
         super.viewWillAppear(animated)
@@ -32,11 +26,11 @@ class AboutViewController: UIViewController {
         setupWebView()
     }
 
-    func setupWebView(){
+    func setupWebView() {
         webView.delegate = self
         
         guard let requestURL = URL(string: "http://camden-developers.weebly.com") else {
-            doneButtonPressed(self)
+            doneButtonPressed()
             return
         }
         
@@ -45,21 +39,17 @@ class AboutViewController: UIViewController {
         webView.loadRequest(request)
     }
 
-    @IBAction func backButtonPressed(_ sender: Any) {
+    @IBAction func backButtonPressed() {
         webView.goBack()
     }
     
-    @IBAction func doneButtonPressed(_ sender: Any) {
+    @IBAction func doneButtonPressed() {
         navigationController?.popViewController(animated: true)
     }
 }
 
-extension AboutViewController: UIWebViewDelegate{
-    func webViewDidStartLoad(_ webView: UIWebView) {
-        isLoading = true
-    }
+extension AboutViewController: UIWebViewDelegate {
+    func webViewDidStartLoad(_ webView: UIWebView) { startLoading() }
     
-    func webViewDidFinishLoad(_ webView: UIWebView) {
-        isLoading = false
-    }
+    func webViewDidFinishLoad(_ webView: UIWebView) { stopLoading() }
 }

@@ -25,7 +25,7 @@ class TripsManager {
     weak var delegate: TripsManagerDelegate?
     let auth = Auth.auth()
     let trips = Database.database().reference().child("trips")
-    var isConnected: Bool { return Reachability.isConnectedToNetwork() }
+    var isConnected: Bool { return Reachability.isConnectedToNetwork }
     
     var coreData: NSManagedObjectContext {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {

@@ -27,7 +27,7 @@ class EntryActionViewController: UIViewController {
     var action: LedgitAction = .add
     var editedEntry: Bool = false
     var keyboardShowing: Bool = false
-    var isConnected: Bool { return Reachability.isConnectedToNetwork() }
+    var isConnected: Bool { return Reachability.isConnectedToNetwork }
     var activeTextField: UITextField?
     var selectedCurrency: LedgitCurrency = LedgitUser.current.homeCurrency {
         didSet {

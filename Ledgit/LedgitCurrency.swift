@@ -9,10 +9,10 @@
 import UIKit
 
 struct LedgitCurrency: Equatable {
-    var name: String
-    var code: String
-    var symbol: String
-    var flagCode: String
+    let name: String
+    let code: String
+    let symbol: String
+    let flagCode: String
 }
 
 extension LedgitCurrency {
@@ -270,7 +270,7 @@ extension LedgitCurrency {
     static func getRate(between base: String, and currency: String) -> Promise<Double> {
         return Promise { resolve, reject in
         
-            guard Reachability.isConnectedToNetwork() else {
+            guard Reachability.isConnectedToNetwork else {
                 Log.warning("Could not start exchange rate request because user is not connected to network.")
                 reject(makeError("Could not start exchange rate request because user is not connected to network."))
                 return

@@ -39,13 +39,13 @@ class TripDetailManager {
     var isConnected: Bool = false
     #else
     var isConnected: Bool {
-        get { return Reachability.isConnectedToNetwork() }
+        get { return Reachability.isConnectedToNetwork }
     }
     #endif
     
     init() {
     #if DEBUG
-        isConnected = Reachability.isConnectedToNetwork()
+        isConnected = Reachability.isConnectedToNetwork
     #endif
     }
     

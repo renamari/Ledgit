@@ -22,9 +22,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         window = UIWindow(frame: UIScreen.main.bounds)
         
-        // Request on demand resources
-        ResourceManager.shared.requestFlagImages()
-        
         // Determine which screen to go to depending on current user status
         // If there is no uid in user defaults, that can mean:
         //   1) First time launch of the app

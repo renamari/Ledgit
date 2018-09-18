@@ -709,9 +709,6 @@
 		8DA3B19B1F3F875B00FC31AF /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				KnownAssetTags = (
-					flags,
-				);
 				LastSwiftUpdateCheck = 0830;
 				LastUpgradeCheck = 0930;
 				ORGANIZATIONNAME = "Camden Developers";

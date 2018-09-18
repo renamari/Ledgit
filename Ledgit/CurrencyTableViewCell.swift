@@ -15,15 +15,7 @@ class CurrencyTableViewCell: UITableViewCell {
     @IBOutlet weak var codeLabel: UILabel!
 
     func configure(with currency: LedgitCurrency) {
-        if ResourceManager.shared.retrievedFlags {
-            let image = UIImage(named: currency.flagCode,
-                                in: ResourceManager.shared.bundle,
-                                compatibleWith: nil)
-            currencyImageView.image(image)
-        } else {
-            currencyImageViewWidthConstraint.constant = 0
-        }
-        
+        currencyImageView.image(UIImage(named: currency.flagCode))
         nameLabel.text(currency.name)
         codeLabel.text(currency.code)
     }

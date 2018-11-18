@@ -49,7 +49,7 @@ extension UIView {
         layer.fillColor = UIColor.clear.cgColor
         layer.strokeColor = color
         layer.lineWidth = 1
-        layer.lineJoin = kCALineJoinRound
+        layer.lineJoin = CAShapeLayerLineJoin.round
         layer.lineDashPattern = [4 , 2]
         layer.path = UIBezierPath(roundedRect: frame, cornerRadius: 5).cgPath
         layer.masksToBounds = true
@@ -63,7 +63,7 @@ extension UIView {
     // will Flip from Left
     
     func flipTransition (with view2: UIView, isReverse: Bool = false) {
-        var transitionOptions = UIViewAnimationOptions()
+        var transitionOptions = UIView.AnimationOptions()
         transitionOptions = isReverse ? [.transitionFlipFromLeft] : [.transitionFlipFromRight] // options for transition
         
         // animation durations are equal so while first will finish, second will start

@@ -41,7 +41,7 @@ class CurrencySelectionViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.allowsMultipleSelection = allowsMultipleSelection
-        tableView.estimatedRowHeight = UITableViewAutomaticDimension
+        tableView.estimatedRowHeight = UITableView.automaticDimension
         tableView.rowHeight = 60
     }
     

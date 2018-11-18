@@ -84,6 +84,7 @@ class EntryActionViewController: UIViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         UIApplication.shared.statusBarStyle = .lightContent
         view.endEditing(true)
         activeTextField?.resignFirstResponder()
@@ -168,11 +169,11 @@ class EntryActionViewController: UIViewController {
     func setupObservers() {
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(keyboardWillShow),
-                                               name: .UIKeyboardWillShow,
+                                               name: UIResponder.keyboardWillShowNotification,
                                                object: nil)
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(keyboardWillHide),
-                                               name: .UIKeyboardWillHide,
+                                               name: UIResponder.keyboardWillHideNotification,
                                                object: nil)
     }
     
@@ -372,8 +373,7 @@ extension EntryActionViewController: CurrencySelectionDelegate {
 extension EntryActionViewController: UITextFieldDelegate {
     func adjustInsetForKeyboardShow(_ show: Bool, notification: Notification) {
         guard let info = notification.userInfo else { return }
-        guard let keyboard = info[UIKeyboardFrameEndUserInfoKey] as? CGRect else { return }
-        let adjustmentHeight = (keyboard.height + 20) * (show ? -1 : 1)
+        guard let keyboard = info[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else { return }
         scrollView.contentInset.bottom += keyboard.height
         scrollView.scrollIndicatorInsets.bottom += keyboard.height
     }
@@ -381,7 +381,7 @@ extension EntryActionViewController: UITextFieldDelegate {
     @objc func keyboardWillShow(notification: Notification) {
         guard !keyboardShowing else { return }
         guard let info = notification.userInfo else { return }
-        guard let keyboard = info[UIKeyboardFrameEndUserInfoKey] as? CGRect else { return }
+        guard let keyboard = info[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else { return }
         
         scrollView.contentInset.bottom += keyboard.height
         scrollView.scrollIndicatorInsets.bottom += keyboard.height

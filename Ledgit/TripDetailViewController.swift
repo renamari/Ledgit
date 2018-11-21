@@ -251,7 +251,7 @@ extension TripDetailViewController: UICollectionViewDataSource, UICollectionView
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         let cellWidth: CGFloat = collectionView.frame.width * cellWidthScale
         let inset = (collectionView.frame.width - cellWidth) / 2
-        return UIEdgeInsetsMake(0, inset, 0, inset)
+        return UIEdgeInsets.init(top: 0, left: inset, bottom: 0, right: inset)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {

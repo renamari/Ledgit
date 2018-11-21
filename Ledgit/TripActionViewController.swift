@@ -150,8 +150,8 @@ class TripActionViewController: UIViewController {
     
     func setupObservers() {
         let center = NotificationCenter.default
-        center.addObserver(self, selector: #selector(keyboardWillShow), name: .UIKeyboardWillShow, object: nil)
-        center.addObserver(self, selector: #selector(keyboardWillHide), name: .UIKeyboardWillHide, object: nil)
+        center.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        center.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
     func setupBars(){
@@ -295,7 +295,7 @@ extension TripActionViewController: UITextFieldDelegate {
     @objc func keyboardWillShow(notification:NSNotification){
         //give room at the bottom of the scroll view, so it doesn't cover up anything the user needs to tap
         guard let info = notification.userInfo else { return }
-        guard let keyboard = info[UIKeyboardFrameEndUserInfoKey] as? CGRect else { return }
+        guard let keyboard = info[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else { return }
         
         scrollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: keyboard.height, right: 0)
     }

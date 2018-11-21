@@ -679,6 +679,11 @@
 						DevelopmentTeam = KD674EGM5X;
 						LastSwiftMigration = 1010;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.InAppPurchase = {
+								enabled = 0;
+							};
+						};
 					};
 					8DA3B1B91F3F875B00FC31AF = {
 						CreatedOnToolsVersion = 8.3.3;

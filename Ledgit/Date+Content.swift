@@ -9,7 +9,7 @@
 import UIKit
 
 extension Date {
-    func toString(style format: LedgitDateStyle) -> String {
+    func toString(style format: LedgitDateStyle = .full) -> String {
         let formatter = DateFormatter()
         formatter.dateFormat = format.rawValue
         return formatter.string(from: self)

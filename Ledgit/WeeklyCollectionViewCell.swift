@@ -90,7 +90,7 @@ class WeeklyCollectionViewCell: UICollectionViewCell, ChartViewDelegate {
     
         presenter.entries.forEach { entry in
             !dates.contains(entry.date) ? dates.append(entry.date) : nil
-            costToday += entry.date.isToday ? entry.convertedCost : 0
+            costToday += entry.date == Date().toString().toDate(withFormat: .full) ? entry.convertedCost : 0
             totalCost += entry.convertedCost
             
             /*
@@ -102,27 +102,27 @@ class WeeklyCollectionViewCell: UICollectionViewCell, ChartViewDelegate {
              * |   0   |   1   |    2   |   3   |   4   |   5   |    6    |
              * |  Wed  |  Thur |   Fri  |  Sat  |  Sun  |  Mon  |  Today  |
              */
-            if entry.date.compare(.isSameDay(Date() - 6.days)) {
+            
+            if entry.date == (Date() - 6.days).toString().toDate(withFormat: .full) {
                 amounts[0] += entry.convertedCost
                 
-            } else if entry.date.compare(.isSameDay(Date() - 5.days)) {
+            } else if entry.date == (Date() - 5.days).toString().toDate(withFormat: .full) {
                 amounts[1] += entry.convertedCost
                 
-            } else if entry.date.compare(.isSameDay(Date() - 4.days)) {
+            } else if entry.date == (Date() - 4.days).toString().toDate(withFormat: .full) {
                 amounts[2] += entry.convertedCost
                 
-            } else if entry.date.compare(.isSameDay(Date() - 3.days)) {
+            } else if entry.date == (Date() - 3.days).toString().toDate(withFormat: .full) {
                 amounts[3] += entry.convertedCost
                 
-            } else if entry.date.compare(.isSameDay(Date() - 2.days)) {
+            } else if entry.date == (Date() - 2.days).toString().toDate(withFormat: .full) {
                 amounts[4] += entry.convertedCost
                 
-            } else if entry.date.compare(.isYesterday) {
+            } else if entry.date == (Date() - 1.days).toString().toDate(withFormat: .full) {
                 amounts[5] += entry.convertedCost
                 
-            } else if entry.date.compare(.isToday){
+            } else if entry.date == Date().toString().toDate(withFormat: .full) {
                 amounts[6] += entry.convertedCost
-                
             }
         }
         
@@ -136,7 +136,7 @@ class WeeklyCollectionViewCell: UICollectionViewCell, ChartViewDelegate {
         // we have to check that at least one of them is not 0 so we
         // populate the chart. Otherwise, there is nothing to display
         // for "this week"
-        guard !amounts.filter({$0 != 0}).isEmpty else { return }
+        guard !amounts.filter({ $0 != 0 }).isEmpty else { return }
         
         for (index, amount) in amounts.enumerated() {
             let entry = BarChartDataEntry(x: Double(index), y: amount)

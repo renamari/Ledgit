@@ -318,7 +318,7 @@ extension TripActionViewController: UITextFieldDelegate {
             
             // If there is previous text before
             if let text = textField.text, !text.isEmpty {
-                let date = text.toDate()
+                let date = text.toDate().date
                 datePicker?.setDate(date, animated: true)
                 datePickerValueChanged(sender: datePicker!)
                 return
@@ -328,14 +328,15 @@ extension TripActionViewController: UITextFieldDelegate {
             case .edit:
                 guard let trip = trip else { return }
                 let dateString = (textField == startDateTextField) ? trip.startDate : trip.endDate
-                let date = dateString.toDate()
+                let date = dateString.toDate().date
                 datePicker?.setDate(date, animated: true)
                 datePickerValueChanged(sender: datePicker!)
                 
             case .add:
                 if textField == endDateTextField, let startDateText = startDateTextField.text, !startDateText.isEmpty {
-                    let dateInRegin = startDateText.toDate().dateByAdding(1, .day)
-                    datePicker?.setDate(dateInRegin.date, animated: true)
+                    let date = startDateText.toDate().date
+                    let dateInRegion = date.dateByAdding(1, .day)
+                    datePicker?.setDate(dateInRegion.date, animated: true)
                     datePickerValueChanged(sender: datePicker!)
                     
                 } else {

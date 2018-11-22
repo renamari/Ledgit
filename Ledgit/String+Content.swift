@@ -69,6 +69,6 @@ extension String {
     }
     
     func strip() -> String {
-        return self.trimmingCharacters(in: .whitespacesAndNewlines)
+        return trimmingCharacters(in: .whitespacesAndNewlines)
     }
 }

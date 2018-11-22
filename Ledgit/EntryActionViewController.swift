@@ -70,7 +70,7 @@ class EntryActionViewController: UIViewController {
     
     var formatter: DateFormatter {
         let formatter = DateFormatter()
-        formatter.dateFormat = "MMMM dd, yyyy"
+        formatter.dateFormat = LedgitDateStyle.long.rawValue
         return formatter
     }
     
@@ -81,19 +81,31 @@ class EntryActionViewController: UIViewController {
         setupTextFields()
         setupObservers()
         setupRecognizers()
+        setupStatusBar()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        UIApplication.shared.statusBarStyle = .lightContent
         view.endEditing(true)
         activeTextField?.resignFirstResponder()
     }
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        UIApplication.shared.statusBarStyle = .default
         activeTextField?.resignFirstResponder()
+    }
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
+    
+    override var preferredStatusBarUpdateAnimation: UIStatusBarAnimation {
+        return .slide
+    }
+    
+    func setupStatusBar() {
+        modalPresentationCapturesStatusBarAppearance = true
+        setNeedsStatusBarAppearanceUpdate()
     }
     
     func setupRecognizers() {
@@ -124,7 +136,7 @@ class EntryActionViewController: UIViewController {
             selectedCategory = entry.category
             categoryTextField.text(selectedCategory)
             currencyTextField.text(selectedCurrency.name)
-            dateTextField.text(entry.date.toString(style: .full))
+            dateTextField.text(entry.date.toString(style: .long))
             locationTextField.text(entry.location)
             descriptionTextField.text(entry.description)
             amountTextField.text("\(entry.cost)".currencyFormat(with: entry.currency.symbol))

@@ -334,8 +334,8 @@ extension TripActionViewController: UITextFieldDelegate {
                 
             case .add:
                 if textField == endDateTextField, let startDateText = startDateTextField.text, !startDateText.isEmpty {
-                    let date = startDateText.toDate().add(components: 1.day)
-                    datePicker?.setDate(date, animated: true)
+                    let dateInRegin = startDateText.toDate().dateByAdding(1, .day)
+                    datePicker?.setDate(dateInRegin.date, animated: true)
                     datePickerValueChanged(sender: datePicker!)
                     
                 } else {
@@ -412,7 +412,7 @@ extension TripActionViewController: UITextFieldDelegate {
     }
     
     func validate(_ startDate: Date, isBefore endDate: Date) -> Bool {
-        guard startDate.isBefore(date: endDate, granularity: .day) else { return false }
+        guard startDate.isBeforeDate(endDate, granularity: .day) else { return false }
         return true
     }
     

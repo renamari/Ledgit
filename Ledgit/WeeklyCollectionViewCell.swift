@@ -27,12 +27,12 @@ class WeeklyCollectionViewCell: UICollectionViewCell, ChartViewDelegate {
     var amounts = [Double](repeating: 0, count: 7)
     
     var weekdays:[String] = [
-        (Date() - 6.day).toString(style: .day),
-        (Date() - 5.day).toString(style: .day),
-        (Date() - 4.day).toString(style: .day),
-        (Date() - 3.day).toString(style: .day),
-        (Date() - 2.day).toString(style: .day),  // etc..
-        (Date() - 1.day).toString(style: .day),  // Yesterday
+        (Date() - 6.days).toString(style: .day),
+        (Date() - 5.days).toString(style: .day),
+        (Date() - 4.days).toString(style: .day),
+        (Date() - 3.days).toString(style: .day),
+        (Date() - 2.days).toString(style: .day),  // etc..
+        (Date() - 1.days).toString(style: .day),  // Yesterday
         "Today"
     ]
     
@@ -102,26 +102,25 @@ class WeeklyCollectionViewCell: UICollectionViewCell, ChartViewDelegate {
              * |   0   |   1   |    2   |   3   |   4   |   5   |    6    |
              * |  Wed  |  Thur |   Fri  |  Sat  |  Sun  |  Mon  |  Today  |
              */
-            
-            if entry.date.isInSameDayOf(date: (Date() - 6.day)) {
+            if entry.date.compare(.isSameDay(Date() - 6.days)) {
                 amounts[0] += entry.convertedCost
                 
-            } else if entry.date.isInSameDayOf(date: (Date() - 5.day)) {
+            } else if entry.date.compare(.isSameDay(Date() - 5.days)) {
                 amounts[1] += entry.convertedCost
                 
-            } else if entry.date.isInSameDayOf(date: (Date() - 4.day)) {
+            } else if entry.date.compare(.isSameDay(Date() - 4.days)) {
                 amounts[2] += entry.convertedCost
                 
-            } else if entry.date.isInSameDayOf(date: (Date() - 3.day)) {
+            } else if entry.date.compare(.isSameDay(Date() - 3.days)) {
                 amounts[3] += entry.convertedCost
                 
-            } else if entry.date.isInSameDayOf(date: (Date() - 2.day)) {
+            } else if entry.date.compare(.isSameDay(Date() - 2.days)) {
                 amounts[4] += entry.convertedCost
                 
-            } else if entry.date.isInSameDayOf(date: (Date() - 1.day)) {
+            } else if entry.date.compare(.isYesterday) {
                 amounts[5] += entry.convertedCost
                 
-            } else if entry.date.isToday {
+            } else if entry.date.compare(.isToday){
                 amounts[6] += entry.convertedCost
                 
             }

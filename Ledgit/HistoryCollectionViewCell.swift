@@ -58,9 +58,7 @@ class HistoryCollectionViewCell: UICollectionViewCell {
     func setupSegmentedControl(){
         segmentedControl.layer.borderWidth = 1
         segmentedControl.layer.borderColor = LedgitColor.coreBlue.cgColor
-        segmentedControl.titles = ["Date", "City"]
-        segmentedControl.titleFont = .futuraMedium16
-        segmentedControl.selectedTitleFont = .futuraMedium16
+        segmentedControl.segments = [LabelSegment(text: "Date", normalFont: .futuraMedium16), LabelSegment(text: "Date", normalFont: .futuraMedium16)]
         segmentedControl.addTarget(self, action: #selector(segmentedControlChanged), for: .valueChanged)
     }
     
@@ -78,7 +76,8 @@ class HistoryCollectionViewCell: UICollectionViewCell {
         cityEntries = []
         
         for item in presenter.entries {
-            if let index = dateEntries.index(where: { $0.date.isInSameDayOf(date: item.date) }) {
+            
+            if let index = dateEntries.index(where: { $0.date.compare(.isSameDay(item.date)) }) {
                 dateEntries[index].entries.append(item)
             } else {
                 

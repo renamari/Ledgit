@@ -39,8 +39,6 @@ class TripDetailViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         setupNavigationBar()
-        
-        navigationItem.rightBarButtonItem = shouldDisplayExportButton ? setupExportButton() : nil
     }
     
     func displayTipsIfNeeded() {
@@ -86,6 +84,7 @@ class TripDetailViewController: UIViewController {
         navigationController?.navigationBar.shadowImage = UIImage()
         navigationController?.navigationBar.isTranslucent = true
         navigationController?.view.backgroundColor = LedgitColor.navigationBarGray
+        navigationItem.rightBarButtonItem = shouldDisplayExportButton ? setupExportButton() : nil
     }
     
     func setupGestureRecognizers() {

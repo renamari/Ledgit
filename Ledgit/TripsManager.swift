@@ -56,8 +56,8 @@ extension TripsManager {
         
         // NOTE: Not really core data, since you can't hard code data using core-data
         // I'll just add information here.
-        let startDate = Date().prevMonth(at: .start)
-        let endDate = Date().nextMonth(at: .start)
+        let startDate = Date().dateAt(.prevMonth).dateAtStartOf(.month)
+        let endDate = Date().dateAt(.nextMonth).dateAtStartOf(.month)
         let tripLength = Calendar.current.dateComponents([.day], from: startDate, to: endDate).day ?? 61
 
         let tripDictionary: NSDictionary = [LedgitTrip.Keys.key: Constants.projectID.sample,

@@ -56,7 +56,7 @@ let sampleTripEntries: [NSDictionary] = [
     ],
     [
         "key": "000000004",
-        "date": 1.day.ago(from: Date())!.toString(style: .full),
+        "date": 1.days.ago.toString(style: .full),
         "currency": LedgitCurrency.USD.code,
         "location": "Vienna",
         "entryDescription": "Hostel Seven Vienna",
@@ -71,7 +71,7 @@ let sampleTripEntries: [NSDictionary] = [
     ],
     [
         "key": "000000005",
-        "date": 1.day.ago(from: Date())!.toString(style: .full),
+        "date": 1.days.ago.toString(style: .full),
         "currency": LedgitCurrency.USD.code,
         "location": "Vienna",
         "entryDescription": "Bus Ticket",
@@ -86,7 +86,7 @@ let sampleTripEntries: [NSDictionary] = [
     ],
     [
         "key": "000000006",
-        "date": 1.day.ago(from: Date())!.toString(style: .full),
+        "date": 1.days.ago.toString(style: .full),
         "currency": LedgitCurrency.USD.code,
         "location": "Vienna",
         "entryDescription": "Figlmuller",
@@ -101,7 +101,7 @@ let sampleTripEntries: [NSDictionary] = [
     ],
     [
         "key": "000000007",
-        "date": 2.day.ago(from: Date())!.toString(style: .full),
+        "date": 2.days.ago.toString(style: .full),
         "currency": LedgitCurrency.USD.code,
         "location": "Budapest",
         "entryDescription": "Kazimir Bistro",
@@ -116,7 +116,7 @@ let sampleTripEntries: [NSDictionary] = [
     ],
     [
         "key": "000000008",
-        "date": 2.day.ago(from: Date())!.toString(style: .full),
+        "date": 2.days.ago.toString(style: .full),
         "currency": LedgitCurrency.USD.code,
         "location": "Budapest",
         "entryDescription": "Hostel One Basilica",
@@ -131,7 +131,7 @@ let sampleTripEntries: [NSDictionary] = [
     ],
     [
         "key": "000000009",
-        "date": 2.day.ago(from: Date())!.toString(style: .full),
+        "date": 2.days.ago.toString(style: .full),
         "currency": LedgitCurrency.USD.code,
         "location": "Budapest",
         "entryDescription": "Metro",
@@ -146,7 +146,7 @@ let sampleTripEntries: [NSDictionary] = [
     ],
     [
         "key": "000000010",
-        "date": 3.day.ago(from: Date())!.toString(style: .full),
+        "date": 3.days.ago.toString(style: .full),
         "currency": LedgitCurrency.USD.code,
         "location": "Zagreb",
         "entryDescription": "Whole Wide World Hostel",
@@ -161,7 +161,7 @@ let sampleTripEntries: [NSDictionary] = [
     ],
     [
         "key": "000000011",
-        "date": 3.day.ago(from: Date())!.toString(style: .full),
+        "date": 3.days.ago.toString(style: .full),
         "currency": LedgitCurrency.USD.code,
         "location": "Zagreb",
         "entryDescription": "Breakfast",
@@ -176,7 +176,7 @@ let sampleTripEntries: [NSDictionary] = [
     ],
     [
         "key": "000000012",
-        "date": 3.day.ago(from: Date())!.toString(style: .full),
+        "date": 3.days.ago.toString(style: .full),
         "currency": LedgitCurrency.USD.code,
         "location": "Zagreb",
         "entryDescription": "Tour",
@@ -191,7 +191,7 @@ let sampleTripEntries: [NSDictionary] = [
     ],
     [
         "key": "000000013",
-        "date": 4.day.ago(from: Date())!.toString(style: .full),
+        "date": 4.days.ago.toString(style: .full),
         "currency": LedgitCurrency.USD.code,
         "location": "Barcelona",
         "entryDescription": "Hipstel Hostel",
@@ -206,7 +206,7 @@ let sampleTripEntries: [NSDictionary] = [
     ],
     [
         "key": "000000014",
-        "date": 4.day.ago(from: Date())!.toString(style: .full),
+        "date": 4.days.ago.toString(style: .full),
         "currency": LedgitCurrency.USD.code,
         "location": "Barcelona",
         "entryDescription": "Breakfast",
@@ -221,7 +221,7 @@ let sampleTripEntries: [NSDictionary] = [
     ],
     [
         "key": "000000015",
-        "date": 4.day.ago(from: Date())!.toString(style: .full),
+        "date": 4.days.ago.toString(style: .full),
         "currency": LedgitCurrency.USD.code,
         "location": "Barcelona",
         "entryDescription": "CocoVail",
@@ -236,7 +236,7 @@ let sampleTripEntries: [NSDictionary] = [
     ],
     [
         "key": "000000016",
-        "date": 5.day.ago(from: Date())!.toString(style: .full),
+        "date": 5.days.ago.toString(style: .full),
         "currency": LedgitCurrency.USD.code,
         "location": "Rome",
         "entryDescription": "Hostel",
@@ -251,7 +251,7 @@ let sampleTripEntries: [NSDictionary] = [
     ],
     [
         "key": "000000017",
-        "date": 5.day.ago(from: Date())!.toString(style: .full),
+        "date": 5.days.ago.toString(style: .full),
         "currency": LedgitCurrency.USD.code,
         "location": "Rome",
         "entryDescription": "Colosseum",
@@ -266,7 +266,7 @@ let sampleTripEntries: [NSDictionary] = [
     ],
     [
         "key": "000000018",
-        "date": 5.day.ago(from: Date())!.toString(style: .full),
+        "date": 5.days.ago.toString(style: .full),
         "currency": LedgitCurrency.USD.code,
         "location": "Rome",
         "entryDescription": "Angeletti Dinner",
@@ -281,7 +281,7 @@ let sampleTripEntries: [NSDictionary] = [
     ],
     [
         "key": "000000019",
-        "date": 6.day.ago(from: Date())!.toString(style: .full),
+        "date": 6.days.ago.toString(style: .full),
         "currency": LedgitCurrency.USD.code,
         "location": "Florence",
         "entryDescription": "Hostel Santa Monica",
@@ -296,7 +296,7 @@ let sampleTripEntries: [NSDictionary] = [
         ],
     [
         "key": "000000020",
-        "date": 6.day.ago(from: Date())!.toString(style: .full),
+        "date": 6.days.ago.toString(style: .full),
         "currency": LedgitCurrency.USD.code,
         "location": "Florence",
         "entryDescription": "Breakfast",
@@ -311,7 +311,7 @@ let sampleTripEntries: [NSDictionary] = [
     ],
     [
         "key": "000000021",
-        "date": 6.day.ago(from: Date())!.toString(style: .full),
+        "date": 6.days.ago.toString(style: .full),
         "currency": LedgitCurrency.USD.code,
         "location": "Florence",
         "entryDescription": "Gardens",

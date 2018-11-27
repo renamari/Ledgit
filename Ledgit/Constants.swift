@@ -82,7 +82,7 @@ struct Constants {
     static let tutorialContent: [LedgitTutorial] = [
             LedgitTutorial(color: LedgitColor.coreBlue,
                            image: #imageLiteral(resourceName: "tutorial-icon-0"), title: "Create New Trips",
-                           description: "Add new trips quickly in advanced or in the moment"),
+                           description: "Add new trips as you need them"),
             LedgitTutorial(color: LedgitColor.lightPink,
                            image: #imageLiteral(resourceName: "tutorial-icon-1"), title: "Add Expenses Quickly",
                            description: "Quickly jot down your expense information"),

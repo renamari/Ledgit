@@ -12,12 +12,21 @@ import SwiftDate
 import AMPopTip
 
 class WeeklyCollectionViewCell: UICollectionViewCell, ChartViewDelegate {
-    @IBOutlet weak var weeklyChart: BarChartView!
-    @IBOutlet weak var dayLabel: UILabel!
-    @IBOutlet weak var dayCostLabel: UILabel!
-    @IBOutlet weak var remainingLabel: UILabel!
-    @IBOutlet weak var budgetLabel: UILabel!
-    @IBOutlet weak var averageLabel: UILabel!
+    @IBOutlet var weeklyChart: BarChartView!
+    @IBOutlet var dayLabel: UILabel!
+    @IBOutlet var dayCostLabel: UILabel!
+    
+    @IBOutlet var remainingStackView: UIStackView!
+    @IBOutlet var remainingTitleLabel: UILabel!
+    @IBOutlet var remainingLabel: UILabel!
+    
+    @IBOutlet var budgetStackView: UIStackView!
+    @IBOutlet var budgetTitleLabel: UILabel!
+    @IBOutlet var budgetLabel: UILabel!
+    
+    @IBOutlet var averageStackView: UIStackView!
+    @IBOutlet var averageTitleLabel: UILabel!
+    @IBOutlet var averageLabel: UILabel!
     
     var averageCost: Double = 0
     var costToday: Double = 0
@@ -40,7 +49,7 @@ class WeeklyCollectionViewCell: UICollectionViewCell, ChartViewDelegate {
         super.awakeFromNib()
         setupLabels()
         defaultChartSetup()
-        
+        setupStackViews()
     }
     
     func setupLabels() {
@@ -65,6 +74,33 @@ class WeeklyCollectionViewCell: UICollectionViewCell, ChartViewDelegate {
         weeklyChart.scaleYEnabled = false
         weeklyChart.noDataText = Constants.chartText.noWeeklyActivity
         weeklyChart.noDataTextAlignment = .center
+    }
+    
+    private func setupStackViews() {
+        budgetTitleLabel.text = "Daily budget"
+        budgetStackView.isUserInteractionEnabled = true
+        budgetStackView.addGestureRecognizer(UITapGestureRecognizer(target: self,
+                                                                    action: #selector(budgetStackViewTapped)))
+        
+        remainingStackView.isUserInteractionEnabled = true
+        remainingStackView.addGestureRecognizer(UITapGestureRecognizer(target: self,
+                                                                       action: #selector(remainingStackViewTapped)))
+        
+        averageStackView.isUserInteractionEnabled = true
+        averageStackView.addGestureRecognizer(UITapGestureRecognizer(target: self,
+                                                                     action: #selector(averageStackViewTapped)))
+    }
+    
+    @objc private func budgetStackViewTapped() {
+    
+    }
+    
+    @objc private func remainingStackViewTapped() {
+        
+    }
+    
+    @objc private func averageStackViewTapped() {
+        // TODO: Add tap functionality to display when needed
     }
     
     func resetValues() {

@@ -6,6 +6,8 @@
 //  Copyright © 2017 Camden Developers. All rights reserved.
 //
 
+// Conversion to new mac test comment
+
 import Foundation
 import Firebase
 import CoreData

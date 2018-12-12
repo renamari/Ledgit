@@ -90,10 +90,6 @@ class TripDetailViewController: UIViewController {
     func setupGestureRecognizers() {
         let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(handleLongGesture))
         collectionView.addGestureRecognizer(longPressGesture)
-        
-        let swipeRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(swipedDown(gesture:)))
-        swipeRecognizer.direction = .up
-        view.addGestureRecognizer(swipeRecognizer)
     }
     
     var shouldDisplayExportButton: Bool {
@@ -151,12 +147,6 @@ class TripDetailViewController: UIViewController {
             self.stopLoading()
             banner.dismiss()
         }
-    }
-    
-    @objc func swipedDown(gesture: UIGestureRecognizer) {
-        guard currentTrip?.key != Constants.projectID.sample else { return }
-        guard let swipe = gesture as? UISwipeGestureRecognizer else { return }
-        swipe.direction == .up ? performSegue(withIdentifier: Constants.segueIdentifiers.entryAction, sender: nil) : nil
     }
     
     @IBAction func actionButtonPressed(_ sender: Any) {

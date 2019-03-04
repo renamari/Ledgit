@@ -12,50 +12,67 @@ import MessageUI
 import BubbleTransition
 import NotificationBannerSwift
 import AMPopTip
+import BetterSegmentedControl
 
 class TripDetailViewController: UIViewController {
-    @IBOutlet weak var actionButton: UIButton!
-    @IBOutlet weak var pageControl: UIPageControl!
-    @IBOutlet weak var collectionView: UICollectionView!
-    @IBOutlet weak var collectionViewFlowLayout: UICollectionViewFlowLayout!
-    private let transition = BubbleTransition()
-    private let cellHeightScale: CGFloat = Constants.scales.cellHeight
-    private let cellWidthScale: CGFloat = Constants.scales.cellWidth
+    @IBOutlet var pageSegmentedControl: BetterSegmentedControl!
+    
     private var presenter = TripDetailPresenter(manager: TripDetailManager())
-    var identifiers = [Constants.cellIdentifiers.weekly,
-                       Constants.cellIdentifiers.category,
-                       Constants.cellIdentifiers.history]
+    
+    var currentIndex: Int = 0
+    let pageViewController = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
+    let summaryViewController = SummaryViewController.instantiate(from: .trips)
+    let categoryViewController = CategoryViewController.instantiate(from: .trips)
+    let historyViewController = HistoryViewController.instantiate(from: .trips)
+    lazy var pages: [UIViewController] = [summaryViewController, categoryViewController, historyViewController]
+    
     var currentTrip: LedgitTrip?
-
+    
+    lazy var addButton: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add,
+                                                          target: self,
+                                                          action: #selector(addButtonPressed))
+    
+    lazy var exportButton: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action,
+                                                             target: self,
+                                                             action: #selector(exportButtonPressed))
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupButton()
+        setupSegmentedControl()
         setupPresenter()
-        setupGestureRecognizers()
-        setupNavigationBar()
-        setupCollectionView()
-        displayTipsIfNeeded()
+        setupPageViewController()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         setupNavigationBar()
     }
     
-    func displayTipsIfNeeded() {
-        // Make sure to display tips only on sample trips
-        guard currentTrip?.key != Constants.projectID.sample else { return }
+    func setupSegmentedControl() {
+        let summarySegment = LabelSegment(text: "Summary", normalFont: .futuraMedium16, normalTextColor: LedgitColor.separatorGray,
+                                          selectedFont: .futuraMedium16, selectedTextColor: LedgitColor.coreBlue)
+        let categorySegment = LabelSegment(text: "Category", normalFont: .futuraMedium16, normalTextColor: LedgitColor.separatorGray,
+                                           selectedFont: .futuraMedium16, selectedTextColor: LedgitColor.coreBlue)
+        let historySegment = LabelSegment(text: "History", normalFont: .futuraMedium16, normalTextColor: LedgitColor.separatorGray,
+                                          selectedFont: .futuraMedium16, selectedTextColor: LedgitColor.coreBlue)
         
-        // Wait 2 seconds for UI to populate
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-            // Only display tips once
-            guard !UserDefaults.standard.bool(forKey: Constants.userDefaultKeys.hasShownFirstTripTips) else { return }
-            let actionButtonTip = PopTip()
-            actionButtonTip.style(PopStyle.default)
-            actionButtonTip.show(text: "Add entries here",
-                                 direction: .up, maxWidth: 200,
-                                 in: self.view, from: self.actionButton.frame, duration: 4)
-            UserDefaults.standard.set(true, forKey: Constants.userDefaultKeys.hasShownFirstTripTips)
-        }
+        pageSegmentedControl.segments = [summarySegment, categorySegment, historySegment]
+        pageSegmentedControl.addTarget(self, action: #selector(segmentedControlChanged), for: .valueChanged)
+    }
+    
+    func setupPageViewController() {
+        guard let firstViewController = pages.first else { return }
+        
+        pageViewController.delegate = self
+        pageViewController.dataSource = self
+        pageViewController.setViewControllers([firstViewController], direction: .forward, animated: true, completion: nil)
+        
+        view.addSubview(pageViewController.view)
+        
+        pageViewController.view.translatesAutoresizingMaskIntoConstraints = false
+        pageViewController.view.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor).isActive = true
+        pageViewController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        pageViewController.view.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        pageViewController.view.topAnchor.constraint(equalTo: pageSegmentedControl.bottomAnchor).isActive = true
     }
     
     func setupPresenter() {
@@ -67,31 +84,24 @@ class TripDetailViewController: UIViewController {
         presenter.delegate = self
         presenter.attach(trip)
         presenter.fetchEntries()
-    }
-    
-    func setupButton(){
-        actionButton.roundedCorners(radius: actionButton.frame.height / 2)
-        pageControl.isUserInteractionEnabled = false
-    }
-    
-    func setupCollectionView() {
-        collectionView.delegate = self
-        collectionView.dataSource = self
+        summaryViewController.presenter = presenter
+        categoryViewController.presenter = presenter
+        historyViewController.presenter = presenter
+        historyViewController.delegate = self
     }
     
     func setupNavigationBar() {
+        if #available(iOS 11.0, *), UIScreen.main.nativeBounds.height <= 1136 {
+            navigationItem.largeTitleDisplayMode = .never
+        }
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         navigationController?.navigationBar.shadowImage = UIImage()
         navigationController?.navigationBar.isTranslucent = true
         navigationController?.view.backgroundColor = LedgitColor.navigationBarGray
-        navigationItem.rightBarButtonItem = shouldDisplayExportButton ? setupExportButton() : nil
+        
+        navigationItem.rightBarButtonItems = shouldDisplayExportButton ? [addButton, exportButton] : [addButton]
     }
-    
-    func setupGestureRecognizers() {
-        let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(handleLongGesture))
-        collectionView.addGestureRecognizer(longPressGesture)
-    }
-    
+
     var shouldDisplayExportButton: Bool {
         guard currentTrip?.key != Constants.projectID.sample else {
             Log.info("Did not set up export button because it was sample trip")
@@ -104,18 +114,6 @@ class TripDetailViewController: UIViewController {
         }
         
         return true
-    }
-    
-    func setupExportButton() -> UIBarButtonItem {
-        let rightButton:UIButton = UIButton()
-        rightButton.titleLabel?.font = .futuraMedium16
-        rightButton.setTitle("Export", for: .normal)
-        rightButton.setTitleColor(LedgitColor.navigationTextGray, for: .normal)
-        rightButton.addTarget(self, action: #selector(exportButtonPressed), for: .touchUpInside)
-        
-        let barButton = UIBarButtonItem(customView: rightButton)
-        
-        return barButton
     }
     
     @objc func exportButtonPressed() {
@@ -141,7 +139,7 @@ class TripDetailViewController: UIViewController {
         
         let message = "The expense report for your \(trip.name) trip."
         let shareViewController = UIActivityViewController(activityItems: [message, expenseFile], applicationActivities: nil)
-        shareViewController.excludedActivityTypes = [.addToReadingList]
+        shareViewController.excludedActivityTypes = [.addToReadingList, .copyToPasteboard]
         
         present(shareViewController, animated: true) {
             self.stopLoading()
@@ -149,27 +147,16 @@ class TripDetailViewController: UIViewController {
         }
     }
     
-    @IBAction func actionButtonPressed(_ sender: Any) {
-        performSegue(withIdentifier: Constants.segueIdentifiers.entryAction, sender: actionButton)
+    @objc func addButtonPressed() {
+        performSegue(withIdentifier: Constants.segueIdentifiers.entryAction, sender: nil)
     }
     
-    @objc func handleLongGesture(_ gesture: UILongPressGestureRecognizer) {
+    @objc func segmentedControlChanged(control: BetterSegmentedControl) {
+        let upcomingIndex = Int(control.index)
         
-        switch gesture.state {
-            
-        case .began:
-            guard let selectedIndexPath = collectionView.indexPathForItem(at: gesture.location(in: collectionView)) else { return }
-            collectionView.beginInteractiveMovementForItem(at: selectedIndexPath)
-            
-        case .changed:
-            guard let view = gesture.view else { return }
-            collectionView.updateInteractiveMovementTargetPosition(gesture.location(in: view))
-        
-        case .ended:
-            collectionView.endInteractiveMovement()
-            
-        default:
-            collectionView.cancelInteractiveMovement()
+        while upcomingIndex != currentIndex {
+            upcomingIndex < currentIndex ? goToPreviousPage() : goToNextPage()
+            currentIndex += upcomingIndex < currentIndex ? -1 : 1
         }
     }
     
@@ -177,8 +164,6 @@ class TripDetailViewController: UIViewController {
         if segue.identifier == Constants.segueIdentifiers.entryAction {
             guard let entryActionViewController = segue.destination as? EntryActionViewController else { return }
             entryActionViewController.presenter = presenter
-            entryActionViewController.transitioningDelegate = self
-            entryActionViewController.modalPresentationStyle = .custom
             entryActionViewController.parentTrip = currentTrip
             if let entry = sender as? LedgitEntry {
                 entryActionViewController.entry = entry
@@ -190,102 +175,66 @@ class TripDetailViewController: UIViewController {
 
 extension TripDetailViewController: TripDetailPresenterDelegate {
     func receivedEntryUpdate() {
-        collectionView.reloadData()
+        summaryViewController.needsLayout = true
+        categoryViewController.needsLayout = true
+        historyViewController.needsLayout = true
     }
 }
 
-extension TripDetailViewController: UICollectionViewDataSource, UICollectionViewDelegate, UIScrollViewDelegate,UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return identifiers.count
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let identifier = identifiers[indexPath.row]
+extension TripDetailViewController: UIPageViewControllerDelegate, UIPageViewControllerDataSource {
+    func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
+        // 1. Check if there are any more view controllers to display
+        guard let viewControllerIndex = pages.index(of: viewController) else { return nil }
+        // 2. If yes, decrease the index by one
+        let previousIndex = viewControllerIndex - 1
         
-        switch identifier {
-            
-        case Constants.cellIdentifiers.weekly:
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath) as! WeeklyCollectionViewCell
-            cell.setup(with: presenter)
-            return cell
-            
-        case Constants.cellIdentifiers.category:
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath) as! CategoryCollectionViewCell
-            cell.setup(with: presenter)
-            return cell
-            
-        case Constants.cellIdentifiers.history:
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath) as! HistoryCollectionViewCell
-            cell.setup(with: presenter)
-            cell.delegate = self
-            
-            return cell
-            
-        default: return UICollectionViewCell()
-        }
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, moveItemAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-        pageControl.currentPage = destinationIndexPath.row
-        let identifier = identifiers.remove(at: sourceIndexPath.item)
-        identifiers.insert(identifier, at: destinationIndexPath.item)
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let height = collectionView.frame.height * cellHeightScale
-        let width = collectionView.frame.width * cellWidthScale
-        return CGSize(width: width, height: height)
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        let cellWidth: CGFloat = collectionView.frame.width * cellWidthScale
-        let inset = (collectionView.frame.width - cellWidth) / 2
-        return UIEdgeInsets.init(top: 0, left: inset, bottom: 0, right: inset)
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        let cellWidth: CGFloat = collectionView.frame.width * cellWidthScale
-        return collectionView.frame.width - cellWidth
-    }
-    
-    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
-        let pageWidth = Float(collectionView!.frame.width * cellWidthScale)
-        let targetXContentOffset = Float(targetContentOffset.pointee.x)
-        let contentWidth = Float(collectionView!.contentSize.width)
-        var newPage = Float(pageControl.currentPage)
+        // 3. Make sure you are not at the first screen
+        guard previousIndex >= 0 else { return nil }
         
-        if velocity.x == 0 {
-            newPage = floor( (targetXContentOffset - Float(pageWidth) / 2) / Float(pageWidth)) + 1.0
-        } else {
-            newPage = Float(velocity.x > 0 ? pageControl.currentPage + 1 : pageControl.currentPage - 1)
-            if newPage < 0 {
-                newPage = 0
-            }
-            if (newPage > contentWidth / pageWidth) {
-                newPage = ceil(contentWidth / pageWidth) - 1.0
-            }
-        }
-        pageControl.currentPage = Int(newPage)
-        let point = CGPoint (x: CGFloat(newPage * pageWidth), y: targetContentOffset.pointee.y)
-        targetContentOffset.pointee = point
-    }
-}
-
-extension TripDetailViewController: UIViewControllerTransitioningDelegate {
-    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        transition.transitionMode = .present
-        transition.duration = 0.30
-        transition.startingPoint = actionButton.center
-        transition.bubbleColor = actionButton.backgroundColor ?? LedgitColor.coreBlue
-        return transition
+        // 4. Return the view controller to display
+        return pages[previousIndex]
     }
     
-    func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        transition.transitionMode = .dismiss
-        transition.duration = 0.30
-        transition.startingPoint = actionButton.center
-        transition.bubbleColor = actionButton.backgroundColor ?? LedgitColor.coreBlue
-        return transition
+    func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
+        // 1. Check if there are any more view controllers to display
+        guard let viewControllerIndex = pages.index(of: viewController) else { return nil }
+        
+        // 2. If yes, increase the index by one
+        let nextIndex = viewControllerIndex + 1
+        
+        // 3. Make sure you are not at the first screen
+        guard pages.count != nextIndex else { return nil }
+        
+        // 4. Return the view controller to display
+        return pages[nextIndex]
+    }
+    
+    func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
+        // 1. Check if screen has finished transition from one view to next
+        guard completed else { return }
+        
+        // 2. If yes, update the page control current indicator to change to index
+        pageSegmentedControl.setIndex(UInt(currentIndex), animated: true)
+    }
+    
+    func pageViewController(_ pageViewController: UIPageViewController, willTransitionTo pendingViewControllers: [UIViewController]) {
+        
+        // 1. Update the current index to the view controller index user will transition to
+        
+        guard let controller = pendingViewControllers.first, let index = pages.index(where: { controller ==  $0 }) else { return }
+        currentIndex = index
+    }
+    
+    func goToNextPage() {
+        guard let currentViewController = pageViewController.viewControllers?.first else { return }
+        guard let nextViewController = pageViewController(pageViewController, viewControllerAfter: currentViewController) else { return }
+        pageViewController.setViewControllers([nextViewController], direction: .forward, animated: true, completion: nil)
+    }
+    
+    func goToPreviousPage() {
+        guard let currentViewController = pageViewController.viewControllers?.first else { return }
+        guard let nextViewController = pageViewController(pageViewController, viewControllerBefore: currentViewController) else { return }
+        pageViewController.setViewControllers([nextViewController], direction: .reverse, animated: true, completion: nil)
     }
 }
 

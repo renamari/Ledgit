@@ -12,7 +12,6 @@ import AMPopTip
 class TripsViewController: UIViewController {
     @IBOutlet weak var tripsTableView: UITableView!
     private let presenter = TripsPresenter(manager: TripsManager())
-    private var selectedIndexPath = IndexPath()
     private var defaultTripIndexPath: IndexPath?
     private var editingIndexPath: IndexPath?
     
@@ -43,7 +42,9 @@ class TripsViewController: UIViewController {
     func setupTableView(){
         tripsTableView.delegate = self
         tripsTableView.dataSource = self
-        tripsTableView.rowHeight = 215
+        tripsTableView.rowHeight = UITableView.automaticDimension
+        tripsTableView.estimatedRowHeight = 200
+        tripsTableView.sectionHeaderHeight = 10
     }
     
     func setupGestureRecognizers() {
@@ -59,6 +60,10 @@ class TripsViewController: UIViewController {
         settingsButtonPressed(gesture)
     }
     
+    @IBAction func addTripButtonPressed(_ sender: Any) {
+        performSegue(withIdentifier: Constants.segueIdentifiers.action, sender: nil)
+    }
+    
     @IBAction func settingsButtonPressed(_ sender: Any) {
         let navigationController = SettingsNavigationController.instantiate(from: .settings)
 
@@ -68,23 +73,23 @@ class TripsViewController: UIViewController {
     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == Constants.segueIdentifiers.action {
-            guard let destinationViewController = segue.destination as? TripActionViewController else { return }
-            guard let selectedRow = sender as? Int else { return }
+            guard let navigationController = segue.destination as? UINavigationController else { return }
+            guard let destinationViewController = navigationController.topViewController as? TripActionViewController else { return }
             destinationViewController.delegate = self
             destinationViewController.presenter = presenter
             
-            if selectedRow == tripsTableView.lastRow() {
-                destinationViewController.method = .add
-                
-            } else {
+            if let trip = sender as? LedgitTrip {
                 destinationViewController.method = .edit
-                destinationViewController.trip = presenter.trips[selectedRow]
+                destinationViewController.trip = trip
+            } else {
+                destinationViewController.method = .add
             }
             
         } else if segue.identifier == Constants.segueIdentifiers.detail {
-            guard  let destinationViewController = segue.destination as? TripDetailViewController else { return }
-            destinationViewController.title = presenter.trips[selectedIndexPath.row].name
-            destinationViewController.currentTrip = presenter.trips[selectedIndexPath.row]
+            guard let destinationViewController = segue.destination as? TripDetailViewController else { return }
+            guard let trip = sender as? LedgitTrip else { return }
+            destinationViewController.title = trip.name
+            destinationViewController.currentTrip = trip
         }
     }
 }
@@ -108,69 +113,60 @@ extension TripsViewController: TripActionDelegate {
 }
 
 extension TripsViewController: UITableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return presenter.trips.count
+    }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return presenter.trips.count + 1
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        return UIView()
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if indexPath.row == tableView.lastRow() {
-            let cell = tableView.dequeueReusableCell(withIdentifier: Constants.cellIdentifiers.add, for: indexPath) as! AddTripTableViewCell
-            cell.configure()
-            
-            return cell
-            
-        } else {
-            let cell = tableView.dequeueReusableCell(withIdentifier: Constants.cellIdentifiers.trip, for: indexPath) as! TripTableViewCell
-            let trip = presenter.trips[indexPath.row]
-            cell.configure(with: trip, at: indexPath)
-            
-            if trip.key == UserDefaults.standard.value(forKey: Constants.userDefaultKeys.defaultTrip) as? String && editingIndexPath == nil {
-                self.tableView(tripsTableView, didSelectRowAt: indexPath)
-            }
-            
-            // We are going to display a pop tip if the trip is a sample one
-            if trip.key == Constants.projectID.sample && !UserDefaults.standard.bool(forKey: Constants.userDefaultKeys.hasShownSampleTripTip) {
-                UserDefaults.standard.set(true, forKey: Constants.userDefaultKeys.hasShownSampleTripTip)
-                let popTip = PopTip()
-                popTip.style(PopStyle.default)
-                popTip.shouldDismissOnTap = true
-                popTip.show(text: "Check out this sample trip. Swipe left to remove.",
-                            direction: .down, maxWidth: 300,
-                            in: view, from: cell.frame, duration: 5)
-            }
-            
-            return cell
+        let cell = tableView.dequeueReusableCell(withIdentifier: Constants.cellIdentifiers.trip, for: indexPath) as! TripTableViewCell
+        let trip = presenter.trips[indexPath.section]
+        cell.configure(with: trip, at: indexPath)
+        
+        if trip.key == UserDefaults.standard.value(forKey: Constants.userDefaultKeys.defaultTrip) as? String && editingIndexPath == nil {
+            self.tableView(tripsTableView, didSelectRowAt: indexPath)
         }
+        
+        // We are going to display a pop tip if the trip is a sample one
+        if trip.key == Constants.projectID.sample && !UserDefaults.standard.bool(forKey: Constants.userDefaultKeys.hasShownSampleTripTip) {
+            UserDefaults.standard.set(true, forKey: Constants.userDefaultKeys.hasShownSampleTripTip)
+            let popTip = PopTip()
+            popTip.style(PopStyle.default)
+            popTip.shouldDismissOnTap = true
+            popTip.show(text: "Check out this sample trip. Swipe left to remove.",
+                        direction: .down, maxWidth: 300,
+                        in: view, from: cell.frame, duration: 5)
+        }
+        
+        return cell
     }
 }
 
 extension TripsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        selectedIndexPath = indexPath
+        let selectedTrip = presenter.trips[indexPath.section]
         
-        if indexPath.row == tableView.lastRow() {
-            performSegue(withIdentifier: Constants.segueIdentifiers.action, sender: indexPath.row)
-        
-        } else {
-            
-            performSegue(withIdentifier: Constants.segueIdentifiers.detail, sender: self)
-        }
+        performSegue(withIdentifier: Constants.segueIdentifiers.detail, sender: selectedTrip)
     }
     
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        guard indexPath.row != tableView.lastRow() else { return false } //Cannot delete last row
-        
         return true
     }
  
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-        guard indexPath.row != tableView.lastRow() else { return nil }
-        let selectedRow = indexPath.row
+        let selectedSection = indexPath.section
+        let trip = presenter.trips[selectedSection]
         
         let edit = UITableViewRowAction(style: .normal, title: "Edit") { [unowned self] (row, index) in
             self.editingIndexPath = indexPath
-            self.performSegue(withIdentifier: Constants.segueIdentifiers.action, sender: indexPath.row)
+            self.performSegue(withIdentifier: Constants.segueIdentifiers.action, sender: trip)
         }
         
         edit.backgroundColor = LedgitColor.coreYellow
@@ -181,12 +177,12 @@ extension TripsViewController: UITableViewDelegate {
             let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
             let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { (action) in
                 
-                if selectedRow == 0 && (UserDefaults.standard.value(forKey: Constants.userDefaultKeys.sampleTrip) as? Bool) == true {
+                if selectedSection == 0 && (UserDefaults.standard.value(forKey: Constants.userDefaultKeys.sampleTrip) as? Bool) == true {
                     UserDefaults.standard.set(false, forKey: Constants.userDefaultKeys.sampleTrip)
                 }
                 
                 tableView.beginUpdates()
-                self.presenter.removeTrip(at: selectedRow)
+                self.presenter.removeTrip(at: selectedSection)
                 tableView.deleteRows(at: [indexPath], with: .fade)
                 tableView.endUpdates()
                 
@@ -198,7 +194,7 @@ extension TripsViewController: UITableViewDelegate {
             self.present(alert, animated: true, completion: nil)
         }
         
-        if selectedRow == 0 && (UserDefaults.standard.value(forKey: Constants.userDefaultKeys.sampleTrip) as? Bool) == true {
+        if selectedSection == 0 && (UserDefaults.standard.value(forKey: Constants.userDefaultKeys.sampleTrip) as? Bool) == true {
             return [delete]
         } else {
             return [delete, edit]

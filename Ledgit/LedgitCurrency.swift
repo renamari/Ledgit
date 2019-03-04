@@ -250,58 +250,72 @@ extension LedgitCurrency {
         return LedgitCurrency.all.first(where: { $0.code == code })
     }
     
-    static func ==(lhs:LedgitCurrency, rhs:LedgitCurrency) -> Bool {
-        return lhs.name == rhs.name && lhs.code == rhs.code && lhs.flagCode == rhs.flagCode && lhs.symbol == rhs.symbol
+    static func ==(lhs: LedgitCurrency, rhs: LedgitCurrency) -> Bool {
+        return lhs.code == rhs.code
     }
 }
 
 extension LedgitCurrency {
     static let all: [LedgitCurrency] = [AUD, BGN, BRL, CAD, CHF,
-                                  CNY, CZK, DKK, GBP, HKD,
-                                  HRK, HUF, IDR, ILS, JPY,
-                                  KRW, MXN, MYR, NOK, NZD,
-                                  PHP, PLN, RON, RUB, SEK,
-                                  SGD, THB, TRY, USD, ZAR, EUR]
-    
-    static let codes: [String] = LedgitCurrency.all.map { $0.code }
+                                        CNY, CZK, DKK, GBP, HKD,
+                                        HRK, HUF, IDR, ILS, JPY,
+                                        KRW, MXN, MYR, NOK, NZD,
+                                        PHP, PLN, RON, RUB, SEK,
+                                        SGD, THB, TRY, USD, ZAR, EUR]
 }
 
-extension LedgitCurrency {    
-    static func getRate(between base: String, and currency: String) -> Promise<Double> {
-        return Promise { resolve, reject in
+extension LedgitCurrency {
+    static func getRate(between base: String, and currency: String, completion: @escaping ((Result<Double>) -> Void)) {
+        let queryString = base + "_" + currency
+        let queryStringDate = queryString + "_date"
+        let defaults = UserDefaults.standard
         
-            guard Reachability.isConnectedToNetwork else {
-                Log.warning("Could not start exchange rate request because user is not connected to network.")
-                reject(makeError("Could not start exchange rate request because user is not connected to network."))
-                return
-            }
-            
-            let queryString = "\(base)_\(currency)"
-            guard let url = URL(string: "http://free.currencyconverterapi.com/api/v5/convert?q=\(queryString)&compact=ultra") else {
-                reject(makeError("Could not create a url to get custom exchange rate"))
-                return
-            }
-            
-            let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
-                if error != nil, let error = error {
-                    reject(error)
-                }
-                guard
-                    let data = data,
-                    let result = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: Double],
-                    let rate = result?[queryString]
-                else {
-                    reject(makeError("Something went wrong with extracting the data for custom exchange rate"))
-                    return
-                }
-                
-                Log.info("Sucessfully got exchange rate between \(base) and \(currency)")
-                
-                resolve(rate)
-            }
-            
-            task.resume()
+        if let exchangeRate = defaults.value(forKey: queryString) as? Double, let date = defaults.value(forKey: queryStringDate) as? Date, date > 1.days.ago {
+            Log.info("Found exchange rate for \(queryString) and is less than 1 day old in UserDefaults, not calling API")
+            completion(.success(exchangeRate))
+            return
         }
+        
+        guard Reachability.isConnectedToNetwork else {
+            Log.warning("Could not start exchange rate request because user is not connected to network.")
+            completion(.failure(makeError("Could not start exchange rate request because user is not connected to network.")))
+            return
+        }
+        
+        let query = URLQueryItem(name: "q", value: base + "_" + currency)
+        let keyQuery = URLQueryItem(name: "apiKey", value: "f6637a01d6f29b468bdb")
+        let compactQuery = URLQueryItem(name: "compact", value: "ultra")
+        var components = URLComponents(string: "https://free.currencyconverterapi.com/api/v6/convert")
+        components?.queryItems = [query, keyQuery, compactQuery]
+        
+        guard let url = components?.url else {
+            completion(.failure(makeError("Could not create a url to get custom exchange rate")))
+            return
+        }
+        
+        let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
+            if let error = error {
+                completion(.failure(error))
+                return
+            }
+            
+            guard
+                let data = data,
+                let result = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: Double],
+                let rate = result?[queryString]
+                else {
+                    completion(.failure(makeError("Something went wrong with extracting the data for custom exchange rate")))
+                    return
+            }
+            
+            Log.info("Sucessfully got exchange rate between \(base) and \(currency)")
+            defaults.set(Date(), forKey: queryStringDate)
+            defaults.set(rate, forKey: queryString)
+            
+            completion(.success(rate))
+        }
+        
+        task.resume()
     }
 }
 

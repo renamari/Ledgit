@@ -1,9 +1,9 @@
 //
-//  WeeklyCollectionViewCell.swift
+//  SummaryViewController.swift
 //  Ledgit
 //
-//  Created by Marcos Ortiz on 8/18/17.
-//  Copyright © 2017 Camden Developers. All rights reserved.
+//  Created by Marcos Ortiz on 2/28/19.
+//  Copyright © 2019 Camden Developers. All rights reserved.
 //
 
 import UIKit
@@ -11,7 +11,11 @@ import Charts
 import SwiftDate
 import AMPopTip
 
-class WeeklyCollectionViewCell: UICollectionViewCell, ChartViewDelegate {
+class SummaryViewController: UIViewController, ChartViewDelegate {
+    @IBOutlet var scrollView: UIScrollView!
+    @IBOutlet var contentView: UIView!
+    @IBOutlet weak var amountsStackViewTopConstraint: NSLayoutConstraint!
+    
     @IBOutlet var weeklyChart: BarChartView!
     @IBOutlet var dayLabel: UILabel!
     @IBOutlet var dayCostLabel: UILabel!
@@ -45,11 +49,35 @@ class WeeklyCollectionViewCell: UICollectionViewCell, ChartViewDelegate {
         "Today"
     ]
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
+    weak var presenter: TripDetailPresenter?
+    var needsLayout: Bool = true
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setupView()
         setupLabels()
         defaultChartSetup()
         setupStackViews()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        needsLayout ? setupLayout() : nil
+        needsLayout = false
+    }
+    
+    func setupView() {
+        contentView.layer.cornerRadius = 10
+        contentView.layer.borderWidth = 1
+        contentView.layer.borderColor = UIColor.clear.cgColor
+        contentView.layer.masksToBounds = false
+        
+        contentView.layer.shadowColor = UIColor.black.cgColor
+        contentView.layer.shadowOffset = CGSize(width: 0 ,height: 2)
+        contentView.layer.shadowRadius = 4
+        contentView.layer.shadowOpacity = 0.10
+        
+        amountsStackViewTopConstraint.constant = Type.iphone4 || Type.iphone5 ? 10 : 25
     }
     
     func setupLabels() {
@@ -64,6 +92,7 @@ class WeeklyCollectionViewCell: UICollectionViewCell, ChartViewDelegate {
     }
     
     func defaultChartSetup() {
+        weeklyChart.dragEnabled = false
         weeklyChart.delegate = self
         weeklyChart.noDataTextAlignment = .center
         weeklyChart.noDataFont = .futuraMedium14
@@ -92,7 +121,7 @@ class WeeklyCollectionViewCell: UICollectionViewCell, ChartViewDelegate {
     }
     
     @objc private func budgetStackViewTapped() {
-    
+        
     }
     
     @objc private func remainingStackViewTapped() {
@@ -112,7 +141,9 @@ class WeeklyCollectionViewCell: UICollectionViewCell, ChartViewDelegate {
         amounts = [Double](repeating: 0, count: 7)
     }
     
-    func setup(with presenter: TripDetailPresenter) {
+    func setupLayout() {
+        guard let presenter = presenter else { return }
+        
         displayTipsIfNeeded(for: presenter.trip)
         
         resetValues()
@@ -123,7 +154,7 @@ class WeeklyCollectionViewCell: UICollectionViewCell, ChartViewDelegate {
             weeklyChart.clear()
             return
         }
-    
+        
         presenter.entries.forEach { entry in
             !dates.contains(entry.date) ? dates.append(entry.date) : nil
             costToday += entry.date == Date().toString().toDate(withFormat: .full) ? entry.convertedCost : 0
@@ -197,42 +228,25 @@ class WeeklyCollectionViewCell: UICollectionViewCell, ChartViewDelegate {
             let budgetLabelTip = PopTip()
             budgetLabelTip.style(PopStyle.default)
             budgetLabelTip.show(text: "This is your trip budget. This can be your entire budget or your daily budget.",
-                                 direction: .up, maxWidth: self.contentView.frame.width - 50,
-                                 in: self.budgetLabel.superview!.superview!, from: self.budgetLabel.superview!.frame, duration: 3)
+                                direction: .up, maxWidth: self.contentView.frame.width - 50,
+                                in: self.budgetLabel.superview!.superview!, from: self.budgetLabel.superview!.frame, duration: 3)
         }
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 7) {
             let remaingLabelTip = PopTip()
             remaingLabelTip.style(PopStyle.default)
             remaingLabelTip.show(text: "This is your remaining budget. If you selected daily, this is the amount you have left today to not go over.",
-                                direction: .up, maxWidth: self.contentView.frame.width - 50,
-                                in: self.remainingLabel.superview!.superview!, from: self.remainingLabel.superview!.frame, duration: 3)
+                                 direction: .up, maxWidth: self.contentView.frame.width - 50,
+                                 in: self.remainingLabel.superview!.superview!, from: self.remainingLabel.superview!.frame, duration: 3)
         }
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 11) {
             let averageLabelTip = PopTip()
             averageLabelTip.style(PopStyle.default)
             averageLabelTip.show(text: "This is your average daily cost. It only counts the days you've actually expensed items.",
-                                direction: .up, maxWidth: self.contentView.frame.width - 50,
-                                in: self.averageLabel.superview!.superview!, from: self.averageLabel.superview!.frame, duration: 3)
+                                 direction: .up, maxWidth: self.contentView.frame.width - 50,
+                                 in: self.averageLabel.superview!.superview!, from: self.averageLabel.superview!.frame, duration: 3)
         }
-    }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        
-        contentView.layer.cornerRadius = 10
-        contentView.layer.borderWidth = 1
-        contentView.layer.borderColor = UIColor.clear.cgColor
-        contentView.layer.masksToBounds = true
-        
-        layer.cornerRadius = 10
-        layer.shadowColor = UIColor.black.cgColor
-        layer.shadowOffset = CGSize(width:0,height: 2)
-        layer.shadowRadius = 4
-        layer.shadowOpacity = 0.10
-        layer.masksToBounds = false
-        layer.shadowPath = UIBezierPath(roundedRect:bounds, cornerRadius:contentView.layer.cornerRadius).cgPath
     }
     
     func updateDefaultLabelValues(budgetAmount: Double) {
@@ -254,11 +268,6 @@ class WeeklyCollectionViewCell: UICollectionViewCell, ChartViewDelegate {
     
     fileprivate func drawChart(with values: [BarChartDataEntry]){
         weeklyChart.animate(yAxisDuration: 1.5, easingOption: .easeInOutBack)
-        
-        let format = NumberFormatter()
-        format.minimum = 0
-        format.numberStyle = .currency
-        format.allowsFloats = false
         
         let xFormat = BarChartXAxisFormatter(labels: weekdays)
         
@@ -282,12 +291,11 @@ class WeeklyCollectionViewCell: UICollectionViewCell, ChartViewDelegate {
         leftAxis.labelTextColor = LedgitColor.navigationTextGray
         leftAxis.labelFont = .futuraMedium8
         leftAxis.labelPosition = .outsideChart
-        leftAxis.axisMinimum = 0.0
-        leftAxis.valueFormatter = DefaultAxisValueFormatter(formatter: format)
+        leftAxis.valueFormatter = DefaultAxisValueFormatter(formatter: dataFormat)
         leftAxis.drawGridLinesEnabled = false
         leftAxis.gridColor = LedgitColor.navigationBarGray
         leftAxis.gridLineWidth = 1.0
-        
+
         let dataSet = BarChartDataSet(values: values, label: nil)
         dataSet.colors = [LedgitColor.coreBlue]
         
@@ -298,13 +306,14 @@ class WeeklyCollectionViewCell: UICollectionViewCell, ChartViewDelegate {
         
         weeklyChart.data = data
         weeklyChart.rightAxis.enabled = false
+        weeklyChart.leftAxis.enabled = false
         weeklyChart.legend.enabled = false
         weeklyChart.chartDescription = nil
         weeklyChart.highlightPerTapEnabled = false
     }
 }
 
-extension WeeklyCollectionViewCell {
+extension SummaryViewController {
     class BarChartXAxisFormatter: NSObject, IAxisValueFormatter {
         var labels: [String] = []
         

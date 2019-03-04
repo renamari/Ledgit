@@ -179,15 +179,13 @@ extension SettingsManager {
         // Update each entry to reflect updated home currency
         let entryRequest = NSFetchRequest<NSFetchRequestResult>(entityName: Constants.ledgitEntity.entry)
         
+        Log.info("Starting currency exchange function")
         do {
             let entries = try coreData.fetch(entryRequest)
             guard let entryManagedObjects = entries as? [NSManagedObject] else {
                 Log.critical("Could not create entry managed objects")
                 return
             }
-            
-            // Creating a temporary dictionary to hold rates previous fetched rates
-            var rates: [String: Double] = [:]
 
             entryManagedObjects.forEach { entry in
                 guard let entryCurrencyCode = entry.value(forKey: LedgitEntry.Keys.currency) as? String,
@@ -199,26 +197,34 @@ extension SettingsManager {
                 
                 // If rates contains the updated currency rate, just use that
                 // rather than making a brand new rate fetch
-                if let previouslyFetchedRated = rates[entryCurrencyCode] {
+                let currencyKey = currency.code + "_" + entryCurrencyCode
+                let defaults = UserDefaults.standard
+                
+                if let previouslyFetchedRated = defaults.value(forKey: currencyKey) as? Double {
+                    Log.info("While updating home currency, we found previously fetched rate of \(previouslyFetchedRated)")
                     let newConvertedCost = Double(cost / previouslyFetchedRated)
                     entry.setValue(newConvertedCost, forKey: LedgitEntry.Keys.convertedCost)
+                    entry.setValue(previouslyFetchedRated, forKey: LedgitEntry.Keys.exchangeRate)
                     
                 } else {
-                    LedgitCurrency.getRate(between: currency.code, and: entryCurrencyCode).then { rate in
-                        // Update our rates dictionary with the newly fetch rate
-                        rates[entryCurrencyCode] = rate
-                        
-                        let newConvertedCost = Double(cost / rate)
-                        entry.setValue(newConvertedCost, forKey: LedgitEntry.Keys.convertedCost)
-                        
-                        Log.info("Successfully update costs with new rate, trying to save to core data")
-                        try self.coreData.save()
-                        LedgitUser.current.homeCurrency = currency
-                        self.user?.setValue(currency.code, forKey: LedgitUser.Keys.homeCurrency)
-                        
-                        }.catch { error in
+                    LedgitCurrency.getRate(between: currency.code, and: entryCurrencyCode) { result in
+                        switch result {
+                        case .success(let rate):
+                            // Update our rates dictionary with the newly fetch rate
+                            defaults.set(rate, forKey: currencyKey)
+                            
+                            let newConvertedCost = Double(cost / rate)
+                            entry.setValue(newConvertedCost, forKey: LedgitEntry.Keys.convertedCost)
+                            entry.setValue(rate, forKey: LedgitEntry.Keys.exchangeRate)
+                            
+                            Log.info("Successfully update costs with new rate, trying to save to core data")
+                            try? self.coreData.save()
+                            LedgitUser.current.homeCurrency = currency
+                            self.user?.setValue(currency.code, forKey: LedgitUser.Keys.homeCurrency)
+                            
+                        case .failure(let error):
                             Log.critical("Something went wrong when updating conversion cost \(error.localizedDescription)")
-                            return
+                        }
                     }
                 }
             }

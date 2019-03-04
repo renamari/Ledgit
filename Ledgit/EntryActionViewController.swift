@@ -36,14 +36,16 @@ class EntryActionViewController: UIViewController {
                 return
             }
             
-            LedgitCurrency.getRate(between: LedgitUser.current.homeCurrency.code, and: selectedCurrency.code).then { rate in
-                self.exchangeRateTextField.text("\(rate)")
-                
-            }.catch { error in
-                Log.critical("In \(self), we were unable to fetch rate between \(LedgitUser.current.homeCurrency.code) selecting \(self.selectedCurrency.code)")
-                Log.error(error)
-                
-                self.exchangeRateTextField.text("1.00")
+            LedgitCurrency.getRate(between: LedgitUser.current.homeCurrency.code, and: selectedCurrency.code) { result in
+                switch result {
+                case .success(let rate):
+                    self.exchangeRateTextField.text("\(rate)")
+                case .failure(let error):
+                    Log.critical("In \(self), we were unable to fetch rate between \(LedgitUser.current.homeCurrency.code) selecting \(self.selectedCurrency.code)")
+                    Log.error(error)
+                    
+                    self.exchangeRateTextField.text("1.00")
+                }
             }
         
             amountTextField.title = "AMOUNT IN \(selectedCurrency.code.uppercased())"

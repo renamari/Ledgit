@@ -25,6 +25,10 @@
 		8D2C37F320DF4AD60085E10B /* LedgitPromise.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D2C37F220DF4AD60085E10B /* LedgitPromise.swift */; };
 		8D39F94B1FC51B470055BA4E /* SettingsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D39F94A1FC51B470055BA4E /* SettingsManager.swift */; };
 		8D488AC1203BAF7F00A9798B /* WeeklyCollectionViewCellTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D488AC0203BAF7F00A9798B /* WeeklyCollectionViewCellTests.swift */; };
+		8D4E68212228EDB3009939BE /* SummaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D4E68202228EDB3009939BE /* SummaryViewController.swift */; };
+		8D4E68232228EDBB009939BE /* CategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D4E68222228EDBB009939BE /* CategoryViewController.swift */; };
+		8D4E68252228EDC3009939BE /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D4E68242228EDC3009939BE /* HistoryViewController.swift */; };
+		8D4E6827222CB47A009939BE /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D4E6826222CB47A009939BE /* Result.swift */; };
 		8D656AA31F94480800C85A0F /* EntryActionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D656AA21F94480800C85A0F /* EntryActionViewController.swift */; };
 		8D6F4B641F4E8CFC0046847C /* CategoriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D6F4B631F4E8CFC0046847C /* CategoriesViewController.swift */; };
 		8D6F4B661F4E8D050046847C /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D6F4B651F4E8D050046847C /* AccountViewController.swift */; };
@@ -82,9 +86,6 @@
 		8DDD13332030B81300998AA5 /* TripActionViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDD13322030B81300998AA5 /* TripActionViewControllerTests.swift */; };
 		8DDD13362030F4FC00998AA5 /* TripBudgetInformationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDD13352030F4FC00998AA5 /* TripBudgetInformationView.swift */; };
 		8DDDD6B31F473EFA0053146B /* TripDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDDD6B21F473EFA0053146B /* TripDetailViewController.swift */; };
-		8DDDD6B51F47ECDD0053146B /* WeeklyCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDDD6B41F47ECDD0053146B /* WeeklyCollectionViewCell.swift */; };
-		8DDDD6B71F47ECF00053146B /* CategoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDDD6B61F47ECF00053146B /* CategoryCollectionViewCell.swift */; };
-		8DDDD6B91F47ECFD0053146B /* HistoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDDD6B81F47ECFD0053146B /* HistoryCollectionViewCell.swift */; };
 		8DE6F568201532DD0081DB6E /* Flags.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8DE6F567201532DD0081DB6E /* Flags.xcassets */; };
 		8DE6F56C20154CD90081DB6E /* ResourceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DE6F56B20154CD90081DB6E /* ResourceManager.swift */; };
 		8DFAE8991FCA930000B4734B /* CategoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DFAE8981FCA930000B4734B /* CategoryTableViewCell.swift */; };
@@ -124,6 +125,10 @@
 		8D2C37F220DF4AD60085E10B /* LedgitPromise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LedgitPromise.swift; sourceTree = "<group>"; };
 		8D39F94A1FC51B470055BA4E /* SettingsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsManager.swift; sourceTree = "<group>"; };
 		8D488AC0203BAF7F00A9798B /* WeeklyCollectionViewCellTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyCollectionViewCellTests.swift; sourceTree = "<group>"; };
+		8D4E68202228EDB3009939BE /* SummaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryViewController.swift; sourceTree = "<group>"; };
+		8D4E68222228EDBB009939BE /* CategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewController.swift; sourceTree = "<group>"; };
+		8D4E68242228EDC3009939BE /* HistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
+		8D4E6826222CB47A009939BE /* Result.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
 		8D656AA21F94480800C85A0F /* EntryActionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryActionViewController.swift; sourceTree = "<group>"; };
 		8D6F4B631F4E8CFC0046847C /* CategoriesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoriesViewController.swift; sourceTree = "<group>"; };
 		8D6F4B651F4E8D050046847C /* AccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountViewController.swift; sourceTree = "<group>"; };
@@ -186,9 +191,6 @@
 		8DDD13322030B81300998AA5 /* TripActionViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripActionViewControllerTests.swift; sourceTree = "<group>"; };
 		8DDD13352030F4FC00998AA5 /* TripBudgetInformationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripBudgetInformationView.swift; sourceTree = "<group>"; };
 		8DDDD6B21F473EFA0053146B /* TripDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TripDetailViewController.swift; sourceTree = "<group>"; };
-		8DDDD6B41F47ECDD0053146B /* WeeklyCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeeklyCollectionViewCell.swift; sourceTree = "<group>"; };
-		8DDDD6B61F47ECF00053146B /* CategoryCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryCollectionViewCell.swift; sourceTree = "<group>"; };
-		8DDDD6B81F47ECFD0053146B /* HistoryCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryCollectionViewCell.swift; sourceTree = "<group>"; };
 		8DE6F567201532DD0081DB6E /* Flags.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Flags.xcassets; sourceTree = "<group>"; };
 		8DE6F56B20154CD90081DB6E /* ResourceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceManager.swift; sourceTree = "<group>"; };
 		8DFAE8981FCA930000B4734B /* CategoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryTableViewCell.swift; sourceTree = "<group>"; };
@@ -325,6 +327,7 @@
 				8DA3B2281F3FC3C600FC31AF /* Constants.swift */,
 				8DE6F56B20154CD90081DB6E /* ResourceManager.swift */,
 				8D9266A82059F4FC00A4B5B2 /* LedgitAnalytics.swift */,
+				8D4E6826222CB47A009939BE /* Result.swift */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -489,10 +492,13 @@
 		8DB467A31FC226BE00E44863 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				8DDDD6BA1F47ED100053146B /* Collection View Cells */,
+				8D2AEC1C1F4D148200227FC6 /* History Table View Cell */,
 				8DDDD6B21F473EFA0053146B /* TripDetailViewController.swift */,
 				8D656AA21F94480800C85A0F /* EntryActionViewController.swift */,
 				8DFAE89E1FCB9B1500B4734B /* CategorySelectionViewController.swift */,
+				8D4E68202228EDB3009939BE /* SummaryViewController.swift */,
+				8D4E68222228EDBB009939BE /* CategoryViewController.swift */,
+				8D4E68242228EDC3009939BE /* HistoryViewController.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -588,17 +594,6 @@
 				8DDD13352030F4FC00998AA5 /* TripBudgetInformationView.swift */,
 			);
 			name = "Custom Views";
-			sourceTree = "<group>";
-		};
-		8DDDD6BA1F47ED100053146B /* Collection View Cells */ = {
-			isa = PBXGroup;
-			children = (
-				8DDDD6B41F47ECDD0053146B /* WeeklyCollectionViewCell.swift */,
-				8DDDD6B61F47ECF00053146B /* CategoryCollectionViewCell.swift */,
-				8DDDD6B81F47ECFD0053146B /* HistoryCollectionViewCell.swift */,
-				8D2AEC1C1F4D148200227FC6 /* History Table View Cell */,
-			);
-			name = "Collection View Cells";
 			sourceTree = "<group>";
 		};
 		8DDDD6BB1F47EFCF0053146B /* Table View Cell */ = {
@@ -865,6 +860,7 @@
 				8DBBB5F81FAFC99F002D0984 /* TripActionViewController.swift in Sources */,
 				8D171ED5201EAD370058891E /* CollapsibleDateHeaderView.swift in Sources */,
 				8D656AA31F94480800C85A0F /* EntryActionViewController.swift in Sources */,
+				8D4E6827222CB47A009939BE /* Result.swift in Sources */,
 				8D29168E1FB8EA42008ED9F2 /* CurrencyTableViewCell.swift in Sources */,
 				8DB4679F1FC1F2FA00E44863 /* LedgitEntry.swift in Sources */,
 				8DE6F56C20154CD90081DB6E /* ResourceManager.swift in Sources */,
@@ -873,7 +869,7 @@
 				8D2AEC191F4D146900227FC6 /* DateTableViewCell.swift in Sources */,
 				8D2AEC0F1F4AB2F300227FC6 /* AboutViewController.swift in Sources */,
 				8D9266A92059F4FC00A4B5B2 /* LedgitAnalytics.swift in Sources */,
-				8DDDD6B91F47ECFD0053146B /* HistoryCollectionViewCell.swift in Sources */,
+				8D4E68212228EDB3009939BE /* SummaryViewController.swift in Sources */,
 				8D9266A7204C679100A4B5B2 /* UIImageView+Content.swift in Sources */,
 				8DA3B2231F3FC00500FC31AF /* MainViewController.swift in Sources */,
 				8D8E5EED207DC9F50094686D /* Double+Content.swift in Sources */,
@@ -881,7 +877,9 @@
 				8D2AEC1B1F4D147800227FC6 /* CityTableViewCell.swift in Sources */,
 				8DA3B2271F3FC01B00FC31AF /* TutorialViewController.swift in Sources */,
 				8DDD13362030F4FC00998AA5 /* TripBudgetInformationView.swift in Sources */,
+				8D4E68232228EDBB009939BE /* CategoryViewController.swift in Sources */,
 				8DA3B2201F3FBEF300FC31AF /* Utilities.swift in Sources */,
+				8D4E68252228EDC3009939BE /* HistoryViewController.swift in Sources */,
 				8D707B4E1F9D3EEE00CABA0F /* TripsPresenter.swift in Sources */,
 				8D926694204C644000A4B5B2 /* Date+Content.swift in Sources */,
 				8DAD43E71F9D46270054EDD8 /* SettingsNavigationController.swift in Sources */,
@@ -908,14 +906,12 @@
 				8D7D284B20829A5400C305FE /* LedgitError.swift in Sources */,
 				8DC243D61F43ADA400B3E080 /* TripsViewController.swift in Sources */,
 				8D92669E204C64F100A4B5B2 /* UILayout+Content.swift in Sources */,
-				8DDDD6B71F47ECF00053146B /* CategoryCollectionViewCell.swift in Sources */,
 				8D9778F41F4F5364008DD68C /* CategoryActionViewController.swift in Sources */,
 				8D926698204C648A00A4B5B2 /* UIView+Content.swift in Sources */,
 				8DB467A11FC1F3A500E44863 /* LedgitTrip.swift in Sources */,
 				8DFAE8991FCA930000B4734B /* CategoryTableViewCell.swift in Sources */,
 				8D92669C204C64CB00A4B5B2 /* UITableView+Content.swift in Sources */,
 				8DA3B2291F3FC3C600FC31AF /* Constants.swift in Sources */,
-				8DDDD6B51F47ECDD0053146B /* WeeklyCollectionViewCell.swift in Sources */,
 				8D707B501F9D3F9000CABA0F /* TripsManager.swift in Sources */,
 				8DB467F51FC3E01900E44863 /* SettingsPresenter.swift in Sources */,
 			);

@@ -28,7 +28,9 @@ class CurrencySelectionViewController: UIViewController {
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        delegate?.selected(selectedCurrencies)
+        if allowsMultipleSelection {
+            delegate?.selected(selectedCurrencies)
+        }
     }
     
     func setupSearchBar() {

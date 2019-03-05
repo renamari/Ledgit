@@ -204,7 +204,6 @@ extension SettingsManager {
                     Log.info("While updating home currency, we found previously fetched rate of \(previouslyFetchedRated)")
                     let newConvertedCost = Double(cost / previouslyFetchedRated)
                     entry.setValue(newConvertedCost, forKey: LedgitEntry.Keys.convertedCost)
-                    entry.setValue(previouslyFetchedRated, forKey: LedgitEntry.Keys.exchangeRate)
                     
                 } else {
                     LedgitCurrency.getRate(between: currency.code, and: entryCurrencyCode) { result in
@@ -215,7 +214,6 @@ extension SettingsManager {
                             
                             let newConvertedCost = Double(cost / rate)
                             entry.setValue(newConvertedCost, forKey: LedgitEntry.Keys.convertedCost)
-                            entry.setValue(rate, forKey: LedgitEntry.Keys.exchangeRate)
                             
                             Log.info("Successfully update costs with new rate, trying to save to core data")
                             try? self.coreData.save()

@@ -17,24 +17,16 @@ import BetterSegmentedControl
 class TripDetailViewController: UIViewController {
     @IBOutlet var pageSegmentedControl: BetterSegmentedControl!
     
-    private var presenter = TripDetailPresenter(manager: TripDetailManager())
-    
-    var currentIndex: Int = 0
-    let pageViewController = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
-    let summaryViewController = SummaryViewController.instantiate(from: .trips)
-    let categoryViewController = CategoryViewController.instantiate(from: .trips)
-    let historyViewController = HistoryViewController.instantiate(from: .trips)
-    lazy var pages: [UIViewController] = [summaryViewController, categoryViewController, historyViewController]
+    private let presenter = TripDetailPresenter(manager: TripDetailManager())
+    private let pageViewController = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
+    private let summaryViewController = SummaryViewController.instantiate(from: .trips)
+    private let categoryViewController = CategoryViewController.instantiate(from: .trips)
+    private let historyViewController = HistoryViewController.instantiate(from: .trips)
+    private lazy var pages = [summaryViewController, categoryViewController, historyViewController]
+    private lazy var addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addButtonPressed))
+    private lazy var exportButton = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(exportButtonPressed))
     
     var currentTrip: LedgitTrip?
-    
-    lazy var addButton: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add,
-                                                          target: self,
-                                                          action: #selector(addButtonPressed))
-    
-    lazy var exportButton: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action,
-                                                             target: self,
-                                                             action: #selector(exportButtonPressed))
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -91,14 +83,12 @@ class TripDetailViewController: UIViewController {
     }
     
     func setupNavigationBar() {
-        if #available(iOS 11.0, *), UIScreen.main.nativeBounds.height <= 1136 {
-            navigationItem.largeTitleDisplayMode = .never
-        }
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         navigationController?.navigationBar.shadowImage = UIImage()
         navigationController?.navigationBar.isTranslucent = true
         navigationController?.view.backgroundColor = LedgitColor.navigationBarGray
         
+        navigationItem.largeTitleDisplayMode = UIScreen.main.nativeBounds.height <= 1136 ? .never : .automatic
         navigationItem.rightBarButtonItems = shouldDisplayExportButton ? [addButton, exportButton] : [addButton]
     }
 
@@ -154,22 +144,24 @@ class TripDetailViewController: UIViewController {
     @objc func segmentedControlChanged(control: BetterSegmentedControl) {
         let upcomingIndex = Int(control.index)
         
-        while upcomingIndex != currentIndex {
-            upcomingIndex < currentIndex ? goToPreviousPage() : goToNextPage()
-            currentIndex += upcomingIndex < currentIndex ? -1 : 1
+        guard let controller = pageViewController.viewControllers?.first, var index = pages.index(where: { controller ==  $0 }) else { return }
+        
+        while upcomingIndex != index {
+            upcomingIndex < index ? goToPreviousPage() : goToNextPage()
+            index += upcomingIndex < index ? -1 : 1
         }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == Constants.segueIdentifiers.entryAction {
-            guard let entryActionViewController = segue.destination as? EntryActionViewController else { return }
-            entryActionViewController.presenter = presenter
-            entryActionViewController.parentTrip = currentTrip
-            if let entry = sender as? LedgitEntry {
-                entryActionViewController.entry = entry
-                entryActionViewController.action = .edit
-            }
-        }
+        guard segue.identifier == Constants.segueIdentifiers.entryAction else { return }
+        guard let entryActionViewController = segue.destination as? EntryActionViewController else { return }
+        entryActionViewController.presenter = presenter
+        entryActionViewController.parentTrip = currentTrip
+    
+        guard let entry = sender as? LedgitEntry else { return }
+        
+        entryActionViewController.entry = entry
+        entryActionViewController.action = .edit
     }
 }
 
@@ -210,19 +202,14 @@ extension TripDetailViewController: UIPageViewControllerDelegate, UIPageViewCont
     }
     
     func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
+        
         // 1. Check if screen has finished transition from one view to next
         guard completed else { return }
         
         // 2. If yes, update the page control current indicator to change to index
-        pageSegmentedControl.setIndex(UInt(currentIndex), animated: true)
-    }
-    
-    func pageViewController(_ pageViewController: UIPageViewController, willTransitionTo pendingViewControllers: [UIViewController]) {
-        
-        // 1. Update the current index to the view controller index user will transition to
-        
-        guard let controller = pendingViewControllers.first, let index = pages.index(where: { controller ==  $0 }) else { return }
-        currentIndex = index
+        guard let controller = pageViewController.viewControllers?.first, let index = pages.index(where: { controller ==  $0 }) else { return }
+
+        pageSegmentedControl.setIndex(UInt(index), animated: true)
     }
     
     func goToNextPage() {

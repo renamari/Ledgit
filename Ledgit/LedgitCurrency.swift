@@ -272,13 +272,21 @@ extension LedgitCurrency {
         
         if let exchangeRate = defaults.value(forKey: queryString) as? Double, let date = defaults.value(forKey: queryStringDate) as? Date, date > 1.days.ago {
             Log.info("Found exchange rate for \(queryString) and is less than 1 day old in UserDefaults, not calling API")
-            completion(.success(exchangeRate))
+            
+            DispatchQueue.main.async {
+                completion(.success(exchangeRate))
+            }
+            
             return
         }
         
         guard Reachability.isConnectedToNetwork else {
             Log.warning("Could not start exchange rate request because user is not connected to network.")
-            completion(.failure(makeError("Could not start exchange rate request because user is not connected to network.")))
+            
+            DispatchQueue.main.async {
+                completion(.failure(makeError("Could not start exchange rate request because user is not connected to network.")))
+            }
+            
             return
         }
         
@@ -289,13 +297,20 @@ extension LedgitCurrency {
         components?.queryItems = [query, keyQuery, compactQuery]
         
         guard let url = components?.url else {
-            completion(.failure(makeError("Could not create a url to get custom exchange rate")))
+            
+            DispatchQueue.main.async {
+                completion(.failure(makeError("Could not create a url to get custom exchange rate")))
+            }
+            
             return
         }
         
         let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
             if let error = error {
-                completion(.failure(error))
+                DispatchQueue.main.async {
+                    completion(.failure(error))
+                }
+                
                 return
             }
             
@@ -304,7 +319,9 @@ extension LedgitCurrency {
                 let result = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: Double],
                 let rate = result?[queryString]
                 else {
-                    completion(.failure(makeError("Something went wrong with extracting the data for custom exchange rate")))
+                    DispatchQueue.main.async {
+                        completion(.failure(makeError("Something went wrong with extracting the data for custom exchange rate")))
+                    }
                     return
             }
             
@@ -312,7 +329,10 @@ extension LedgitCurrency {
             defaults.set(Date(), forKey: queryStringDate)
             defaults.set(rate, forKey: queryString)
             
-            completion(.success(rate))
+            DispatchQueue.main.async {
+                completion(.success(rate))
+            }
+            
         }
         
         task.resume()

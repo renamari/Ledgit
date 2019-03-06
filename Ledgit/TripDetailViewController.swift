@@ -17,6 +17,8 @@ import BetterSegmentedControl
 class TripDetailViewController: UIViewController {
     @IBOutlet var pageSegmentedControl: BetterSegmentedControl!
     
+    private let transition = BubbleTransition()
+    private var transitioningPoint: CGPoint?
     private let presenter = TripDetailPresenter(manager: TripDetailManager())
     private let pageViewController = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
     private let summaryViewController = SummaryViewController.instantiate(from: .trips)
@@ -138,6 +140,7 @@ class TripDetailViewController: UIViewController {
     }
     
     @objc func addButtonPressed() {
+        transitioningPoint = nil
         performSegue(withIdentifier: Constants.segueIdentifiers.entryAction, sender: nil)
     }
     
@@ -154,9 +157,12 @@ class TripDetailViewController: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard segue.identifier == Constants.segueIdentifiers.entryAction else { return }
-        guard let entryActionViewController = segue.destination as? EntryActionViewController else { return }
+        guard let navigationController = segue.destination as? UINavigationController else { return }
+        guard let entryActionViewController = navigationController.topViewController as? EntryActionViewController else { return }
         entryActionViewController.presenter = presenter
         entryActionViewController.parentTrip = currentTrip
+        navigationController.transitioningDelegate = self
+        navigationController.modalPresentationStyle = .custom
     
         guard let entry = sender as? LedgitEntry else { return }
         
@@ -225,8 +231,45 @@ extension TripDetailViewController: UIPageViewControllerDelegate, UIPageViewCont
     }
 }
 
+extension TripDetailViewController: UIViewControllerTransitioningDelegate {
+    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        let startingPoint: CGPoint
+        
+        if let point = transitioningPoint {
+            startingPoint = point
+        } else {
+            let startingX = (navigationController?.navigationBar.frame.maxX ?? view.frame.maxX) - 28
+            let startingY = (navigationController?.navigationBar.frame.midY ?? 50) - 35
+            startingPoint = CGPoint(x: startingX, y: startingY)
+        }
+        
+        transition.transitionMode = .present
+        transition.startingPoint = startingPoint
+        transition.bubbleColor = LedgitColor.coreBlue
+        return transition
+    }
+    
+    func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        let startingPoint: CGPoint
+        
+        if let point = transitioningPoint {
+            startingPoint = point
+        } else {
+            let startingX = (navigationController?.navigationBar.frame.maxX ?? view.frame.maxX) - 28
+            let startingY = (navigationController?.navigationBar.frame.midY ?? 50) - 35
+            startingPoint = CGPoint(x: startingX, y: startingY)
+        }
+        
+        transition.transitionMode = .dismiss
+        transition.startingPoint = startingPoint
+        transition.bubbleColor = LedgitColor.coreBlue
+        return transition
+    }
+}
+
 extension TripDetailViewController: DayTableCellDelegate {
-    func selected(entry: LedgitEntry, at cell: UITableViewCell) {
+    func selected(entry: LedgitEntry, at point: CGPoint) {
+        transitioningPoint = point
         performSegue(withIdentifier: Constants.segueIdentifiers.entryAction, sender: entry)
     }
 }

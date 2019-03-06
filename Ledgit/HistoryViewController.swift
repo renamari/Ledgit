@@ -11,7 +11,7 @@ import BetterSegmentedControl
 import SwiftDate
 
 protocol DayTableCellDelegate: class {
-    func selected(entry: LedgitEntry, at cell: UITableViewCell)
+    func selected(entry: LedgitEntry, at point: CGPoint)
 }
 
 class HistoryViewController: UIViewController {
@@ -177,9 +177,12 @@ extension HistoryViewController: UITableViewDelegate, UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard tableView == dayTableView else { return }
-        guard let cell = tableView.cellForRow(at: indexPath) else { return }
         let entry = dateEntries[indexPath.section].entries[indexPath.row]
-        delegate?.selected(entry: entry, at: cell)
+        
+        let rectOfRow = tableView.rectForRow(at: indexPath)
+        let rectInSuperview = tableView.convert(rectOfRow, to: (delegate as? UIViewController)?.view)
+        let center = CGPoint(x: rectInSuperview.midX, y: rectInSuperview.midY)
+        delegate?.selected(entry: entry, at: center)
     }
 }
 

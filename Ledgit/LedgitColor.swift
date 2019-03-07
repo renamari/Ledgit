@@ -19,9 +19,9 @@ class LedgitColor: UIColor {
     static let separatorGray        = UIColor(hex: 0x9C9C9C)!
     static let navigationTextGray   = UIColor(hex: 0x3F6072)!
     static let navigationBarGray    = UIColor(hex: 0xF2F5F7)!
-    
+
     // Bar chart colors
-    
+
     static let pieChartBlue1        = UIColor(hex: 0x479AFF)!
     static let pieChartBlue2        = UIColor(hex: 0x0D4FDD)!
     static let pieChartBlue3        = UIColor(hex: 0x0C2E7C)!
@@ -34,22 +34,20 @@ class LedgitColor: UIColor {
     static let pieChartLightPurple  = UIColor(hex: 0xBD92D2)!
     static let pieChartDarkPurple   = UIColor(hex: 0x653797)!
     static let pieChartDarkGray     = UIColor(hex: 0x22313F)!
-    
-    
 }
 
 extension UIColor {
-    
+
     private convenience init?(hex6: Int, alpha: Float) {
         self.init(red:   CGFloat( (hex6 & 0xFF0000) >> 16 ) / 255.0,
                   green: CGFloat( (hex6 & 0x00FF00) >> 8 ) / 255.0,
                   blue:  CGFloat( (hex6 & 0x0000FF) >> 0 ) / 255.0, alpha: CGFloat(alpha))
     }
-    
+
     public convenience init?(hex: Int) {
         self.init(hex: hex, alpha: 1.0)
     }
-    
+
     public convenience init?(hex: Int, alpha: Float) {
         if (0x000000 ... 0xFFFFFF) ~= hex {
             self.init(hex6: hex, alpha: alpha)

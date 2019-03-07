@@ -27,83 +27,81 @@ class CategoryActionViewController: UIViewController {
     var previousFrame: CGRect?
     let defaultCardScale: CGFloat = 40
     let padding: CGFloat = 20
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         setupView()
         setupButton()
         setupRecognizers()
         setupTextFields()
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setupKeyboardNotifications()
-        
         setupLabels()
     }
-    
+
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         removeKeyboardNotifications()
     }
-    
+
     func setupKeyboardNotifications() {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: view.window)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: view.window)
     }
-    
+
     func removeKeyboardNotifications() {
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
     }
-    
-    func setupTextFields(){
+
+    func setupTextFields() {
         categoryTextField.delegate = self
         categoryTextField.setTitleVisible(true)
     }
-    
-    func setupRecognizers(){
+
+    func setupRecognizers() {
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(screenTapped))
         tapGestureRecognizer.delegate = self
         view.addGestureRecognizer(tapGestureRecognizer)
     }
-    
+
     @objc func screenTapped() {
         dismiss(animated: true, completion: nil)
     }
-    
+
     func setupLabels() {
         switch action {
         case .add:
             cardTitleLabel.text("Add New Category")
-            
+
         case .edit:
             cardTitleLabel.text("Edit Category")
             categoryTextField.text(category)
         }
     }
 
-    func setupView(){
+    func setupView() {
         view.backgroundColor = UIColor.black.withAlphaComponent(0.7)
-        cardView.roundedCorners(radius: Constants.cornerRadius.button)
+        cardView.roundedCorners(radius: Constants.CornerRadius.button)
     }
-    
-    func setupButton(){
-        saveButton.roundedCorners(radius: Constants.cornerRadius.button)
+
+    func setupButton() {
+        saveButton.roundedCorners(radius: Constants.CornerRadius.button)
     }
 
     @IBAction func closeButtonPressed(_ sender: Any) {
         dismiss(animated: true, completion: nil)
     }
-    
+
     @IBAction func saveButtonPressed(_ sender: Any) {
         guard let text = categoryTextField.text, !text.isEmpty else {
             categoryTextField.errorMessage = "Cannot leave this empty"
             return
         }
-        
+
         let newCategory = text.strip()
         switch action {
         case .add:
@@ -114,18 +112,18 @@ class CategoryActionViewController: UIViewController {
         }
         dismiss(animated: true, completion: nil)
     }
-    
+
     @objc func keyboardWillShow(notification: Notification) {
         guard let userInfo = notification.userInfo else { return }
         guard let keyboardSize = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else { return }
-        
+
         UIView.animate(withDuration: 0.5) {
             self.cardViewCenterConstraint.isActive = false
             self.cardViewBottomConstraint.constant = keyboardSize.height + 15
             self.cardViewBottomConstraint.isActive = true
         }
     }
-    
+
     @objc func keyboardWillHide(notification: Notification) {
         UIView.animate(withDuration: 0.5, animations: {
             self.cardViewBottomConstraint.constant = 15
@@ -134,14 +132,14 @@ class CategoryActionViewController: UIViewController {
     }
 }
 
-extension CategoryActionViewController: UIGestureRecognizerDelegate{
+extension CategoryActionViewController: UIGestureRecognizerDelegate {
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
         return touch.view == gestureRecognizer.view
     }
 }
 
-extension CategoryActionViewController: UITextFieldDelegate{
-    
+extension CategoryActionViewController: UITextFieldDelegate {
+
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         categoryTextField.resignFirstResponder()
         return true

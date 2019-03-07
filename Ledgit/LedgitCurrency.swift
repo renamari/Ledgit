@@ -245,12 +245,12 @@ extension LedgitCurrency {
         }
         return result
     }
-    
+
     static func get(with code: String) -> LedgitCurrency? {
         return LedgitCurrency.all.first(where: { $0.code == code })
     }
-    
-    static func ==(lhs: LedgitCurrency, rhs: LedgitCurrency) -> Bool {
+
+    static func == (lhs: LedgitCurrency, rhs: LedgitCurrency) -> Bool {
         return lhs.code == rhs.code
     }
 }
@@ -269,73 +269,69 @@ extension LedgitCurrency {
         let queryString = base + "_" + currency
         let queryStringDate = queryString + "_date"
         let defaults = UserDefaults.standard
-        
+
         if let exchangeRate = defaults.value(forKey: queryString) as? Double, let date = defaults.value(forKey: queryStringDate) as? Date, date > 1.days.ago {
-            Log.info("Found exchange rate for \(queryString) and is less than 1 day old in UserDefaults, not calling API")
-            
+            LedgitLog.info("Found exchange rate for \(queryString) and is less than 1 day old in UserDefaults, not calling API")
+
             DispatchQueue.main.async {
                 completion(.success(exchangeRate))
             }
-            
+
             return
         }
-        
+
         guard Reachability.isConnectedToNetwork else {
-            Log.warning("Could not start exchange rate request because user is not connected to network.")
-            
+            LedgitLog.warning("Could not start exchange rate request because user is not connected to network.")
+
             DispatchQueue.main.async {
                 completion(.failure(makeError("Could not start exchange rate request because user is not connected to network.")))
             }
-            
+
             return
         }
-        
+
         let query = URLQueryItem(name: "q", value: base + "_" + currency)
         let keyQuery = URLQueryItem(name: "apiKey", value: "f6637a01d6f29b468bdb")
         let compactQuery = URLQueryItem(name: "compact", value: "ultra")
         var components = URLComponents(string: "https://free.currencyconverterapi.com/api/v6/convert")
         components?.queryItems = [query, keyQuery, compactQuery]
-        
+
         guard let url = components?.url else {
-            
+
             DispatchQueue.main.async {
                 completion(.failure(makeError("Could not create a url to get custom exchange rate")))
             }
-            
+
             return
         }
-        
-        let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
+
+        let task = URLSession.shared.dataTask(with: url) { (data, _, error) in
             if let error = error {
                 DispatchQueue.main.async {
                     completion(.failure(error))
                 }
-                
+
                 return
             }
-            
-            guard
-                let data = data,
+
+            guard let data = data,
                 let result = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: Double],
-                let rate = result?[queryString]
-                else {
+                let rate = result?[queryString] else {
                     DispatchQueue.main.async {
                         completion(.failure(makeError("Something went wrong with extracting the data for custom exchange rate")))
                     }
                     return
             }
-            
-            Log.info("Sucessfully got exchange rate between \(base) and \(currency)")
+
+            LedgitLog.info("Sucessfully got exchange rate between \(base) and \(currency)")
             defaults.set(Date(), forKey: queryStringDate)
             defaults.set(rate, forKey: queryString)
-            
+
             DispatchQueue.main.async {
                 completion(.success(rate))
             }
-            
         }
-        
+
         task.resume()
     }
 }
-

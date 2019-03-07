@@ -71,6 +71,7 @@ PODS:
   - SkyFloatingLabelTextField (3.6.0)
   - SnapKit (4.0.1)
   - SwiftDate (5.0.4)
+  - SwiftLint (0.30.1)
 
 DEPENDENCIES:
   - AMPopTip (= 3.5.0)
@@ -86,6 +87,7 @@ DEPENDENCIES:
   - NVActivityIndicatorView (= 4.4.0)
   - SkyFloatingLabelTextField (= 3.6.0)
   - SwiftDate (= 5.0.4)
+  - SwiftLint
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -113,6 +115,7 @@ SPEC REPOS:
     - SkyFloatingLabelTextField
     - SnapKit
     - SwiftDate
+    - SwiftLint
 
 SPEC CHECKSUMS:
   AMPopTip: 871ae0570b68fe396e714922b3f7d8ed6a36bb71
@@ -139,7 +142,8 @@ SPEC CHECKSUMS:
   SkyFloatingLabelTextField: 38164979b79512f9ff9288ad8acfc4bbf5d843e3
   SnapKit: 0de968a9fec17499afa29683b05d0c775b6d1c29
   SwiftDate: d9827f0e7edfeb8be52882beb67e75c773b634c3
+  SwiftLint: a54bf1fe12b55c68560eb2a7689dfc81458508f7
 
-PODFILE CHECKSUM: c1d5440412f4df105d5a0f5e6125c5d0851105fd
+PODFILE CHECKSUM: ce29b05a6fcc6322a1a110e070e5a72a716318b3
 
 COCOAPODS: 1.6.0

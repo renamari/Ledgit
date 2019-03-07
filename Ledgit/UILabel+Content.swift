@@ -11,26 +11,26 @@ import UIKit
 extension UILabel {
 
     @discardableResult
-    public func text(_ t: String?) -> Self {
-        text = t
+    public func text(_ text: String?) -> Self {
+        self.text = text
         return self
     }
-    
+
     @discardableResult
-    public func textKey(_ t: String) -> Self {
-        text(NSLocalizedString(t, comment: ""))
+    public func textKey(_ text: String) -> Self {
+        self.text(NSLocalizedString(text, comment: ""))
         return self
     }
-    
+
     @discardableResult
-    public func color(_ c: UIColor) -> Self {
-        textColor = c
+    public func color(_ color: UIColor) -> Self {
+        self.textColor = color
         return self
     }
-    
+
     @discardableResult
-    public func font(_ f: UIFont) -> Self {
-        font = f
+    public func font(_ font: UIFont) -> Self {
+        self.font = font
         return self
     }
 }

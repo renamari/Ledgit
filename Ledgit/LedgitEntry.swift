@@ -23,7 +23,7 @@ struct LedgitEntry: Equatable {
     var exchangeRate: Double
     var homeCurrency: LedgitCurrency
     var dictionaryRepresentation: NSDictionary
-    
+
     struct Keys {
         static let key = "key"
         static let date = "date"
@@ -39,7 +39,7 @@ struct LedgitEntry: Equatable {
         static let exchangeRate = "exchangeRate"
         static let homeCurrency = "homeCurrency"
     }
-        
+
     init?(dict: NSDictionary) {
         guard
             let keyString = dict[LedgitEntry.Keys.key] as? String,
@@ -58,10 +58,10 @@ struct LedgitEntry: Equatable {
             let convertedCostDouble = dict[LedgitEntry.Keys.convertedCost] as? Double,
             let exchangeRateDouble = dict[LedgitEntry.Keys.exchangeRate] as? Double,
             let paymentTypeValue = PaymentType(rawValue: paymentTypeString)
-        else {
-            return nil
+            else {
+                return nil
         }
-        
+
         key = keyString
         date = dateString.toDate()
         description = descriptionString
@@ -78,7 +78,7 @@ struct LedgitEntry: Equatable {
         dictionaryRepresentation = dict
     }
 
-    static func ==(lhs: LedgitEntry, rhs: LedgitEntry) -> Bool {
+    static func == (lhs: LedgitEntry, rhs: LedgitEntry) -> Bool {
         return lhs.key == rhs.key
     }
 }

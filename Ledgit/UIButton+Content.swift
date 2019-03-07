@@ -9,28 +9,27 @@
 import UIKit
 
 extension UIButton {
-    
     @discardableResult
-    public func text(_ t: String) -> Self {
-        setTitle(t, for: .normal)
+    public func text(_ title: String) -> Self {
+        setTitle(title, for: .normal)
         return self
     }
-    
+
     @discardableResult
-    public func textKey(_ t: String) -> Self {
-        text(NSLocalizedString(t, comment: ""))
+    public func textKey(_ title: String) -> Self {
+        text(NSLocalizedString(title, comment: ""))
         return self
     }
-    
+
     @discardableResult
-    public func image(_ s: String) -> Self {
-        setImage(UIImage(named: s), for: .normal)
+    public func image(_ string: String) -> Self {
+        setImage(UIImage(named: string), for: .normal)
         return self
     }
-    
+
     @discardableResult
-    public func color(_ c: UIColor) -> Self {
-        backgroundColor = c
+    public func color(_ color: UIColor) -> Self {
+        backgroundColor = color
         return self
     }
 }

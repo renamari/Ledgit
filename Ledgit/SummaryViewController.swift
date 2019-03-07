@@ -15,30 +15,26 @@ class SummaryViewController: UIViewController, ChartViewDelegate {
     @IBOutlet var scrollView: UIScrollView!
     @IBOutlet var contentView: UIView!
     @IBOutlet weak var amountsStackViewTopConstraint: NSLayoutConstraint!
-    
     @IBOutlet var weeklyChart: BarChartView!
     @IBOutlet var dayLabel: UILabel!
     @IBOutlet var dayCostLabel: UILabel!
-    
     @IBOutlet var remainingStackView: UIStackView!
     @IBOutlet var remainingTitleLabel: UILabel!
     @IBOutlet var remainingLabel: UILabel!
-    
+
     @IBOutlet var budgetStackView: UIStackView!
     @IBOutlet var budgetTitleLabel: UILabel!
     @IBOutlet var budgetLabel: UILabel!
-    
     @IBOutlet var averageStackView: UIStackView!
     @IBOutlet var averageTitleLabel: UILabel!
     @IBOutlet var averageLabel: UILabel!
-    
+
     var averageCost: Double = 0
     var costToday: Double = 0
     var totalCost: Double = 0
     var dates: [Date] = []
     var values:[BarChartDataEntry] = []
     var amounts = [Double](repeating: 0, count: 7)
-    
     var weekdays:[String] = [
         (Date() - 6.days).toString(style: .day),
         (Date() - 5.days).toString(style: .day),
@@ -48,10 +44,10 @@ class SummaryViewController: UIViewController, ChartViewDelegate {
         (Date() - 1.days).toString(style: .day),  // Yesterday
         "Today"
     ]
-    
+
     weak var presenter: TripDetailPresenter?
     var needsLayout: Bool = true
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
@@ -59,27 +55,27 @@ class SummaryViewController: UIViewController, ChartViewDelegate {
         defaultChartSetup()
         setupStackViews()
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         needsLayout ? setupLayout() : nil
         needsLayout = false
     }
-    
+
     func setupView() {
         contentView.layer.cornerRadius = 10
         contentView.layer.borderWidth = 1
         contentView.layer.borderColor = UIColor.clear.cgColor
         contentView.layer.masksToBounds = false
-        
+
         contentView.layer.shadowColor = UIColor.black.cgColor
         contentView.layer.shadowOffset = CGSize(width: 0 ,height: 2)
         contentView.layer.shadowRadius = 4
         contentView.layer.shadowOpacity = 0.10
-        
+
         amountsStackViewTopConstraint.constant = Type.iphone4 || Type.iphone5 ? 10 : 25
     }
-    
+
     func setupLabels() {
         dayCostLabel.color(LedgitColor.navigationTextGray)
         remainingLabel.color(LedgitColor.navigationTextGray)
@@ -90,7 +86,7 @@ class SummaryViewController: UIViewController, ChartViewDelegate {
         averageLabel.text(0.0.currencyFormat())
         budgetLabel.text(0.0.currencyFormat())
     }
-    
+
     func defaultChartSetup() {
         weeklyChart.dragEnabled = false
         weeklyChart.delegate = self
@@ -101,14 +97,14 @@ class SummaryViewController: UIViewController, ChartViewDelegate {
         weeklyChart.doubleTapToZoomEnabled = false
         weeklyChart.scaleXEnabled = false
         weeklyChart.scaleYEnabled = false
-        weeklyChart.noDataText = Constants.chartText.noWeeklyActivity
+        weeklyChart.noDataText = Constants.ChartText.noWeeklyActivity
         weeklyChart.noDataTextAlignment = .center
     }
-    
+
     private func setupStackViews() {
         budgetTitleLabel.text = "Daily budget"
     }
-    
+
     func resetValues() {
         costToday = 0
         totalCost = 0
@@ -117,26 +113,49 @@ class SummaryViewController: UIViewController, ChartViewDelegate {
         values = []
         amounts = [Double](repeating: 0, count: 7)
     }
-    
+
     func setupLayout() {
         guard let presenter = presenter else { return }
-        
+
         displayTipsIfNeeded(for: presenter.trip)
-        
+
         resetValues()
-        
+
         updateDefaultLabelValues(budgetAmount: presenter.trip.budget)
-        
+
         guard !presenter.entries.isEmpty else {
             weeklyChart.clear()
             return
         }
-        
-        presenter.entries.forEach { entry in
+
+        createWeeklyAmounts(using: presenter.entries)
+
+        averageCost = totalCost / Double(dates.count)
+
+        updateLabels(dayAmount: costToday,
+                     remainingAmount: presenter.trip.budget - costToday,
+                     averageAmount: averageCost)
+
+        // Since we had to initialize an array with 7 items of 0.0
+        // we have to check that at least one of them is not 0 so we
+        // populate the chart. Otherwise, there is nothing to display
+        // for "this week"
+        guard !amounts.filter({ $0 != 0 }).isEmpty else { return }
+
+        for (index, amount) in amounts.enumerated() {
+            let entry = BarChartDataEntry(x: Double(index), y: amount)
+            values.append(entry)
+        }
+
+        drawChart(with: values)
+    }
+
+    private func createWeeklyAmounts(using entries: [LedgitEntry]) {
+        entries.forEach { entry in
             !dates.contains(entry.date) ? dates.append(entry.date) : nil
             costToday += entry.date == Date().toString().toDate(withFormat: .full) ? entry.convertedCost : 0
             totalCost += entry.convertedCost
-            
+
             /*
              * Chart is laid out with today being on the far right of the chart
              *
@@ -146,61 +165,42 @@ class SummaryViewController: UIViewController, ChartViewDelegate {
              * |   0   |   1   |    2   |   3   |   4   |   5   |    6    |
              * |  Wed  |  Thur |   Fri  |  Sat  |  Sun  |  Mon  |  Today  |
              */
-            
+
             if entry.date == (Date() - 6.days).toString().toDate(withFormat: .full) {
                 amounts[0] += entry.convertedCost
-                
+
             } else if entry.date == (Date() - 5.days).toString().toDate(withFormat: .full) {
                 amounts[1] += entry.convertedCost
-                
+
             } else if entry.date == (Date() - 4.days).toString().toDate(withFormat: .full) {
                 amounts[2] += entry.convertedCost
-                
+
             } else if entry.date == (Date() - 3.days).toString().toDate(withFormat: .full) {
                 amounts[3] += entry.convertedCost
-                
+
             } else if entry.date == (Date() - 2.days).toString().toDate(withFormat: .full) {
                 amounts[4] += entry.convertedCost
-                
+
             } else if entry.date == (Date() - 1.days).toString().toDate(withFormat: .full) {
                 amounts[5] += entry.convertedCost
-                
+
             } else if entry.date == Date().toString().toDate(withFormat: .full) {
                 amounts[6] += entry.convertedCost
             }
         }
-        
-        averageCost = totalCost / Double(dates.count)
-        
-        updateLabels(dayAmount: costToday,
-                     remainingAmount: presenter.trip.budget - costToday,
-                     averageAmount: averageCost)
-        
-        // Since we had to initialize an array with 7 items of 0.0
-        // we have to check that at least one of them is not 0 so we
-        // populate the chart. Otherwise, there is nothing to display
-        // for "this week"
-        guard !amounts.filter({ $0 != 0 }).isEmpty else { return }
-        
-        for (index, amount) in amounts.enumerated() {
-            let entry = BarChartDataEntry(x: Double(index), y: amount)
-            values.append(entry)
-        }
-        
-        drawChart(with: values)
     }
-    
+
     private func displayTipsIfNeeded(for trip: LedgitTrip) {
-        guard trip.key != Constants.projectID.sample else { return }
-        guard !UserDefaults.standard.bool(forKey: Constants.userDefaultKeys.hasShowFirstWeeklyCellTips) else { return }
-        UserDefaults.standard.set(true, forKey: Constants.userDefaultKeys.hasShowFirstWeeklyCellTips)
-        
+        guard trip.key != Constants.ProjectID.sample else { return }
+        guard !UserDefaults.standard.bool(forKey: Constants.UserDefaultKeys.hasShowFirstWeeklyCellTips) else { return }
+        UserDefaults.standard.set(true, forKey: Constants.UserDefaultKeys.hasShowFirstWeeklyCellTips)
+
         let dayCostLabelTip = PopTip()
         dayCostLabelTip.style(PopStyle.default)
         dayCostLabelTip.show(text: "Checkout your running balance for today",
                              direction: .up, maxWidth: self.contentView.frame.width - 50,
                              in: dayCostLabel.superview!, from: dayCostLabel.frame, duration: 3)
-        
+
         DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
             let budgetLabelTip = PopTip()
             budgetLabelTip.style(PopStyle.default)
@@ -208,7 +208,7 @@ class SummaryViewController: UIViewController, ChartViewDelegate {
                                 direction: .up, maxWidth: self.contentView.frame.width - 50,
                                 in: self.budgetLabel.superview!.superview!, from: self.budgetLabel.superview!.frame, duration: 3)
         }
-        
+
         DispatchQueue.main.asyncAfter(deadline: .now() + 7) {
             let remaingLabelTip = PopTip()
             remaingLabelTip.style(PopStyle.default)
@@ -216,7 +216,7 @@ class SummaryViewController: UIViewController, ChartViewDelegate {
                                  direction: .up, maxWidth: self.contentView.frame.width - 50,
                                  in: self.remainingLabel.superview!.superview!, from: self.remainingLabel.superview!.frame, duration: 3)
         }
-        
+
         DispatchQueue.main.asyncAfter(deadline: .now() + 11) {
             let averageLabelTip = PopTip()
             averageLabelTip.style(PopStyle.default)
@@ -225,46 +225,46 @@ class SummaryViewController: UIViewController, ChartViewDelegate {
                                  in: self.averageLabel.superview!.superview!, from: self.averageLabel.superview!.frame, duration: 3)
         }
     }
-    
+
     func updateDefaultLabelValues(budgetAmount: Double) {
         dayLabel.text(Date().toString(style: .full))
         budgetLabel.text(budgetAmount.currencyFormat())
         remainingLabel.text(budgetAmount.currencyFormat())
     }
-    
+
     private func updateLabels(dayAmount: Double, remainingAmount: Double, averageAmount: Double) {
         dayCostLabel.text(dayAmount.currencyFormat())
-        
+
         let averageDisplayAmount = averageAmount >= 0 ? averageAmount : (-1 * averageAmount)
         averageLabel.text(averageDisplayAmount.currencyFormat())
-        
+
         let remainingDisplayAmount = remainingAmount >= 0 ? remainingAmount : (-1 * remainingAmount)
         let remainingDisplayColor = remainingAmount > 0 ? LedgitColor.coreGreen : LedgitColor.coreRed
         remainingLabel.color(remainingDisplayColor)
         remainingLabel.text(remainingDisplayAmount.currencyFormat())
     }
-    
-    fileprivate func drawChart(with values: [BarChartDataEntry]){
+
+    fileprivate func drawChart(with values: [BarChartDataEntry]) {
         weeklyChart.animate(yAxisDuration: 1.5, easingOption: .easeInOutBack)
-        
+
         let xFormat = BarChartXAxisFormatter(labels: weekdays)
-        
+
         let dataFormat = NumberFormatter()
         dataFormat.numberStyle = .currency
         dataFormat.allowsFloats = false
         dataFormat.zeroSymbol = ""
         dataFormat.currencySymbol = LedgitUser.current.homeCurrency.symbol
         let dataFormatter = DefaultValueFormatter(formatter: dataFormat)
-        
+
         let xAxis: XAxis = weeklyChart.xAxis
-        xAxis.labelPosition = .bottom;
+        xAxis.labelPosition = .bottom
         xAxis.labelFont = .futuraMedium10
         xAxis.labelTextColor = LedgitColor.navigationTextGray
         xAxis.drawGridLinesEnabled = false
         xAxis.granularity = 1.0 // only intervals of 1 day
         xAxis.labelCount = 7
         xAxis.valueFormatter = xFormat
-        
+
         let leftAxis: YAxis = weeklyChart.leftAxis
         leftAxis.labelTextColor = LedgitColor.navigationTextGray
         leftAxis.labelFont = .futuraMedium8
@@ -276,12 +276,12 @@ class SummaryViewController: UIViewController, ChartViewDelegate {
 
         let dataSet = BarChartDataSet(values: values, label: nil)
         dataSet.colors = [LedgitColor.coreBlue]
-        
+
         let data = BarChartData(dataSet: dataSet)
         data.setValueFormatter(dataFormatter)
         data.setValueFont(.futuraMedium8)
         data.setValueTextColor(LedgitColor.coreBlue)
-        
+
         weeklyChart.data = data
         weeklyChart.rightAxis.enabled = false
         weeklyChart.leftAxis.enabled = false
@@ -294,11 +294,11 @@ class SummaryViewController: UIViewController, ChartViewDelegate {
 extension SummaryViewController {
     class BarChartXAxisFormatter: NSObject, IAxisValueFormatter {
         var labels: [String] = []
-        
+
         func stringForValue(_ value: Double, axis: AxisBase?) -> String {
             return labels[Int(value)]
         }
-        
+
         init(labels: [String]) {
             super.init()
             self.labels = labels

@@ -8,22 +8,22 @@
 
 import UIKit
 
-struct Constants {
+enum Constants {
     static var fixerKey = "fda225b8e7deaacea241f2a705dc5681"
-    
-    struct chartText {
+
+    struct ChartText {
         static let empty = "No trip expenses logged yet."
         static let noWeeklyActivity = """
                                 Looks like you have no expenses this week.
                                 Get out there and explore.
                                 """
     }
-    
-    struct projectID {
+
+    struct ProjectID {
         static let sample = "ledgit1234567890"
     }
-    
-    struct userDefaultKeys {
+
+    struct UserDefaultKeys {
         static let hasShowFirstWeeklyCellTips = "hasShowFirstWeeklyCellTips"
         static let hasShownFirstCategoryCellTips = "hasShownFirstCategoryCellTips"
         static let hasShownFirstHistoryCellTips = "hasShownFirstHistoryCellTips"
@@ -36,8 +36,8 @@ struct Constants {
         static let uid = "uid"
         static let homeCurrency = "homeCurrency"
     }
-    
-    struct cellIdentifiers {
+
+    struct CellIdentifiers {
         static let trip = "TripCell"
         static let add = "AddTripCell"
         static let settings = "SettingsCell"
@@ -49,14 +49,14 @@ struct Constants {
         static let categoryName = "CategoryNameCell"
         static let currency = "CurrencyCell"
     }
-    
-    struct navigationIdentifiers{
+
+    struct NavigationIdentifiers {
         static let main = "MainNavigationController"
         static let trips = "TripsNavigationController"
         static let settings = "SettingsNavigationController"
     }
 
-    struct segueIdentifiers {
+    struct SegueIdentifiers {
         static let authenticate = "toAuthenticateViewController"
         static let trips = "toTripsViewController"
         static let settings = "toSettingsViewController"
@@ -72,24 +72,24 @@ struct Constants {
         static let currencySelection = "toCurrencySelectionViewController"
         static let categorySelection = "toCategorySelectionViewController"
     }
-    
-    struct ledgitEntity {
+
+    struct LedgitEntity {
         static let user = "User"
         static let trip = "Trip"
         static let entry = "Entry"
     }
-    
+
     static let tutorialContent: [LedgitTutorial] = [
-            LedgitTutorial(color: LedgitColor.coreBlue,
-                           image: #imageLiteral(resourceName: "tutorial-icon-0"), title: "Create New Trips",
-                           description: "Add new trips as you need them"),
-            LedgitTutorial(color: LedgitColor.lightPink,
-                           image: #imageLiteral(resourceName: "tutorial-icon-1"), title: "Add Expenses Quickly",
-                           description: "Quickly jot down your expense information"),
-            LedgitTutorial(color: LedgitColor.lightAqua,
-                           image: #imageLiteral(resourceName: "tutorial-icon-2"),
-                           title: "Analyze Your Budget",
-                           description: "Get intelligent reports of your expenses as your trip goes on")
+        LedgitTutorial(color: LedgitColor.coreBlue,
+                       image: #imageLiteral(resourceName: "tutorial-icon-0"), title: "Create New Trips",
+                       description: "Add new trips as you need them"),
+        LedgitTutorial(color: LedgitColor.lightPink,
+                       image: #imageLiteral(resourceName: "tutorial-icon-1"), title: "Add Expenses Quickly",
+                       description: "Quickly jot down your expense information"),
+        LedgitTutorial(color: LedgitColor.lightAqua,
+                       image: #imageLiteral(resourceName: "tutorial-icon-2"),
+                       title: "Analyze Your Budget",
+                       description: "Get intelligent reports of your expenses as your trip goes on")
     ]
 
     static let pageColors: [UIColor] = {
@@ -99,25 +99,20 @@ struct Constants {
             LedgitColor.lightAqua
         ]
     }()
-    
-    struct authenticateText {
+
+    struct AuthenticateText {
         static let signin = "Sign in to see your trips."
         static let signup = "Sign up to get started."
         static let signinDescription = "or sign in using"
         static let signupDescription = "or sign up using"
     }
-    
-    struct scales {
-        static let cellWidth: CGFloat = 0.90
-        static let cellHeight: CGFloat = 0.98
-    }
-    
-    struct cornerRadius {
+
+    struct CornerRadius {
         static let button: CGFloat  = 5
         static let tripCard: CGFloat = 5
     }
-    
-    struct firebaseReference {
+
+    struct FirebaseReference {
         static let trips = "trips"
         static let entries = "entries"
         static let users = "users"

@@ -20,7 +20,7 @@ struct LedgitTrip {
     var length: Int
     var budgetSelection: BudgetSelection = .daily
     var dictionaryRepresentation: NSDictionary
-    
+
     struct Keys {
         static let name = "name"
         static let key = "key"
@@ -33,7 +33,7 @@ struct LedgitTrip {
         static let budgetSelection = "budgetSelection"
         static let currencies = "currencies"
     }
-    
+
     init?(dict: NSDictionary) {
         guard
             let nameString = dict[LedgitTrip.Keys.name] as? String,
@@ -46,8 +46,8 @@ struct LedgitTrip {
             let lengthDouble = dict[LedgitTrip.Keys.length] as? Int,
             let budgetSelectionString = dict[LedgitTrip.Keys.budgetSelection] as? String,
             let currencyStrings = dict[LedgitTrip.Keys.currencies] as? [String]
-        else { return nil }
-        
+            else { return nil }
+
         key = keyString
         name = nameString
         startDate = startDateString
@@ -58,7 +58,7 @@ struct LedgitTrip {
         length = lengthDouble
         budgetSelection <= BudgetSelection(rawValue: budgetSelectionString)
         dictionaryRepresentation = dict
-        
+
         currencyStrings.forEach { item in
             guard let currency = LedgitCurrency.get(with: item) else { return }
             currencies.append(currency)

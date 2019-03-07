@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol CollapsibleDateHeaderViewDelegate {
+protocol CollapsibleDateHeaderViewDelegate: class {
     func toggleSection(_ header: CollapsibleDateHeaderView, section: Int)
 }
 
@@ -17,9 +17,9 @@ class CollapsibleDateHeaderView: UITableViewHeaderFooterView {
     let titleLabel = UILabel()
     let scale: CGFloat = 0.35
     let headerPadding: CGFloat = 15
-    var delegate: CollapsibleDateHeaderViewDelegate?
+    weak var delegate: CollapsibleDateHeaderViewDelegate?
     var section: Int = 0
-    
+
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)
         contentView.style { view in
@@ -38,7 +38,7 @@ class CollapsibleDateHeaderView: UITableViewHeaderFooterView {
             view.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -headerPadding).isActive = true
             view.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
         }
-    
+
         titleLabel.style { label in
             label.font(.futuraMedium14)
             label.color(LedgitColor.navigationTextGray)
@@ -47,16 +47,16 @@ class CollapsibleDateHeaderView: UITableViewHeaderFooterView {
             label.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
         }
     }
-    
+
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     @objc func headerTapped(_ gestureRecognizer: UITapGestureRecognizer) {
         guard let cell = gestureRecognizer.view as? CollapsibleDateHeaderView else { return }
         delegate?.toggleSection(self, section: cell.section)
     }
-    
+
     func setCollapsed(_ collapsed: Bool) {
         UIView.animate(withDuration: 0.75) {
             self.imageView.image(collapsed ? #imageLiteral(resourceName: "disclosure-icon") : #imageLiteral(resourceName: "disclosure-down-icon"))

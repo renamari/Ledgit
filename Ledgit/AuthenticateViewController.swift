@@ -19,7 +19,7 @@ class AuthenticateViewController: UIViewController {
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var authenticateButton: UIButton!
     @IBOutlet weak var forgotPasswordButton: UIButton!
-    
+
     private var presenter = AuthenticationPresenter(manager: AuthenticationManager())
     var method: AuthenticationMethod = .signin
 
@@ -32,66 +32,66 @@ class AuthenticateViewController: UIViewController {
         setupLabels()
         setupViews()
     }
-    
+
     override func viewDidAppear(_ animated: Bool) {
         // The labels update if the user goes back and selects a different authentication method (login/signup)
         setupLabels()
     }
-    
+
     func setupPresenter() {
         presenter.delegate = self
     }
-    
+
     func setupLabels() {
 
         switch method {
         case .signup:
-            titleLabel.text(Constants.authenticateText.signup)
+            titleLabel.text(Constants.AuthenticateText.signup)
             authenticateButton.text("Sign Up")
             forgotPasswordButton.isHidden = true
-            
+
         case .signin:
-            titleLabel.text(Constants.authenticateText.signin)
+            titleLabel.text(Constants.AuthenticateText.signin)
             authenticateButton.text("Sign In")
             forgotPasswordButton.isHidden = false
         }
     }
-    
-    func setupTextFields(){
+
+    func setupTextFields() {
         emailTextField.delegate = self
         passwordTextField.delegate = self
     }
-    
-    func setupButtons(){
-        authenticateButton.roundedCorners(radius: Constants.cornerRadius.button)
+
+    func setupButtons() {
+        authenticateButton.roundedCorners(radius: Constants.CornerRadius.button)
     }
-    
-    func setupViews(){
-        loginView.roundedCorners(radius: Constants.cornerRadius.button, borderColor: LedgitColor.separatorGray)
+
+    func setupViews() {
+        loginView.roundedCorners(radius: Constants.CornerRadius.button, borderColor: LedgitColor.separatorGray)
     }
-    
-    func setupRecognizers(){
+
+    func setupRecognizers() {
         view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(screenTapped)))
     }
-    
-    @objc func screenTapped(){
+
+    @objc func screenTapped() {
         emailTextField.resignFirstResponder()
         passwordTextField.resignFirstResponder()
     }
-    
+
     @IBAction func authenticateButtonPressed(_ sender: Any) {
         startLoading()
-        
+
         guard let email = emailTextField.text?.strip() else { return }
         guard let password = passwordTextField.text?.strip() else { return }
-        
+
         presenter.authenticateUser(platform: .firebase, method: method, email: email, password: password)
     }
-    
+
     @IBAction func forgotPasswordButton(_ sender: Any) {
-        Log.info("Forgot password")
+        LedgitLog.info("Forgot password")
     }
-    
+
     @IBAction func backButtonPressed(_ sender: Any) {
         navigationController?.popViewController(animated: true)
     }
@@ -101,11 +101,11 @@ extension AuthenticateViewController: AuthenticationPresenterDelegate {
     func successfulAuthentication(of user: LedgitUser) {
         stopLoading()
         LedgitUser.current = user
-        
+
         let navigationController = TripsNavigationController.instantiate(from: .trips)
         present(navigationController, animated: true, completion: nil)
     }
-    
+
     func displayError(_ error: LedgitError) {
         stopLoading()
         showAlert(with: error)

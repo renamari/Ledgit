@@ -17,7 +17,7 @@ struct LedgitUser: Equatable {
     var categories = ["Transportation", "Food", "Lodging", "Entertainment", "Emergency", "Miscellaneous"]
     var dictionaryRepresentation: NSDictionary = [:]
     var homeCurrency: LedgitCurrency = .USD
-    
+
     struct Keys {
         static let key = "uid"
         static let name = "name"
@@ -27,9 +27,9 @@ struct LedgitUser: Equatable {
         static let categories = "categories"
         static let provider = "provider"
     }
-    
+
     init() {}
-    
+
     init(dict: NSDictionary) {
         key <= dict[LedgitUser.Keys.key] as? String
         name <= dict[LedgitUser.Keys.name] as? String
@@ -37,11 +37,11 @@ struct LedgitUser: Equatable {
         provider <= dict[LedgitUser.Keys.provider] as? String
         categories <= dict[LedgitUser.Keys.categories] as? [String]
         dictionaryRepresentation = dict
-        
+
         if let currencyString = dict[LedgitUser.Keys.homeCurrency] as? String {
             homeCurrency <= LedgitCurrency.get(with: currencyString)
         }
-        
+
         if let subscriptionString = dict[LedgitUser.Keys.subscription] as? String {
             subscription <= Subscription(rawValue: subscriptionString)
         }
@@ -53,7 +53,7 @@ extension LedgitUser {
 }
 
 extension LedgitUser {
-    static func ==(lhs: LedgitUser, rhs: LedgitUser) -> Bool {
+    static func == (lhs: LedgitUser, rhs: LedgitUser) -> Bool {
         return lhs.key == rhs.key
     }
 }

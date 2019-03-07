@@ -75,7 +75,6 @@
 		8DC243D61F43ADA400B3E080 /* TripsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DC243D51F43ADA400B3E080 /* TripsViewController.swift */; };
 		8DC243D81F43ADBB00B3E080 /* Trips.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8DC243D71F43ADBB00B3E080 /* Trips.storyboard */; };
 		8DC243DA1F43BE2B00B3E080 /* TripTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DC243D91F43BE2B00B3E080 /* TripTableViewCell.swift */; };
-		8DC243DC1F43BE3900B3E080 /* AddTripTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DC243DB1F43BE3900B3E080 /* AddTripTableViewCell.swift */; };
 		8DDD131C202AB0F600998AA5 /* LedgitColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDD131B202AB0F600998AA5 /* LedgitColor.swift */; };
 		8DDD1321202D5CC300998AA5 /* AuthenticationManagerDelegateMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDD1320202D5CC300998AA5 /* AuthenticationManagerDelegateMock.swift */; };
 		8DDD1323202D5F4E00998AA5 /* AuthenticationPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDD1322202D5F4E00998AA5 /* AuthenticationPresenterTests.swift */; };
@@ -180,7 +179,6 @@
 		8DC243D51F43ADA400B3E080 /* TripsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TripsViewController.swift; sourceTree = "<group>"; };
 		8DC243D71F43ADBB00B3E080 /* Trips.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Trips.storyboard; sourceTree = "<group>"; };
 		8DC243D91F43BE2B00B3E080 /* TripTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TripTableViewCell.swift; sourceTree = "<group>"; };
-		8DC243DB1F43BE3900B3E080 /* AddTripTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddTripTableViewCell.swift; sourceTree = "<group>"; };
 		8DDD131B202AB0F600998AA5 /* LedgitColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LedgitColor.swift; sourceTree = "<group>"; };
 		8DDD1320202D5CC300998AA5 /* AuthenticationManagerDelegateMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationManagerDelegateMock.swift; sourceTree = "<group>"; };
 		8DDD1322202D5F4E00998AA5 /* AuthenticationPresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationPresenterTests.swift; sourceTree = "<group>"; };
@@ -600,7 +598,6 @@
 			isa = PBXGroup;
 			children = (
 				8DC243D91F43BE2B00B3E080 /* TripTableViewCell.swift */,
-				8DC243DB1F43BE3900B3E080 /* AddTripTableViewCell.swift */,
 				8D29168D1FB8EA42008ED9F2 /* CurrencyTableViewCell.swift */,
 			);
 			name = "Table View Cell";
@@ -885,7 +882,6 @@
 				8DAD43E71F9D46270054EDD8 /* SettingsNavigationController.swift in Sources */,
 				8D6F4B641F4E8CFC0046847C /* CategoriesViewController.swift in Sources */,
 				8D707B4C1F9D3BAC00CABA0F /* TripsNavigationController.swift in Sources */,
-				8DC243DC1F43BE3900B3E080 /* AddTripTableViewCell.swift in Sources */,
 				8D9266A3204C674C00A4B5B2 /* UITextField+Content.swift in Sources */,
 				8D926692204C641B00A4B5B2 /* LedgitFont.swift in Sources */,
 				8DDDD6B31F473EFA0053146B /* TripDetailViewController.swift in Sources */,

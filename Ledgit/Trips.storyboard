@@ -108,50 +108,6 @@
                                             <outlet property="tripNameLabel" destination="ZMo-Rd-uYC" id="fZB-Pn-ibQ"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="AddTripCell" rowHeight="215" id="bUm-eN-ZVf" customClass="AddTripTableViewCell" customModule="Ledgit" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="185" width="414" height="215"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="bUm-eN-ZVf" id="ZfD-kG-EQ8">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="215"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="u8d-S5-SyS">
-                                                    <rect key="frame" x="20" y="20" width="374" height="175"/>
-                                                    <subviews>
-                                                        <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="g7x-vh-NwY">
-                                                            <rect key="frame" x="128.66666666666666" y="74" width="116.66666666666666" height="27.333333333333329"/>
-                                                            <subviews>
-                                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="add-icon" translatesAutoresizingMaskIntoConstraints="NO" id="HmP-qi-Fhf">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="24" height="27.333333333333332"/>
-                                                                </imageView>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add Trip" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ncZ-ve-1dN">
-                                                                    <rect key="frame" x="34.000000000000007" y="0.0" width="82.666666666666686" height="27.333333333333332"/>
-                                                                    <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="21"/>
-                                                                    <color key="textColor" red="0.2470588235" green="0.37647058820000001" blue="0.44705882349999998" alpha="1" colorSpace="calibratedRGB"/>
-                                                                    <nil key="highlightedColor"/>
-                                                                </label>
-                                                            </subviews>
-                                                        </stackView>
-                                                    </subviews>
-                                                    <color key="backgroundColor" red="0.94901960784313721" green="0.96078431372549022" blue="0.96862745098039216" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <constraints>
-                                                        <constraint firstItem="g7x-vh-NwY" firstAttribute="centerX" secondItem="u8d-S5-SyS" secondAttribute="centerX" id="2kV-L9-kSz"/>
-                                                        <constraint firstItem="g7x-vh-NwY" firstAttribute="centerY" secondItem="u8d-S5-SyS" secondAttribute="centerY" id="kSP-us-wSR"/>
-                                                    </constraints>
-                                                </view>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstAttribute="bottom" secondItem="u8d-S5-SyS" secondAttribute="bottom" constant="20" id="HtR-uu-OMz"/>
-                                                <constraint firstItem="u8d-S5-SyS" firstAttribute="leading" secondItem="ZfD-kG-EQ8" secondAttribute="leading" constant="20" id="aab-uM-91M"/>
-                                                <constraint firstItem="u8d-S5-SyS" firstAttribute="top" secondItem="ZfD-kG-EQ8" secondAttribute="top" constant="20" id="cF8-fe-caB"/>
-                                                <constraint firstAttribute="trailing" secondItem="u8d-S5-SyS" secondAttribute="trailing" constant="20" id="yOO-MQ-3s5"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                        <connections>
-                                            <outlet property="contentStackView" destination="g7x-vh-NwY" id="dRp-xE-3A5"/>
-                                            <outlet property="mainView" destination="u8d-S5-SyS" id="8VE-Qc-dal"/>
-                                        </connections>
-                                    </tableViewCell>
                                 </prototypes>
                             </tableView>
                         </subviews>
@@ -547,6 +503,9 @@
                                                 <state key="normal" title="Delete Entry" image="trash-icon">
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="deleteButtonPressed:" destination="W7m-iS-sfS" eventType="touchUpInside" id="oXa-36-6u5"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                         <directionalEdgeInsets key="directionalLayoutMargins" top="60" leading="30" bottom="0.0" trailing="30"/>
@@ -1529,7 +1488,6 @@
     </scenes>
     <resources>
         <image name="US" width="28" height="20"/>
-        <image name="add-icon" width="24" height="24"/>
         <image name="end-flag-icon" width="20" height="20"/>
         <image name="map-icon" width="100" height="100"/>
         <image name="save-icon" width="35" height="35"/>

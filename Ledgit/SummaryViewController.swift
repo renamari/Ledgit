@@ -107,29 +107,6 @@ class SummaryViewController: UIViewController, ChartViewDelegate {
     
     private func setupStackViews() {
         budgetTitleLabel.text = "Daily budget"
-        budgetStackView.isUserInteractionEnabled = true
-        budgetStackView.addGestureRecognizer(UITapGestureRecognizer(target: self,
-                                                                    action: #selector(budgetStackViewTapped)))
-        
-        remainingStackView.isUserInteractionEnabled = true
-        remainingStackView.addGestureRecognizer(UITapGestureRecognizer(target: self,
-                                                                       action: #selector(remainingStackViewTapped)))
-        
-        averageStackView.isUserInteractionEnabled = true
-        averageStackView.addGestureRecognizer(UITapGestureRecognizer(target: self,
-                                                                     action: #selector(averageStackViewTapped)))
-    }
-    
-    @objc private func budgetStackViewTapped() {
-        
-    }
-    
-    @objc private func remainingStackViewTapped() {
-        
-    }
-    
-    @objc private func averageStackViewTapped() {
-        // TODO: Add tap functionality to display when needed
     }
     
     func resetValues() {
@@ -252,6 +229,7 @@ class SummaryViewController: UIViewController, ChartViewDelegate {
     func updateDefaultLabelValues(budgetAmount: Double) {
         dayLabel.text(Date().toString(style: .full))
         budgetLabel.text(budgetAmount.currencyFormat())
+        remainingLabel.text(budgetAmount.currencyFormat())
     }
     
     private func updateLabels(dayAmount: Double, remainingAmount: Double, averageAmount: Double) {

@@ -4,7 +4,6 @@
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -339,7 +338,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3ww-Vw-uEz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1441" y="2751"/>
+            <point key="canvasLocation" x="1441" y="2538"/>
         </scene>
         <!--Account View Controller-->
         <scene sceneID="aOj-2Z-CJI">
@@ -354,7 +353,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fdw-Pe-S4F">
-                                <rect key="frame" x="40" y="270.33333333333337" width="295" height="271.33333333333337"/>
+                                <rect key="frame" x="40" y="292" width="295" height="228.33333333333337"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rnS-rB-nRg">
                                         <rect key="frame" x="15" y="15" width="15" height="15"/>
@@ -375,7 +374,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cZe-Ya-dH9">
-                                        <rect key="frame" x="15" y="206.33333333333337" width="265" height="50"/>
+                                        <rect key="frame" x="15" y="163.33333333333331" width="265" height="50"/>
                                         <color key="backgroundColor" red="0.27450980390000002" green="0.54901960780000003" blue="0.99215686270000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="50" id="YOJ-I2-ABw"/>
@@ -389,10 +388,10 @@
                                         </connections>
                                     </button>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="q3B-ty-4c9">
-                                        <rect key="frame" x="20" y="82.333333333333371" width="255" height="109"/>
+                                        <rect key="frame" x="20" y="82.333333333333314" width="255" height="66"/>
                                         <subviews>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Jdx-au-ghb" customClass="SkyFloatingLabelTextField" customModule="SkyFloatingLabelTextField">
-                                                <rect key="frame" x="0.0" y="0.0" width="255" height="44.666666666666664"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="255" height="23"/>
                                                 <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="17"/>
                                                 <textInputTraits key="textInputTraits"/>
@@ -414,7 +413,7 @@
                                                 </userDefinedRuntimeAttributes>
                                             </textField>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="plR-oR-AuR" customClass="SkyFloatingLabelTextField" customModule="SkyFloatingLabelTextField">
-                                                <rect key="frame" x="0.0" y="64.666666666666629" width="255" height="44.333333333333343"/>
+                                                <rect key="frame" x="0.0" y="43" width="255" height="23"/>
                                                 <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="17"/>
                                                 <textInputTraits key="textInputTraits"/>
@@ -436,7 +435,7 @@
                                                 </userDefinedRuntimeAttributes>
                                             </textField>
                                             <textField hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="f3e-e8-sja" customClass="SkyFloatingLabelTextField" customModule="SkyFloatingLabelTextField">
-                                                <rect key="frame" x="0.0" y="109" width="255" height="0.0"/>
+                                                <rect key="frame" x="0.0" y="66" width="255" height="0.0"/>
                                                 <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="17"/>
                                                 <textInputTraits key="textInputTraits"/>

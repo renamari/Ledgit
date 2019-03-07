@@ -38,6 +38,7 @@ class TripDetailViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         setupNavigationBar()
     }
     
@@ -176,6 +177,11 @@ extension TripDetailViewController: TripDetailPresenterDelegate {
         summaryViewController.needsLayout = true
         categoryViewController.needsLayout = true
         historyViewController.needsLayout = true
+        
+        let visibleViewController = pageViewController.viewControllers?.first
+        (visibleViewController as? SummaryViewController)?.setupLayout()
+        (visibleViewController as? CategoryViewController)?.setupLayout()
+        (visibleViewController as? HistoryViewController)?.setupLayout()
     }
 }
 

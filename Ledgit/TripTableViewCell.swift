@@ -14,7 +14,7 @@ class TripTableViewCell: UITableViewCell {
     @IBOutlet weak var tripColorImageView: UIImageView!
     @IBOutlet weak var topLabel: UILabel!
     @IBOutlet weak var bottomLabel: UILabel!
-    
+
     fileprivate lazy var images: [UIImage] = [#imageLiteral(resourceName: "circle-icon"), #imageLiteral(resourceName: "heptagon-icon"), #imageLiteral(resourceName: "triangle-icon")]
     fileprivate lazy var colors: [UIColor] = [LedgitColor.coreBlue, LedgitColor.coreRed, LedgitColor.coreYellow, LedgitColor.coreGreen]
 

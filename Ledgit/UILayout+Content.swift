@@ -12,16 +12,16 @@ extension UILayoutPriority: ExpressibleByFloatLiteral, ExpressibleByIntegerLiter
     public init(floatLiteral value: Float) {
         self.init(rawValue: value)
     }
-    
+
     public init(integerLiteral value: Int) {
         self.init(rawValue: Float(value))
     }
-    
-    public static func +(lhs: UILayoutPriority, rhs: UILayoutPriority) -> UILayoutPriority {
+
+    public static func + (lhs: UILayoutPriority, rhs: UILayoutPriority) -> UILayoutPriority {
         return UILayoutPriority(rawValue: lhs.rawValue + rhs.rawValue)
     }
-    
-    public static func -(lhs: UILayoutPriority, rhs: UILayoutPriority) -> UILayoutPriority {
+
+    public static func - (lhs: UILayoutPriority, rhs: UILayoutPriority) -> UILayoutPriority {
         return UILayoutPriority(rawValue: lhs.rawValue - rhs.rawValue)
     }
 }

@@ -29,6 +29,8 @@ target 'Ledgit' do
 
   pod 'SkyFloatingLabelTextField', '3.6.0'
 
+  pod 'SwiftLint'
+
   target 'LedgitTests' do
     inherit! :search_paths
     # Pods for testing

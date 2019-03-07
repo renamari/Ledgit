@@ -24,11 +24,11 @@
 		8D2AEC1B1F4D147800227FC6 /* CityTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D2AEC1A1F4D147800227FC6 /* CityTableViewCell.swift */; };
 		8D2C37F320DF4AD60085E10B /* LedgitPromise.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D2C37F220DF4AD60085E10B /* LedgitPromise.swift */; };
 		8D39F94B1FC51B470055BA4E /* SettingsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D39F94A1FC51B470055BA4E /* SettingsManager.swift */; };
-		8D488AC1203BAF7F00A9798B /* WeeklyCollectionViewCellTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D488AC0203BAF7F00A9798B /* WeeklyCollectionViewCellTests.swift */; };
 		8D4E68212228EDB3009939BE /* SummaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D4E68202228EDB3009939BE /* SummaryViewController.swift */; };
 		8D4E68232228EDBB009939BE /* CategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D4E68222228EDBB009939BE /* CategoryViewController.swift */; };
 		8D4E68252228EDC3009939BE /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D4E68242228EDC3009939BE /* HistoryViewController.swift */; };
 		8D4E6827222CB47A009939BE /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D4E6826222CB47A009939BE /* Result.swift */; };
+		8D4E684B2230B49A009939BE /* LedgitUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D4E684A2230B49A009939BE /* LedgitUITests.swift */; };
 		8D656AA31F94480800C85A0F /* EntryActionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D656AA21F94480800C85A0F /* EntryActionViewController.swift */; };
 		8D6F4B641F4E8CFC0046847C /* CategoriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D6F4B631F4E8CFC0046847C /* CategoriesViewController.swift */; };
 		8D6F4B661F4E8D050046847C /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D6F4B651F4E8D050046847C /* AccountViewController.swift */; };
@@ -94,6 +94,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		8D4E68452230B43F009939BE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8DA3B19B1F3F875B00FC31AF /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8DA3B1A21F3F875B00FC31AF;
+			remoteInfo = Ledgit;
+		};
 		8DA3B1BB1F3F875B00FC31AF /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 8DA3B19B1F3F875B00FC31AF /* Project object */;
@@ -123,11 +130,13 @@
 		8D2AEC1A1F4D147800227FC6 /* CityTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CityTableViewCell.swift; sourceTree = "<group>"; };
 		8D2C37F220DF4AD60085E10B /* LedgitPromise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LedgitPromise.swift; sourceTree = "<group>"; };
 		8D39F94A1FC51B470055BA4E /* SettingsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsManager.swift; sourceTree = "<group>"; };
-		8D488AC0203BAF7F00A9798B /* WeeklyCollectionViewCellTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyCollectionViewCellTests.swift; sourceTree = "<group>"; };
 		8D4E68202228EDB3009939BE /* SummaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryViewController.swift; sourceTree = "<group>"; };
 		8D4E68222228EDBB009939BE /* CategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewController.swift; sourceTree = "<group>"; };
 		8D4E68242228EDC3009939BE /* HistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
 		8D4E6826222CB47A009939BE /* Result.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
+		8D4E68402230B43F009939BE /* LedgitUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LedgitUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		8D4E68442230B43F009939BE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8D4E684A2230B49A009939BE /* LedgitUITests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LedgitUITests.swift; sourceTree = "<group>"; };
 		8D656AA21F94480800C85A0F /* EntryActionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryActionViewController.swift; sourceTree = "<group>"; };
 		8D6F4B631F4E8CFC0046847C /* CategoriesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoriesViewController.swift; sourceTree = "<group>"; };
 		8D6F4B651F4E8D050046847C /* AccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountViewController.swift; sourceTree = "<group>"; };
@@ -161,7 +170,6 @@
 		8DA3B1B51F3F875B00FC31AF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8DA3B1BA1F3F875B00FC31AF /* LedgitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LedgitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8DA3B1C01F3F875B00FC31AF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		8DA3B1CB1F3F875B00FC31AF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8DA3B1D71F3F880800FC31AF /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		8DA3B21F1F3FBEF300FC31AF /* Utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		8DA3B2221F3FC00500FC31AF /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
@@ -203,6 +211,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		8D4E683D2230B43F009939BE /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8DA3B1A01F3F875B00FC31AF /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -330,12 +345,13 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		8D488ABF203A811D00A9798B /* Trip Detail */ = {
+		8D4E68412230B43F009939BE /* LedgitUITests */ = {
 			isa = PBXGroup;
 			children = (
-				8D488AC0203BAF7F00A9798B /* WeeklyCollectionViewCellTests.swift */,
+				8D4E684A2230B49A009939BE /* LedgitUITests.swift */,
+				8D4E68442230B43F009939BE /* Info.plist */,
 			);
-			name = "Trip Detail";
+			path = LedgitUITests;
 			sourceTree = "<group>";
 		};
 		8D92669F204C655600A4B5B2 /* Extensions */ = {
@@ -364,7 +380,7 @@
 			children = (
 				8DA3B1A51F3F875B00FC31AF /* Ledgit */,
 				8DA3B1BD1F3F875B00FC31AF /* LedgitTests */,
-				8DA3B1C81F3F875B00FC31AF /* LedgitUITests */,
+				8D4E68412230B43F009939BE /* LedgitUITests */,
 				8DA3B1A41F3F875B00FC31AF /* Products */,
 				4BF351F33A88F4878B55A3DC /* Pods */,
 				02408C0E999886688D32A045 /* Frameworks */,
@@ -376,6 +392,7 @@
 			children = (
 				8DA3B1A31F3F875B00FC31AF /* Ledgit.app */,
 				8DA3B1BA1F3F875B00FC31AF /* LedgitTests.xctest */,
+				8D4E68402230B43F009939BE /* LedgitUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -396,7 +413,6 @@
 		8DA3B1BD1F3F875B00FC31AF /* LedgitTests */ = {
 			isa = PBXGroup;
 			children = (
-				8D488ABF203A811D00A9798B /* Trip Detail */,
 				8DDD131D202D59B400998AA5 /* Authentication */,
 				8DDD13312030B7FC00998AA5 /* Trips */,
 				8DDD1328202F8CD400998AA5 /* Utilities */,
@@ -404,14 +420,6 @@
 				8DA3B1C01F3F875B00FC31AF /* Info.plist */,
 			);
 			path = LedgitTests;
-			sourceTree = "<group>";
-		};
-		8DA3B1C81F3F875B00FC31AF /* LedgitUITests */ = {
-			isa = PBXGroup;
-			children = (
-				8DA3B1CB1F3F875B00FC31AF /* Info.plist */,
-			);
-			path = LedgitUITests;
 			sourceTree = "<group>";
 		};
 		8DA3B21C1F3FBE3500FC31AF /* Utilities */ = {
@@ -615,6 +623,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		8D4E683F2230B43F009939BE /* LedgitUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8D4E68472230B43F009939BE /* Build configuration list for PBXNativeTarget "LedgitUITests" */;
+			buildPhases = (
+				8D4E683C2230B43F009939BE /* Sources */,
+				8D4E683D2230B43F009939BE /* Frameworks */,
+				8D4E683E2230B43F009939BE /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				8D4E68462230B43F009939BE /* PBXTargetDependency */,
+			);
+			name = LedgitUITests;
+			productName = LedgitUITests;
+			productReference = 8D4E68402230B43F009939BE /* LedgitUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 		8DA3B1A21F3F875B00FC31AF /* Ledgit */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8DA3B1CE1F3F875B00FC31AF /* Build configuration list for PBXNativeTarget "Ledgit" */;
@@ -660,10 +686,16 @@
 		8DA3B19B1F3F875B00FC31AF /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0830;
+				LastSwiftUpdateCheck = 1010;
 				LastUpgradeCheck = 0930;
 				ORGANIZATIONNAME = "Camden Developers";
 				TargetAttributes = {
+					8D4E683F2230B43F009939BE = {
+						CreatedOnToolsVersion = 10.1;
+						DevelopmentTeam = KD674EGM5X;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 8DA3B1A21F3F875B00FC31AF;
+					};
 					8DA3B1A21F3F875B00FC31AF = {
 						CreatedOnToolsVersion = 8.3.3;
 						DevelopmentTeam = KD674EGM5X;
@@ -699,11 +731,19 @@
 			targets = (
 				8DA3B1A21F3F875B00FC31AF /* Ledgit */,
 				8DA3B1B91F3F875B00FC31AF /* LedgitTests */,
+				8D4E683F2230B43F009939BE /* LedgitUITests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		8D4E683E2230B43F009939BE /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8DA3B1A11F3F875B00FC31AF /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -752,7 +792,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-Ledgit/Pods-Ledgit-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-Ledgit/Pods-Ledgit-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/AMPopTip/AMPopTip.framework",
 				"${BUILT_PRODUCTS_DIR}/BetterSegmentedControl/BetterSegmentedControl.framework",
 				"${BUILT_PRODUCTS_DIR}/BubbleTransition/BubbleTransition.framework",
@@ -789,7 +829,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Ledgit/Pods-Ledgit-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Ledgit/Pods-Ledgit-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		83E21ED5E1E04F2D2D15D9F7 /* [CP] Check Pods Manifest.lock */ = {
@@ -816,7 +856,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-LedgitTests/Pods-LedgitTests-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-LedgitTests/Pods-LedgitTests-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
 				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
@@ -833,12 +873,20 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-LedgitTests/Pods-LedgitTests-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-LedgitTests/Pods-LedgitTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		8D4E683C2230B43F009939BE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8D4E684B2230B49A009939BE /* LedgitUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8DA3B19F1F3F875B00FC31AF /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -917,7 +965,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8D488AC1203BAF7F00A9798B /* WeeklyCollectionViewCellTests.swift in Sources */,
 				8DDD132C202F935100998AA5 /* AuthenticationPresenterDelegateMock.swift in Sources */,
 				8DDD1321202D5CC300998AA5 /* AuthenticationManagerDelegateMock.swift in Sources */,
 				8DDD132A202F8CE600998AA5 /* LedgitUserTests.swift in Sources */,
@@ -931,6 +978,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		8D4E68462230B43F009939BE /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8DA3B1A21F3F875B00FC31AF /* Ledgit */;
+			targetProxy = 8D4E68452230B43F009939BE /* PBXContainerItemProxy */;
+		};
 		8DA3B1BC1F3F875B00FC31AF /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 8DA3B1A21F3F875B00FC31AF /* Ledgit */;
@@ -958,6 +1010,51 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		8D4E68482230B43F009939BE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = KD674EGM5X;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = LedgitUITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.camdendevelopers.LedgitUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Ledgit;
+			};
+			name = Debug;
+		};
+		8D4E68492230B43F009939BE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = KD674EGM5X;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = LedgitUITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.camdendevelopers.LedgitUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Ledgit;
+			};
+			name = Release;
+		};
 		8DA3B1CC1F3F875B00FC31AF /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1007,7 +1104,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -1060,7 +1157,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
@@ -1136,6 +1233,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		8D4E68472230B43F009939BE /* Build configuration list for PBXNativeTarget "LedgitUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8D4E68482230B43F009939BE /* Debug */,
+				8D4E68492230B43F009939BE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		8DA3B19E1F3F875B00FC31AF /* Build configuration list for PBXProject "Ledgit" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

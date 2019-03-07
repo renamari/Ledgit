@@ -77,28 +77,6 @@ public func <=<T>(lhs: inout T, rhs: T?) {
     lhs = rhs ?? lhs
 }
 
-public protocol FormatterProtocol {
-    func getNewPosition(forPosition: UITextPosition, inTextInput textInput: UITextInput, oldValue: String?, newValue: String?) -> UITextPosition
-}
-
-class CurrencyFormatter : NumberFormatter, FormatterProtocol {
-    override func getObjectValue(_ obj: AutoreleasingUnsafeMutablePointer<AnyObject?>?, for string: String, range rangep: UnsafeMutablePointer<NSRange>?) throws {
-        guard obj != nil else { return }
-        var str = string.components(separatedBy: CharacterSet.decimalDigits.inverted).joined(separator: "")
-        if !string.isEmpty, numberStyle == .currency && !string.contains(currencySymbol) {
-            // Check if the currency symbol is at the last index
-            if let formattedNumber = self.string(from: 1), formattedNumber[formattedNumber.index(before: formattedNumber.endIndex)...] == currencySymbol {
-                str = String(str[..<str.index(before: str.endIndex)])
-            }
-        }
-        obj?.pointee = NSNumber(value: (Double(str) ?? 0.0)/Double(pow(10.0, Double(minimumFractionDigits))))
-    }
-    
-    func getNewPosition(forPosition position: UITextPosition, inTextInput textInput: UITextInput, oldValue: String?, newValue: String?) -> UITextPosition {
-        return textInput.position(from: position, offset:((newValue?.count ?? 0) - (oldValue?.count ?? 0))) ?? position
-    }
-}
-
 func makeError(_ string: String) -> Error {
     return NSError(domain: "LedgitErrorDomain",
                    code: 1,
@@ -141,7 +119,7 @@ struct Utilities {
     static func createCSV(with trip: LedgitTrip, and entries: [LedgitEntry]) -> URL? {
         
         // The name of the report
-        let reportName = "\(trip.name.strip())-Expenses.csv"
+        let reportName = trip.name.strip() + "-Expenses.csv"
         
         // The path of the report
         let path = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(reportName)
@@ -155,13 +133,12 @@ struct Utilities {
                         Start Date, \(trip.startDate.replacingOccurrences(of: ",", with: ""))
                         End Date, \(trip.endDate.replacingOccurrences(of: ",", with: ""))
                         Trip Length, \(trip.length)
-                        Total Amount, \(String(tripAmount).currencyFormat())
-                        ,,
+                        Total Amount, \(String(tripAmount))
                         ,,
                         """
         
         // Setup the headers
-        var entryText = "\nLocation, Date, Description, Category, Payment, Cost, Exchange Rate, Converted Cost, Payment Currency, Original Currency\n"
+        var entryText = "\nLocation, Date, Description, Category, Payment Type, Cost, Exchange Rate, Converted Cost, Payment Currency, Home Currency\n"
         
         
         // Add entry information for each header
@@ -173,8 +150,7 @@ struct Utilities {
         let finalText = tripText + entryText
         
         do {
-            
-            try finalText.write(to: path, atomically: true, encoding: String.Encoding.utf8)
+            try finalText.write(to: path, atomically: true, encoding: .utf8)
             
         } catch let error {
             

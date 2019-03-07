@@ -1,9 +1,9 @@
 //
-//  HistoryCollectionViewCell.swift
+//  HistoryViewController.swift
 //  Ledgit
 //
-//  Created by Marcos Ortiz on 8/18/17.
-//  Copyright © 2017 Camden Developers. All rights reserved.
+//  Created by Marcos Ortiz on 2/28/19.
+//  Copyright © 2019 Camden Developers. All rights reserved.
 //
 
 import UIKit
@@ -11,40 +11,46 @@ import BetterSegmentedControl
 import SwiftDate
 
 protocol DayTableCellDelegate: class {
-    func selected(entry: LedgitEntry, at cell: UITableViewCell)
+    func selected(entry: LedgitEntry, at point: CGPoint)
 }
 
-class HistoryCollectionViewCell: UICollectionViewCell {
-    @IBOutlet weak var segmentedControl: BetterSegmentedControl!
-    @IBOutlet weak var cityTableView: UITableView!
-    @IBOutlet weak var dayTableView: UITableView!
+class HistoryViewController: UIViewController {
+    @IBOutlet var contentView: UIView!
+    @IBOutlet var segmentedControl: BetterSegmentedControl!
+    @IBOutlet var cityTableView: UITableView!
+    @IBOutlet var dayTableView: UITableView!
+    
     weak var delegate: DayTableCellDelegate?
+    weak var presenter: TripDetailPresenter?
+    var needsLayout: Bool = true
     
     var dateEntries: [DateSection] = []
     var cityEntries: [CitySection] = []
     let headerHeight: CGFloat = 30
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setupView()
         setupTableViews()
         setupSegmentedControl()
     }
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        needsLayout ? setupLayout() : nil
+        needsLayout = false
+    }
+    
+    func setupView() {
+        contentView.layer.cornerRadius = 10
+        contentView.layer.borderWidth = 1
+        contentView.layer.borderColor = UIColor.clear.cgColor
+        contentView.layer.masksToBounds = false
         
-         contentView.layer.cornerRadius = 10
-         contentView.layer.borderWidth = 1
-         contentView.layer.borderColor = UIColor.clear.cgColor
-         contentView.layer.masksToBounds = true
-         
-         layer.cornerRadius = 10
-         layer.shadowColor = UIColor.black.cgColor
-         layer.shadowOffset = CGSize(width:0,height: 2)
-         layer.shadowRadius = 4
-         layer.shadowOpacity = 0.10
-         layer.masksToBounds = false
-         layer.shadowPath = UIBezierPath(roundedRect:bounds, cornerRadius:contentView.layer.cornerRadius).cgPath
+        contentView.layer.shadowColor = UIColor.black.cgColor
+        contentView.layer.shadowOffset = CGSize(width: 0 ,height: 2)
+        contentView.layer.shadowRadius = 4
+        contentView.layer.shadowOpacity = 0.10
     }
     
     func setupTableViews(){
@@ -56,13 +62,15 @@ class HistoryCollectionViewCell: UICollectionViewCell {
     }
     
     func setupSegmentedControl(){
+        let dateSegment = LabelSegment(text: "Date", normalFont: .futuraMedium16, normalTextColor: LedgitColor.coreBlue, selectedFont: .futuraMedium16, selectedTextColor: .white)
+        let citySegment = LabelSegment(text: "City", normalFont: .futuraMedium16, normalTextColor: LedgitColor.coreBlue, selectedFont: .futuraMedium16, selectedTextColor: .white)
         segmentedControl.layer.borderWidth = 1
         segmentedControl.layer.borderColor = LedgitColor.coreBlue.cgColor
-        segmentedControl.segments = [LabelSegment(text: "Date", normalFont: .futuraMedium16), LabelSegment(text: "Date", normalFont: .futuraMedium16)]
+        segmentedControl.segments = [dateSegment, citySegment]
         segmentedControl.addTarget(self, action: #selector(segmentedControlChanged), for: .valueChanged)
     }
     
-    @objc func segmentedControlChanged(control: BetterSegmentedControl){
+    @objc func segmentedControlChanged(control: BetterSegmentedControl) {
         switch control.index {
         case 0:
             cityTableView.flipTransition(with: dayTableView)
@@ -71,7 +79,9 @@ class HistoryCollectionViewCell: UICollectionViewCell {
         }
     }
     
-    func setup(with presenter: TripDetailPresenter) {
+    func setupLayout() {
+        guard let presenter = presenter else { return }
+        
         dateEntries = []
         cityEntries = []
         
@@ -101,7 +111,7 @@ class HistoryCollectionViewCell: UICollectionViewCell {
     }
 }
 
-extension HistoryCollectionViewCell: UITableViewDelegate, UITableViewDataSource{
+extension HistoryViewController: UITableViewDelegate, UITableViewDataSource{
     
     func numberOfSections(in tableView: UITableView) -> Int {
         switch tableView {
@@ -132,7 +142,7 @@ extension HistoryCollectionViewCell: UITableViewDelegate, UITableViewDataSource{
             header.setCollapsed(dateEntries[section].collapsed)
             header.titleLabel.text(dateEntries[section].date.toString(style: .medium))
             header.delegate = self
-
+            
             return header
             
         default: return nil
@@ -154,7 +164,7 @@ extension HistoryCollectionViewCell: UITableViewDelegate, UITableViewDataSource{
             let cell = dayTableView.dequeueReusableCell(withIdentifier: Constants.cellIdentifiers.date, for: indexPath) as! DateTableViewCell
             let entry = dateEntries[indexPath.section].entries[indexPath.row]
             cell.setup(with: entry)
-           
+            
             return cell
         default:
             let cell = cityTableView.dequeueReusableCell(withIdentifier: Constants.cellIdentifiers.city, for: indexPath) as! CityTableViewCell
@@ -167,13 +177,16 @@ extension HistoryCollectionViewCell: UITableViewDelegate, UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard tableView == dayTableView else { return }
-        guard let cell = tableView.cellForRow(at: indexPath) else { return }
         let entry = dateEntries[indexPath.section].entries[indexPath.row]
-        delegate?.selected(entry: entry, at: cell)
+        
+        let rectOfRow = tableView.rectForRow(at: indexPath)
+        let rectInSuperview = tableView.convert(rectOfRow, to: (delegate as? UIViewController)?.view)
+        let center = CGPoint(x: rectInSuperview.midX, y: rectInSuperview.midY)
+        delegate?.selected(entry: entry, at: center)
     }
 }
 
-extension HistoryCollectionViewCell: CollapsibleDateHeaderViewDelegate {
+extension HistoryViewController: CollapsibleDateHeaderViewDelegate {
     func toggleSection(_ header: CollapsibleDateHeaderView, section: Int) {
         let collapsed = !dateEntries[section].collapsed
         let sectionToReload = IndexSet(integer: section)

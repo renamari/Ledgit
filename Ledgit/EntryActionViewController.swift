@@ -11,9 +11,7 @@ import SkyFloatingLabelTextField
 
 class EntryActionViewController: UIViewController {
     @IBOutlet weak var scrollView: UIScrollView!
-    @IBOutlet weak var closeButton: UIButton!
     @IBOutlet weak var deleteButton: UIButton!
-    @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var dateTextField: SkyFloatingLabelTextField!
     @IBOutlet weak var descriptionTextField: SkyFloatingLabelTextField!
     @IBOutlet weak var locationTextField: SkyFloatingLabelTextField!
@@ -36,14 +34,16 @@ class EntryActionViewController: UIViewController {
                 return
             }
             
-            LedgitCurrency.getRate(between: LedgitUser.current.homeCurrency.code, and: selectedCurrency.code).then { rate in
-                self.exchangeRateTextField.text("\(rate)")
-                
-            }.catch { error in
-                Log.critical("In \(self), we were unable to fetch rate between \(LedgitUser.current.homeCurrency.code) selecting \(self.selectedCurrency.code)")
-                Log.error(error)
-                
-                self.exchangeRateTextField.text("1.00")
+            LedgitCurrency.getRate(between: LedgitUser.current.homeCurrency.code, and: selectedCurrency.code) { result in
+                switch result {
+                case .success(let rate):
+                    self.exchangeRateTextField.text("\(rate)")
+                case .failure(let error):
+                    Log.critical("In \(self), we were unable to fetch rate between \(LedgitUser.current.homeCurrency.code) selecting \(self.selectedCurrency.code)")
+                    Log.error(error)
+                    
+                    self.exchangeRateTextField.text("1.00")
+                }
             }
         
             amountTextField.title = "AMOUNT IN \(selectedCurrency.code.uppercased())"
@@ -84,12 +84,17 @@ class EntryActionViewController: UIViewController {
         setupStatusBar()
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         view.endEditing(true)
         activeTextField?.resignFirstResponder()
+        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        navigationController?.navigationBar.shadowImage = UIImage()
+        navigationController?.view.backgroundColor = LedgitColor.coreBlue
+        navigationController?.navigationBar.barTintColor = LedgitColor.coreBlue
+        view.backgroundColor = LedgitColor.coreBlue
     }
-
+    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         activeTextField?.resignFirstResponder()
@@ -115,9 +120,6 @@ class EntryActionViewController: UIViewController {
     }
     
     func setupButtons() {
-        closeButton.transform = CGAffineTransform(rotationAngle: CGFloat.pi / 4)
-        closeButton.roundedCorners(radius: 25)
-        
         paymentPickerCashButton.roundedCorners(radius: paymentPickerCashButton.frame.height / 2, borderColor: .white)
         paymentPickerCreditButton.roundedCorners(radius: paymentPickerCreditButton.frame.height / 2, borderColor: .white)
         paymentType = .cash
@@ -131,7 +133,7 @@ class EntryActionViewController: UIViewController {
                 return
             }
             
-            titleLabel.text("Edit Entry")
+            title = "Edit Entry"
             selectedCurrency = entry.currency
             selectedCategory = entry.category
             categoryTextField.text(selectedCategory)
@@ -193,7 +195,7 @@ class EntryActionViewController: UIViewController {
         let toolBar = UIToolbar()
         toolBar.barStyle = .default
         toolBar.isTranslucent = true
-        toolBar.tintColor = LedgitColor.coreBlue//UIColor(red: 92/255, green: 216/255, blue: 255/255, alpha: 1)
+        toolBar.tintColor = LedgitColor.coreBlue
         toolBar.sizeToFit()
         
         let doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(doneTapped))

@@ -7,17 +7,18 @@
 //
 
 import UIKit
+import WebKit
 
 class AboutViewController: UIViewController {
-    @IBOutlet weak var webView: UIWebView!
-
+    @IBOutlet weak var webView: WKWebView!
+    
     override func viewWillAppear(_ animated: Bool) {
-        if #available(iOS 11.0, *) { navigationItem.largeTitleDisplayMode = .never }
+        navigationItem.largeTitleDisplayMode = .never
         super.viewWillAppear(animated)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        if #available(iOS 11.0, *) { navigationItem.largeTitleDisplayMode = .always }
+        navigationItem.largeTitleDisplayMode = .always
         super.viewWillDisappear(animated)
     }
  
@@ -27,29 +28,25 @@ class AboutViewController: UIViewController {
     }
 
     func setupWebView() {
-        webView.delegate = self
+        webView.navigationDelegate = self
         
-        guard let requestURL = URL(string: "http://camden-developers.weebly.com") else {
-            doneButtonPressed()
+        guard let requestURL = URL(string: "https://camden-developers.weebly.com/ledgit.html") else {
+            dismiss(animated: true, completion: nil)
             return
         }
         
         let request = URLRequest(url: requestURL)
         
-        webView.loadRequest(request)
-    }
-
-    @IBAction func backButtonPressed() {
-        webView.goBack()
-    }
-    
-    @IBAction func doneButtonPressed() {
-        navigationController?.popViewController(animated: true)
+        webView.load(request)
     }
 }
 
-extension AboutViewController: UIWebViewDelegate {
-    func webViewDidStartLoad(_ webView: UIWebView) { startLoading() }
+extension AboutViewController: WKNavigationDelegate {
+    func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
+        startLoading()
+    }
     
-    func webViewDidFinishLoad(_ webView: UIWebView) { stopLoading() }
+    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+        stopLoading()
+    }
 }

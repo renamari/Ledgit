@@ -15,18 +15,14 @@ class TripTableViewCell: UITableViewCell {
     @IBOutlet weak var topLabel: UILabel!
     @IBOutlet weak var bottomLabel: UILabel!
     
-    fileprivate(set) lazy var cellImages:[UIImage] = {
-        return [#imageLiteral(resourceName: "circle-icon"), #imageLiteral(resourceName: "heptagon-icon"), #imageLiteral(resourceName: "triangle-icon")]
-    }()
+    fileprivate lazy var images: [UIImage] = [#imageLiteral(resourceName: "circle-icon"), #imageLiteral(resourceName: "heptagon-icon"), #imageLiteral(resourceName: "triangle-icon")]
+    fileprivate lazy var colors: [UIColor] = [LedgitColor.coreBlue, LedgitColor.coreRed, LedgitColor.coreYellow, LedgitColor.coreGreen]
 
     func configure(with trip: LedgitTrip, at indexPath: IndexPath) {
         tripNameLabel.text(trip.name)
         topLabel.text(trip.startDate)
         bottomLabel.text(trip.endDate)
-        tripColorImageView.image(cellImages[indexPath.row % 3])
-        
-        contentView.layoutIfNeeded()
-        mainView.roundedCorners(radius: Constants.cornerRadius.tripCard)
-        mainView.dropShadow()
+        tripColorImageView.image(images[indexPath.section % images.count])
+        tripColorImageView.tintColor = colors[indexPath.section % colors.count]
     }
 }

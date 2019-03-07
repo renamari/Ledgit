@@ -233,7 +233,7 @@ class TripActionViewController: UIViewController {
         
         UserDefaults.standard.set(key, forKey: Constants.userDefaultKeys.defaultTrip)
         delegate?.added(trip: dict)
-        navigationController?.popViewController(animated: true)
+        dismiss(animated: true, completion: nil)
     }
     
     func performUpdateAction() {
@@ -260,6 +260,10 @@ class TripActionViewController: UIViewController {
             delegate?.edited(trip)
             navigationController?.popViewController(animated: true)
         }
+    }
+    
+    @IBAction func cancelButtonPressed(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
     }
     
     @IBAction func budgetPickerDailyButtonPressed(_ sender: Any) {

@@ -22,7 +22,7 @@ let sampleTripEntries: [NSDictionary] = [
         "cost": 12.99,
         "convertedCost": 12.99,
         "exchangeRate": 1.00,
-        "homeCurrency": LedgitCurrency.USD.code,
+        "homeCurrency": LedgitCurrency.USD.code
     ],
     [
         "key": "000000002",
@@ -37,7 +37,7 @@ let sampleTripEntries: [NSDictionary] = [
         "cost": 1.04,
         "convertedCost": 1.04,
         "exchangeRate": 1.00,
-        "homeCurrency": LedgitCurrency.USD.code,
+        "homeCurrency": LedgitCurrency.USD.code
     ],
     [
         "key": "000000003",
@@ -52,7 +52,7 @@ let sampleTripEntries: [NSDictionary] = [
         "cost": 3.65,
         "convertedCost": 3.65,
         "exchangeRate": 1.00,
-        "homeCurrency": LedgitCurrency.USD.code,
+        "homeCurrency": LedgitCurrency.USD.code
     ],
     [
         "key": "000000004",
@@ -67,7 +67,7 @@ let sampleTripEntries: [NSDictionary] = [
         "cost": 16.79,
         "convertedCost": 16.79,
         "exchangeRate": 1.00,
-        "homeCurrency": LedgitCurrency.USD.code,
+        "homeCurrency": LedgitCurrency.USD.code
     ],
     [
         "key": "000000005",
@@ -82,7 +82,7 @@ let sampleTripEntries: [NSDictionary] = [
         "cost": 2.24,
         "convertedCost": 2.24,
         "exchangeRate": 1.00,
-        "homeCurrency": LedgitCurrency.USD.code,
+        "homeCurrency": LedgitCurrency.USD.code
     ],
     [
         "key": "000000006",
@@ -97,7 +97,7 @@ let sampleTripEntries: [NSDictionary] = [
         "cost": 16.57,
         "convertedCost": 16.57,
         "exchangeRate": 1.00,
-        "homeCurrency": LedgitCurrency.USD.code,
+        "homeCurrency": LedgitCurrency.USD.code
     ],
     [
         "key": "000000007",
@@ -112,7 +112,7 @@ let sampleTripEntries: [NSDictionary] = [
         "cost": "12.14",
         "convertedCost": 12.14,
         "exchangeRate": 1.00,
-        "homeCurrency": LedgitCurrency.USD.code,
+        "homeCurrency": LedgitCurrency.USD.code
     ],
     [
         "key": "000000008",
@@ -127,7 +127,7 @@ let sampleTripEntries: [NSDictionary] = [
         "cost": 14.49,
         "convertedCost": 14.49,
         "exchangeRate": 1.00,
-        "homeCurrency": LedgitCurrency.USD.code,
+        "homeCurrency": LedgitCurrency.USD.code
     ],
     [
         "key": "000000009",
@@ -142,7 +142,7 @@ let sampleTripEntries: [NSDictionary] = [
         "cost": 1.28,
         "convertedCost": 1.28,
         "exchangeRate": 1.00,
-        "homeCurrency": LedgitCurrency.USD.code,
+        "homeCurrency": LedgitCurrency.USD.code
     ],
     [
         "key": "000000010",
@@ -157,7 +157,7 @@ let sampleTripEntries: [NSDictionary] = [
         "cost": 11.36,
         "convertedCost": 11.36,
         "exchangeRate": 1.00,
-        "homeCurrency": LedgitCurrency.USD.code,
+        "homeCurrency": LedgitCurrency.USD.code
     ],
     [
         "key": "000000011",
@@ -172,7 +172,7 @@ let sampleTripEntries: [NSDictionary] = [
         "cost": 1.29,
         "convertedCost": 1.29,
         "exchangeRate": 1.00,
-        "homeCurrency": LedgitCurrency.USD.code,
+        "homeCurrency": LedgitCurrency.USD.code
     ],
     [
         "key": "000000012",
@@ -187,7 +187,7 @@ let sampleTripEntries: [NSDictionary] = [
         "cost": 5.31,
         "convertedCost": 5.31,
         "exchangeRate": 1.00,
-        "homeCurrency": LedgitCurrency.USD.code,
+        "homeCurrency": LedgitCurrency.USD.code
     ],
     [
         "key": "000000013",
@@ -202,7 +202,7 @@ let sampleTripEntries: [NSDictionary] = [
         "cost": 27.20,
         "convertedCost": 27.20,
         "exchangeRate": 1.00,
-        "homeCurrency": LedgitCurrency.USD.code,
+        "homeCurrency": LedgitCurrency.USD.code
     ],
     [
         "key": "000000014",
@@ -217,7 +217,7 @@ let sampleTripEntries: [NSDictionary] = [
         "cost": 5.31,
         "convertedCost": 5.31,
         "exchangeRate": 1.00,
-        "homeCurrency": LedgitCurrency.USD.code,
+        "homeCurrency": LedgitCurrency.USD.code
     ],
     [
         "key": "000000015",
@@ -232,7 +232,7 @@ let sampleTripEntries: [NSDictionary] = [
         "cost": 8.57,
         "convertedCost": 8.57,
         "exchangeRate": 1.00,
-        "homeCurrency": LedgitCurrency.USD.code,
+        "homeCurrency": LedgitCurrency.USD.code
     ],
     [
         "key": "000000016",
@@ -247,7 +247,7 @@ let sampleTripEntries: [NSDictionary] = [
         "cost": 21.90,
         "convertedCost": 21.90,
         "exchangeRate": 1.00,
-        "homeCurrency": LedgitCurrency.USD.code,
+        "homeCurrency": LedgitCurrency.USD.code
     ],
     [
         "key": "000000017",
@@ -262,7 +262,7 @@ let sampleTripEntries: [NSDictionary] = [
         "cost": 20.81,
         "convertedCost": 20.81,
         "exchangeRate": 1.00,
-        "homeCurrency": LedgitCurrency.USD.code,
+        "homeCurrency": LedgitCurrency.USD.code
     ],
     [
         "key": "000000018",
@@ -277,7 +277,7 @@ let sampleTripEntries: [NSDictionary] = [
         "cost": "13.79",
         "convertedCost": "13.79",
         "exchangeRate": "1.00",
-        "homeCurrency": LedgitCurrency.USD.code,
+        "homeCurrency": LedgitCurrency.USD.code
     ],
     [
         "key": "000000019",
@@ -292,7 +292,7 @@ let sampleTripEntries: [NSDictionary] = [
         "cost": 20.64,
         "convertedCost": 20.64,
         "exchangeRate": 1.00,
-        "homeCurrency": LedgitCurrency.USD.code,
+        "homeCurrency": LedgitCurrency.USD.code
         ],
     [
         "key": "000000020",
@@ -307,7 +307,7 @@ let sampleTripEntries: [NSDictionary] = [
         "cost": 6.20,
         "convertedCost": 6.20,
         "exchangeRate": 1.00,
-        "homeCurrency": LedgitCurrency.USD.code,
+        "homeCurrency": LedgitCurrency.USD.code
     ],
     [
         "key": "000000021",
@@ -322,6 +322,6 @@ let sampleTripEntries: [NSDictionary] = [
         "cost": 7.89,
         "convertedCost": 7.89,
         "exchangeRate": 1.00,
-        "homeCurrency": LedgitCurrency.USD.code,
+        "homeCurrency": LedgitCurrency.USD.code
     ]
 ]

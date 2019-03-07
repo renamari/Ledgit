@@ -12,12 +12,12 @@ import AMPopTip
 class CategoryTableViewCell: UITableViewCell {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var informationLabel: UILabel!
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
         informationLabel.isHidden = true
     }
-    
+
     func displayInformationLabel(on view: UIView) {
         let popTip = PopTip()
         popTip.style(PopStyle.default)

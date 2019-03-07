@@ -20,7 +20,7 @@ class CategorySelectionViewController: UIViewController {
     var categories: [String] {
         return LedgitUser.current.categories
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.delegate = self
@@ -28,7 +28,7 @@ class CategorySelectionViewController: UIViewController {
         searchBar.delegate = self
         tableView.contentOffset.y = searchBar.frame.height
     }
-    
+
     @objc func dismissViewController() {
         dismiss(animated: true, completion: nil)
     }
@@ -41,7 +41,7 @@ extension CategorySelectionViewController: UISearchBarDelegate {
         }
         tableView.reloadData()
     }
-    
+
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
     }
@@ -51,18 +51,18 @@ extension CategorySelectionViewController: UITableViewDelegate, UITableViewDataS
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return !filteredCategories.isEmpty ? filteredCategories.count : categories.count
     }
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CategorySelectionCell", for: indexPath)
         let category = !filteredCategories.isEmpty ? filteredCategories[indexPath.row] : categories[indexPath.row]
-        
+
         cell.textLabel?.text(category)
-        
+
         return cell
     }
-    
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+
         let category = !filteredCategories.isEmpty ? filteredCategories[indexPath.row] : categories[indexPath.row]
         delegate?.selected(category)
         dismiss(animated: true, completion: nil)

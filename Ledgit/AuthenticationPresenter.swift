@@ -21,20 +21,19 @@ protocol AuthenticationPresenterDelegate: class {
 class AuthenticationPresenter {
     weak var delegate: AuthenticationPresenterDelegate?
     var manager: AuthenticationManager!
-    
-    init(manager: AuthenticationManager){
+
+    init(manager: AuthenticationManager ) {
         self.manager = manager
         self.manager.delegate = self
     }
-    
+
     func authenticateUser(platform: Platform, method: AuthenticationMethod, email: String = "", password: String = "") {
         switch method {
         case .signin:
             platform == .firebase ? manager.performFirebaseSignIn(with: email, password: password) : nil
 
         case .signup:
-            if platform == .firebase { manager.performFirebaseSignUp(with: email, password: password) }
-            else { manager.performCoreDataSignUp() }
+            platform == .firebase ? manager.performFirebaseSignUp(with: email, password: password) : manager.performCoreDataSignUp()
         }
     }
 }
@@ -43,9 +42,8 @@ extension AuthenticationPresenter: AuthenticationManagerDelegate {
     func userAuthenticated(_ user: LedgitUser) {
         delegate?.successfulAuthentication(of: user)
     }
-    
+
     func authenticationError(_ error: LedgitError) {
         delegate?.displayError(error)
     }
 }
-

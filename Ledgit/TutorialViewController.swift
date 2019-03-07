@@ -8,10 +8,6 @@
 
 import UIKit
 
-struct TutorialContent {
-    
-}
-
 class TutorialViewController: UIViewController {
     @IBOutlet private var backgroundImageView: UIImageView!
     @IBOutlet private var titleLabel: UILabel!

@@ -22,7 +22,7 @@ class AccountViewController: UIViewController {
     let padding:CGFloat = 20
     var currentCurrency: LedgitCurrency = LedgitUser.current.homeCurrency
     var updatedCurrency: LedgitCurrency?
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setupRecognizers()
@@ -30,86 +30,86 @@ class AccountViewController: UIViewController {
         setupButton()
         setupView()
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setupKeyboardNotifications()
     }
-    
+
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         removeKeyboardNotifications()
     }
-    
-    func setupKeyboardNotifications(){
+
+    func setupKeyboardNotifications() {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name:UIResponder.keyboardWillShowNotification, object: view.window)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name:UIResponder.keyboardWillHideNotification, object: view.window)
     }
-    
+
     func removeKeyboardNotifications() {
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
     }
-    
+
     func setupTextFields() {
         nameTextField.delegate = self
         emailTextField.delegate = self
         homeCurrencyTextField.delegate = self
-    
+
         nameTextField.text(LedgitUser.current.name)
         emailTextField.text(LedgitUser.current.email)
         homeCurrencyTextField.text(currentCurrency.name)
     }
-    
+
     func setupRecognizers() {
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(screenTapped))
         tapGestureRecognizer.delegate = self
         view.addGestureRecognizer(tapGestureRecognizer)
     }
-    
+
     @objc func screenTapped() {
         dismiss(animated: true, completion: nil)
     }
-    
+
     func setupView() {
         view.backgroundColor = UIColor.black.withAlphaComponent(0.7)
-        cardView.roundedCorners(radius: Constants.cornerRadius.button)
+        cardView.roundedCorners(radius: Constants.CornerRadius.button)
     }
-    
-    func setupButton(){
-        saveButton.roundedCorners(radius: Constants.cornerRadius.button)
+
+    func setupButton() {
+        saveButton.roundedCorners(radius: Constants.CornerRadius.button)
     }
-    
+
     @IBAction func closeButtonPressed(_ sender: Any) {
         dismiss(animated: true, completion: nil)
     }
-    
+
     @IBAction func saveButtonPressed(_ sender: Any) {
         let name = nameTextField.text?.strip() ?? ""
         let email = emailTextField.text?.strip() ?? ""
-        
+
         presenter?.updateUser(name: name, email: email)
-        
+
         // Only perform update action if a new currency was selected
         // since its a heavy action that will require all entries to be updated
         if let updatedCurrency = updatedCurrency, updatedCurrency != currentCurrency {
             presenter?.updateHomeCurrency(with: updatedCurrency)
         }
-        
+
         dismiss(animated: true, completion: nil)
     }
-    
+
     @objc func keyboardWillShow(notification: Notification) {
         guard let userInfo = notification.userInfo else { return }
         guard let keyboardSize = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else { return }
-        
+
         UIView.animate(withDuration: 0.5, animations: { [unowned self] in
             self.cardViewCenterConstraint.isActive = false
             self.cardViewBottomConstraint.constant = keyboardSize.height + 15
             self.cardViewBottomConstraint.isActive = true
         })
     }
-    
+
     @objc func keyboardWillHide(notification: Notification) {
         UIView.animate(withDuration: 0.5, animations: { [unowned self] in
             self.cardViewBottomConstraint.constant = 15
@@ -118,7 +118,7 @@ class AccountViewController: UIViewController {
     }
 }
 
-extension AccountViewController: UIGestureRecognizerDelegate{
+extension AccountViewController: UIGestureRecognizerDelegate {
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
         return touch.view == gestureRecognizer.view
     }
@@ -132,13 +132,13 @@ extension AccountViewController: UITextFieldDelegate {
             currencySelectionViewController.delegate = self
             currencySelectionViewController.allowsMultipleSelection = false
             currencySelectionViewController.title = "Select Currency"
-            
+
             let navigationController = UINavigationController(rootViewController: currencySelectionViewController)
             let doneButton = UIBarButtonItem(title: "Done", style: .done, target: currencySelectionViewController, action: #selector(CurrencySelectionViewController.dismissViewController))
             doneButton.tintColor = LedgitColor.coreBlue
             navigationController.navigationBar.isTranslucent = false
             navigationController.topViewController?.navigationItem.setRightBarButton(doneButton, animated: true)
-            
+
             homeCurrencyTextField.resignFirstResponder()
             present(navigationController, animated: true, completion: nil)
         }

@@ -22,7 +22,7 @@ class TripActionViewControllerTests: XCTestCase {
     func testValidateDatesIsSuccessful() {
         // Arrange
         let startDate = Date()
-        let endDate = startDate.add(components: 2.days)
+        let endDate = startDate.dateByAdding(2, .day).date
         
         // Act
         let result = tripActionViewController.validate(startDate, isBefore: endDate)
@@ -34,7 +34,7 @@ class TripActionViewControllerTests: XCTestCase {
     func testValidateDatesNotSuccessful() {
         // Arrange
         let endDate = Date()
-        let startDate = endDate.add(components: 2.days)
+        let startDate = endDate.dateByAdding(2, .day).date
         
         // Act
         let result = tripActionViewController.validate(startDate, isBefore: endDate)
@@ -46,7 +46,7 @@ class TripActionViewControllerTests: XCTestCase {
     func testSetTripLengthCorrect() {
         // Arrange
         let startDate = Date()
-        let endDate = startDate.add(components: 2.days)
+        let endDate = startDate.dateByAdding(2, .day).date
         
         // Act
         tripActionViewController.setTripLength(from: startDate, to: endDate)

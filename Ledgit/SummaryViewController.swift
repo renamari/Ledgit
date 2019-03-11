@@ -121,7 +121,15 @@ class SummaryViewController: UIViewController, ChartViewDelegate {
 
         resetValues()
 
-        updateDefaultLabelValues(budgetAmount: presenter.trip.budget)
+        let dailyBudget: Double
+
+        if presenter.trip.budgetSelection == .trip {
+            dailyBudget = presenter.trip.budget / Double(presenter.trip.length)
+        } else {
+            dailyBudget = presenter.trip.budget
+        }
+
+        updateDefaultLabelValues(budgetAmount: dailyBudget)
 
         guard !presenter.entries.isEmpty else {
             weeklyChart.clear()
@@ -133,7 +141,7 @@ class SummaryViewController: UIViewController, ChartViewDelegate {
         averageCost = totalCost / Double(dates.count)
 
         updateLabels(dayAmount: costToday,
-                     remainingAmount: presenter.trip.budget - costToday,
+                     remainingAmount: dailyBudget - costToday,
                      averageAmount: averageCost)
 
         // Since we had to initialize an array with 7 items of 0.0
@@ -199,7 +207,7 @@ class SummaryViewController: UIViewController, ChartViewDelegate {
         dayCostLabelTip.style(PopStyle.default)
         dayCostLabelTip.show(text: "Checkout your running balance for today",
                              direction: .up, maxWidth: self.contentView.frame.width - 50,
-                             in: dayCostLabel.superview!, from: dayCostLabel.frame, duration: 3)
+                             in: dayCostLabel.superview!.superview!, from: dayCostLabel.frame, duration: 3)
 
         DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
             let budgetLabelTip = PopTip()

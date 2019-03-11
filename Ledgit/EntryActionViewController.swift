@@ -8,10 +8,12 @@
 
 import UIKit
 import SkyFloatingLabelTextField
+import NotificationBannerSwift
 
 class EntryActionViewController: UIViewController {
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var deleteButton: UIButton!
+    @IBOutlet weak var amountInHomeCurrencyLabel: UILabel!
     @IBOutlet weak var dateTextField: SkyFloatingLabelTextField!
     @IBOutlet weak var descriptionTextField: SkyFloatingLabelTextField!
     @IBOutlet weak var locationTextField: SkyFloatingLabelTextField!
@@ -29,27 +31,19 @@ class EntryActionViewController: UIViewController {
     var activeTextField: UITextField?
     var selectedCurrency: LedgitCurrency = LedgitUser.current.homeCurrency {
         didSet {
+            amountTextField.title = "AMOUNT IN \(selectedCurrency.code.uppercased())"
+            amountTextField.selectedTitle = "AMOUNT IN \(selectedCurrency.code.uppercased())"
+
             guard selectedCurrency != LedgitUser.current.homeCurrency else {
-                self.exchangeRateTextField.text("1.00")
+                exchangeRateTextField.text("1.00")
+                updateHomeCurrencyAmountLabelIfNeeded()
                 return
             }
 
-            LedgitCurrency.getRate(between: LedgitUser.current.homeCurrency.code, and: selectedCurrency.code) { result in
-                switch result {
-                case .success(let rate):
-                    self.exchangeRateTextField.text("\(rate)")
-                case .failure(let error):
-                    LedgitLog.critical("In \(self), we were unable to fetch rate between \(LedgitUser.current.homeCurrency.code) selecting \(self.selectedCurrency.code)")
-                    LedgitLog.error(error)
-
-                    self.exchangeRateTextField.text("1.00")
-                }
-            }
-
-            amountTextField.title = "AMOUNT IN \(selectedCurrency.code.uppercased())"
-            amountTextField.selectedTitle = "AMOUNT IN \(selectedCurrency.code.uppercased())"
+            fetchRateFor(currency: selectedCurrency)
         }
     }
+    var successfullyFetchedRate: Bool = false
     var selectedCategory: String?
     var datePicker: UIDatePicker?
     var presenter: TripDetailPresenter?
@@ -235,6 +229,30 @@ class EntryActionViewController: UIViewController {
         sender.text(text.currencyFormat(with: selectedCurrency.symbol))
     }
 
+    func updateHomeCurrencyAmountLabelIfNeeded() {
+        guard LedgitUser.current.homeCurrency != selectedCurrency else {
+            UIView.animate(withDuration: 0.25) { self.amountInHomeCurrencyLabel.isHidden = true }
+            return
+        }
+
+        guard let amountString = amountTextField.text?.strip(), !amountString.isEmpty else {
+            UIView.animate(withDuration: 0.25) { self.amountInHomeCurrencyLabel.isHidden = true }
+            return
+        }
+
+        guard let exchangeRateString = exchangeRateTextField.text?.strip(), let exchangeRate = Double(exchangeRateString) else {
+            UIView.animate(withDuration: 0.25) { self.amountInHomeCurrencyLabel.isHidden = true }
+            return
+        }
+
+        let amount = amountString.toDouble()
+        let convertedCost = Double(amount / exchangeRate).currencyFormat()
+
+        amountInHomeCurrencyLabel.text = "Amount in \(LedgitUser.current.homeCurrency.code): " + convertedCost
+
+        UIView.animate(withDuration: 0.25) { self.amountInHomeCurrencyLabel.isHidden = false }
+    }
+
     @IBAction func deleteButtonPressed(_ sender: Any) {
         guard parentTrip?.key != Constants.ProjectID.sample else {
             showAlert(with: LedgitError.cannotAddEntriesToSample)
@@ -310,6 +328,47 @@ class EntryActionViewController: UIViewController {
         return validated
     }
 
+    func displayNoNetworkOrSavedRateBanner() {
+        let subtitleText = "You're not connected to the internet and there is no saved rate for this currency yet. Connect to the internet and tap to try again, or enter you're own custom rate."
+        let banner = GrowingNotificationBanner(title: "Heads Up!",
+                                               subtitle: subtitleText,
+                                               style: .danger)
+        banner.autoDismiss = false
+        banner.dismissOnTap = true
+        banner.onTap = {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
+                self.fetchRateFor(currency: self.selectedCurrency)
+            })
+        }
+        banner.show(queuePosition: .front, bannerPosition: .bottom, queue: .default, on: nil)
+    }
+
+    func fetchRateFor(currency: LedgitCurrency) {
+        LedgitCurrency.getRate(between: LedgitUser.current.homeCurrency.code, and: currency.code) { result in
+            switch result {
+            case .success(let rate):
+                self.successfullyFetchedRate = true
+                self.exchangeRateTextField.text("\(rate)")
+
+            case .failure(let error):
+
+                switch error {
+                case LedgitCurrencyFetchError.noNetworkOrSavedRate:
+                    self.displayNoNetworkOrSavedRateBanner()
+                    self.exchangeRateTextField.text = nil
+
+                default:
+                    break
+                }
+
+                LedgitLog.critical("In \(self), we were unable to fetch rate between \(LedgitUser.current.homeCurrency.code) selecting \(self.selectedCurrency.code)")
+                LedgitLog.error(error)
+            }
+
+            self.updateHomeCurrencyAmountLabelIfNeeded()
+        }
+    }
+
     @IBAction func saveButtonPressed(_ sender: Any) {
         guard parentTrip?.key != Constants.ProjectID.sample else {
             showAlert(with: LedgitError.cannotAddEntriesToSample)
@@ -337,6 +396,13 @@ class EntryActionViewController: UIViewController {
             key = entry.key
         } else {
             key = UUID().uuidString
+        }
+
+        if !successfullyFetchedRate {
+            let queryString = LedgitUser.current.homeCurrency.code + "_" + selectedCurrency.code
+            let queryStringDate = queryString + "_date"
+            UserDefaults.standard.set(Date(), forKey: queryStringDate)
+            UserDefaults.standard.set(exchangeRate, forKey: queryString)
         }
 
         let entryData: NSDictionary = [
@@ -488,6 +554,7 @@ extension EntryActionViewController: UITextFieldDelegate {
 
     func textFieldDidEndEditing(_ textField: UITextField) {
         if textField == amountTextField {
+            updateHomeCurrencyAmountLabelIfNeeded()
             guard let text = textField.text else {
                 amountTextField.errorMessage = "Enter an amount in \(selectedCurrency.code)"
                 return

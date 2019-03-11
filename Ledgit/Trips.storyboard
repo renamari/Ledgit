@@ -192,6 +192,12 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="25" translatesAutoresizingMaskIntoConstraints="NO" id="zps-Xm-Xsl">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="435"/>
                                         <subviews>
+                                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Amount in USD: $45.00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9C8-Au-BVX">
+                                                <rect key="frame" x="30" y="60" width="354" height="0.0"/>
+                                                <fontDescription key="fontDescription" name="Futura-Bold" family="Futura" pointSize="19"/>
+                                                <color key="textColor" red="0.18147781491279602" green="0.30347323417663574" blue="0.92162066698074341" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="JNE-YG-ukB">
                                                 <rect key="frame" x="30" y="60" width="354" height="55"/>
                                                 <subviews>
@@ -542,6 +548,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="amountInHomeCurrencyLabel" destination="9C8-Au-BVX" id="GoV-15-VzA"/>
                         <outlet property="amountTextField" destination="3Te-as-az1" id="rZw-cO-4wY"/>
                         <outlet property="categoryTextField" destination="l5u-Tk-Zhw" id="vIq-Cl-Kgk"/>
                         <outlet property="currencyTextField" destination="7P4-ze-tyw" id="qXz-QU-IIB"/>
@@ -646,10 +653,10 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="dzl-zr-pv5" userLabel="Form">
-                                                <rect key="frame" x="30" y="216" width="354" height="234.66666666666663"/>
+                                                <rect key="frame" x="30" y="216" width="354" height="238.33333333333337"/>
                                                 <subviews>
                                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tuj-vw-GU8" customClass="SkyFloatingLabelTextField" customModule="SkyFloatingLabelTextField">
-                                                        <rect key="frame" x="0.0" y="0.0" width="354" height="43.666666666666664"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="354" height="44.666666666666664"/>
                                                         <nil key="textColor"/>
                                                         <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="17"/>
                                                         <textInputTraits key="textInputTraits" autocapitalizationType="words" autocorrectionType="yes"/>
@@ -674,10 +681,10 @@
                                                         </userDefinedRuntimeAttributes>
                                                     </textField>
                                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="fip-Xv-mTe" userLabel="Date Fields">
-                                                        <rect key="frame" x="0.0" y="63.666666666666686" width="354" height="43.666666666666657"/>
+                                                        <rect key="frame" x="0.0" y="64.666666666666686" width="354" height="44.666666666666657"/>
                                                         <subviews>
                                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Z9s-7X-rEH" customClass="SkyFloatingLabelTextField" customModule="SkyFloatingLabelTextField">
-                                                                <rect key="frame" x="0.0" y="0.0" width="172" height="43.666666666666664"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="172" height="44.666666666666664"/>
                                                                 <nil key="textColor"/>
                                                                 <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="17"/>
                                                                 <textInputTraits key="textInputTraits"/>
@@ -702,7 +709,7 @@
                                                                 </userDefinedRuntimeAttributes>
                                                             </textField>
                                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="jge-oE-wSb" customClass="SkyFloatingLabelTextField" customModule="SkyFloatingLabelTextField">
-                                                                <rect key="frame" x="182" y="0.0" width="172" height="43.666666666666664"/>
+                                                                <rect key="frame" x="182" y="0.0" width="172" height="44.666666666666664"/>
                                                                 <nil key="textColor"/>
                                                                 <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="17"/>
                                                                 <textInputTraits key="textInputTraits"/>
@@ -729,10 +736,10 @@
                                                         </subviews>
                                                     </stackView>
                                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="goN-cO-VIx" userLabel="Budget">
-                                                        <rect key="frame" x="0.0" y="127.33333333333333" width="354" height="43.666666666666671"/>
+                                                        <rect key="frame" x="0.0" y="129.33333333333331" width="354" height="44.333333333333343"/>
                                                         <subviews>
                                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="UJA-Sh-kOg" customClass="SkyFloatingLabelTextField" customModule="SkyFloatingLabelTextField">
-                                                                <rect key="frame" x="0.0" y="0.0" width="172" height="43.666666666666664"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="172" height="44.333333333333336"/>
                                                                 <nil key="textColor"/>
                                                                 <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="17"/>
                                                                 <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="decimalPad"/>
@@ -757,16 +764,16 @@
                                                                 </userDefinedRuntimeAttributes>
                                                             </textField>
                                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="pVH-BJ-r1a" userLabel="Budget Selection">
-                                                                <rect key="frame" x="182" y="0.0" width="172" height="43.666666666666664"/>
+                                                                <rect key="frame" x="182" y="0.0" width="172" height="44.333333333333336"/>
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="DAILY" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oIa-7o-ihN">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="172" height="15.666666666666666"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="172" height="16.333333333333332"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                                         <color key="textColor" red="0.50190365314483643" green="0.50199371576309204" blue="0.50189799070358276" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" translatesAutoresizingMaskIntoConstraints="NO" id="qzc-JK-0Iw">
-                                                                        <rect key="frame" x="0.0" y="23.666666666666686" width="172" height="20"/>
+                                                                        <rect key="frame" x="0.0" y="24.333333333333371" width="172" height="20"/>
                                                                         <subviews>
                                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Iok-6y-Lsr">
                                                                                 <rect key="frame" x="0.0" y="0.0" width="20" height="20"/>
@@ -799,7 +806,7 @@
                                                         </subviews>
                                                     </stackView>
                                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="1gw-ym-OM3" customClass="SkyFloatingLabelTextField" customModule="SkyFloatingLabelTextField">
-                                                        <rect key="frame" x="0.0" y="191" width="354" height="43.666666666666657"/>
+                                                        <rect key="frame" x="0.0" y="193.66666666666663" width="354" height="44.666666666666657"/>
                                                         <nil key="textColor"/>
                                                         <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="17"/>
                                                         <textInputTraits key="textInputTraits" autocorrectionType="no"/>

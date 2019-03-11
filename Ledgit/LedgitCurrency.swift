@@ -264,6 +264,13 @@ extension LedgitCurrency {
                                         SGD, THB, TRY, USD, ZAR, EUR]
 }
 
+enum LedgitCurrencyFetchError: Error {
+    case noNetwork
+    case noSavedRate
+    case noNetworkOrSavedRate
+    case currencyService
+}
+
 extension LedgitCurrency {
     static func getRate(between base: String, and currency: String, completion: @escaping ((Result<Double>) -> Void)) {
         let queryString = base + "_" + currency
@@ -278,13 +285,18 @@ extension LedgitCurrency {
             }
 
             return
+        } else {
+            if !Reachability.isConnectedToNetwork {
+                completion(.failure(LedgitCurrencyFetchError.noNetworkOrSavedRate))
+                return
+            }
         }
 
         guard Reachability.isConnectedToNetwork else {
             LedgitLog.warning("Could not start exchange rate request because user is not connected to network.")
 
             DispatchQueue.main.async {
-                completion(.failure(makeError("Could not start exchange rate request because user is not connected to network.")))
+                completion(.failure(LedgitCurrencyFetchError.noNetwork))
             }
 
             return
@@ -299,16 +311,16 @@ extension LedgitCurrency {
         guard let url = components?.url else {
 
             DispatchQueue.main.async {
-                completion(.failure(makeError("Could not create a url to get custom exchange rate")))
+                completion(.failure(LedgitCurrencyFetchError.currencyService))
             }
 
             return
         }
 
         let task = URLSession.shared.dataTask(with: url) { (data, _, error) in
-            if let error = error {
+            if error != nil {
                 DispatchQueue.main.async {
-                    completion(.failure(error))
+                    completion(.failure(LedgitCurrencyFetchError.currencyService))
                 }
 
                 return
@@ -318,7 +330,7 @@ extension LedgitCurrency {
                 let result = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: Double],
                 let rate = result?[queryString] else {
                     DispatchQueue.main.async {
-                        completion(.failure(makeError("Something went wrong with extracting the data for custom exchange rate")))
+                        completion(.failure(LedgitCurrencyFetchError.currencyService))
                     }
                     return
             }

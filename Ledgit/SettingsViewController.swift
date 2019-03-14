@@ -59,7 +59,7 @@ class SettingsViewController: UIViewController {
     }
 
     @IBAction func subscriptionButtonPressed(_ sender: Any) {
-        performSegue(withIdentifier: Constants.SegueIdentifiers.subscription, sender: self)
+        showAlert(with: LedgitError.freeSubscriptions)
     }
 
     @IBAction func accountButtonPressed(_ sender: Any) {

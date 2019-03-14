@@ -19,15 +19,6 @@ class SubscriptionViewController: UIViewController {
 
     func setupWebView() {
         webView.navigationDelegate = self
-
-        guard let requestURL = URL(string: "https://cash.me/$marcosortiz") else {
-            dismiss(animated: true, completion: nil)
-            return
-        }
-
-        let request = URLRequest(url: requestURL)
-
-        webView.load(request)
     }
 }
 

@@ -12,6 +12,8 @@ import NotificationBannerSwift
 
 class EntryActionViewController: UIViewController {
     @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet var contentStackView: UIStackView!
+    @IBOutlet var currencyAndAmountStackView: UIStackView!
     @IBOutlet weak var deleteButton: UIButton!
     @IBOutlet weak var amountInHomeCurrencyLabel: UILabel!
     @IBOutlet weak var dateTextField: SkyFloatingLabelTextField!
@@ -71,11 +73,10 @@ class EntryActionViewController: UIViewController {
     // MARK: - Life cycle methods
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupView()
         setupButtons()
         setupTextFields()
         setupObservers()
-        setupRecognizers()
-        setupStatusBar()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -94,23 +95,8 @@ class EntryActionViewController: UIViewController {
         activeTextField?.resignFirstResponder()
     }
 
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .lightContent
-    }
-
-    override var preferredStatusBarUpdateAnimation: UIStatusBarAnimation {
-        return .slide
-    }
-
-    func setupStatusBar() {
-        modalPresentationCapturesStatusBarAppearance = true
-        setNeedsStatusBarAppearanceUpdate()
-    }
-
-    func setupRecognizers() {
-        let swipeRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(swipedDown(gesture:)))
-        swipeRecognizer.direction = .down
-        view.addGestureRecognizer(swipeRecognizer)
+    func setupView() {
+        contentStackView.setCustomSpacing(5, after: amountInHomeCurrencyLabel)
     }
 
     func setupButtons() {
@@ -197,11 +183,6 @@ class EntryActionViewController: UIViewController {
         return toolBar
     }
 
-    @objc func swipedDown(gesture: UIGestureRecognizer) {
-        guard let swipe = gesture as? UISwipeGestureRecognizer else { return }
-        swipe.direction == .down ? dismiss(animated: true, completion: nil) : nil
-    }
-
     @objc func doneTapped() {
         amountTextField.resignFirstResponder()
         exchangeRateTextField.resignFirstResponder()
@@ -231,17 +212,27 @@ class EntryActionViewController: UIViewController {
 
     func updateHomeCurrencyAmountLabelIfNeeded() {
         guard LedgitUser.current.homeCurrency != selectedCurrency else {
-            UIView.animate(withDuration: 0.25) { self.amountInHomeCurrencyLabel.isHidden = true }
+            UIView.animate(withDuration: 0.25) {
+                self.contentStackView.setCustomSpacing(self.contentStackView.spacing, after: self.currencyAndAmountStackView)
+                self.contentStackView.setCustomSpacing(self.contentStackView.spacing, after: self.currencyAndAmountStackView)
+                self.amountInHomeCurrencyLabel.isHidden = true
+            }
             return
         }
 
         guard let amountString = amountTextField.text?.strip(), !amountString.isEmpty else {
-            UIView.animate(withDuration: 0.25) { self.amountInHomeCurrencyLabel.isHidden = true }
+            UIView.animate(withDuration: 0.25) {
+                self.amountInHomeCurrencyLabel.isHidden = true
+                self.contentStackView.setCustomSpacing(self.contentStackView.spacing, after: self.currencyAndAmountStackView)
+            }
             return
         }
 
         guard let exchangeRateString = exchangeRateTextField.text?.strip(), let exchangeRate = Double(exchangeRateString) else {
-            UIView.animate(withDuration: 0.25) { self.amountInHomeCurrencyLabel.isHidden = true }
+            UIView.animate(withDuration: 0.25) {
+                self.amountInHomeCurrencyLabel.isHidden = true
+                self.contentStackView.setCustomSpacing(self.contentStackView.spacing, after: self.currencyAndAmountStackView)
+            }
             return
         }
 
@@ -250,7 +241,10 @@ class EntryActionViewController: UIViewController {
 
         amountInHomeCurrencyLabel.text = "Amount in \(LedgitUser.current.homeCurrency.code): " + convertedCost
 
-        UIView.animate(withDuration: 0.25) { self.amountInHomeCurrencyLabel.isHidden = false }
+        UIView.animate(withDuration: 0.25) {
+            self.contentStackView.setCustomSpacing(0, after: self.currencyAndAmountStackView)
+            self.amountInHomeCurrencyLabel.isHidden = false
+        }
     }
 
     @IBAction func deleteButtonPressed(_ sender: Any) {

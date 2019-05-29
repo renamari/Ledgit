@@ -17,14 +17,8 @@ class TripsViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        if #available(iOS 11.0, *) {
-            navigationController?.navigationBar.prefersLargeTitles = true
-        } else {
-            // Fallback on earlier versions
-        }
         setupTableView()
         setupPresenter()
-        setupGestureRecognizers()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -45,19 +39,6 @@ class TripsViewController: UIViewController {
         tripsTableView.rowHeight = UITableView.automaticDimension
         tripsTableView.estimatedRowHeight = 200
         tripsTableView.sectionHeaderHeight = 10
-    }
-
-    func setupGestureRecognizers() {
-        let edgeRecognizer = UIScreenEdgePanGestureRecognizer(target: self, action: #selector(swipedEdge(gesture:)))
-        edgeRecognizer.edges = .left
-        view.addGestureRecognizer(edgeRecognizer)
-    }
-
-    @objc func swipedEdge(gesture: UIGestureRecognizer) {
-        guard let gesture = gesture as? UIScreenEdgePanGestureRecognizer else { return }
-        guard gesture.edges == .left else { return }
-
-        settingsButtonPressed(gesture)
     }
 
     @IBAction func addTripButtonPressed(_ sender: Any) {
@@ -156,10 +137,6 @@ extension TripsViewController: UITableViewDelegate {
         performSegue(withIdentifier: Constants.SegueIdentifiers.detail, sender: selectedTrip)
     }
 
-    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        return true
-    }
-
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         let selectedSection = indexPath.section
         let trip = presenter.trips[selectedSection]
@@ -177,13 +154,14 @@ extension TripsViewController: UITableViewDelegate {
             let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
             let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { _ in
 
-                if selectedSection == 0 && (UserDefaults.standard.value(forKey: Constants.UserDefaultKeys.sampleTrip) as? Bool) == true {
+                if selectedSection == 0 && UserDefaults.standard.bool(forKey: Constants.UserDefaultKeys.sampleTrip) {
                     UserDefaults.standard.set(false, forKey: Constants.UserDefaultKeys.sampleTrip)
                 }
 
                 tableView.beginUpdates()
                 self.presenter.removeTrip(at: selectedSection)
-                tableView.deleteRows(at: [indexPath], with: .fade)
+                tableView.deleteSections([selectedSection], with: .fade)
+
                 tableView.endUpdates()
 
             }
@@ -194,36 +172,22 @@ extension TripsViewController: UITableViewDelegate {
             self.present(alert, animated: true, completion: nil)
         }
 
-        if selectedSection == 0 && (UserDefaults.standard.value(forKey: Constants.UserDefaultKeys.sampleTrip) as? Bool) == true {
-            return [delete]
-        } else {
-            return [delete, edit]
-        }
+        let showDeleteOnly = selectedSection == 0 && UserDefaults.standard.bool(forKey: Constants.UserDefaultKeys.sampleTrip)
+        return showDeleteOnly ? [delete] : [delete, edit]
     }
 }
 
 extension TripsViewController: TripsPresenterDelegate {
     func retrievedSampleTrip() {
         tripsTableView.beginUpdates()
-        tripsTableView.insertRows(at: [IndexPath(row: 0, section: 0)], with: .right)
+        tripsTableView.insertSections([0], with: .right)
         tripsTableView.endUpdates()
     }
 
     func retrievedTrip() {
         tripsTableView.beginUpdates()
-        tripsTableView.insertRows(at: [IndexPath(row: 1, section: 0)], with: .right)
+        tripsTableView.insertSections([presenter.trips.count], with: .right)
         tripsTableView.endUpdates()
-
-        var index: Double = 0
-        tripsTableView.visibleCells.forEach { cell in
-            cell.transform = CGAffineTransform(translationX: 0, y: tripsTableView.bounds.size.height)
-
-            UIView.animate(withDuration: 1.5, delay: 0.05 * index, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: .allowAnimatedContent, animations: {
-                cell.transform = CGAffineTransform(translationX: 0, y: 0)
-            }, completion: nil)
-
-            index += 1
-        }
     }
 
     func addedTrip() {

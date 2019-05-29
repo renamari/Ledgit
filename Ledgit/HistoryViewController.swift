@@ -87,7 +87,7 @@ class HistoryViewController: UIViewController {
 
         for item in presenter.entries {
 
-            if let index = dateEntries.index(where: { $0.date.compare(.isSameDay(item.date)) }) {
+            if let index = dateEntries.firstIndex(where: { $0.date.compare(.isSameDay(item.date)) }) {
                 dateEntries[index].entries.append(item)
             } else {
 
@@ -95,7 +95,7 @@ class HistoryViewController: UIViewController {
                 dateEntries.append(newSection)
             }
 
-            if let index = cityEntries.index(where: {$0.location == item.location}) {
+            if let index = cityEntries.firstIndex(where: {$0.location == item.location}) {
                 cityEntries[index].amount += item.convertedCost
 
             } else {

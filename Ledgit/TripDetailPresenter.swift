@@ -56,14 +56,14 @@ extension TripDetailPresenter: TripDetailManagerDelegate {
     }
 
     func updatedEntry(_ entry: LedgitEntry) {
-        guard let index = entries.index(where: {$0.key == entry.key}) else { return }
+        guard let index = entries.firstIndex(where: {$0.key == entry.key}) else { return }
         entries.remove(at: index)
         entries.insert(entry, at: index)
         delegate?.receivedEntryUpdate()
     }
 
     func removedEntry(_ entry: LedgitEntry) {
-        guard let index = entries.index(where: { $0.key == entry.key }) else { return }
+        guard let index = entries.firstIndex(where: { $0.key == entry.key }) else { return }
         entries.remove(at: index)
         delegate?.receivedEntryUpdate()
     }

@@ -97,7 +97,7 @@ extension SettingsManager {
         let key = LedgitUser.current.key
         var categories = LedgitUser.current.categories
 
-        guard let index = categories.index(of: category) else { return }
+        guard let index = categories.firstIndex(of: category) else { return }
 
         categories[index] = newCategory
 
@@ -118,7 +118,7 @@ extension SettingsManager {
     }
 
     func remove(_ category: String) {
-        guard let index = LedgitUser.current.categories.index(of: category) else { return }
+        guard let index = LedgitUser.current.categories.firstIndex(of: category) else { return }
 
         do {
             user?.setValue(LedgitUser.current.categories, forKey: LedgitUser.Keys.categories)

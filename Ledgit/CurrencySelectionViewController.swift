@@ -100,7 +100,7 @@ extension CurrencySelectionViewController: UITableViewDelegate, UITableViewDataS
                 selectedCurrencies.append(selectedCurrency)
                 cell.accessoryType = .checkmark
             } else {
-                guard let index = selectedCurrencies.index(of: selectedCurrency) else { return }
+                guard let index = selectedCurrencies.firstIndex(of: selectedCurrency) else { return }
                 selectedCurrencies.remove(at: index)
                 cell.accessoryType = .none
             }

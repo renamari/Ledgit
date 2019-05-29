@@ -81,7 +81,7 @@ extension TripsViewController: TripActionDelegate {
     }
 
     func edited(_ trip: LedgitTrip) {
-        guard let index = presenter.trips.index(where: { $0.key == trip.key }) else { return }
+        guard let index = presenter.trips.firstIndex(where: { $0.key == trip.key }) else { return }
         presenter.edited(trip)
 
         presenter.trips.remove(at: index)

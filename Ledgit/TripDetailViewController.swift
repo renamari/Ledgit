@@ -148,7 +148,7 @@ class TripDetailViewController: UIViewController {
     @objc func segmentedControlChanged(control: BetterSegmentedControl) {
         let upcomingIndex = Int(control.index)
 
-        guard let controller = pageViewController.viewControllers?.first, var index = pages.index(where: { controller ==  $0 }) else { return }
+        guard let controller = pageViewController.viewControllers?.first, var index = pages.firstIndex(where: { controller ==  $0 }) else { return }
 
         while upcomingIndex != index {
             upcomingIndex < index ? goToPreviousPage() : goToNextPage()
@@ -188,7 +188,7 @@ extension TripDetailViewController: TripDetailPresenterDelegate {
 extension TripDetailViewController: UIPageViewControllerDelegate, UIPageViewControllerDataSource {
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
         // 1. Check if there are any more view controllers to display
-        guard let viewControllerIndex = pages.index(of: viewController) else { return nil }
+        guard let viewControllerIndex = pages.firstIndex(of: viewController) else { return nil }
         // 2. If yes, decrease the index by one
         let previousIndex = viewControllerIndex - 1
 
@@ -201,7 +201,7 @@ extension TripDetailViewController: UIPageViewControllerDelegate, UIPageViewCont
 
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
         // 1. Check if there are any more view controllers to display
-        guard let viewControllerIndex = pages.index(of: viewController) else { return nil }
+        guard let viewControllerIndex = pages.firstIndex(of: viewController) else { return nil }
 
         // 2. If yes, increase the index by one
         let nextIndex = viewControllerIndex + 1
@@ -219,7 +219,7 @@ extension TripDetailViewController: UIPageViewControllerDelegate, UIPageViewCont
         guard completed else { return }
 
         // 2. If yes, update the page control current indicator to change to index
-        guard let controller = pageViewController.viewControllers?.first, let index = pages.index(where: { controller ==  $0 }) else { return }
+        guard let controller = pageViewController.viewControllers?.first, let index = pages.firstIndex(where: { controller ==  $0 }) else { return }
 
         pageSegmentedControl.setIndex(UInt(index), animated: true)
     }

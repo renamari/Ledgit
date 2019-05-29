@@ -116,7 +116,7 @@ extension MainViewController: UIPageViewControllerDataSource {
 
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
         // 1. Check if there are any more view controllers to display
-        guard let viewControllerIndex = orderedViewControllers.index(of: viewController) else { return nil }
+        guard let viewControllerIndex = orderedViewControllers.firstIndex(of: viewController) else { return nil }
         // 2. If yes, decrease the index by one
         let previousIndex = viewControllerIndex - 1
 
@@ -129,7 +129,7 @@ extension MainViewController: UIPageViewControllerDataSource {
 
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
         // 1. Check if there are any more view controllers to display
-        guard let viewControllerIndex = orderedViewControllers.index(of: viewController) else { return nil }
+        guard let viewControllerIndex = orderedViewControllers.firstIndex(of: viewController) else { return nil }
 
         // 2. If yes, increase the index by one
         let nextIndex = viewControllerIndex + 1

@@ -328,7 +328,7 @@ extension LedgitCurrency {
 
             guard let data = data,
                 let result = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: Double],
-                let rate = result?[queryString] else {
+                let rate = result[queryString] else {
                     DispatchQueue.main.async {
                         completion(.failure(LedgitCurrencyFetchError.currencyService))
                     }

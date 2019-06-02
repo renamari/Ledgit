@@ -10,7 +10,7 @@ import UIKit
 import SkyFloatingLabelTextField
 import NotificationBannerSwift
 
-class EntryActionViewController: UIViewController {
+class EntryActionViewController: UIViewController { //swiftlint:disable:this type_body_length
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet var contentStackView: UIStackView!
     @IBOutlet var currencyAndAmountStackView: UIStackView!
@@ -31,6 +31,7 @@ class EntryActionViewController: UIViewController {
     var keyboardShowing: Bool = false
     var isConnected: Bool { return Reachability.isConnectedToNetwork }
     var activeTextField: UITextField?
+    var exchangeRateAttempts: Int = 0
     var selectedCurrency: LedgitCurrency = LedgitUser.current.homeCurrency {
         didSet {
             amountTextField.title = "AMOUNT IN \(selectedCurrency.code.uppercased())"
@@ -45,7 +46,7 @@ class EntryActionViewController: UIViewController {
             fetchRateFor(currency: selectedCurrency)
         }
     }
-    var successfullyFetchedRate: Bool = false
+
     var selectedCategory: String?
     var datePicker: UIDatePicker?
     var presenter: TripDetailPresenter?
@@ -93,6 +94,7 @@ class EntryActionViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         activeTextField?.resignFirstResponder()
+        NotificationBannerQueue.default.removeAll()
     }
 
     func setupView() {
@@ -214,7 +216,6 @@ class EntryActionViewController: UIViewController {
         guard LedgitUser.current.homeCurrency != selectedCurrency else {
             UIView.animate(withDuration: 0.25) {
                 self.contentStackView.setCustomSpacing(self.contentStackView.spacing, after: self.currencyAndAmountStackView)
-                self.contentStackView.setCustomSpacing(self.contentStackView.spacing, after: self.currencyAndAmountStackView)
                 self.amountInHomeCurrencyLabel.isHidden = true
             }
             return
@@ -270,7 +271,7 @@ class EntryActionViewController: UIViewController {
 
     @IBAction func closeButtonPressed(_ sender: Any) {
 
-        if action == .edit && editedEntry {
+        if action == .edit && editedEntry && parentTrip?.key != Constants.ProjectID.sample {
 
             let alert = UIAlertController(title: "Just making sure...", message: "It looks like you made some changes, do you want to save them?", preferredStyle: .alert)
 
@@ -330,18 +331,36 @@ class EntryActionViewController: UIViewController {
         banner.autoDismiss = false
         banner.dismissOnTap = true
         banner.onTap = {
+            guard self.exchangeRateAttempts < 1 else { return }
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
                 self.fetchRateFor(currency: self.selectedCurrency)
+                self.exchangeRateAttempts += 1
             })
         }
-        banner.show(queuePosition: .front, bannerPosition: .bottom, queue: .default, on: nil)
+        banner.show(queuePosition: .front, bannerPosition: .bottom, queue: .default, on: self)
+    }
+
+    func displayExchangeServiceBannner() {
+        let subtitleText = "The exchange rate service seems to be down at the moment. Please enter an exchange rate and try again later "
+        let banner = GrowingNotificationBanner(title: "Heads Up!",
+                                               subtitle: subtitleText,
+                                               style: .danger)
+        banner.autoDismiss = true
+        banner.dismissOnTap = true
+        banner.onTap = {
+            guard self.exchangeRateAttempts < 1 else { return }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
+                self.fetchRateFor(currency: self.selectedCurrency)
+                self.exchangeRateAttempts += 1
+            })
+        }
+        banner.show(queuePosition: .front, bannerPosition: .bottom, queue: .default, on: self)
     }
 
     func fetchRateFor(currency: LedgitCurrency) {
         LedgitCurrency.getRate(between: LedgitUser.current.homeCurrency.code, and: currency.code) { result in
             switch result {
             case .success(let rate):
-                self.successfullyFetchedRate = true
                 self.exchangeRateTextField.text("\(rate)")
 
             case .failure(let error):
@@ -351,6 +370,9 @@ class EntryActionViewController: UIViewController {
                     self.displayNoNetworkOrSavedRateBanner()
                     self.exchangeRateTextField.text = nil
 
+                case LedgitCurrencyFetchError.currencyService:
+                    self.displayExchangeServiceBannner()
+                    self.exchangeRateTextField.text = nil
                 default:
                     break
                 }
@@ -392,12 +414,10 @@ class EntryActionViewController: UIViewController {
             key = UUID().uuidString
         }
 
-        if !successfullyFetchedRate {
-            let queryString = LedgitUser.current.homeCurrency.code + "_" + selectedCurrency.code
-            let queryStringDate = queryString + "_date"
-            UserDefaults.standard.set(Date(), forKey: queryStringDate)
-            UserDefaults.standard.set(exchangeRate, forKey: queryString)
-        }
+        let queryString = LedgitUser.current.homeCurrency.code + "_" + selectedCurrency.code
+        let queryStringDate = queryString + "_date"
+        UserDefaults.standard.set(Date(), forKey: queryStringDate)
+        UserDefaults.standard.set(exchangeRate, forKey: queryString)
 
         let entryData: NSDictionary = [
             LedgitEntry.Keys.key: key,
@@ -556,6 +576,8 @@ extension EntryActionViewController: UITextFieldDelegate {
             let cleanedText = text.trimmingCharacters(in: CharacterSet(charactersIn: ".1234567890").inverted)
             textField.text(cleanedText.currencyFormat(with: selectedCurrency.symbol))
             amountTextField.errorMessage = nil
+        } else if textField == exchangeRateTextField {
+            updateHomeCurrencyAmountLabelIfNeeded()
         }
     }
 

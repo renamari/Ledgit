@@ -131,18 +131,20 @@ class SummaryViewController: UIViewController, ChartViewDelegate {
 
         updateDefaultLabelValues(budgetAmount: dailyBudget)
 
-        guard !presenter.entries.isEmpty else {
-            weeklyChart.clear()
-            return
-        }
-
         createWeeklyAmounts(using: presenter.entries)
 
-        averageCost = totalCost / Double(dates.count)
+        if !dates.isEmpty {
+            averageCost = totalCost / Double(dates.count)
+        }
 
         updateLabels(dayAmount: costToday,
                      remainingAmount: dailyBudget - costToday,
                      averageAmount: averageCost)
+
+        guard !presenter.entries.isEmpty else {
+            weeklyChart.clear()
+            return
+        }
 
         // Since we had to initialize an array with 7 items of 0.0
         // we have to check that at least one of them is not 0 so we

@@ -279,12 +279,9 @@ extension LedgitCurrency {
 
         if let exchangeRate = defaults.value(forKey: queryString) as? Double, let date = defaults.value(forKey: queryStringDate) as? Date, date > 1.days.ago {
             LedgitLog.info("Found exchange rate for \(queryString) and is less than 1 day old in UserDefaults, not calling API")
-
-            DispatchQueue.main.async {
-                completion(.success(exchangeRate))
-            }
-
+            completion(.success(exchangeRate))
             return
+
         } else {
             if !Reachability.isConnectedToNetwork {
                 completion(.failure(LedgitCurrencyFetchError.noNetworkOrSavedRate))
@@ -294,53 +291,49 @@ extension LedgitCurrency {
 
         guard Reachability.isConnectedToNetwork else {
             LedgitLog.warning("Could not start exchange rate request because user is not connected to network.")
-
-            DispatchQueue.main.async {
-                completion(.failure(LedgitCurrencyFetchError.noNetwork))
-            }
-
+            completion(.failure(LedgitCurrencyFetchError.noNetwork))
             return
         }
 
-        let query = URLQueryItem(name: "q", value: base + "_" + currency)
-        let keyQuery = URLQueryItem(name: "apiKey", value: "f6637a01d6f29b468bdb")
-        let compactQuery = URLQueryItem(name: "compact", value: "ultra")
-        var components = URLComponents(string: "https://free.currencyconverterapi.com/api/v6/convert")
-        components?.queryItems = [query, keyQuery, compactQuery]
+        let function = URLQueryItem(name: "function", value: "CURRENCY_EXCHANGE_RATE")
+        let fromCurrency = URLQueryItem(name: "from_currency", value: base)
+        let toCurrency = URLQueryItem(name: "to_currency", value: currency)
+        let keyQuery = URLQueryItem(name: "apikey", value: "GZGXXYAVP8ZPMN81")
+
+        var components = URLComponents(string: "https://www.alphavantage.co/query")
+        components?.queryItems = [function, fromCurrency, toCurrency, keyQuery]
 
         guard let url = components?.url else {
-
-            DispatchQueue.main.async {
-                completion(.failure(LedgitCurrencyFetchError.currencyService))
-            }
-
+            completion(.failure(LedgitCurrencyFetchError.currencyService))
             return
         }
 
         let task = URLSession.shared.dataTask(with: url) { (data, _, error) in
-            if error != nil {
-                DispatchQueue.main.async {
+            DispatchQueue.main.async {
+                if error != nil {
                     completion(.failure(LedgitCurrencyFetchError.currencyService))
+
+                    return
                 }
 
-                return
-            }
-
-            guard let data = data,
-                let result = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: Double],
-                let rate = result[queryString] else {
-                    DispatchQueue.main.async {
-                        completion(.failure(LedgitCurrencyFetchError.currencyService))
-                    }
+                guard let data = data else {
+                    completion(.failure(LedgitCurrencyFetchError.currencyService))
                     return
-            }
+                }
 
-            LedgitLog.info("Sucessfully got exchange rate between \(base) and \(currency)")
-            defaults.set(Date(), forKey: queryStringDate)
-            defaults.set(rate, forKey: queryString)
+                let decoder = JSONDecoder()
 
-            DispatchQueue.main.async {
-                completion(.success(rate))
+                do {
+                    let exchangeRate = try decoder.decode(LedgitExchangeRate.self, from: data)
+                    LedgitLog.info("Sucessfully got exchange rate between \(base) and \(currency)")
+                    defaults.set(Date(), forKey: queryStringDate)
+                    defaults.set(exchangeRate.rate, forKey: queryString)
+
+                    completion(.success(exchangeRate.rate))
+
+                } catch {
+                    completion(.failure(LedgitCurrencyFetchError.currencyService))
+                }
             }
         }
 

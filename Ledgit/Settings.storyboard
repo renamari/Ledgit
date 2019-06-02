@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina5_9" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -21,7 +21,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dSw-1a-ZWo">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="147.66666666666666"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="185"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DR5-xO-bpS">
@@ -43,11 +43,11 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kBC-rt-AAw">
-                                <rect key="frame" x="0.0" y="422.66666666666663" width="375" height="147.66666666666663"/>
+                                <rect key="frame" x="0.0" y="385" width="375" height="185.33333333333337"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="25" translatesAutoresizingMaskIntoConstraints="NO" id="MMR-7b-bKF">
-                                <rect key="frame" x="50" y="147.66666666666669" width="275" height="275"/>
+                                <rect key="frame" x="50" y="185" width="275" height="200"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VwO-Iz-WmY">
                                         <rect key="frame" x="0.0" y="0.0" width="275" height="50"/>
@@ -74,8 +74,8 @@
                                             <action selector="subscriptionButtonPressed:" destination="Q5B-Fg-oyk" eventType="touchUpInside" id="qL6-04-UyC"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9df-hh-2Qy">
-                                        <rect key="frame" x="0.0" y="150" width="275" height="50"/>
+                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9df-hh-2Qy">
+                                        <rect key="frame" x="0.0" y="137.66666666666669" width="275" height="0.0"/>
                                         <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="18"/>
                                         <inset key="titleEdgeInsets" minX="15" minY="0.0" maxX="0.0" maxY="0.0"/>
                                         <state key="normal" title="Account" image="account-icon">
@@ -86,7 +86,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RFL-Y0-H8x">
-                                        <rect key="frame" x="0.0" y="224.99999999999994" width="275" height="50"/>
+                                        <rect key="frame" x="0.0" y="150" width="275" height="50"/>
                                         <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="18"/>
                                         <inset key="titleEdgeInsets" minX="15" minY="0.0" maxX="0.0" maxY="0.0"/>
                                         <state key="normal" title="About" image="about-icon">
@@ -94,6 +94,17 @@
                                         </state>
                                         <connections>
                                             <action selector="abountButtonPressed:" destination="Q5B-Fg-oyk" eventType="touchUpInside" id="eW8-F9-1wy"/>
+                                        </connections>
+                                    </button>
+                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hAA-g1-XNX">
+                                        <rect key="frame" x="0.0" y="200" width="275" height="0.0"/>
+                                        <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="18"/>
+                                        <inset key="titleEdgeInsets" minX="15" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                        <state key="normal" title="Reset">
+                                            <color key="titleColor" red="0.34509803919999998" green="0.46274509800000002" blue="0.52156862749999999" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="resetButtonPressed" destination="Q5B-Fg-oyk" eventType="touchUpInside" id="YYj-67-uTL"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -129,6 +140,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="resetButton" destination="hAA-g1-XNX" id="hIA-Jg-tT1"/>
                         <outlet property="separator" destination="fPr-Yx-uDC" id="wgF-pC-kD6"/>
                         <outlet property="signoutButton" destination="DR5-xO-bpS" id="HKm-Je-ukt"/>
                         <segue destination="7YN-2y-8cz" kind="show" identifier="toSubscriptionViewController" id="2Fp-Q1-rDD"/>

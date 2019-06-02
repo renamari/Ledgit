@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreData
 
 struct SettingsContent {
     var name: String
@@ -16,13 +17,23 @@ struct SettingsContent {
 class SettingsViewController: UIViewController {
     @IBOutlet weak var signoutButton: UIButton!
     @IBOutlet var separator: UIView!
+    @IBOutlet var resetButton: UIButton!
     private var presenter = SettingsPresenter(manager: SettingsManager())
+
+    var coreData: NSManagedObjectContext {
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
+            fatalError("Application Delegate wasn't found. Something went terribly wrong.")
+        }
+
+        return appDelegate.persistentContainer.viewContext
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         setupNavigationBar()
         setupView()
         setupPresenter()
+        setupResetButton()
     }
 
     func setupNavigationBar() {
@@ -44,6 +55,12 @@ class SettingsViewController: UIViewController {
 
     func setupPresenter() {
         presenter.delegate = self
+    }
+
+    func setupResetButton() {
+        #if DEBUG
+        resetButton.isHidden = false
+        #endif
     }
 
     @IBAction func backButtonPressed(_ sender: Any) {
@@ -68,6 +85,25 @@ class SettingsViewController: UIViewController {
 
     @IBAction func abountButtonPressed(_ sender: Any) {
         performSegue(withIdentifier: Constants.SegueIdentifiers.about, sender: self)
+    }
+
+    @IBAction func resetButtonPressed() {
+        UserDefaults.standard.removePersistentDomain(forName: Bundle.main.bundleIdentifier!)
+
+        let entriesRequest = NSFetchRequest<NSFetchRequestResult>(entityName: Constants.LedgitEntity.entry)
+        let tripsRequest = NSFetchRequest<NSFetchRequestResult>(entityName: Constants.LedgitEntity.trip)
+        let entriesDeleteRequest = NSBatchDeleteRequest(fetchRequest: entriesRequest)
+        let tripsDeleteRequest = NSBatchDeleteRequest(fetchRequest: tripsRequest)
+
+        do {
+            try coreData.execute(entriesDeleteRequest)
+            try coreData.execute(tripsDeleteRequest)
+
+        } catch {
+            LedgitLog.critical("Couldn't delete all core data")
+        }
+
+        presenter.signout()
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

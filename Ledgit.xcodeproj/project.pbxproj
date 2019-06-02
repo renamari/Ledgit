@@ -91,6 +91,7 @@
 		8DFAE89B1FCB103F00B4734B /* TripDetailManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DFAE89A1FCB103F00B4734B /* TripDetailManager.swift */; };
 		8DFAE89D1FCB104C00B4734B /* TripDetailPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DFAE89C1FCB104C00B4734B /* TripDetailPresenter.swift */; };
 		8DFAE89F1FCB9B1500B4734B /* CategorySelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DFAE89E1FCB9B1500B4734B /* CategorySelectionViewController.swift */; };
+		8DFC1CFF22A348A000086E0A /* LedgitExchangeRate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DFC1CFE22A348A000086E0A /* LedgitExchangeRate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -203,6 +204,7 @@
 		8DFAE89A1FCB103F00B4734B /* TripDetailManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripDetailManager.swift; sourceTree = "<group>"; };
 		8DFAE89C1FCB104C00B4734B /* TripDetailPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripDetailPresenter.swift; sourceTree = "<group>"; };
 		8DFAE89E1FCB9B1500B4734B /* CategorySelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategorySelectionViewController.swift; sourceTree = "<group>"; };
+		8DFC1CFE22A348A000086E0A /* LedgitExchangeRate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LedgitExchangeRate.swift; sourceTree = "<group>"; };
 		93C41B92AC4C35C569819F18 /* Pods-LedgitUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LedgitUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-LedgitUITests/Pods-LedgitUITests.release.xcconfig"; sourceTree = "<group>"; };
 		AA493BC4D136EA66D5B690DD /* Pods-LedgitUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LedgitUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LedgitUITests/Pods-LedgitUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		CD08D377859521F30867A19F /* Pods-LedgitTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LedgitTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-LedgitTests/Pods-LedgitTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -322,6 +324,7 @@
 			isa = PBXGroup;
 			children = (
 				8DA3B22A1F4004EB00FC31AF /* LedgitCurrency.swift */,
+				8DFC1CFE22A348A000086E0A /* LedgitExchangeRate.swift */,
 				8DB4679C1FC1F16700E44863 /* LedgitUser.swift */,
 				8DB4679E1FC1F2FA00E44863 /* LedgitEntry.swift */,
 				8DB467A01FC1F3A500E44863 /* LedgitTrip.swift */,
@@ -917,6 +920,7 @@
 				8D9266A1204C671B00A4B5B2 /* UIButton+Content.swift in Sources */,
 				8D29168C1FB8EA2F008ED9F2 /* CurrencySelectionViewController.swift in Sources */,
 				8DFAE89B1FCB103F00B4734B /* TripDetailManager.swift in Sources */,
+				8DFC1CFF22A348A000086E0A /* LedgitExchangeRate.swift in Sources */,
 				8D6F4B681F4E8D100046847C /* SubscriptionViewController.swift in Sources */,
 				8D92669A204C64B100A4B5B2 /* Appearance.swift in Sources */,
 				8D173EBF1F997B4100EC8527 /* AuthenticationPresenter.swift in Sources */,

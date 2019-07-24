@@ -10,22 +10,25 @@ import UIKit
 import SkyFloatingLabelTextField
 import NotificationBannerSwift
 
+class EntryActionNavigationController: UINavigationController { }
+
 class EntryActionViewController: UIViewController { //swiftlint:disable:this type_body_length
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet var contentStackView: UIStackView!
     @IBOutlet var currencyAndAmountStackView: UIStackView!
-    @IBOutlet weak var deleteButton: UIButton!
-    @IBOutlet weak var amountInHomeCurrencyLabel: UILabel!
-    @IBOutlet weak var dateTextField: SkyFloatingLabelTextField!
-    @IBOutlet weak var descriptionTextField: SkyFloatingLabelTextField!
-    @IBOutlet weak var locationTextField: SkyFloatingLabelTextField!
-    @IBOutlet weak var amountTextField: SkyFloatingLabelTextField!
-    @IBOutlet weak var currencyTextField: SkyFloatingLabelTextField!
-    @IBOutlet weak var categoryTextField: SkyFloatingLabelTextField!
-    @IBOutlet weak var exchangeRateTextField: SkyFloatingLabelTextField!
+    @IBOutlet var deleteButton: UIButton!
+    @IBOutlet var amountInHomeCurrencyLabel: UILabel!
+    @IBOutlet var dateTextField: SkyFloatingLabelTextField!
+    @IBOutlet var descriptionTextField: SkyFloatingLabelTextField!
+    @IBOutlet var locationTextField: SkyFloatingLabelTextField!
+    @IBOutlet var amountTextField: SkyFloatingLabelTextField!
+    @IBOutlet var currencyTextField: SkyFloatingLabelTextField!
+    @IBOutlet var categoryTextField: SkyFloatingLabelTextField!
+    @IBOutlet var exchangeRateTextField: SkyFloatingLabelTextField!
+    @IBOutlet var destionationTripTextField: SkyFloatingLabelTextField!
     @IBOutlet var textFields: [SkyFloatingLabelTextField]!
-    @IBOutlet weak var paymentPickerCashButton: UIButton!
-    @IBOutlet weak var paymentPickerCreditButton: UIButton!
+    @IBOutlet var paymentPickerCashButton: UIButton!
+    @IBOutlet var paymentPickerCreditButton: UIButton!
     var action: LedgitAction = .add
     var editedEntry: Bool = false
     var keyboardShowing: Bool = false

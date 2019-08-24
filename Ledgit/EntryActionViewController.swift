@@ -302,20 +302,20 @@ class EntryActionViewController: UIViewController { //swiftlint:disable:this typ
 
     func textFieldsValidated() -> Bool {
         var validated = true
-        if locationTextField.text?.isEmpty == true {
-            locationTextField.errorMessage = "Enter a city"
-            validated = false
-        }
+//        if locationTextField.text?.isEmpty == true {
+//            locationTextField.errorMessage = "Enter a city"
+//            validated = false
+//        }
 
-        if descriptionTextField.text?.isEmpty == true {
-            descriptionTextField.errorMessage = "Enter a description"
-            validated = false
-        }
-
-        if selectedCategory == nil {
-            categoryTextField.errorMessage = "Select a category"
-            validated = false
-        }
+//        if descriptionTextField.text?.isEmpty == true {
+//            descriptionTextField.errorMessage = "Enter a description"
+//            validated = false
+//        }
+//
+//        if selectedCategory == nil {
+//            categoryTextField.errorMessage = "Select a category"
+//            validated = false
+//        }
 
         if amountTextField.text?.isEmpty == true {
             amountTextField.errorMessage = "Enter an amount"
@@ -400,9 +400,6 @@ class EntryActionViewController: UIViewController { //swiftlint:disable:this typ
 
         guard
             textFieldsValidated(),
-            let location = locationTextField.text?.strip(),
-            let description = descriptionTextField.text?.strip(),
-            let category = selectedCategory,
             let amountString = amountTextField.text?.strip(),
             let exchangeRateString = exchangeRateTextField.text?.strip(),
             let exchangeRate = Double(exchangeRateString),
@@ -410,8 +407,14 @@ class EntryActionViewController: UIViewController { //swiftlint:disable:this typ
             let owningTripKey = presenter?.trip.key
             else { return }
 
-        let amount = amountString.toDouble()
+        let pendingLocation = locationTextField.text?.strip() ?? ""
+        let location = pendingLocation.isEmpty ? "Unknown" : pendingLocation
 
+        let pendingDescription = descriptionTextField.text?.strip() ?? ""
+        let description = pendingDescription.isEmpty ? "No description" : pendingDescription
+        let category = selectedCategory ?? "Miscellaneous"
+
+        let amount = amountString.toDouble()
         let convertedCost = Double(amount / exchangeRate)
 
         var key = ""

@@ -63,9 +63,12 @@ class MainViewController: UIViewController {
         pageViewController.delegate = self
         pageViewController.dataSource = self
         pageViewController.setViewControllers([firstViewController], direction: .forward, animated: true, completion: nil)
-        pageViewController.view.frame = CGRect(x: 0, y: 0, width: tutorialView.frame.width, height: tutorialView.frame.height)
 
         tutorialView.addSubview(pageViewController.view)
+        pageViewController.view.topAnchor.constraint(equalTo: tutorialView.topAnchor).isActive = true
+        pageViewController.view.bottomAnchor.constraint(equalTo: tutorialView.bottomAnchor).isActive = true
+        pageViewController.view.leadingAnchor.constraint(equalTo: tutorialView.leadingAnchor).isActive = true
+        pageViewController.view.trailingAnchor.constraint(equalTo: tutorialView.trailingAnchor).isActive = true
     }
 
     fileprivate func createNewTutorialViewController(at index: Int) -> UIViewController {

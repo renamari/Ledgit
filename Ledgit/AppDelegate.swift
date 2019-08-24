@@ -86,6 +86,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let rootViewController = application.keyWindow?.rootViewController as? UINavigationController
             let tripsViewController = rootViewController?.topViewController
             let entryNavigationViewController = EntryActionNavigationController.instantiate(from: .trips)
+            let entryActionViewController = entryNavigationViewController.topViewController as? EntryActionViewController
+            entryActionViewController?.isQuickAdd = true
+
+            let defaultTripKey = UserDefaults.standard.value(forKey: Constants.UserDefaultKeys.defaultTrip) as? String
+            let tripManager = TripsManager()
+
+            guard let defaultTrip = tripManager.fetchTrip(with: defaultTripKey ?? "") else {
+                completionHandler(false)
+                return
+            }
+
+            let tripDetailPresenter = TripDetailPresenter(manager: TripDetailManager())
+            tripDetailPresenter.attach(defaultTrip)
+
+            entryActionViewController?.presenter = tripDetailPresenter
+            entryActionViewController?.parentTrip = defaultTrip
 
             tripsViewController?.present(entryNavigationViewController, animated: true, completion: nil)
 

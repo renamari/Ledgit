@@ -66,6 +66,7 @@
 		8DA3B2291F3FC3C600FC31AF /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA3B2281F3FC3C600FC31AF /* Constants.swift */; };
 		8DA3B22B1F4004EB00FC31AF /* LedgitCurrency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA3B22A1F4004EB00FC31AF /* LedgitCurrency.swift */; };
 		8DA3B22D1F40055700FC31AF /* Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA3B22C1F40055700FC31AF /* Device.swift */; };
+		8DAC30E42311A7CE002E9C17 /* TripSelectionTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DAC30E32311A7CE002E9C17 /* TripSelectionTableViewController.swift */; };
 		8DAD43E71F9D46270054EDD8 /* SettingsNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DAD43E61F9D46270054EDD8 /* SettingsNavigationController.swift */; };
 		8DB4679D1FC1F16700E44863 /* LedgitUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB4679C1FC1F16700E44863 /* LedgitUser.swift */; };
 		8DB4679F1FC1F2FA00E44863 /* LedgitEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB4679E1FC1F2FA00E44863 /* LedgitEntry.swift */; };
@@ -179,6 +180,7 @@
 		8DA3B2281F3FC3C600FC31AF /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		8DA3B22A1F4004EB00FC31AF /* LedgitCurrency.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LedgitCurrency.swift; sourceTree = "<group>"; };
 		8DA3B22C1F40055700FC31AF /* Device.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Device.swift; sourceTree = "<group>"; };
+		8DAC30E32311A7CE002E9C17 /* TripSelectionTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripSelectionTableViewController.swift; sourceTree = "<group>"; };
 		8DAD43E61F9D46270054EDD8 /* SettingsNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsNavigationController.swift; sourceTree = "<group>"; };
 		8DB4679C1FC1F16700E44863 /* LedgitUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LedgitUser.swift; sourceTree = "<group>"; };
 		8DB4679E1FC1F2FA00E44863 /* LedgitEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LedgitEntry.swift; sourceTree = "<group>"; };
@@ -504,6 +506,7 @@
 				8D2AEC1C1F4D148200227FC6 /* History Table View Cell */,
 				8DDDD6B21F473EFA0053146B /* TripDetailViewController.swift */,
 				8D656AA21F94480800C85A0F /* EntryActionViewController.swift */,
+				8DAC30E32311A7CE002E9C17 /* TripSelectionTableViewController.swift */,
 				8DFAE89E1FCB9B1500B4734B /* CategorySelectionViewController.swift */,
 				8D4E68202228EDB3009939BE /* SummaryViewController.swift */,
 				8D4E68222228EDBB009939BE /* CategoryViewController.swift */,
@@ -947,6 +950,7 @@
 				8DDD13362030F4FC00998AA5 /* TripBudgetInformationView.swift in Sources */,
 				8D4E68232228EDBB009939BE /* CategoryViewController.swift in Sources */,
 				8DA3B2201F3FBEF300FC31AF /* Utilities.swift in Sources */,
+				8DAC30E42311A7CE002E9C17 /* TripSelectionTableViewController.swift in Sources */,
 				8D4E68252228EDC3009939BE /* HistoryViewController.swift in Sources */,
 				8D707B4E1F9D3EEE00CABA0F /* TripsPresenter.swift in Sources */,
 				8D926694204C644000A4B5B2 /* Date+Content.swift in Sources */,

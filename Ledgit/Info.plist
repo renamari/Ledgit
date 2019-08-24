@@ -52,8 +52,6 @@
 		<dict>
 			<key>UIApplicationShortcutItemIconType</key>
 			<string>UIApplicationShortcutIconTypeAdd</string>
-			<key>UIApplicationShortcutItemSubtitle</key>
-			<string>Adds entry to default trip</string>
 			<key>UIApplicationShortcutItemTitle</key>
 			<string>Add Entry</string>
 			<key>UIApplicationShortcutItemType</key>

@@ -29,6 +29,8 @@ class SummaryViewController: UIViewController, ChartViewDelegate {
     @IBOutlet var averageTitleLabel: UILabel!
     @IBOutlet var averageLabel: UILabel!
 
+    @IBOutlet var totalTripCostLabel: UILabel!
+
     var averageCost: Double = 0
     var costToday: Double = 0
     var totalCost: Double = 0
@@ -139,7 +141,8 @@ class SummaryViewController: UIViewController, ChartViewDelegate {
 
         updateLabels(dayAmount: costToday,
                      remainingAmount: dailyBudget - costToday,
-                     averageAmount: averageCost)
+                     averageAmount: averageCost,
+                     totalTripAmount: totalCost)
 
         guard !presenter.entries.isEmpty else {
             weeklyChart.clear()
@@ -242,7 +245,9 @@ class SummaryViewController: UIViewController, ChartViewDelegate {
         remainingLabel.text(budgetAmount.currencyFormat())
     }
 
-    private func updateLabels(dayAmount: Double, remainingAmount: Double, averageAmount: Double) {
+    private func updateLabels(dayAmount: Double, remainingAmount: Double, averageAmount: Double, totalTripAmount: Double) {
+        totalTripCostLabel.text(totalTripAmount.currencyFormat())
+
         dayCostLabel.text(dayAmount.currencyFormat())
 
         let averageDisplayAmount = averageAmount >= 0 ? averageAmount : (-1 * averageAmount)

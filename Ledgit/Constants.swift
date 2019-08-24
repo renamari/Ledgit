@@ -71,6 +71,7 @@ enum Constants {
         static let entryAction = "toAddEntryViewController"
         static let currencySelection = "toCurrencySelectionViewController"
         static let categorySelection = "toCategorySelectionViewController"
+        static let tripSelection = "toTripSelectionViewController"
     }
 
     struct LedgitEntity {

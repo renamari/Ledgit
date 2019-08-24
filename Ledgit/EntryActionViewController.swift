@@ -445,11 +445,7 @@ class EntryActionViewController: UIViewController { //swiftlint:disable:this typ
             LedgitEntry.Keys.owningTrip: owningTripKey
         ]
 
-        if action == .edit {
-            presenter?.update(entry: entryData)
-        } else {
-            presenter?.create(entry: entryData)
-        }
+        action == .edit ? presenter?.update(entry: entryData) : presenter?.create(entry: entryData)
 
         dismiss(animated: true, completion: nil)
     }

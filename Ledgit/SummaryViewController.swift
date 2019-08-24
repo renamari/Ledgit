@@ -30,10 +30,12 @@ class SummaryViewController: UIViewController, ChartViewDelegate {
     @IBOutlet var averageLabel: UILabel!
 
     @IBOutlet var totalTripCostLabel: UILabel!
+    @IBOutlet var estimatedTripCostLabel: UILabel!
 
     var averageCost: Double = 0
     var costToday: Double = 0
     var totalCost: Double = 0
+    var estimatedTotalCost: Double = 0
     var dates: [Date] = []
     var values:[BarChartDataEntry] = []
     var amounts = [Double](repeating: 0, count: 7)
@@ -87,6 +89,8 @@ class SummaryViewController: UIViewController, ChartViewDelegate {
         remainingLabel.text(0.0.currencyFormat())
         averageLabel.text(0.0.currencyFormat())
         budgetLabel.text(0.0.currencyFormat())
+        totalTripCostLabel.text(0.0.currencyFormat())
+        estimatedTripCostLabel.text(0.0.currencyFormat())
     }
 
     func defaultChartSetup() {
@@ -139,10 +143,13 @@ class SummaryViewController: UIViewController, ChartViewDelegate {
             averageCost = totalCost / Double(dates.count)
         }
 
+        estimatedTotalCost = averageCost * Double(presenter.trip.length)
+
         updateLabels(dayAmount: costToday,
                      remainingAmount: dailyBudget - costToday,
                      averageAmount: averageCost,
-                     totalTripAmount: totalCost)
+                     totalTripAmount: totalCost,
+                     estimatedTripAmount: estimatedTotalCost)
 
         guard !presenter.entries.isEmpty else {
             weeklyChart.clear()
@@ -245,8 +252,9 @@ class SummaryViewController: UIViewController, ChartViewDelegate {
         remainingLabel.text(budgetAmount.currencyFormat())
     }
 
-    private func updateLabels(dayAmount: Double, remainingAmount: Double, averageAmount: Double, totalTripAmount: Double) {
+    private func updateLabels(dayAmount: Double, remainingAmount: Double, averageAmount: Double, totalTripAmount: Double, estimatedTripAmount: Double) {
         totalTripCostLabel.text(totalTripAmount.currencyFormat())
+        estimatedTripCostLabel.text(estimatedTripAmount.currencyFormat())
 
         dayCostLabel.text(dayAmount.currencyFormat())
 

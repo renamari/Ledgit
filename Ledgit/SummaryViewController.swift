@@ -115,6 +115,7 @@ class SummaryViewController: UIViewController, ChartViewDelegate {
         costToday = 0
         totalCost = 0
         averageCost = 0
+        estimatedTotalCost = 0
         dates = []
         values = []
         amounts = [Double](repeating: 0, count: 7)

@@ -10,22 +10,26 @@ import UIKit
 import SkyFloatingLabelTextField
 import NotificationBannerSwift
 
+class EntryActionNavigationController: UINavigationController { }
+
 class EntryActionViewController: UIViewController { //swiftlint:disable:this type_body_length
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet var contentStackView: UIStackView!
     @IBOutlet var currencyAndAmountStackView: UIStackView!
-    @IBOutlet weak var deleteButton: UIButton!
-    @IBOutlet weak var amountInHomeCurrencyLabel: UILabel!
-    @IBOutlet weak var dateTextField: SkyFloatingLabelTextField!
-    @IBOutlet weak var descriptionTextField: SkyFloatingLabelTextField!
-    @IBOutlet weak var locationTextField: SkyFloatingLabelTextField!
-    @IBOutlet weak var amountTextField: SkyFloatingLabelTextField!
-    @IBOutlet weak var currencyTextField: SkyFloatingLabelTextField!
-    @IBOutlet weak var categoryTextField: SkyFloatingLabelTextField!
-    @IBOutlet weak var exchangeRateTextField: SkyFloatingLabelTextField!
+    @IBOutlet var deleteButton: UIButton!
+    @IBOutlet var amountInHomeCurrencyLabel: UILabel!
+    @IBOutlet var dateTextField: SkyFloatingLabelTextField!
+    @IBOutlet var descriptionTextField: SkyFloatingLabelTextField!
+    @IBOutlet var locationTextField: SkyFloatingLabelTextField!
+    @IBOutlet var amountTextField: SkyFloatingLabelTextField!
+    @IBOutlet var currencyTextField: SkyFloatingLabelTextField!
+    @IBOutlet var categoryTextField: SkyFloatingLabelTextField!
+    @IBOutlet var exchangeRateTextField: SkyFloatingLabelTextField!
+    @IBOutlet var destinationTripTextField: SkyFloatingLabelTextField!
     @IBOutlet var textFields: [SkyFloatingLabelTextField]!
-    @IBOutlet weak var paymentPickerCashButton: UIButton!
-    @IBOutlet weak var paymentPickerCreditButton: UIButton!
+    @IBOutlet var paymentPickerCashButton: UIButton!
+    @IBOutlet var paymentPickerCreditButton: UIButton!
+    var isQuickAdd: Bool = false
     var action: LedgitAction = .add
     var editedEntry: Bool = false
     var keyboardShowing: Bool = false
@@ -136,6 +140,7 @@ class EntryActionViewController: UIViewController { //swiftlint:disable:this typ
             dateTextField.text(Date().toString(style: .long))
             currencyTextField.text(selectedCurrency.name)
             if selectedCurrency == LedgitUser.current.homeCurrency { exchangeRateTextField.text("1.00") }
+            destinationTripTextField.text = parentTrip?.name
         }
 
         dateTextField.delegate = self
@@ -145,6 +150,8 @@ class EntryActionViewController: UIViewController { //swiftlint:disable:this typ
         amountTextField.delegate = self
         categoryTextField.delegate = self
         exchangeRateTextField.delegate = self
+        destinationTripTextField.delegate = self
+        destinationTripTextField.isHidden = !isQuickAdd
 
         dateTextField.setTitleVisible(true)
         locationTextField.setTitleVisible(true)
@@ -295,20 +302,20 @@ class EntryActionViewController: UIViewController { //swiftlint:disable:this typ
 
     func textFieldsValidated() -> Bool {
         var validated = true
-        if locationTextField.text?.isEmpty == true {
-            locationTextField.errorMessage = "Enter a city"
-            validated = false
-        }
+//        if locationTextField.text?.isEmpty == true {
+//            locationTextField.errorMessage = "Enter a city"
+//            validated = false
+//        }
 
-        if descriptionTextField.text?.isEmpty == true {
-            descriptionTextField.errorMessage = "Enter a description"
-            validated = false
-        }
-
-        if selectedCategory == nil {
-            categoryTextField.errorMessage = "Select a category"
-            validated = false
-        }
+//        if descriptionTextField.text?.isEmpty == true {
+//            descriptionTextField.errorMessage = "Enter a description"
+//            validated = false
+//        }
+//
+//        if selectedCategory == nil {
+//            categoryTextField.errorMessage = "Select a category"
+//            validated = false
+//        }
 
         if amountTextField.text?.isEmpty == true {
             amountTextField.errorMessage = "Enter an amount"
@@ -393,9 +400,6 @@ class EntryActionViewController: UIViewController { //swiftlint:disable:this typ
 
         guard
             textFieldsValidated(),
-            let location = locationTextField.text?.strip(),
-            let description = descriptionTextField.text?.strip(),
-            let category = selectedCategory,
             let amountString = amountTextField.text?.strip(),
             let exchangeRateString = exchangeRateTextField.text?.strip(),
             let exchangeRate = Double(exchangeRateString),
@@ -403,8 +407,14 @@ class EntryActionViewController: UIViewController { //swiftlint:disable:this typ
             let owningTripKey = presenter?.trip.key
             else { return }
 
-        let amount = amountString.toDouble()
+        let pendingLocation = locationTextField.text?.strip() ?? ""
+        let location = pendingLocation.isEmpty ? "Unknown" : pendingLocation
 
+        let pendingDescription = descriptionTextField.text?.strip() ?? ""
+        let description = pendingDescription.isEmpty ? "No description" : pendingDescription
+        let category = selectedCategory ?? "Miscellaneous"
+
+        let amount = amountString.toDouble()
         let convertedCost = Double(amount / exchangeRate)
 
         var key = ""
@@ -435,13 +445,17 @@ class EntryActionViewController: UIViewController { //swiftlint:disable:this typ
             LedgitEntry.Keys.owningTrip: owningTripKey
         ]
 
-        if action == .edit {
-            presenter?.update(entry: entryData)
-        } else {
-            presenter?.create(entry: entryData)
-        }
+        action == .edit ? presenter?.update(entry: entryData) : presenter?.create(entry: entryData)
 
         dismiss(animated: true, completion: nil)
+    }
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == Constants.SegueIdentifiers.tripSelection {
+            let navigationController = segue.destination as? UINavigationController
+            let tripSelectionController = navigationController?.topViewController as? TripSelectionTableViewController
+            tripSelectionController?.delegate = self
+        }
     }
 }
 
@@ -528,6 +542,10 @@ extension EntryActionViewController: UITextFieldDelegate {
             present(navigationController, animated: true, completion: nil)
             return false
 
+        case destinationTripTextField:
+            performSegue(withIdentifier: Constants.SegueIdentifiers.tripSelection, sender: nil)
+            return false
+
         case dateTextField:
             datePicker = UIDatePicker()
             datePicker?.datePickerMode = .date
@@ -584,5 +602,13 @@ extension EntryActionViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
+    }
+}
+
+extension EntryActionViewController: TripSelectionDelegate {
+    func selected(_ trip: LedgitTrip) {
+        parentTrip = trip
+        presenter?.attach(trip)
+        destinationTripTextField.text = trip.name
     }
 }

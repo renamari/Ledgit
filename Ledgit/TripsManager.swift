@@ -104,6 +104,45 @@ extension TripsManager {
         })
     }
 
+    func fetchTrip(with key: String) -> LedgitTrip? {
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: Constants.LedgitEntity.trip)
+        request.predicate = NSPredicate(format: "\(LedgitTrip.Keys.key) == %@", key)
+        request.fetchLimit = 1
+
+        do {
+            let trips = try coreData.fetch(request)
+
+            guard let trip = trips.first as? NSManagedObject else {
+                LedgitLog.warning("Could not fetch trips with key: \(key)")
+                return nil
+            }
+
+            let data: NSDictionary = [
+                LedgitTrip.Keys.key: trip.value(forKey: LedgitTrip.Keys.key) as Any,
+                LedgitTrip.Keys.name: trip.value(forKey: LedgitTrip.Keys.name) as Any,
+                LedgitTrip.Keys.users: trip.value(forKey: LedgitTrip.Keys.users) as Any,
+                LedgitTrip.Keys.owner: trip.value(forKey: LedgitTrip.Keys.owner) as Any,
+                LedgitTrip.Keys.length: trip.value(forKey: LedgitTrip.Keys.length) as Any,
+                LedgitTrip.Keys.endDate: trip.value(forKey: LedgitTrip.Keys.endDate) as Any,
+                LedgitTrip.Keys.budget: trip.value(forKey: LedgitTrip.Keys.budget) as Any,
+                LedgitTrip.Keys.startDate: trip.value(forKey: LedgitTrip.Keys.startDate) as Any,
+                LedgitTrip.Keys.currencies: trip.value(forKey: LedgitTrip.Keys.currencies) as Any,
+                LedgitTrip.Keys.budgetSelection: trip.value(forKey: LedgitTrip.Keys.budgetSelection) as Any
+            ]
+
+            guard let ledgitTrip = LedgitTrip(dict: data) else {
+                LedgitLog.critical("Could not generate Ledgit trip from core data managed object")
+                return nil
+            }
+
+            return ledgitTrip
+
+        } catch {
+            LedgitLog.critical("Something is wrong. Could not get core data trips")
+            return nil
+        }
+    }
+
     private func fetchCoreDataTrip() {
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: Constants.LedgitEntity.trip)
 

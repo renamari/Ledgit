@@ -65,6 +65,7 @@ class MainViewController: UIViewController {
         pageViewController.setViewControllers([firstViewController], direction: .forward, animated: true, completion: nil)
 
         tutorialView.addSubview(pageViewController.view)
+        pageViewController.view.translatesAutoresizingMaskIntoConstraints = false
         pageViewController.view.topAnchor.constraint(equalTo: tutorialView.topAnchor).isActive = true
         pageViewController.view.bottomAnchor.constraint(equalTo: tutorialView.bottomAnchor).isActive = true
         pageViewController.view.leadingAnchor.constraint(equalTo: tutorialView.leadingAnchor).isActive = true

@@ -171,6 +171,7 @@ extension MainViewController: AuthenticationPresenterDelegate {
         LedgitUser.current = user
 
         let navigationController = TripsNavigationController.instantiate(from: .trips)
+        navigationController.modalPresentationStyle = .fullScreen
         present(navigationController, animated: true, completion: nil)
     }
 

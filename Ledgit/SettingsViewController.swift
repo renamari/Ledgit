@@ -129,6 +129,7 @@ class SettingsViewController: UIViewController {
 extension SettingsViewController: SettingsPresenterDelegate {
     func signedout() {
         let navigationController = MainNavigationController.instantiate(from: .main)
+        navigationController.modalPresentationStyle = .fullScreen
         present(navigationController, animated: true, completion: nil)
     }
 }

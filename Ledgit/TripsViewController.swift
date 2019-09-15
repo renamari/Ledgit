@@ -21,13 +21,6 @@ class TripsViewController: UIViewController {
         setupPresenter()
     }
 
-    override func viewWillAppear(_ animated: Bool) {
-        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
-        navigationController?.navigationBar.shadowImage = UIImage()
-        navigationController?.navigationBar.isTranslucent = true
-        navigationController?.view.backgroundColor = LedgitColor.navigationBarGray
-    }
-
     func setupPresenter() {
         presenter.delegate = self
         presenter.retrieveTrips()
@@ -39,7 +32,6 @@ class TripsViewController: UIViewController {
         tripsTableView.rowHeight = UITableView.automaticDimension
         tripsTableView.estimatedRowHeight = 200
         tripsTableView.sectionHeaderHeight = 10
-        tripsTableView.backgroundColor = .white
     }
 
     @IBAction func addTripButtonPressed(_ sender: Any) {
@@ -124,7 +116,7 @@ extension TripsViewController: UITableViewDataSource {
             popTip.shouldDismissOnTap = true
             popTip.show(text: "Check out this sample trip. Swipe left to remove.",
                         direction: .down, maxWidth: 300,
-                        in: view, from: cell.frame, duration: 5)
+                        in: view, from: cell.frame, duration: 3)
         }
 
         return cell

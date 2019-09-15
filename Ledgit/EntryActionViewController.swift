@@ -88,11 +88,11 @@ class EntryActionViewController: UIViewController { //swiftlint:disable:this typ
         super.viewWillAppear(animated)
         view.endEditing(true)
         activeTextField?.resignFirstResponder()
-        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
-        navigationController?.navigationBar.shadowImage = UIImage()
-        navigationController?.view.backgroundColor = LedgitColor.coreBlue
-        navigationController?.navigationBar.barTintColor = LedgitColor.coreBlue
-        view.backgroundColor = LedgitColor.coreBlue
+//        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+//        navigationController?.navigationBar.shadowImage = UIImage()
+//        navigationController?.view.backgroundColor = LedgitColor.coreBlue
+//        navigationController?.navigationBar.barTintColor = LedgitColor.coreBlue
+//        view.backgroundColor = LedgitColor.coreBlue
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -302,21 +302,6 @@ class EntryActionViewController: UIViewController { //swiftlint:disable:this typ
 
     func textFieldsValidated() -> Bool {
         var validated = true
-//        if locationTextField.text?.isEmpty == true {
-//            locationTextField.errorMessage = "Enter a city"
-//            validated = false
-//        }
-
-//        if descriptionTextField.text?.isEmpty == true {
-//            descriptionTextField.errorMessage = "Enter a description"
-//            validated = false
-//        }
-//
-//        if selectedCategory == nil {
-//            categoryTextField.errorMessage = "Select a category"
-//            validated = false
-//        }
-
         if amountTextField.text?.isEmpty == true {
             amountTextField.errorMessage = "Enter an amount"
             validated = false
@@ -549,7 +534,6 @@ extension EntryActionViewController: UITextFieldDelegate {
         case dateTextField:
             datePicker = UIDatePicker()
             datePicker?.datePickerMode = .date
-            datePicker?.backgroundColor = .white
             datePicker?.addTarget(self, action: #selector(datePickerValueChanged), for: .valueChanged)
 
             dateTextField.inputView = datePicker

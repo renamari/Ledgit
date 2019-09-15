@@ -88,10 +88,7 @@ class TripDetailViewController: UIViewController {
     func setupNavigationBar() {
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         navigationController?.navigationBar.shadowImage = UIImage()
-        navigationController?.navigationBar.isTranslucent = true
-        navigationController?.view.backgroundColor = LedgitColor.navigationBarGray
 
-        navigationItem.largeTitleDisplayMode = UIScreen.main.nativeBounds.height <= 1136 ? .never : .automatic
         navigationItem.rightBarButtonItems = shouldDisplayExportButton ? [addButton, exportButton] : [addButton]
     }
 
@@ -251,7 +248,7 @@ extension TripDetailViewController: UIViewControllerTransitioningDelegate {
 
         transition.transitionMode = .present
         transition.startingPoint = startingPoint
-        transition.bubbleColor = LedgitColor.coreBlue
+        transition.bubbleColor = UIColor(named: "primaryActionBackground")!
         return transition
     }
 
@@ -268,7 +265,7 @@ extension TripDetailViewController: UIViewControllerTransitioningDelegate {
 
         transition.transitionMode = .dismiss
         transition.startingPoint = startingPoint
-        transition.bubbleColor = LedgitColor.coreBlue
+        transition.bubbleColor = UIColor(named: "primaryActionBackground")!
         return transition
     }
 }

@@ -505,8 +505,8 @@
 			children = (
 				8D2AEC1C1F4D148200227FC6 /* History Table View Cell */,
 				8DDDD6B21F473EFA0053146B /* TripDetailViewController.swift */,
-				8D656AA21F94480800C85A0F /* EntryActionViewController.swift */,
 				8DAC30E32311A7CE002E9C17 /* TripSelectionTableViewController.swift */,
+				8D656AA21F94480800C85A0F /* EntryActionViewController.swift */,
 				8DFAE89E1FCB9B1500B4734B /* CategorySelectionViewController.swift */,
 				8D4E68202228EDB3009939BE /* SummaryViewController.swift */,
 				8D4E68222228EDBB009939BE /* CategoryViewController.swift */,

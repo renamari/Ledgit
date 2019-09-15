@@ -14,7 +14,7 @@ protocol CurrencySelectionDelegate: class {
 
 class CurrencySelectionViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var searchBar: UISearchBar!
+    private let searchController = UISearchController(searchResultsController: nil)
     weak var delegate: CurrencySelectionDelegate?
     lazy var selectedCurrencies: [LedgitCurrency] = []
     lazy var filteredCurrencies: [LedgitCurrency] = []
@@ -23,20 +23,27 @@ class CurrencySelectionViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupNavigationBar()
+        setupSearchController()
         setupTableView()
-        setupSearchBar()
     }
 
     override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
         if allowsMultipleSelection {
             delegate?.selected(selectedCurrencies)
         }
     }
 
-    func setupSearchBar() {
-        searchBar.delegate = self
+    func setupNavigationBar() {
+        navigationItem.largeTitleDisplayMode = .never
+    }
 
-        tableView.contentOffset.y = searchBar.frame.height
+    func setupSearchController() {
+        searchController.searchResultsUpdater = self
+        searchController.obscuresBackgroundDuringPresentation = false
+        navigationItem.hidesSearchBarWhenScrolling = false
+        navigationItem.searchController = searchController
     }
 
     func setupTableView() {
@@ -52,18 +59,15 @@ class CurrencySelectionViewController: UIViewController {
     }
 }
 
-extension CurrencySelectionViewController: UISearchBarDelegate {
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+extension CurrencySelectionViewController: UISearchResultsUpdating {
+    func updateSearchResults(for searchController: UISearchController) {
+        let searchText = searchController.searchBar.text ?? ""
         let visibleCurrencies = LedgitCurrency.all
         filteredCurrencies = visibleCurrencies.filter {
             $0.code.lowercased().contains(searchText.lowercased()) ||
                 $0.name.lowercased().contains(searchText.lowercased())
         }
         tableView.reloadData()
-    }
-
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        searchBar.resignFirstResponder()
     }
 }
 

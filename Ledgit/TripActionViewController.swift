@@ -53,22 +53,15 @@ class TripActionViewController: UIViewController {
             switch budgetSelection {
             case .daily:
                 budgetPickerLabel.text("DAILY")
-                budgetPickerDailyButton.color(LedgitColor.navigationTextGray)
+                budgetPickerDailyButton.color(UIColor(named: "primaryTextColor")!)
                 budgetPickerTripButton.color(.clear)
 
             case .trip:
                 budgetPickerLabel.text("TRIP")
-                budgetPickerTripButton.color(LedgitColor.navigationTextGray)
+                budgetPickerTripButton.color(UIColor(named: "primaryTextColor")!)
                 budgetPickerDailyButton.color(.clear)
             }
         }
-    }
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        activeTextField?.resignFirstResponder()
-    }
-    override func viewWillAppear(_ animated: Bool) {
-        setupNavigationBar()
     }
 
     override func viewDidLoad() {
@@ -76,15 +69,18 @@ class TripActionViewController: UIViewController {
         setupBudgetPicker()
         setupTextFields()
         setupObservers()
-        setupBars()
         setupView()
     }
 
-    func setupNavigationBar() {
-        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
-        navigationController?.navigationBar.shadowImage = UIImage()
-        navigationController?.navigationBar.isTranslucent = true
-        navigationController?.view.backgroundColor = .white
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        scrollView.contentOffset.y = 0
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        activeTextField?.resignFirstResponder()
     }
 
     func setupView() {
@@ -129,8 +125,8 @@ class TripActionViewController: UIViewController {
     }
 
     func setupBudgetPicker() {
-        budgetPickerDailyButton.roundedCorners(radius: budgetPickerButtonHeight / 2, borderColor: LedgitColor.navigationTextGray)
-        budgetPickerTripButton.roundedCorners(radius: budgetPickerButtonHeight / 2, borderColor: LedgitColor.navigationTextGray)
+        budgetPickerDailyButton.roundedCorners(radius: budgetPickerButtonHeight / 2, borderColor: UIColor(named: "primaryTextColor")!)
+        budgetPickerTripButton.roundedCorners(radius: budgetPickerButtonHeight / 2, borderColor: UIColor(named: "primaryTextColor")!)
 
         switch method {
         case .edit:
@@ -151,15 +147,6 @@ class TripActionViewController: UIViewController {
         let center = NotificationCenter.default
         center.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         center.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
-    }
-
-    func setupBars() {
-        navigationController?.navigationBar.style { bar in
-            bar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
-            bar.shadowImage = UIImage()
-            bar.isTranslucent = false
-            bar.isOpaque = true
-        }
     }
 
     func createToolbar() -> UIToolbar {
@@ -285,6 +272,12 @@ class TripActionViewController: UIViewController {
         }
     }
 
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        budgetPickerDailyButton.roundedCorners(radius: budgetPickerButtonHeight / 2, borderColor: UIColor(named: "primaryTextColor")!)
+        budgetPickerTripButton.roundedCorners(radius: budgetPickerButtonHeight / 2, borderColor: UIColor(named: "primaryTextColor")!)
+    }
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == Constants.SegueIdentifiers.currencySelection {
             guard let destinationViewController = segue.destination as? CurrencySelectionViewController else { return }
@@ -300,12 +293,11 @@ extension TripActionViewController: UITextFieldDelegate {
         guard let info = notification.userInfo else { return }
         guard let keyboard = info[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else { return }
 
-        scrollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: keyboard.height, right: 0)
+        scrollView.contentInset.bottom = keyboard.height
     }
 
     @objc func keyboardWillHide(notification:NSNotification) {
-        let contentInset: UIEdgeInsets = .zero
-        scrollView.contentInset = contentInset
+        scrollView.contentInset.bottom = 0
     }
 
     func textFieldDidBeginEditing(_ textField: UITextField) {
@@ -314,7 +306,6 @@ extension TripActionViewController: UITextFieldDelegate {
         if textField == startDateTextField || textField == endDateTextField {
             datePicker = UIDatePicker()
             datePicker?.datePickerMode = .date
-            datePicker?.backgroundColor = .white
             datePicker?.addTarget(self, action: #selector(datePickerValueChanged), for: .valueChanged)
             textField.inputView = datePicker
             textField.inputAccessoryView = createToolbar()
@@ -349,10 +340,6 @@ extension TripActionViewController: UITextFieldDelegate {
                 }
             }
 
-        } else if textField == currenciesTextField {
-
-            performSegue(withIdentifier: Constants.SegueIdentifiers.currencySelection, sender: self)
-
         } else if textField == budgetTextField {
             if let text = textField.text {
                 let budgetText = text.replacingOccurrences(of: LedgitUser.current.homeCurrency.symbol, with: "").replacingOccurrences(of: ",", with: "")
@@ -361,6 +348,14 @@ extension TripActionViewController: UITextFieldDelegate {
 
             textField.inputAccessoryView = createToolbar()
         }
+    }
+
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        guard textField == currenciesTextField else { return true }
+
+        performSegue(withIdentifier: Constants.SegueIdentifiers.currencySelection, sender: self)
+
+        return false
     }
 
     func textFieldDidEndEditing(_ textField: UITextField) {

@@ -18,9 +18,14 @@ class CategoriesViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupNavigationBar()
         setupPresenter()
         setupTableView()
         setupAddButton()
+    }
+
+    func setupNavigationBar() {
+        navigationItem.largeTitleDisplayMode = .never
     }
 
     func setupPresenter() {
@@ -34,12 +39,7 @@ class CategoriesViewController: UIViewController {
     }
 
     func setupAddButton() {
-        let rightButton:UIButton = UIButton()
-        rightButton.setImage(#imageLiteral(resourceName: "add-icon"), for: .normal)
-        rightButton.addTarget(self, action: #selector(addButtonPressed), for: .touchUpInside)
-
-        let barButton = UIBarButtonItem(customView: rightButton)
-        navigationItem.rightBarButtonItem = barButton
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addButtonPressed))
     }
 
     @objc func addButtonPressed() {

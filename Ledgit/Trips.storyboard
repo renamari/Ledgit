@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="tDP-Xe-Ss9">
-    <device id="retina5_5" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14868" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="tDP-Xe-Ss9">
+    <device id="retina5_5" orientation="portrait" appearance="dark"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="Stack View standard spacing" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -15,12 +15,12 @@
             <objects>
                 <viewController id="rT7-y4-Veg" customClass="TripsViewController" customModule="Ledgit" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="L9P-rn-s5n">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="620"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="121" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Ahf-h5-uJn">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="620"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="692"/>
+                                <color key="backgroundColor" systemColor="systemGray6Color" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="TripCell" rowHeight="157" id="nko-iu-Ovo" customClass="TripTableViewCell" customModule="Ledgit" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="414" height="157"/>
@@ -79,7 +79,7 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                     </subviews>
-                                                    <color key="backgroundColor" red="0.94901960780000005" green="0.96078431369999995" blue="0.96862745100000003" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="backgroundColor" systemColor="systemGray5Color" red="0.8980392157" green="0.8980392157" blue="0.91764705879999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
                                                         <constraint firstItem="ZMo-Rd-uYC" firstAttribute="leading" secondItem="vDi-dp-b6m" secondAttribute="leading" constant="20" id="4j0-aa-YbL"/>
                                                         <constraint firstItem="xF7-qw-Bl3" firstAttribute="top" secondItem="vDi-dp-b6m" secondAttribute="top" constant="-3" id="AAl-fz-x1f"/>
@@ -101,8 +101,10 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="bottomImageView" destination="Qii-Hi-NOw" id="gQi-6d-6l4"/>
                                             <outlet property="bottomLabel" destination="3yO-F4-plb" id="YSq-wG-bPT"/>
                                             <outlet property="mainView" destination="vDi-dp-b6m" id="qxA-QS-jt1"/>
+                                            <outlet property="topImageView" destination="w5d-Cr-WG0" id="TC0-Ge-z71"/>
                                             <outlet property="topLabel" destination="n1V-MV-iwq" id="eyH-9k-u9W"/>
                                             <outlet property="tripColorImageView" destination="xF7-qw-Bl3" id="yaY-ef-sit"/>
                                             <outlet property="tripNameLabel" destination="ZMo-Rd-uYC" id="fZB-Pn-ibQ"/>
@@ -111,7 +113,7 @@
                                 </prototypes>
                             </tableView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" systemColor="systemGray6Color" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="Ahf-h5-uJn" firstAttribute="leading" secondItem="DNg-DK-lMJ" secondAttribute="leading" id="B99-Qn-jFE"/>
                             <constraint firstItem="Ahf-h5-uJn" firstAttribute="top" secondItem="DNg-DK-lMJ" secondAttribute="top" id="KQZ-vq-Imw"/>
@@ -147,12 +149,12 @@
             <objects>
                 <viewController id="iYW-8d-Q69" customClass="TripDetailViewController" customModule="Ledgit" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="AcQ-9J-PqJ">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="620"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="640"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="65H-fB-A9T" customClass="BetterSegmentedControl" customModule="BetterSegmentedControl">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="30"/>
-                                <color key="backgroundColor" red="0.94901960784313721" green="0.96078431372549022" blue="0.96862745098039216" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="kps-uX-VqI"/>
                                 </constraints>
@@ -161,7 +163,7 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" red="0.94901960784313721" green="0.96078431372549022" blue="0.96862745098039216" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" systemColor="systemGray6Color" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="65H-fB-A9T" firstAttribute="leading" secondItem="ejT-oj-tZ7" secondAttribute="leading" id="CNw-Qr-N7Z"/>
                             <constraint firstItem="65H-fB-A9T" firstAttribute="top" secondItem="ejT-oj-tZ7" secondAttribute="top" id="UVP-7C-gLG"/>
@@ -183,11 +185,11 @@
             <objects>
                 <viewController storyboardIdentifier="EntryActionViewController" id="W7m-iS-sfS" customClass="EntryActionViewController" customModule="Ledgit" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="zdZ-34-Oui">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="716"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fkT-Q2-Hee">
-                                <rect key="frame" x="0.0" y="116" width="414" height="620"/>
+                                <rect key="frame" x="0.0" y="108" width="414" height="608"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="25" translatesAutoresizingMaskIntoConstraints="NO" id="zps-Xm-Xsl">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="515"/>
@@ -197,7 +199,6 @@
                                                 <subviews>
                                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="6bJ-hX-UiY" customClass="SkyFloatingLabelTextField" customModule="SkyFloatingLabelTextField">
                                                         <rect key="frame" x="0.0" y="0.0" width="172" height="55"/>
-                                                        <nil key="textColor"/>
                                                         <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="17"/>
                                                         <textInputTraits key="textInputTraits"/>
                                                         <userDefinedRuntimeAttributes>
@@ -248,7 +249,7 @@
                                                                 <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             </userDefinedRuntimeAttribute>
                                                             <userDefinedRuntimeAttribute type="color" keyPath="placeholderColor">
-                                                                <color key="value" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                                                <color key="value" systemColor="placeholderTextColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
                                                             </userDefinedRuntimeAttribute>
                                                             <userDefinedRuntimeAttribute type="number" keyPath="lineHeight">
                                                                 <real key="value" value="0.0"/>
@@ -266,7 +267,6 @@
                                                 <subviews>
                                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="7P4-ze-tyw" customClass="SkyFloatingLabelTextField" customModule="SkyFloatingLabelTextField">
                                                         <rect key="frame" x="0.0" y="0.0" width="172" height="55"/>
-                                                        <nil key="textColor"/>
                                                         <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="17"/>
                                                         <textInputTraits key="textInputTraits"/>
                                                         <userDefinedRuntimeAttributes>
@@ -298,7 +298,6 @@
                                                     </textField>
                                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="3Te-as-az1" customClass="SkyFloatingLabelTextField" customModule="SkyFloatingLabelTextField">
                                                         <rect key="frame" x="182" y="0.0" width="172" height="55"/>
-                                                        <nil key="textColor"/>
                                                         <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="17"/>
                                                         <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
                                                         <userDefinedRuntimeAttributes>
@@ -317,7 +316,7 @@
                                                             <userDefinedRuntimeAttribute type="string" keyPath="selectedTitle" value="Amount"/>
                                                             <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="Enter an amount..."/>
                                                             <userDefinedRuntimeAttribute type="color" keyPath="placeholderColor">
-                                                                <color key="value" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                                                <color key="value" systemColor="placeholderTextColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
                                                             </userDefinedRuntimeAttribute>
                                                             <userDefinedRuntimeAttribute type="number" keyPath="lineHeight">
                                                                 <real key="value" value="0.0"/>
@@ -341,7 +340,6 @@
                                                 <subviews>
                                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="l5u-Tk-Zhw" customClass="SkyFloatingLabelTextField" customModule="SkyFloatingLabelTextField">
                                                         <rect key="frame" x="0.0" y="0.0" width="172" height="55"/>
-                                                        <nil key="textColor"/>
                                                         <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="17"/>
                                                         <textInputTraits key="textInputTraits"/>
                                                         <userDefinedRuntimeAttributes>
@@ -361,7 +359,7 @@
                                                                 <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             </userDefinedRuntimeAttribute>
                                                             <userDefinedRuntimeAttribute type="color" keyPath="placeholderColor">
-                                                                <color key="value" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                                                <color key="value" systemColor="placeholderTextColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
                                                             </userDefinedRuntimeAttribute>
                                                             <userDefinedRuntimeAttribute type="color" keyPath="textColor">
                                                                 <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -373,7 +371,6 @@
                                                     </textField>
                                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="ukw-5T-TnH" customClass="SkyFloatingLabelTextField" customModule="SkyFloatingLabelTextField">
                                                         <rect key="frame" x="182" y="0.0" width="172" height="55"/>
-                                                        <nil key="textColor"/>
                                                         <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="17"/>
                                                         <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="decimalPad"/>
                                                         <userDefinedRuntimeAttributes>
@@ -390,7 +387,7 @@
                                                                 <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             </userDefinedRuntimeAttribute>
                                                             <userDefinedRuntimeAttribute type="color" keyPath="placeholderColor">
-                                                                <color key="value" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                                                <color key="value" systemColor="placeholderTextColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
                                                             </userDefinedRuntimeAttribute>
                                                             <userDefinedRuntimeAttribute type="color" keyPath="titleColor">
                                                                 <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -410,7 +407,6 @@
                                             </stackView>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="JUm-XO-mAz" customClass="SkyFloatingLabelTextField" customModule="SkyFloatingLabelTextField">
                                                 <rect key="frame" x="30" y="300" width="354" height="55"/>
-                                                <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="17"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="done"/>
                                                 <userDefinedRuntimeAttributes>
@@ -427,7 +423,7 @@
                                                         <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     </userDefinedRuntimeAttribute>
                                                     <userDefinedRuntimeAttribute type="color" keyPath="placeholderColor">
-                                                        <color key="value" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                                        <color key="value" systemColor="placeholderTextColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
                                                     </userDefinedRuntimeAttribute>
                                                     <userDefinedRuntimeAttribute type="string" keyPath="selectedTitle" value="Description"/>
                                                     <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="And a description..."/>
@@ -442,7 +438,6 @@
                                             </textField>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="8Jc-3c-eWL" customClass="SkyFloatingLabelTextField" customModule="SkyFloatingLabelTextField">
                                                 <rect key="frame" x="30" y="380" width="354" height="55"/>
-                                                <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="17"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="done"/>
                                                 <userDefinedRuntimeAttributes>
@@ -459,7 +454,7 @@
                                                         <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     </userDefinedRuntimeAttribute>
                                                     <userDefinedRuntimeAttribute type="color" keyPath="placeholderColor">
-                                                        <color key="value" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                                        <color key="value" systemColor="placeholderTextColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
                                                     </userDefinedRuntimeAttribute>
                                                     <userDefinedRuntimeAttribute type="string" keyPath="selectedTitle" value="Adding Entry To"/>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="lineHeight">
@@ -558,7 +553,7 @@
                                 </constraints>
                             </scrollView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" name="primaryActionBackground"/>
                         <constraints>
                             <constraint firstItem="fkT-Q2-Hee" firstAttribute="top" secondItem="11N-Bg-P8y" secondAttribute="top" id="8Un-hD-4qw"/>
                             <constraint firstItem="fkT-Q2-Hee" firstAttribute="bottom" secondItem="11N-Bg-P8y" secondAttribute="bottom" id="Dib-nq-MXT"/>
@@ -616,39 +611,35 @@
             <objects>
                 <viewController storyboardIdentifier="CategorySelectionViewController" id="qdU-Q6-rKS" customClass="CategorySelectionViewController" customModule="Ledgit" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="t3H-SQ-0g4">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="716"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="x18-81-ktH">
-                                <rect key="frame" x="0.0" y="20" width="414" height="716"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <searchBar key="tableHeaderView" contentMode="redraw" searchBarStyle="minimal" id="95z-g8-lf5">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                                    <textInputTraits key="textInputTraits"/>
-                                </searchBar>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="716"/>
+                                <color key="backgroundColor" systemColor="secondarySystemGroupedBackgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="CategorySelectionCell" textLabel="e3b-Fn-Cbo" rowHeight="59" style="IBUITableViewCellStyleDefault" id="6ND-Km-w5X">
-                                        <rect key="frame" x="0.0" y="72" width="414" height="59"/>
+                                        <rect key="frame" x="0.0" y="28" width="414" height="59"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="6ND-Km-w5X" id="hVp-O3-BHb">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="58.666666666666664"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="59"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Food" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="e3b-Fn-Cbo">
-                                                    <rect key="frame" x="20" y="0.0" width="374" height="58.666666666666664"/>
+                                                    <rect key="frame" x="20" y="0.0" width="374" height="59"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="17"/>
-                                                    <color key="textColor" red="0.32941176470588235" green="0.46666666666666667" blue="0.53333333333333333" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <color key="textColor" name="primaryTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" systemColor="secondarySystemGroupedBackgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" systemColor="secondarySystemGroupedBackgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="auy-Lw-rON" firstAttribute="trailing" secondItem="x18-81-ktH" secondAttribute="trailing" id="Grm-WD-ypC"/>
                             <constraint firstAttribute="bottom" secondItem="x18-81-ktH" secondAttribute="bottom" id="REv-cC-YeB"/>
@@ -658,7 +649,6 @@
                         <viewLayoutGuide key="safeArea" id="auy-Lw-rON"/>
                     </view>
                     <connections>
-                        <outlet property="searchBar" destination="95z-g8-lf5" id="d4P-qT-fU4"/>
                         <outlet property="tableView" destination="x18-81-ktH" id="UeB-C6-Mel"/>
                     </connections>
                 </viewController>
@@ -671,26 +661,27 @@
             <objects>
                 <tableViewController id="6Ag-n6-qBC" customClass="TripSelectionTableViewController" customModule="Ledgit" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="9rm-V5-RxW">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="716"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" systemColor="secondarySystemGroupedBackgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="TripCell" textLabel="7KI-gX-K4S" rowHeight="66" style="IBUITableViewCellStyleDefault" id="PjX-Js-5Z0">
                                 <rect key="frame" x="0.0" y="28" width="414" height="66"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="PjX-Js-5Z0" id="RH0-Up-Bts">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="65.666666666666671"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="66"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Europe 2018" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="7KI-gX-K4S">
-                                            <rect key="frame" x="20" y="0.0" width="374" height="65.666666666666671"/>
+                                            <rect key="frame" x="20" y="0.0" width="374" height="66"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="17"/>
-                                            <color key="textColor" red="0.35865464806556702" green="0.46112567186355591" blue="0.52942252159118652" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                            <color key="textColor" name="primaryTextColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
                                 </tableViewCellContentView>
+                                <color key="backgroundColor" systemColor="secondarySystemGroupedBackgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -715,14 +706,14 @@
             <objects>
                 <viewController storyboardIdentifier="TripActionViewController" title="Create Trip" id="gAQ-FT-6Fr" customClass="TripActionViewController" customModule="Ledgit" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="S2W-gP-LgZ">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="716"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SmP-90-hk0">
-                                <rect key="frame" x="0.0" y="116" width="414" height="620"/>
+                                <rect key="frame" x="0.0" y="108" width="414" height="608"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6yn-T8-NWc" userLabel="Content View">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="620"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="608"/>
                                         <subviews>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" image="map-icon" translatesAutoresizingMaskIntoConstraints="NO" id="fP3-1T-sJT">
                                                 <rect key="frame" x="40" y="30" width="334" height="100"/>
@@ -730,7 +721,7 @@
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Let's create a new trip" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="J2W-3S-aIq">
                                                 <rect key="frame" x="40" y="160" width="334" height="26"/>
                                                 <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="20"/>
-                                                <color key="textColor" red="0.24705882352941178" green="0.37647058823529411" blue="0.44705882352941173" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="textColor" name="primaryTextColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="dzl-zr-pv5" userLabel="Form">
@@ -738,13 +729,12 @@
                                                 <subviews>
                                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tuj-vw-GU8" customClass="SkyFloatingLabelTextField" customModule="SkyFloatingLabelTextField">
                                                         <rect key="frame" x="0.0" y="0.0" width="354" height="43.666666666666664"/>
-                                                        <nil key="textColor"/>
                                                         <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="17"/>
                                                         <textInputTraits key="textInputTraits" autocapitalizationType="words" autocorrectionType="yes"/>
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="string" keyPath="selectedTitle" value="Name"/>
                                                             <userDefinedRuntimeAttribute type="color" keyPath="textColor">
-                                                                <color key="value" red="0.32849234342575073" green="0.4658738374710083" blue="0.5328328013420105" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                <color key="value" name="primaryTextColor"/>
                                                             </userDefinedRuntimeAttribute>
                                                             <userDefinedRuntimeAttribute type="number" keyPath="selectedLineHeight">
                                                                 <real key="value" value="1"/>
@@ -766,13 +756,12 @@
                                                         <subviews>
                                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Z9s-7X-rEH" customClass="SkyFloatingLabelTextField" customModule="SkyFloatingLabelTextField">
                                                                 <rect key="frame" x="0.0" y="0.0" width="172" height="43.666666666666664"/>
-                                                                <nil key="textColor"/>
                                                                 <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="17"/>
                                                                 <textInputTraits key="textInputTraits"/>
                                                                 <userDefinedRuntimeAttributes>
                                                                     <userDefinedRuntimeAttribute type="string" keyPath="selectedTitle" value="Start Date"/>
                                                                     <userDefinedRuntimeAttribute type="color" keyPath="textColor">
-                                                                        <color key="value" red="0.3284923434" green="0.4658738375" blue="0.53283280129999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                        <color key="value" name="primaryTextColor"/>
                                                                     </userDefinedRuntimeAttribute>
                                                                     <userDefinedRuntimeAttribute type="number" keyPath="lineHeight">
                                                                         <real key="value" value="0.0"/>
@@ -791,13 +780,12 @@
                                                             </textField>
                                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="jge-oE-wSb" customClass="SkyFloatingLabelTextField" customModule="SkyFloatingLabelTextField">
                                                                 <rect key="frame" x="182" y="0.0" width="172" height="43.666666666666664"/>
-                                                                <nil key="textColor"/>
                                                                 <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="17"/>
                                                                 <textInputTraits key="textInputTraits"/>
                                                                 <userDefinedRuntimeAttributes>
                                                                     <userDefinedRuntimeAttribute type="string" keyPath="selectedTitle" value="End Date"/>
                                                                     <userDefinedRuntimeAttribute type="color" keyPath="textColor">
-                                                                        <color key="value" red="0.3284923434" green="0.4658738375" blue="0.53283280129999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                        <color key="value" name="primaryTextColor"/>
                                                                     </userDefinedRuntimeAttribute>
                                                                     <userDefinedRuntimeAttribute type="number" keyPath="lineHeight">
                                                                         <real key="value" value="0.0"/>
@@ -821,13 +809,12 @@
                                                         <subviews>
                                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="UJA-Sh-kOg" customClass="SkyFloatingLabelTextField" customModule="SkyFloatingLabelTextField">
                                                                 <rect key="frame" x="0.0" y="0.0" width="172" height="43.666666666666664"/>
-                                                                <nil key="textColor"/>
                                                                 <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="17"/>
                                                                 <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="decimalPad"/>
                                                                 <userDefinedRuntimeAttributes>
                                                                     <userDefinedRuntimeAttribute type="string" keyPath="selectedTitle" value="Budget"/>
                                                                     <userDefinedRuntimeAttribute type="color" keyPath="textColor">
-                                                                        <color key="value" red="0.3284923434" green="0.4658738375" blue="0.53283280129999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                        <color key="value" name="primaryTextColor"/>
                                                                     </userDefinedRuntimeAttribute>
                                                                     <userDefinedRuntimeAttribute type="number" keyPath="lineHeight">
                                                                         <real key="value" value="0.0"/>
@@ -850,7 +837,7 @@
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="DAILY" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oIa-7o-ihN">
                                                                         <rect key="frame" x="0.0" y="0.0" width="172" height="15.666666666666666"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                                                        <color key="textColor" red="0.50190365314483643" green="0.50199371576309204" blue="0.50189799070358276" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                        <color key="textColor" systemColor="systemGrayColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" translatesAutoresizingMaskIntoConstraints="NO" id="qzc-JK-0Iw">
@@ -858,7 +845,7 @@
                                                                         <subviews>
                                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Iok-6y-Lsr">
                                                                                 <rect key="frame" x="0.0" y="0.0" width="20" height="20"/>
-                                                                                <color key="backgroundColor" red="0.3284923434" green="0.4658738375" blue="0.53283280129999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                                <color key="backgroundColor" name="primaryTextColor"/>
                                                                                 <constraints>
                                                                                     <constraint firstAttribute="width" constant="20" id="9UZ-jG-V8l"/>
                                                                                     <constraint firstAttribute="height" constant="20" id="Ycx-Vn-RLe"/>
@@ -869,7 +856,7 @@
                                                                             </button>
                                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IF2-9C-WcE">
                                                                                 <rect key="frame" x="152" y="0.0" width="20" height="20"/>
-                                                                                <color key="backgroundColor" red="0.3284923434" green="0.4658738375" blue="0.53283280129999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                                <color key="backgroundColor" name="primaryTextColor"/>
                                                                                 <constraints>
                                                                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="20" id="5QK-Ab-nBO"/>
                                                                                     <constraint firstAttribute="height" constant="20" id="89l-DC-6uQ"/>
@@ -888,13 +875,12 @@
                                                     </stackView>
                                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="1gw-ym-OM3" customClass="SkyFloatingLabelTextField" customModule="SkyFloatingLabelTextField">
                                                         <rect key="frame" x="0.0" y="191" width="354" height="43.666666666666657"/>
-                                                        <nil key="textColor"/>
                                                         <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="17"/>
                                                         <textInputTraits key="textInputTraits" autocorrectionType="no"/>
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="string" keyPath="selectedTitle" value="Currencies"/>
                                                             <userDefinedRuntimeAttribute type="color" keyPath="textColor">
-                                                                <color key="value" red="0.3284923434" green="0.4658738375" blue="0.53283280129999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                <color key="value" name="primaryTextColor"/>
                                                             </userDefinedRuntimeAttribute>
                                                             <userDefinedRuntimeAttribute type="number" keyPath="lineHeight">
                                                                 <real key="value" value="0.0"/>
@@ -914,7 +900,7 @@
                                                 </subviews>
                                             </stackView>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xfg-JP-xZW">
-                                                <rect key="frame" x="40" y="550" width="334" height="50"/>
+                                                <rect key="frame" x="40" y="538" width="334" height="50"/>
                                                 <color key="backgroundColor" red="0.18823529411764706" green="0.5490196078431373" blue="0.97647058823529409" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="50" id="INI-bV-dB0"/>
@@ -928,7 +914,7 @@
                                                 </connections>
                                             </button>
                                         </subviews>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="bottom" secondItem="Xfg-JP-xZW" secondAttribute="bottom" constant="20" id="4Fb-nO-Scw"/>
                                             <constraint firstItem="fP3-1T-sJT" firstAttribute="leading" secondItem="6yn-T8-NWc" secondAttribute="leading" constant="40" id="Ajw-Eh-Lpk"/>
@@ -946,7 +932,7 @@
                                         </constraints>
                                     </view>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" systemColor="secondarySystemGroupedBackgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="6yn-T8-NWc" firstAttribute="centerY" secondItem="SmP-90-hk0" secondAttribute="centerY" id="8YZ-F5-Ihd"/>
                                     <constraint firstItem="6yn-T8-NWc" firstAttribute="top" secondItem="SmP-90-hk0" secondAttribute="top" id="Cfy-xf-Ftg"/>
@@ -957,7 +943,7 @@
                                 </constraints>
                             </scrollView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" systemColor="secondarySystemGroupedBackgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="6x4-PT-yF8" firstAttribute="trailing" secondItem="SmP-90-hk0" secondAttribute="trailing" id="0S7-we-Lko"/>
                             <constraint firstItem="SmP-90-hk0" firstAttribute="top" secondItem="6x4-PT-yF8" secondAttribute="top" id="Cgk-7s-t4C"/>
@@ -1142,7 +1128,7 @@
                                                 </subviews>
                                             </stackView>
                                         </subviews>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="backgroundColor" systemColor="tertiarySystemGroupedBackgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstItem="vEw-rh-rsT" firstAttribute="leading" secondItem="zm8-DS-j3u" secondAttribute="leading" constant="20" id="AuF-JD-mLO"/>
                                             <constraint firstItem="GkZ-NT-cV1" firstAttribute="top" secondItem="flM-eq-VaW" secondAttribute="bottom" constant="10" id="EkW-f5-wAd"/>
@@ -1189,13 +1175,16 @@
                         <outlet property="budgetTitleLabel" destination="OqC-mS-1zl" id="dd1-y3-1lF"/>
                         <outlet property="contentView" destination="zm8-DS-j3u" id="A4x-su-euY"/>
                         <outlet property="dayCostLabel" destination="eA0-1X-bku" id="ddI-B8-5bE"/>
+                        <outlet property="dayCostTitleLabel" destination="LV7-FX-nA8" id="Na9-KV-PAc"/>
                         <outlet property="dayLabel" destination="vEw-rh-rsT" id="rla-fT-1o8"/>
                         <outlet property="estimatedTripCostLabel" destination="21P-Tr-rrX" id="yco-Cw-NOX"/>
+                        <outlet property="estimatedTripCostTitleLabel" destination="kuU-9S-fJK" id="AnT-vX-6PW"/>
                         <outlet property="remainingLabel" destination="KOc-xh-7IN" id="3ij-UQ-8iH"/>
                         <outlet property="remainingStackView" destination="pUP-hD-qMA" id="6oq-X1-pBQ"/>
                         <outlet property="remainingTitleLabel" destination="GEV-jH-PL2" id="Fia-y2-Vbo"/>
                         <outlet property="scrollView" destination="xKf-Zn-AhR" id="KRa-ce-v0O"/>
                         <outlet property="totalTripCostLabel" destination="CX7-ad-IQ9" id="gZH-YJ-cc8"/>
+                        <outlet property="totalTripCostTitleLabel" destination="q8O-Uw-FGK" id="fVF-RX-jcd"/>
                         <outlet property="weeklyChart" destination="flM-eq-VaW" id="Ba7-mg-efz"/>
                     </connections>
                 </viewController>
@@ -1219,7 +1208,7 @@
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="62J-tr-aBl" customClass="PieChartView" customModule="Charts">
                                                 <rect key="frame" x="20" y="20" width="344" height="666"/>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             </view>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Hk-Cp-Lco">
                                                 <rect key="frame" x="334" y="20" width="30" height="30"/>
@@ -1236,7 +1225,7 @@
                                                 </connections>
                                             </button>
                                         </subviews>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="backgroundColor" systemColor="tertiarySystemGroupedBackgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstItem="4Hk-Cp-Lco" firstAttribute="top" secondItem="U7l-ZW-tl2" secondAttribute="top" constant="20" id="COY-oT-HX8"/>
                                             <constraint firstItem="62J-tr-aBl" firstAttribute="top" secondItem="U7l-ZW-tl2" secondAttribute="top" constant="20" id="Evt-Pd-VAz"/>
@@ -1292,34 +1281,34 @@
                                         <subviews>
                                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="IDD-KL-Yng">
                                                 <rect key="frame" x="20" y="70" width="344" height="616"/>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <color key="backgroundColor" systemColor="tertiarySystemGroupedBackgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <prototypes>
                                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="CityCell" id="kyw-0H-twb" customClass="CityTableViewCell" customModule="Ledgit" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="28" width="344" height="44"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="kyw-0H-twb" id="weQ-d0-mcO">
-                                                            <rect key="frame" x="0.0" y="0.0" width="344" height="43.666666666666664"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="344" height="44"/>
                                                             <autoresizingMask key="autoresizingMask"/>
                                                             <subviews>
                                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="bottom" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="Kka-LE-inx">
-                                                                    <rect key="frame" x="278" y="5" width="46" height="33.666666666666664"/>
+                                                                    <rect key="frame" x="278" y="5" width="46" height="34"/>
                                                                     <subviews>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="280-TD-6Py">
-                                                                            <rect key="frame" x="24" y="0.0" width="22" height="14.333333333333334"/>
+                                                                            <rect key="frame" x="24" y="0.0" width="22" height="14.666666666666666"/>
                                                                             <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="10"/>
                                                                             <color key="textColor" red="0.2470588235" green="0.37647058820000001" blue="0.44705882349999998" alpha="1" colorSpace="calibratedRGB"/>
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$387.54" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wo2-Wv-RmA">
-                                                                            <rect key="frame" x="0.0" y="19.333333333333332" width="46" height="14.333333333333332"/>
+                                                                            <rect key="frame" x="0.0" y="19.666666666666668" width="46" height="14.333333333333332"/>
                                                                             <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="12"/>
-                                                                            <color key="textColor" red="0.2470588235" green="0.37647058820000001" blue="0.44705882349999998" alpha="1" colorSpace="calibratedRGB"/>
+                                                                            <color key="textColor" red="0.18823529410000001" green="0.54901960780000003" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
                                                                     </subviews>
                                                                 </stackView>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Paris" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ac5-aX-5SH">
-                                                                    <rect key="frame" x="19.999999999999996" y="5" width="36.666666666666657" height="33.666666666666664"/>
+                                                                    <rect key="frame" x="19.999999999999996" y="5" width="36.666666666666657" height="34"/>
                                                                     <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="17"/>
                                                                     <color key="textColor" red="0.2470588235" green="0.37647058820000001" blue="0.44705882349999998" alpha="1" colorSpace="calibratedRGB"/>
                                                                     <nil key="highlightedColor"/>
@@ -1334,35 +1323,37 @@
                                                                 <constraint firstItem="ac5-aX-5SH" firstAttribute="height" secondItem="Kka-LE-inx" secondAttribute="height" id="vUy-KP-H2g"/>
                                                             </constraints>
                                                         </tableViewCellContentView>
+                                                        <color key="backgroundColor" systemColor="tertiarySystemGroupedBackgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <connections>
                                                             <outlet property="amountLabel" destination="Wo2-Wv-RmA" id="cdV-x1-ctY"/>
                                                             <outlet property="cityLabel" destination="ac5-aX-5SH" id="UPY-ti-Qis"/>
+                                                            <outlet property="totalLabel" destination="280-TD-6Py" id="YOm-OH-5S6"/>
                                                         </connections>
                                                     </tableViewCell>
                                                 </prototypes>
                                             </tableView>
                                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="bxW-Kb-zwP">
                                                 <rect key="frame" x="20" y="70" width="344" height="616"/>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <color key="backgroundColor" systemColor="tertiarySystemGroupedBackgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <prototypes>
                                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="DateCell" rowHeight="62" id="oGt-5w-Yuq" customClass="DateTableViewCell" customModule="Ledgit" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="28" width="344" height="62"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="oGt-5w-Yuq" id="JBG-q7-7Jd">
-                                                            <rect key="frame" x="0.0" y="0.0" width="306" height="61.666666666666664"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="312.66666666666669" height="62"/>
                                                             <autoresizingMask key="autoresizingMask"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$8.76" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ADO-lb-1AC">
-                                                                    <rect key="frame" x="263" y="22.333333333333332" width="35" height="16.999999999999996"/>
+                                                                    <rect key="frame" x="269.66666666666669" y="22.666666666666668" width="35" height="17.000000000000004"/>
                                                                     <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="13"/>
                                                                     <color key="textColor" red="0.18823529410000001" green="0.54901960780000003" blue="0.97647058819999999" alpha="1" colorSpace="calibratedRGB"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="ynG-AM-2gO">
-                                                                    <rect key="frame" x="8" y="14" width="247" height="34"/>
+                                                                    <rect key="frame" x="7.9999999999999858" y="14" width="253.66666666666663" height="34"/>
                                                                     <subviews>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tim Horton's Bagel and Coffee and love" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5SW-uj-jyV">
-                                                                            <rect key="frame" x="0.0" y="0.0" width="247" height="18.333333333333332"/>
+                                                                            <rect key="frame" x="0.0" y="0.0" width="253.66666666666666" height="18.333333333333332"/>
                                                                             <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="14"/>
                                                                             <color key="textColor" red="0.2470588235" green="0.37647058820000001" blue="0.44705882349999998" alpha="1" colorSpace="calibratedRGB"/>
                                                                             <nil key="highlightedColor"/>
@@ -1386,6 +1377,7 @@
                                                                 <constraint firstItem="ynG-AM-2gO" firstAttribute="leading" secondItem="JBG-q7-7Jd" secondAttribute="leading" constant="8" id="z30-a3-S3a"/>
                                                             </constraints>
                                                         </tableViewCellContentView>
+                                                        <color key="backgroundColor" systemColor="tertiarySystemGroupedBackgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <connections>
                                                             <outlet property="amountLabel" destination="ADO-lb-1AC" id="qY7-3g-EJi"/>
                                                             <outlet property="categoryLabel" destination="xum-Yw-jYy" id="FkA-0A-f1W"/>
@@ -1396,7 +1388,7 @@
                                             </tableView>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jtc-u9-cDM" customClass="BetterSegmentedControl" customModule="BetterSegmentedControl">
                                                 <rect key="frame" x="20" y="20" width="344" height="30"/>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="30" id="vF8-aA-6oz"/>
                                                 </constraints>
@@ -1413,7 +1405,7 @@
                                                 </userDefinedRuntimeAttributes>
                                             </view>
                                         </subviews>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="backgroundColor" systemColor="tertiarySystemGroupedBackgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="trailing" secondItem="jtc-u9-cDM" secondAttribute="trailing" constant="20" id="NQ2-i7-gH2"/>
                                             <constraint firstItem="jtc-u9-cDM" firstAttribute="top" secondItem="0GS-u5-pbA" secondAttribute="top" constant="20" id="Yt9-Nn-xeH"/>
@@ -1464,35 +1456,29 @@
             <objects>
                 <viewController storyboardIdentifier="CurrencySelectionViewController" title="Currency Selection" id="uq1-ER-GAh" customClass="CurrencySelectionViewController" customModule="Ledgit" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="xQV-ax-qCr">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="716"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Z5M-cf-74Q">
-                                <rect key="frame" x="0.0" y="64" width="414" height="672"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <searchBar key="tableHeaderView" contentMode="redraw" searchBarStyle="minimal" id="Bq1-GY-xAS">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                                    <color key="barTintColor" red="0.97694705310880825" green="0.97694705310880825" blue="0.97694705310880825" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                    <textInputTraits key="textInputTraits"/>
-                                </searchBar>
+                                <rect key="frame" x="0.0" y="108" width="414" height="608"/>
+                                <color key="backgroundColor" systemColor="secondarySystemGroupedBackgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="CurrencyCell" rowHeight="65" id="r5j-09-maa" customClass="CurrencyTableViewCell" customModule="Ledgit" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="84" width="414" height="65"/>
+                                        <rect key="frame" x="0.0" y="28" width="414" height="65"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="r5j-09-maa" id="kmW-Lp-7py">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="64.666666666666671"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="65"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="US" translatesAutoresizingMaskIntoConstraints="NO" id="bWo-QG-Khr">
-                                                    <rect key="frame" x="20" y="17.333333333333329" width="40" height="30"/>
+                                                    <rect key="frame" x="20" y="17.666666666666671" width="40" height="30"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="30" id="Loh-kP-Ar9"/>
                                                         <constraint firstAttribute="width" constant="40" id="gp2-Bu-wIK"/>
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="USD" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Uel-LJ-zJr">
-                                                    <rect key="frame" x="373" y="22.666666666666671" width="31" height="19.333333333333329"/>
+                                                    <rect key="frame" x="373" y="23" width="31" height="19.333333333333329"/>
                                                     <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="15"/>
                                                     <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
@@ -1500,7 +1486,7 @@
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="U.S Dollar" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="grW-pl-yLe">
                                                     <rect key="frame" x="70" y="21" width="81" height="23"/>
                                                     <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="17"/>
-                                                    <color key="textColor" red="0.3284923434" green="0.4658738375" blue="0.53283280129999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <color key="textColor" name="primaryTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -1514,6 +1500,7 @@
                                                 <constraint firstAttribute="trailing" secondItem="Uel-LJ-zJr" secondAttribute="trailing" constant="10" id="vjO-p0-hs8"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" systemColor="secondarySystemGroupedBackgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <connections>
                                             <outlet property="codeLabel" destination="Uel-LJ-zJr" id="H2l-ci-SeG"/>
                                             <outlet property="currencyImageView" destination="bWo-QG-Khr" id="1OG-nO-tHW"/>
@@ -1524,7 +1511,7 @@
                                 </prototypes>
                             </tableView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" systemColor="secondarySystemGroupedBackgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="Z5M-cf-74Q" secondAttribute="bottom" id="0ds-cF-lQc"/>
                             <constraint firstItem="G3u-BZ-M7g" firstAttribute="trailing" secondItem="Z5M-cf-74Q" secondAttribute="trailing" id="F65-v6-AnK"/>
@@ -1534,7 +1521,6 @@
                         <viewLayoutGuide key="safeArea" id="G3u-BZ-M7g"/>
                     </view>
                     <connections>
-                        <outlet property="searchBar" destination="Bq1-GY-xAS" id="C5Q-c1-j1i"/>
                         <outlet property="tableView" destination="Z5M-cf-74Q" id="DSX-2o-WHC"/>
                     </connections>
                 </viewController>
@@ -1547,16 +1533,16 @@
             <objects>
                 <navigationController storyboardIdentifier="TripsNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="tDP-Xe-Ss9" customClass="TripsNavigationController" customModule="Ledgit" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" largeTitles="YES" id="HZH-VQ-r0f">
-                        <rect key="frame" x="0.0" y="20" width="414" height="96"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="HZH-VQ-r0f">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="tintColor" red="0.2470588235" green="0.37647058820000001" blue="0.44705882349999998" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="tintColor" name="primaryTextColor"/>
                         <textAttributes key="titleTextAttributes">
                             <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="18"/>
-                            <color key="textColor" red="0.24705882352941178" green="0.37647058823529411" blue="0.44705882352941173" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="textColor" name="primaryTextColor"/>
                         </textAttributes>
                         <textAttributes key="largeTitleTextAttributes">
-                            <color key="textColor" red="0.24705882352941178" green="0.37647058823529411" blue="0.44705882352941173" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="textColor" name="primaryTextColor"/>
                         </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -1574,14 +1560,14 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="ZH3-3r-OtK" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="3SO-nV-WKL">
-                        <rect key="frame" x="0.0" y="20" width="414" height="96"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="108"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="tintColor" red="0.2470588235" green="0.37647058820000001" blue="0.44705882349999998" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="tintColor" name="primaryTextColor"/>
                         <textAttributes key="titleTextAttributes">
-                            <color key="textColor" red="0.2470588235" green="0.37647058820000001" blue="0.44705882349999998" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="textColor" name="primaryTextColor"/>
                         </textAttributes>
                         <textAttributes key="largeTitleTextAttributes">
-                            <color key="textColor" red="0.2470588235" green="0.37647058820000001" blue="0.44705882349999998" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="textColor" name="primaryTextColor"/>
                         </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -1599,7 +1585,7 @@
                 <navigationController storyboardIdentifier="EntryActionNavigationController" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="rm0-m4-OOG" customClass="EntryActionNavigationController" customModule="Ledgit" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="qrd-tp-pWG">
-                        <rect key="frame" x="0.0" y="20" width="414" height="96"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="108"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <textAttributes key="titleTextAttributes">
@@ -1624,7 +1610,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Xzz-rZ-iue" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="ORQ-y1-MD5">
-                        <rect key="frame" x="0.0" y="20" width="414" height="44"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -1646,5 +1632,14 @@
         <image name="start-flag-icon" width="20" height="20"/>
         <image name="trash-icon" width="35" height="35"/>
         <image name="triangle-icon" width="80" height="78"/>
+        <namedColor name="primaryActionBackground">
+            <color white="0.14999999999999999" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </namedColor>
+        <namedColor name="primaryTextColor">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="primaryTextColor">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
     </resources>
 </document>

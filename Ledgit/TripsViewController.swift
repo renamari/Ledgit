@@ -116,7 +116,7 @@ extension TripsViewController: UITableViewDataSource {
             popTip.shouldDismissOnTap = true
             popTip.show(text: "Check out this sample trip. Swipe left to remove.",
                         direction: .down, maxWidth: 300,
-                        in: view, from: cell.frame, duration: 5)
+                        in: view, from: cell.frame, duration: 3)
         }
 
         return cell

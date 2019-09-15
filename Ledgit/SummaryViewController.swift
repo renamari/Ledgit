@@ -255,6 +255,7 @@ class SummaryViewController: UIViewController, ChartViewDelegate {
 
         let dayCostLabelTip = PopTip()
         dayCostLabelTip.style(PopStyle.default)
+        dayCostLabelTip.shouldDismissOnTap = true
         dayCostLabelTip.show(text: "Checkout your running balance for today",
                              direction: .up, maxWidth: self.contentView.frame.width - 50,
                              in: dayCostLabel.superview!.superview!, from: dayCostLabel.frame, duration: 3)
@@ -262,6 +263,7 @@ class SummaryViewController: UIViewController, ChartViewDelegate {
         DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
             let budgetLabelTip = PopTip()
             budgetLabelTip.style(PopStyle.default)
+            dayCostLabelTip.shouldDismissOnTap = true
             budgetLabelTip.show(text: "This is your trip budget. This can be your entire budget or your daily budget.",
                                 direction: .up, maxWidth: self.contentView.frame.width - 50,
                                 in: self.budgetLabel.superview!.superview!, from: self.budgetLabel.superview!.frame, duration: 3)
@@ -270,6 +272,7 @@ class SummaryViewController: UIViewController, ChartViewDelegate {
         DispatchQueue.main.asyncAfter(deadline: .now() + 7) {
             let remaingLabelTip = PopTip()
             remaingLabelTip.style(PopStyle.default)
+            dayCostLabelTip.shouldDismissOnTap = true
             remaingLabelTip.show(text: "This is your remaining budget. If you selected daily, this is the amount you have left today to not go over.",
                                  direction: .up, maxWidth: self.contentView.frame.width - 50,
                                  in: self.remainingLabel.superview!.superview!, from: self.remainingLabel.superview!.frame, duration: 3)
@@ -278,6 +281,7 @@ class SummaryViewController: UIViewController, ChartViewDelegate {
         DispatchQueue.main.asyncAfter(deadline: .now() + 11) {
             let averageLabelTip = PopTip()
             averageLabelTip.style(PopStyle.default)
+            dayCostLabelTip.shouldDismissOnTap = true
             averageLabelTip.show(text: "This is your average daily cost. It only counts the days you've actually expensed items.",
                                  direction: .up, maxWidth: self.contentView.frame.width - 50,
                                  in: self.averageLabel.superview!.superview!, from: self.averageLabel.superview!.frame, duration: 3)

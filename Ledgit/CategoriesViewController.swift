@@ -18,9 +18,14 @@ class CategoriesViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupNavigationBar()
         setupPresenter()
         setupTableView()
         setupAddButton()
+    }
+
+    func setupNavigationBar() {
+        navigationItem.largeTitleDisplayMode = .never
     }
 
     func setupPresenter() {

@@ -17,6 +17,7 @@ class SummaryViewController: UIViewController, ChartViewDelegate {
     @IBOutlet weak var amountsStackViewTopConstraint: NSLayoutConstraint!
     @IBOutlet var weeklyChart: BarChartView!
     @IBOutlet var dayLabel: UILabel!
+    @IBOutlet var dayCostTitleLabel: UILabel!
     @IBOutlet var dayCostLabel: UILabel!
     @IBOutlet var remainingStackView: UIStackView!
     @IBOutlet var remainingTitleLabel: UILabel!
@@ -29,7 +30,9 @@ class SummaryViewController: UIViewController, ChartViewDelegate {
     @IBOutlet var averageTitleLabel: UILabel!
     @IBOutlet var averageLabel: UILabel!
 
+    @IBOutlet var totalTripCostTitleLabel: UILabel!
     @IBOutlet var totalTripCostLabel: UILabel!
+    @IBOutlet var estimatedTripCostTitleLabel: UILabel!
     @IBOutlet var estimatedTripCostLabel: UILabel!
 
     var averageCost: Double = 0
@@ -55,6 +58,7 @@ class SummaryViewController: UIViewController, ChartViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
+        setupLabelStyles()
         setupLabels()
         defaultChartSetup()
         setupStackViews()
@@ -80,11 +84,43 @@ class SummaryViewController: UIViewController, ChartViewDelegate {
         amountsStackViewTopConstraint.constant = Type.iphone4 || Type.iphone5 ? 10 : 25
     }
 
+    func setupLabelStyles() {
+        let isDarkMode = traitCollection.userInterfaceStyle == .dark
+
+        if #available(iOS 13.0, *) {
+            weeklyChart.xAxis.labelTextColor = isDarkMode ? .white : LedgitColor.navigationTextGray
+            weeklyChart.data?.setValueTextColor(isDarkMode ? .white : LedgitColor.coreBlue)
+            dayLabel.color(isDarkMode ? .white : LedgitColor.navigationTextGray)
+            dayCostTitleLabel.color(isDarkMode ? .white : LedgitColor.navigationTextGray)
+            dayCostLabel.color(isDarkMode ? .white : LedgitColor.navigationTextGray)
+            remainingTitleLabel.color(isDarkMode ? .white : LedgitColor.navigationTextGray)
+            averageTitleLabel.color(isDarkMode ? .white : LedgitColor.navigationTextGray)
+            averageLabel.color(isDarkMode ? .white : LedgitColor.navigationTextGray)
+            budgetTitleLabel.color(isDarkMode ? .white : LedgitColor.navigationTextGray)
+            budgetLabel.color(isDarkMode ? .white : LedgitColor.navigationTextGray)
+            totalTripCostTitleLabel.color(isDarkMode ? .white : LedgitColor.navigationTextGray)
+            totalTripCostLabel.color(isDarkMode ? .white : LedgitColor.navigationTextGray)
+            estimatedTripCostTitleLabel.color(isDarkMode ? .white : LedgitColor.navigationTextGray)
+            estimatedTripCostLabel.color(isDarkMode ? .white : LedgitColor.navigationTextGray)
+        } else {
+            weeklyChart.xAxis.labelTextColor = LedgitColor.navigationTextGray
+            weeklyChart.data?.setValueTextColor(LedgitColor.coreBlue)
+            dayLabel.color(LedgitColor.coreBlue)
+            dayCostTitleLabel.color(LedgitColor.navigationTextGray)
+            dayCostLabel.color(LedgitColor.navigationTextGray)
+            remainingTitleLabel.color(LedgitColor.navigationTextGray)
+            averageTitleLabel.color(LedgitColor.navigationTextGray)
+            averageLabel.color(LedgitColor.navigationTextGray)
+            budgetTitleLabel.color(LedgitColor.navigationTextGray)
+            budgetLabel.color(LedgitColor.navigationTextGray)
+            totalTripCostTitleLabel.color(LedgitColor.navigationTextGray)
+            totalTripCostLabel.color(LedgitColor.navigationTextGray)
+            estimatedTripCostTitleLabel.color(LedgitColor.navigationTextGray)
+            estimatedTripCostLabel.color(LedgitColor.navigationTextGray)
+        }
+    }
+
     func setupLabels() {
-        dayCostLabel.color(LedgitColor.navigationTextGray)
-        remainingLabel.color(LedgitColor.navigationTextGray)
-        averageLabel.color(LedgitColor.navigationTextGray)
-        budgetLabel.color(LedgitColor.navigationTextGray)
         dayCostLabel.text(0.0.currencyFormat())
         remainingLabel.text(0.0.currencyFormat())
         averageLabel.text(0.0.currencyFormat())
@@ -169,6 +205,7 @@ class SummaryViewController: UIViewController, ChartViewDelegate {
         }
 
         drawChart(with: values)
+        setupLabelStyles()
     }
 
     private func createWeeklyAmounts(using entries: [LedgitEntry]) {
@@ -283,14 +320,12 @@ class SummaryViewController: UIViewController, ChartViewDelegate {
         let xAxis: XAxis = weeklyChart.xAxis
         xAxis.labelPosition = .bottom
         xAxis.labelFont = .futuraMedium10
-        xAxis.labelTextColor = LedgitColor.navigationTextGray
         xAxis.drawGridLinesEnabled = false
         xAxis.granularity = 1.0 // only intervals of 1 day
         xAxis.labelCount = 7
         xAxis.valueFormatter = xFormat
 
         let leftAxis: YAxis = weeklyChart.leftAxis
-        leftAxis.labelTextColor = LedgitColor.navigationTextGray
         leftAxis.labelFont = .futuraMedium8
         leftAxis.labelPosition = .outsideChart
         leftAxis.valueFormatter = DefaultAxisValueFormatter(formatter: dataFormat)
@@ -304,7 +339,6 @@ class SummaryViewController: UIViewController, ChartViewDelegate {
         let data = BarChartData(dataSet: dataSet)
         data.setValueFormatter(dataFormatter)
         data.setValueFont(.futuraMedium8)
-        data.setValueTextColor(LedgitColor.coreBlue)
 
         weeklyChart.data = data
         weeklyChart.rightAxis.enabled = false
@@ -312,6 +346,11 @@ class SummaryViewController: UIViewController, ChartViewDelegate {
         weeklyChart.legend.enabled = false
         weeklyChart.chartDescription = nil
         weeklyChart.highlightPerTapEnabled = false
+    }
+
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        setupLabelStyles()
     }
 }
 

@@ -151,7 +151,7 @@
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="65H-fB-A9T" customClass="BetterSegmentedControl" customModule="BetterSegmentedControl">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="30"/>
-                                <color key="backgroundColor" red="0.94901960784313721" green="0.96078431372549022" blue="0.96862745098039216" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="kps-uX-VqI"/>
                                 </constraints>
@@ -160,7 +160,7 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" red="0.94901960784313721" green="0.96078431372549022" blue="0.96862745098039216" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" systemColor="systemGray6Color" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="65H-fB-A9T" firstAttribute="leading" secondItem="ejT-oj-tZ7" secondAttribute="leading" id="CNw-Qr-N7Z"/>
                             <constraint firstItem="65H-fB-A9T" firstAttribute="top" secondItem="ejT-oj-tZ7" secondAttribute="top" id="UVP-7C-gLG"/>
@@ -1129,7 +1129,7 @@
                                                 </subviews>
                                             </stackView>
                                         </subviews>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="backgroundColor" systemColor="tertiarySystemGroupedBackgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstItem="vEw-rh-rsT" firstAttribute="leading" secondItem="zm8-DS-j3u" secondAttribute="leading" constant="20" id="AuF-JD-mLO"/>
                                             <constraint firstItem="GkZ-NT-cV1" firstAttribute="top" secondItem="flM-eq-VaW" secondAttribute="bottom" constant="10" id="EkW-f5-wAd"/>
@@ -1176,13 +1176,16 @@
                         <outlet property="budgetTitleLabel" destination="OqC-mS-1zl" id="dd1-y3-1lF"/>
                         <outlet property="contentView" destination="zm8-DS-j3u" id="A4x-su-euY"/>
                         <outlet property="dayCostLabel" destination="eA0-1X-bku" id="ddI-B8-5bE"/>
+                        <outlet property="dayCostTitleLabel" destination="LV7-FX-nA8" id="Na9-KV-PAc"/>
                         <outlet property="dayLabel" destination="vEw-rh-rsT" id="rla-fT-1o8"/>
                         <outlet property="estimatedTripCostLabel" destination="21P-Tr-rrX" id="yco-Cw-NOX"/>
+                        <outlet property="estimatedTripCostTitleLabel" destination="kuU-9S-fJK" id="AnT-vX-6PW"/>
                         <outlet property="remainingLabel" destination="KOc-xh-7IN" id="3ij-UQ-8iH"/>
                         <outlet property="remainingStackView" destination="pUP-hD-qMA" id="6oq-X1-pBQ"/>
                         <outlet property="remainingTitleLabel" destination="GEV-jH-PL2" id="Fia-y2-Vbo"/>
                         <outlet property="scrollView" destination="xKf-Zn-AhR" id="KRa-ce-v0O"/>
                         <outlet property="totalTripCostLabel" destination="CX7-ad-IQ9" id="gZH-YJ-cc8"/>
+                        <outlet property="totalTripCostTitleLabel" destination="q8O-Uw-FGK" id="fVF-RX-jcd"/>
                         <outlet property="weeklyChart" destination="flM-eq-VaW" id="Ba7-mg-efz"/>
                     </connections>
                 </viewController>
@@ -1206,7 +1209,7 @@
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="62J-tr-aBl" customClass="PieChartView" customModule="Charts">
                                                 <rect key="frame" x="20" y="20" width="344" height="666"/>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             </view>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Hk-Cp-Lco">
                                                 <rect key="frame" x="334" y="20" width="30" height="30"/>
@@ -1223,7 +1226,7 @@
                                                 </connections>
                                             </button>
                                         </subviews>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="backgroundColor" systemColor="tertiarySystemGroupedBackgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstItem="4Hk-Cp-Lco" firstAttribute="top" secondItem="U7l-ZW-tl2" secondAttribute="top" constant="20" id="COY-oT-HX8"/>
                                             <constraint firstItem="62J-tr-aBl" firstAttribute="top" secondItem="U7l-ZW-tl2" secondAttribute="top" constant="20" id="Evt-Pd-VAz"/>
@@ -1279,7 +1282,7 @@
                                         <subviews>
                                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="IDD-KL-Yng">
                                                 <rect key="frame" x="20" y="70" width="344" height="616"/>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <color key="backgroundColor" systemColor="tertiarySystemGroupedBackgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <prototypes>
                                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="CityCell" id="kyw-0H-twb" customClass="CityTableViewCell" customModule="Ledgit" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="28" width="344" height="44"/>
@@ -1300,7 +1303,7 @@
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$387.54" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wo2-Wv-RmA">
                                                                             <rect key="frame" x="0.0" y="19.666666666666668" width="46" height="14.333333333333332"/>
                                                                             <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="12"/>
-                                                                            <color key="textColor" red="0.2470588235" green="0.37647058820000001" blue="0.44705882349999998" alpha="1" colorSpace="calibratedRGB"/>
+                                                                            <color key="textColor" red="0.18823529410000001" green="0.54901960780000003" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
                                                                     </subviews>
@@ -1321,16 +1324,18 @@
                                                                 <constraint firstItem="ac5-aX-5SH" firstAttribute="height" secondItem="Kka-LE-inx" secondAttribute="height" id="vUy-KP-H2g"/>
                                                             </constraints>
                                                         </tableViewCellContentView>
+                                                        <color key="backgroundColor" systemColor="tertiarySystemGroupedBackgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <connections>
                                                             <outlet property="amountLabel" destination="Wo2-Wv-RmA" id="cdV-x1-ctY"/>
                                                             <outlet property="cityLabel" destination="ac5-aX-5SH" id="UPY-ti-Qis"/>
+                                                            <outlet property="totalLabel" destination="280-TD-6Py" id="YOm-OH-5S6"/>
                                                         </connections>
                                                     </tableViewCell>
                                                 </prototypes>
                                             </tableView>
                                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="bxW-Kb-zwP">
                                                 <rect key="frame" x="20" y="70" width="344" height="616"/>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <color key="backgroundColor" systemColor="tertiarySystemGroupedBackgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <prototypes>
                                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="DateCell" rowHeight="62" id="oGt-5w-Yuq" customClass="DateTableViewCell" customModule="Ledgit" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="28" width="344" height="62"/>
@@ -1373,6 +1378,7 @@
                                                                 <constraint firstItem="ynG-AM-2gO" firstAttribute="leading" secondItem="JBG-q7-7Jd" secondAttribute="leading" constant="8" id="z30-a3-S3a"/>
                                                             </constraints>
                                                         </tableViewCellContentView>
+                                                        <color key="backgroundColor" systemColor="tertiarySystemGroupedBackgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <connections>
                                                             <outlet property="amountLabel" destination="ADO-lb-1AC" id="qY7-3g-EJi"/>
                                                             <outlet property="categoryLabel" destination="xum-Yw-jYy" id="FkA-0A-f1W"/>
@@ -1383,7 +1389,7 @@
                                             </tableView>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jtc-u9-cDM" customClass="BetterSegmentedControl" customModule="BetterSegmentedControl">
                                                 <rect key="frame" x="20" y="20" width="344" height="30"/>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="30" id="vF8-aA-6oz"/>
                                                 </constraints>
@@ -1400,7 +1406,7 @@
                                                 </userDefinedRuntimeAttributes>
                                             </view>
                                         </subviews>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="backgroundColor" systemColor="tertiarySystemGroupedBackgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="trailing" secondItem="jtc-u9-cDM" secondAttribute="trailing" constant="20" id="NQ2-i7-gH2"/>
                                             <constraint firstItem="jtc-u9-cDM" firstAttribute="top" secondItem="0GS-u5-pbA" secondAttribute="top" constant="20" id="Yt9-Nn-xeH"/>

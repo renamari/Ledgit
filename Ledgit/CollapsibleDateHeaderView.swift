@@ -22,34 +22,52 @@ class CollapsibleDateHeaderView: UITableViewHeaderFooterView {
 
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)
-        contentView.style { view in
-            view.backgroundColor = LedgitColor.navigationBarGray
-            view.addSubview(imageView)
-            view.addSubview(titleLabel)
-            addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(headerTapped)))
-        }
-
-        imageView.style { view in
-            view.image(#imageLiteral(resourceName: "disclosure-icon"))
-            view.contentMode = .scaleAspectFit
-            view.translatesAutoresizingMaskIntoConstraints = false
-            view.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: scale).isActive = true
-            view.widthAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: scale).isActive = true
-            view.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -headerPadding).isActive = true
-            view.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
-        }
-
-        titleLabel.style { label in
-            label.font(.futuraMedium14)
-            label.color(LedgitColor.navigationTextGray)
-            label.translatesAutoresizingMaskIntoConstraints = false
-            label.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: headerPadding).isActive = true
-            label.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
-        }
+        setupLayout()
+        setupElements()
     }
 
     required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        super.init(coder: aDecoder)
+        setupLayout()
+        setupElements()
+    }
+
+    func setupLayout() {
+        contentView.addSubview(imageView)
+        contentView.addSubview(titleLabel)
+
+        imageView.image(#imageLiteral(resourceName: "disclosure-icon"))
+        imageView.contentMode = .scaleAspectFit
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: scale).isActive = true
+        imageView.widthAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: scale).isActive = true
+        imageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -headerPadding).isActive = true
+        imageView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
+
+        titleLabel.font(.futuraMedium14)
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: headerPadding).isActive = true
+        titleLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
+
+        addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(headerTapped)))
+    }
+
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        setupElements()
+    }
+
+    func setupElements() {
+        let isDarkMode = traitCollection.userInterfaceStyle == .dark
+
+        if #available(iOS 13.0, *) {
+            contentView.backgroundColor = isDarkMode ? .systemGray4 : .systemGray5
+            titleLabel.color(isDarkMode ? .white : LedgitColor.navigationTextGray)
+        } else {
+
+            contentView.backgroundColor = LedgitColor.navigationBarGray
+            titleLabel.color(LedgitColor.navigationTextGray)
+        }
     }
 
     @objc func headerTapped(_ gestureRecognizer: UITapGestureRecognizer) {

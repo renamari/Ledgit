@@ -88,10 +88,7 @@ class TripDetailViewController: UIViewController {
     func setupNavigationBar() {
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         navigationController?.navigationBar.shadowImage = UIImage()
-        navigationController?.navigationBar.isTranslucent = true
-        navigationController?.view.backgroundColor = LedgitColor.navigationBarGray
 
-        navigationItem.largeTitleDisplayMode = UIScreen.main.nativeBounds.height <= 1136 ? .never : .automatic
         navigationItem.rightBarButtonItems = shouldDisplayExportButton ? [addButton, exportButton] : [addButton]
     }
 

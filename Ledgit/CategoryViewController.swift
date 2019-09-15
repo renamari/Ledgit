@@ -61,6 +61,7 @@ class CategoryViewController: UIViewController, ChartViewDelegate {
         pieChart.transparentCircleRadiusPercent = 1
         pieChart.drawCenterTextEnabled = true
         pieChart.drawHoleEnabled = true
+        pieChart.holeColor = .clear
         pieChart.rotationAngle = 0.0
         pieChart.rotationEnabled = false
         pieChart.highlightPerTapEnabled = false
@@ -104,8 +105,14 @@ class CategoryViewController: UIViewController, ChartViewDelegate {
         legend.xEntrySpace = 20.0
         legend.yEntrySpace = 8.0
         legend.yOffset = 10.0
-        legend.textColor = LedgitColor.navigationTextGray
         legend.font = .futuraMedium12
+        legend.textColor = LedgitColor.navigationTextGray
+        if #available(iOS 13.0, *) {
+            let isDarkMode = traitCollection.userInterfaceStyle == .dark
+            legend.textColor = isDarkMode ? .white : LedgitColor.navigationTextGray
+        } else {
+            legend.textColor = LedgitColor.navigationTextGray
+        }
 
         let dataSet = PieChartDataSet(values: values, label: nil)
         dataSet.yValuePosition = .insideSlice
@@ -165,6 +172,18 @@ class CategoryViewController: UIViewController, ChartViewDelegate {
             pieChart.data?.setValueFormatter(formatter)
             pieChart.usePercentValuesEnabled = false
             displayButton.setTitle("%", for: .normal)
+        }
+    }
+
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        let legend: Legend = pieChart.legend
+        let isDarkMode = traitCollection.userInterfaceStyle == .dark
+
+        if #available(iOS 13.0, *) {
+            legend.textColor = isDarkMode ? .white : LedgitColor.navigationTextGray
+        } else {
+            legend.textColor = LedgitColor.navigationTextGray
         }
     }
 }

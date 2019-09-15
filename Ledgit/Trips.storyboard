@@ -14,12 +14,12 @@
             <objects>
                 <viewController id="rT7-y4-Veg" customClass="TripsViewController" customModule="Ledgit" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="L9P-rn-s5n">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="692"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="121" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Ahf-h5-uJn">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="692"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="692"/>
+                                <color key="backgroundColor" systemColor="systemGray6Color" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="TripCell" rowHeight="157" id="nko-iu-Ovo" customClass="TripTableViewCell" customModule="Ledgit" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="414" height="157"/>
@@ -78,7 +78,7 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                     </subviews>
-                                                    <color key="backgroundColor" red="0.94901960780000005" green="0.96078431369999995" blue="0.96862745100000003" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="backgroundColor" systemColor="systemGray5Color" red="0.8980392157" green="0.8980392157" blue="0.91764705879999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
                                                         <constraint firstItem="ZMo-Rd-uYC" firstAttribute="leading" secondItem="vDi-dp-b6m" secondAttribute="leading" constant="20" id="4j0-aa-YbL"/>
                                                         <constraint firstItem="xF7-qw-Bl3" firstAttribute="top" secondItem="vDi-dp-b6m" secondAttribute="top" constant="-3" id="AAl-fz-x1f"/>
@@ -100,8 +100,10 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="bottomImageView" destination="Qii-Hi-NOw" id="gQi-6d-6l4"/>
                                             <outlet property="bottomLabel" destination="3yO-F4-plb" id="YSq-wG-bPT"/>
                                             <outlet property="mainView" destination="vDi-dp-b6m" id="qxA-QS-jt1"/>
+                                            <outlet property="topImageView" destination="w5d-Cr-WG0" id="TC0-Ge-z71"/>
                                             <outlet property="topLabel" destination="n1V-MV-iwq" id="eyH-9k-u9W"/>
                                             <outlet property="tripColorImageView" destination="xF7-qw-Bl3" id="yaY-ef-sit"/>
                                             <outlet property="tripNameLabel" destination="ZMo-Rd-uYC" id="fZB-Pn-ibQ"/>
@@ -110,7 +112,7 @@
                                 </prototypes>
                             </tableView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" systemColor="systemGray6Color" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="Ahf-h5-uJn" firstAttribute="leading" secondItem="DNg-DK-lMJ" secondAttribute="leading" id="B99-Qn-jFE"/>
                             <constraint firstItem="Ahf-h5-uJn" firstAttribute="top" secondItem="DNg-DK-lMJ" secondAttribute="top" id="KQZ-vq-Imw"/>
@@ -1534,7 +1536,7 @@
             <objects>
                 <navigationController storyboardIdentifier="TripsNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="tDP-Xe-Ss9" customClass="TripsNavigationController" customModule="Ledgit" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" largeTitles="YES" id="HZH-VQ-r0f">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="HZH-VQ-r0f">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" red="0.2470588235" green="0.37647058820000001" blue="0.44705882349999998" alpha="1" colorSpace="calibratedRGB"/>

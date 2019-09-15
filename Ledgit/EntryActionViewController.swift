@@ -302,21 +302,6 @@ class EntryActionViewController: UIViewController { //swiftlint:disable:this typ
 
     func textFieldsValidated() -> Bool {
         var validated = true
-//        if locationTextField.text?.isEmpty == true {
-//            locationTextField.errorMessage = "Enter a city"
-//            validated = false
-//        }
-
-//        if descriptionTextField.text?.isEmpty == true {
-//            descriptionTextField.errorMessage = "Enter a description"
-//            validated = false
-//        }
-//
-//        if selectedCategory == nil {
-//            categoryTextField.errorMessage = "Select a category"
-//            validated = false
-//        }
-
         if amountTextField.text?.isEmpty == true {
             amountTextField.errorMessage = "Enter an amount"
             validated = false

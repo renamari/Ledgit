@@ -14,7 +14,7 @@ protocol CategorySelectionDelegate: class {
 
 class CategorySelectionViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var searchBar: UISearchBar!
+    private let searchController = UISearchController(searchResultsController: nil)
     weak var delegate: CategorySelectionDelegate?
     lazy var filteredCategories: [String] = []
     var categories: [String] {
@@ -23,10 +23,20 @@ class CategorySelectionViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupSearchController()
+        setupTableView()
+    }
+
+    func setupSearchController() {
+        searchController.searchResultsUpdater = self
+        searchController.obscuresBackgroundDuringPresentation = false
+        navigationItem.hidesSearchBarWhenScrolling = false
+        navigationItem.searchController = searchController
+    }
+
+    func setupTableView() {
         tableView.delegate = self
         tableView.dataSource = self
-        searchBar.delegate = self
-        tableView.contentOffset.y = searchBar.frame.height
     }
 
     @objc func dismissViewController() {
@@ -34,16 +44,13 @@ class CategorySelectionViewController: UIViewController {
     }
 }
 
-extension CategorySelectionViewController: UISearchBarDelegate {
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+extension CategorySelectionViewController: UISearchResultsUpdating {
+    func updateSearchResults(for searchController: UISearchController) {
+        let searchText = searchController.searchBar.text ?? ""
         filteredCategories = categories.filter {
             $0.lowercased().contains(searchText.lowercased())
         }
         tableView.reloadData()
-    }
-
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        searchBar.resignFirstResponder()
     }
 }
 

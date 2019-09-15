@@ -4,6 +4,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -26,9 +27,10 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DR5-xO-bpS">
                                 <rect key="frame" x="0.0" y="690.33333333333337" width="375" height="121.66666666666663"/>
                                 <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="17"/>
+                                <color key="tintColor" name="primaryTextColor"/>
                                 <inset key="imageEdgeInsets" minX="-10" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <state key="normal" title="Sign Out" image="signout-icon">
-                                    <color key="titleColor" red="0.2470588235" green="0.37647058820000001" blue="0.44705882349999998" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleColor" name="primaryTextColor"/>
                                 </state>
                                 <connections>
                                     <action selector="signoutButtonPressed:" destination="Q5B-Fg-oyk" eventType="touchUpInside" id="xd5-Jh-vfw"/>
@@ -54,9 +56,10 @@
                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="CoK-7Q-yU5"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="18"/>
+                                        <color key="tintColor" name="primaryTextColor"/>
                                         <inset key="titleEdgeInsets" minX="15" minY="0.0" maxX="0.0" maxY="0.0"/>
                                         <state key="normal" title="Categories" image="categories-icon">
-                                            <color key="titleColor" red="0.34509803919999998" green="0.46274509800000002" blue="0.52156862749999999" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleColor" name="primaryTextColor"/>
                                         </state>
                                         <connections>
                                             <action selector="categoriesButtonPressed:" destination="Q5B-Fg-oyk" eventType="touchUpInside" id="xJJ-Fs-Wnk"/>
@@ -65,9 +68,10 @@
                                     <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="p7e-Jp-g1f">
                                         <rect key="frame" x="0.0" y="62.666666666666686" width="275" height="0.0"/>
                                         <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="18"/>
+                                        <color key="tintColor" name="primaryTextColor"/>
                                         <inset key="titleEdgeInsets" minX="15" minY="0.0" maxX="0.0" maxY="0.0"/>
                                         <state key="normal" title="Subscription" image="subscription-icon">
-                                            <color key="titleColor" red="0.34509803919999998" green="0.46274509800000002" blue="0.52156862749999999" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleColor" name="primaryTextColor"/>
                                         </state>
                                         <connections>
                                             <action selector="subscriptionButtonPressed:" destination="Q5B-Fg-oyk" eventType="touchUpInside" id="qL6-04-UyC"/>
@@ -76,9 +80,10 @@
                                     <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9df-hh-2Qy">
                                         <rect key="frame" x="0.0" y="62.666666666666686" width="275" height="0.0"/>
                                         <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="18"/>
+                                        <color key="tintColor" name="primaryTextColor"/>
                                         <inset key="titleEdgeInsets" minX="15" minY="0.0" maxX="0.0" maxY="0.0"/>
                                         <state key="normal" title="Account" image="account-icon">
-                                            <color key="titleColor" red="0.34509803919999998" green="0.46274509800000002" blue="0.52156862749999999" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleColor" name="primaryTextColor"/>
                                         </state>
                                         <connections>
                                             <action selector="accountButtonPressed:" destination="Q5B-Fg-oyk" eventType="touchUpInside" id="92K-vI-DRN"/>
@@ -87,9 +92,10 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RFL-Y0-H8x">
                                         <rect key="frame" x="0.0" y="75" width="275" height="50"/>
                                         <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="18"/>
+                                        <color key="tintColor" name="primaryTextColor"/>
                                         <inset key="titleEdgeInsets" minX="15" minY="0.0" maxX="0.0" maxY="0.0"/>
                                         <state key="normal" title="About" image="about-icon">
-                                            <color key="titleColor" red="0.34509803919999998" green="0.46274509800000002" blue="0.52156862749999999" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleColor" name="primaryTextColor"/>
                                         </state>
                                         <connections>
                                             <action selector="abountButtonPressed:" destination="Q5B-Fg-oyk" eventType="touchUpInside" id="eW8-F9-1wy"/>
@@ -100,7 +106,7 @@
                                         <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="18"/>
                                         <inset key="titleEdgeInsets" minX="15" minY="0.0" maxX="0.0" maxY="0.0"/>
                                         <state key="normal" title="Reset">
-                                            <color key="titleColor" red="0.34509803919999998" green="0.46274509800000002" blue="0.52156862749999999" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleColor" name="primaryTextColor"/>
                                         </state>
                                         <connections>
                                             <action selector="resetButtonPressed" destination="Q5B-Fg-oyk" eventType="touchUpInside" id="YYj-67-uTL"/>
@@ -178,13 +184,13 @@
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Food" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ahP-jb-2OB">
                                                     <rect key="frame" x="30" y="21" width="40" height="23"/>
                                                     <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="17"/>
-                                                    <color key="textColor" red="0.3284923434" green="0.4658738375" blue="0.53283280129999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <color key="textColor" name="primaryTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Swipe for actions" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xNe-cH-2l0">
                                                     <rect key="frame" x="235" y="23" width="110" height="19"/>
                                                     <fontDescription key="fontDescription" name="Futura-MediumItalic" family="Futura" pointSize="14"/>
-                                                    <color key="textColor" red="0.3284923434" green="0.4658738375" blue="0.53283280129999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <color key="textColor" name="primaryTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -243,7 +249,7 @@
                                             <constraint firstAttribute="height" constant="20" id="4Rk-y1-tkg"/>
                                             <constraint firstAttribute="width" constant="20" id="hsd-cf-b5U"/>
                                         </constraints>
-                                        <color key="tintColor" red="0.2470588235" green="0.37647058820000001" blue="0.44705882349999998" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="tintColor" name="primaryTextColor"/>
                                         <state key="normal" image="close-icon"/>
                                         <connections>
                                             <action selector="closeButtonPressed:" destination="0C7-wY-GmF" eventType="touchUpInside" id="fMO-pp-qRY"/>
@@ -252,7 +258,7 @@
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add New Category" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B5o-1o-bKg">
                                         <rect key="frame" x="15" y="50" width="285" height="22.666666666666671"/>
                                         <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="17"/>
-                                        <color key="textColor" red="0.24705882352941178" green="0.37647058823529411" blue="0.44705882352941173" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="textColor" name="primaryTextColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="myo-9d-WNB">
@@ -548,7 +554,7 @@
                             </view>
                             <wkWebView contentMode="scaleToFill" allowsBackForwardNavigationGestures="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MX6-7h-Vs5">
                                 <rect key="frame" x="0.0" y="210.66666666666669" width="375" height="601.33333333333326"/>
-                                <color key="backgroundColor" red="0.32549019607843138" green="0.70196078431372544" blue="0.28235294117647058" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <color key="backgroundColor" systemColor="systemGroupedBackgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <wkWebViewConfiguration key="configuration">
                                     <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
                                     <wkPreferences key="preferences"/>
@@ -619,13 +625,13 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="QZX-6w-8KV">
                         <rect key="frame" x="0.0" y="44" width="375" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="tintColor" red="0.2470588235" green="0.37647058820000001" blue="0.44705882349999998" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="tintColor" name="primaryTextColor"/>
                         <textAttributes key="titleTextAttributes">
                             <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="18"/>
-                            <color key="textColor" red="0.2470588235" green="0.37647058820000001" blue="0.44705882349999998" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="textColor" name="primaryTextColor"/>
                         </textAttributes>
                         <textAttributes key="largeTitleTextAttributes">
-                            <color key="textColor" red="0.2470588235" green="0.37647058820000001" blue="0.44705882349999998" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="textColor" name="primaryTextColor"/>
                         </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -645,5 +651,11 @@
         <image name="close-icon" width="20" height="20"/>
         <image name="signout-icon" width="18" height="18"/>
         <image name="subscription-icon" width="21" height="21"/>
+        <namedColor name="primaryTextColor">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="primaryTextColor">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
     </resources>
 </document>

@@ -53,12 +53,12 @@ class TripActionViewController: UIViewController {
             switch budgetSelection {
             case .daily:
                 budgetPickerLabel.text("DAILY")
-                budgetPickerDailyButton.color(LedgitColor.navigationTextGray)
+                budgetPickerDailyButton.color(UIColor(named: "primaryTextColor")!)
                 budgetPickerTripButton.color(.clear)
 
             case .trip:
                 budgetPickerLabel.text("TRIP")
-                budgetPickerTripButton.color(LedgitColor.navigationTextGray)
+                budgetPickerTripButton.color(UIColor(named: "primaryTextColor")!)
                 budgetPickerDailyButton.color(.clear)
             }
         }
@@ -125,8 +125,8 @@ class TripActionViewController: UIViewController {
     }
 
     func setupBudgetPicker() {
-        budgetPickerDailyButton.roundedCorners(radius: budgetPickerButtonHeight / 2, borderColor: LedgitColor.navigationTextGray)
-        budgetPickerTripButton.roundedCorners(radius: budgetPickerButtonHeight / 2, borderColor: LedgitColor.navigationTextGray)
+        budgetPickerDailyButton.roundedCorners(radius: budgetPickerButtonHeight / 2, borderColor: UIColor(named: "primaryTextColor")!)
+        budgetPickerTripButton.roundedCorners(radius: budgetPickerButtonHeight / 2, borderColor: UIColor(named: "primaryTextColor")!)
 
         switch method {
         case .edit:
@@ -270,6 +270,12 @@ class TripActionViewController: UIViewController {
         case .add:
             performSaveAction()
         }
+    }
+
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        budgetPickerDailyButton.roundedCorners(radius: budgetPickerButtonHeight / 2, borderColor: UIColor(named: "primaryTextColor")!)
+        budgetPickerTripButton.roundedCorners(radius: budgetPickerButtonHeight / 2, borderColor: UIColor(named: "primaryTextColor")!)
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

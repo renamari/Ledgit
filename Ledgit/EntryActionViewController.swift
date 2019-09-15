@@ -12,7 +12,7 @@ import NotificationBannerSwift
 
 class EntryActionNavigationController: UINavigationController { }
 
-class EntryActionViewController: UIViewController { //swiftlint:disable:this type_body_length
+class EntryActionViewController: UIViewController {
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet var contentStackView: UIStackView!
     @IBOutlet var currencyAndAmountStackView: UIStackView!

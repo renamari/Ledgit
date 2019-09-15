@@ -24,7 +24,7 @@ class TripTableViewCell: UITableViewCell {
         super.awakeFromNib()
         setupElements()
     }
-    
+
     func configure(with trip: LedgitTrip, at indexPath: IndexPath) {
         tripNameLabel.text(trip.name)
         topLabel.text(trip.startDate)

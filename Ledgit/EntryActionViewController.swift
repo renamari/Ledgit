@@ -88,11 +88,11 @@ class EntryActionViewController: UIViewController { //swiftlint:disable:this typ
         super.viewWillAppear(animated)
         view.endEditing(true)
         activeTextField?.resignFirstResponder()
-        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
-        navigationController?.navigationBar.shadowImage = UIImage()
-        navigationController?.view.backgroundColor = LedgitColor.coreBlue
-        navigationController?.navigationBar.barTintColor = LedgitColor.coreBlue
-        view.backgroundColor = LedgitColor.coreBlue
+//        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+//        navigationController?.navigationBar.shadowImage = UIImage()
+//        navigationController?.view.backgroundColor = LedgitColor.coreBlue
+//        navigationController?.navigationBar.barTintColor = LedgitColor.coreBlue
+//        view.backgroundColor = LedgitColor.coreBlue
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -534,7 +534,6 @@ extension EntryActionViewController: UITextFieldDelegate {
         case dateTextField:
             datePicker = UIDatePicker()
             datePicker?.datePickerMode = .date
-            datePicker?.backgroundColor = .white
             datePicker?.addTarget(self, action: #selector(datePickerValueChanged), for: .valueChanged)
 
             dateTextField.inputView = datePicker

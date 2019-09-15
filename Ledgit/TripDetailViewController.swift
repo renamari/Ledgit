@@ -248,7 +248,7 @@ extension TripDetailViewController: UIViewControllerTransitioningDelegate {
 
         transition.transitionMode = .present
         transition.startingPoint = startingPoint
-        transition.bubbleColor = LedgitColor.coreBlue
+        transition.bubbleColor = UIColor(named: "primaryActionBackground")!
         return transition
     }
 
@@ -265,7 +265,7 @@ extension TripDetailViewController: UIViewControllerTransitioningDelegate {
 
         transition.transitionMode = .dismiss
         transition.startingPoint = startingPoint
-        transition.bubbleColor = LedgitColor.coreBlue
+        transition.bubbleColor = UIColor(named: "primaryActionBackground")!
         return transition
     }
 }

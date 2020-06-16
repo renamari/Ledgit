@@ -6,14 +6,8 @@
 //  Copyright © 2017 Camden Developers. All rights reserved.
 //
 
-import Foundation
-import Firebase
+import UIKit
 import CoreData
-
-enum DataSource {
-    case firebase
-    case coreData
-}
 
 protocol TripsManagerDelegate: class {
     func retrievedSampleTrip(_ trip: LedgitTrip)
@@ -23,8 +17,6 @@ protocol TripsManagerDelegate: class {
 
 class TripsManager {
     weak var delegate: TripsManagerDelegate?
-    let auth = Auth.auth()
-    let trips = Database.database().reference().child("trips")
     var isConnected: Bool { return Reachability.isConnectedToNetwork }
 
     var coreData: NSManagedObjectContext {
@@ -33,15 +25,6 @@ class TripsManager {
         }
 
         return appDelegate.persistentContainer.viewContext
-    }
-
-    var source: DataSource {
-        let subscription = LedgitUser.current.subscription
-        return subscription == .free ? .coreData : .firebase
-    }
-
-    deinit {
-        trips.removeAllObservers()
     }
 }
 
@@ -80,28 +63,7 @@ extension TripsManager {
 
     // MARK: - Fetch Trip Methods
     func fetchTrips() {
-        source == .firebase ? fetchFirebaseTrip() : fetchCoreDataTrip()
-    }
-
-    private func fetchFirebaseTrip() {
-        guard let currentUserKey = auth.currentUser?.uid else {
-            LedgitLog.warning("Firebase authentication current user had no uid")
-            return
-        }
-
-        trips.queryOrdered(byChild: LedgitTrip.Keys.owner).queryEqual(toValue: currentUserKey).observe(.childAdded, with: { (snapshot) in
-            guard let snapshot = snapshot.value as? NSDictionary else {
-                LedgitLog.warning("Trip data that came back from firebase wasn't an NSDictionary")
-                return
-            }
-
-            guard let trip = LedgitTrip(dict: snapshot) else {
-                LedgitLog.warning("Could not generate trip from data")
-                return
-            }
-
-            self.delegate?.retrievedTrip(trip)
-        })
+        fetchCoreDataTrip()
     }
 
     func fetchTrip(with key: String) -> LedgitTrip? {
@@ -183,11 +145,7 @@ extension TripsManager {
 
     // MARK: - Remove Trip Methods
     func removeTrip(withKey key: String) {
-        source == .firebase ? removeFirebaseTrip(key) : removeCoreDataTrip(key)
-    }
-
-    private func removeFirebaseTrip(_ key: String) {
-        trips.child(key).removeValue()
+        removeCoreDataTrip(key)
     }
 
     private func removeCoreDataTrip(_ key: String) {
@@ -226,17 +184,7 @@ extension TripsManager {
 
     // MARK: - Create Trip Methods
     func createNew(trip: NSDictionary) {
-        source == .firebase ? createFirebaseTrip(data: trip) : createCoreDataTrip(data: trip)
-    }
-
-    private func createFirebaseTrip(data: NSDictionary) {
-        guard let key = data[LedgitTrip.Keys.key] as? String else {
-            LedgitLog.warning("Data to create trip did not contain key")
-            return
-        }
-
-        trips.child(key).setValue(data)
-        //delegate?.addedTrip()
+        createCoreDataTrip(data: trip)
     }
 
     private func createCoreDataTrip(data: NSDictionary) {
@@ -291,28 +239,7 @@ extension TripsManager {
 
     // MARK: - Update Trip Methods
     func update(_ trip: LedgitTrip) {
-        source == .firebase ? updateFirebase(trip) : updateCoreData(trip)
-    }
-
-    private func updateFirebase(_ trip: LedgitTrip) {
-        let newData: NSDictionary = [
-            LedgitTrip.Keys.budget: trip.budget,
-            LedgitTrip.Keys.budgetSelection: trip.budgetSelection.rawValue,
-            LedgitTrip.Keys.currencies: trip.currencies.map { $0.code },
-            LedgitTrip.Keys.endDate: trip.endDate,
-            LedgitTrip.Keys.startDate: trip.startDate,
-            LedgitTrip.Keys.length: trip.length,
-            LedgitTrip.Keys.key: trip.key,
-            LedgitTrip.Keys.name: trip.name,
-            LedgitTrip.Keys.owner: trip.owner,
-            LedgitTrip.Keys.users: trip.users
-        ]
-
-        trips.child(trip.key).setValue(newData) { (error, _) in
-            if let error = error {
-                LedgitLog.error(error)
-            }
-        }
+        updateCoreData(trip)
     }
 
     private func updateCoreData(_ trip: LedgitTrip) {

@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import Firebase
 
 enum SignoutResult {
     case success

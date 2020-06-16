@@ -8,7 +8,6 @@
 
 import UIKit
 import NVActivityIndicatorView
-import Firebase
 import SwiftDate
 
 class MainViewController: UIViewController {

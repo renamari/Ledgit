@@ -6,8 +6,7 @@
 //  Copyright © 2017 Camden Developers. All rights reserved.
 //
 
-import Foundation
-import Firebase
+import UIKit
 import CoreData
 
 protocol SettingsManagerDelegate: class {
@@ -19,13 +18,7 @@ protocol SettingsManagerDelegate: class {
 
 class SettingsManager {
     weak var delegate: SettingsManagerDelegate?
-    let users = Database.database().reference().child("users")
-    let auth = Auth.auth()
 
-    var source: DataSource {
-        let subscription = LedgitUser.current.subscription
-        return subscription == .free ? .coreData : .firebase
-    }
     var coreData: NSManagedObjectContext {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
             fatalError("Application Delegate wasn't found. Something went terribly wrong.")
@@ -57,16 +50,9 @@ class SettingsManager {
 
 extension SettingsManager {
     func signout() {
-        do {
-            try auth.signOut()
+        UserDefaults.standard.set(nil, forKey: Constants.UserDefaultKeys.uid)
 
-            UserDefaults.standard.set(nil, forKey: Constants.UserDefaultKeys.uid)
-
-            delegate?.signedout(.success)
-
-        } catch let error {
-            delegate?.signedout(.failure(error))
-        }
+        delegate?.signedout(.success)
     }
 
     func fetchCategories() {
@@ -83,9 +69,6 @@ extension SettingsManager {
 
             try coreData.save()
 
-            // Save categories to firebase
-            users.child(LedgitUser.current.key).child(LedgitUser.Keys.categories).setValue(LedgitUser.current.categories)
-
             delegate?.added(category)
 
         } catch let error as NSError {
@@ -94,7 +77,6 @@ extension SettingsManager {
     }
 
     func updateCategory(to newCategory: String, from category: String) {
-        let key = LedgitUser.current.key
         var categories = LedgitUser.current.categories
 
         guard let index = categories.firstIndex(of: category) else { return }
@@ -102,10 +84,6 @@ extension SettingsManager {
         categories[index] = newCategory
 
         do {
-            user?.setValue(categories, forKey: LedgitUser.Keys.categories)
-
-            users.child(key).child(LedgitUser.Keys.categories).setValue(categories)
-
             try coreData.save()
 
             LedgitUser.current.categories = categories
@@ -122,8 +100,6 @@ extension SettingsManager {
 
         do {
             user?.setValue(LedgitUser.current.categories, forKey: LedgitUser.Keys.categories)
-
-            users.child(LedgitUser.current.key).child("categories").setValue(LedgitUser.current.categories)
 
             try coreData.save()
 
@@ -147,30 +123,6 @@ extension SettingsManager {
         } catch let error as NSError {
             LedgitLog.error(error)
         }
-
-        let changeRequest = auth.currentUser?.createProfileChangeRequest()
-        changeRequest?.displayName = name
-        changeRequest?.commitChanges { (error) in
-            // MARK: - CHANGE FOR REALEASE
-            if let error = error {
-                LedgitLog.error(error)
-            }
-
-            let key = LedgitUser.current.key
-            LedgitUser.current.name = name
-            self.users.child(key).child("name").setValue(name)
-        }
-
-        auth.currentUser?.updateEmail(to: email, completion: { (error) in
-            // MARK: - Change for release
-            if let error = error {
-                LedgitLog.error(error)
-            }
-
-            let key = LedgitUser.current.key
-            LedgitUser.current.email = email
-            self.users.child(key).child("email").setValue(email)
-        })
     }
 
     func updateUserHomeCurrency(with currency: LedgitCurrency) {

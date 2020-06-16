@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import Firebase
 
 class LedgitAnalytics {
     static let shared = LedgitAnalytics()
@@ -17,7 +16,6 @@ class LedgitAnalytics {
             "description": "\(description)" as NSObject,
             "method": "\(method)" as NSObject
         ]
-        Analytics.logEvent(file.cleaned, parameters: parameters)
     }
 }
 

@@ -135,12 +135,12 @@ extension TripsViewController: UITableViewDelegate {
         let trip = presenter.trips[selectedSection]
 
         let configuration = UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { _ in
-            let edit = UIAction(title: "Edit") { _ in
+            let edit = UIAction(title: "Edit", image: UIImage(systemName: "pencil")) { _ in
                 self.editingIndexPath = indexPath
                 self.performSegue(withIdentifier: Constants.SegueIdentifiers.action, sender: trip)
             }
 
-            let delete = UIAction(title: "Delete") { _ in
+            let delete = UIAction(title: "Delete", image: UIImage(systemName: "trash"), attributes: .destructive) { _ in
                 let alert = UIAlertController(title: "Warning", message: "Are you sure you want to delete this trip?", preferredStyle: .alert)
                 let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
                 let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { _ in
@@ -164,9 +164,9 @@ extension TripsViewController: UITableViewDelegate {
             }
 
             let showDeleteOnly = selectedSection == 0 && UserDefaults.standard.bool(forKey: Constants.UserDefaultKeys.sampleTrip)
-            let actions = showDeleteOnly ? [delete] : [delete, edit]
+            let actions = showDeleteOnly ? [delete] : [edit, delete]
 
-            return UIMenu(title: "Menu", children: actions)
+            return UIMenu(title: "Trip Options", children: actions)
         }
         return configuration
     }

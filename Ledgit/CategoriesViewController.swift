@@ -77,18 +77,18 @@ extension CategoriesViewController: UITableViewDelegate, UITableViewDataSource {
         selectedIndexPath = indexPath
 
         let configuration = UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { _ in
-            let edit = UIAction(title: "Edit") { _ in
+            let edit = UIAction(title: "Edit", image: UIImage(systemName: "pencil")) { _ in
                 self.performSegue(withIdentifier: Constants.SegueIdentifiers.categoryAction, sender: CategoryAction.edit)
             }
 
-            let delete = UIAction(title: "Delete") { _ in
+            let delete = UIAction(title: "Delete", image: UIImage(systemName: "trash"), attributes: .destructive) { _ in
                 self.presenter?.remove(at: indexPath.row)
                 tableView.beginUpdates()
                 tableView.deleteRows(at: [indexPath], with: .fade)
                 tableView.endUpdates()
             }
 
-            return UIMenu(title: "Menu", children: [delete, edit])
+            return UIMenu(title: "Trip Options", children: [edit, delete])
         }
         return configuration
     }

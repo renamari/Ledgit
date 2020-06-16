@@ -79,7 +79,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, performActionFor shortcutItem: UIApplicationShortcutItem, completionHandler: @escaping (Bool) -> Void) {
         switch shortcutItem.type {
         case "AddEntryShortcut":
-            let rootViewController = application.keyWindow?.rootViewController as? UINavigationController
+            let rootViewController = application.windows.first?.rootViewController as? UINavigationController
             let tripsViewController = rootViewController?.topViewController
             let entryNavigationViewController = EntryActionNavigationController.instantiate(from: .trips)
             let entryActionViewController = entryNavigationViewController.topViewController as? EntryActionViewController

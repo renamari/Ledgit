@@ -88,7 +88,7 @@ extension CategoriesViewController: UITableViewDelegate, UITableViewDataSource {
                 tableView.endUpdates()
             }
 
-            return UIMenu(title: "Trip Options", children: [edit, delete])
+            return UIMenu(title: "Category Options", children: [edit, delete])
         }
         return configuration
     }

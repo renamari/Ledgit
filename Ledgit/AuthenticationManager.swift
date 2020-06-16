@@ -6,8 +6,7 @@
 //  Copyright © 2017 Camden Developers. All rights reserved.
 //
 
-import Foundation
-import Firebase
+import UIKit
 import CoreData
 
 typealias ErrorDictionary = [String:String]
@@ -19,8 +18,6 @@ protocol AuthenticationManagerDelegate: class {
 
 class AuthenticationManager {
     weak var delegate: AuthenticationManagerDelegate?
-    var users: DatabaseReference { return Database.database().reference().child("users") }
-    var auth: Auth { return Auth.auth() }
     var coreData: NSManagedObjectContext {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
             fatalError("Application Delegate wasn't found. Something went terribly wrong.")
@@ -91,42 +88,6 @@ extension AuthenticationManager {
         }
     }
 
-    func performFirebaseSignUp(with email: String, password: String) {
-
-        guard isConnected else {
-            self.delegate?.authenticationError(.noNetworkConnection)
-            return
-        }
-
-        guard !email.isEmpty, !password.isEmpty else {
-            self.delegate?.authenticationError(.emptyTextFields)
-            return
-        }
-
-        auth.createUser(withEmail: email, password: password) { [unowned self] (result, error) in
-            if let error = error, let code = AuthErrorCode(rawValue: error._code) {
-                self.delegate?.authenticationError(self.handleError(with: code))
-            }
-
-            guard let user = result?.user else {
-                self.delegate?.authenticationError(.general)
-                return
-            }
-
-            let data: NSDictionary = [
-                LedgitUser.Keys.provider: user.providerID,
-                LedgitUser.Keys.email: email,
-                LedgitUser.Keys.key: user.uid
-            ]
-
-            self.users.child(user.uid).setValue(data)
-            UserDefaults.standard.set(user.uid, forKey: Constants.UserDefaultKeys.uid)
-            UserDefaults.standard.set(true, forKey: Constants.UserDefaultKeys.sampleTrip)
-            let authenticatedUser = LedgitUser(dict: data)
-            self.delegate?.userAuthenticated(authenticatedUser)
-        }
-    }
-
     func performFirebaseSignIn(with email:String, password: String) {
         guard isConnected else {
             self.delegate?.authenticationError(.noNetworkConnection)
@@ -136,51 +97,6 @@ extension AuthenticationManager {
         guard !email.isEmpty, !password.isEmpty else {
             self.delegate?.authenticationError(.emptyTextFields)
             return
-        }
-
-        auth.signIn(withEmail: email, password: password) { (result, error) in
-            if let error = error, let code = AuthErrorCode(rawValue: error._code) {
-                self.delegate?.authenticationError(self.handleError(with: code))
-            }
-
-            guard let user = result?.user else {
-                self.delegate?.authenticationError(.general)
-                return
-            }
-
-            self.users.child(user.uid).observeSingleEvent(of: .value, with: { (snapshot) in
-                guard let snapshot = snapshot.value as? NSDictionary else {
-                    self.delegate?.authenticationError(.general)
-                    return
-                }
-
-                UserDefaults.standard.set(user.uid, forKey: Constants.UserDefaultKeys.uid)
-                let authenticatedUser = LedgitUser(dict: snapshot)
-                self.delegate?.userAuthenticated(authenticatedUser)
-            })
-        }
-    }
-
-    func handleError(with code: AuthErrorCode) -> LedgitError {
-        switch code {
-
-        case .emailAlreadyInUse:
-            return .emailAlreadyInUse
-
-        case .userDisabled:
-            return .userDisabled
-
-        case .invalidEmail:
-            return .invalidEmail
-
-        case .wrongPassword:
-            return .wrongPassword
-
-        case .userNotFound:
-            return .userNotFound
-
-        default:
-            return .general
         }
     }
 }

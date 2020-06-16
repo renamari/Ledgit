@@ -9,7 +9,6 @@
 import XCTest
 import UIKit
 @testable import Ledgit
-@testable import Firebase
 
 class AuthenticationPresenterTests: XCTestCase {
     var manager: AuthenticationManager!

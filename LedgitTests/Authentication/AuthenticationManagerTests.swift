@@ -8,7 +8,6 @@
 
 import XCTest
 import UIKit
-import Firebase
 @testable import Ledgit
 
 class AuthenticationManagerTests: XCTestCase {

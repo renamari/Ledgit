@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import Firebase
 
 protocol TripDetailPresenterDelegate: class {
     func receivedEntryUpdate()

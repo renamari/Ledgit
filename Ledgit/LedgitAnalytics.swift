@@ -7,19 +7,6 @@
 //
 
 import Foundation
-import Firebase
-
-class LedgitAnalytics {
-    static let shared = LedgitAnalytics()
-
-    func logEvent(_ description: String, file: String = #file, method: String = #function) {
-        let parameters: [String: Any] = [
-            "description": "\(description)" as NSObject,
-            "method": "\(method)" as NSObject
-        ]
-        Analytics.logEvent(file.cleaned, parameters: parameters)
-    }
-}
 
 extension String {
     var cleaned: String {

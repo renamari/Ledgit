@@ -53,9 +53,6 @@ extension UIViewController {
             loadingIndicator.stopAnimating()
             loadingIndicator.removeFromSuperview()
         }
-
-        // user can interact again with the app
-        UIApplication.shared.endIgnoringInteractionEvents()
     }
 
     func presentDetail(_ viewControllerToPresent: UIViewController) {

@@ -73,22 +73,24 @@ extension CategoriesViewController: SettingsPresenterCategoryDelegate {
 }
 
 extension CategoriesViewController: UITableViewDelegate, UITableViewDataSource {
-
-    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+    func tableView(_ tableView: UITableView, contextMenuConfigurationForRowAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
         selectedIndexPath = indexPath
 
-        let edit = UITableViewRowAction(style: .destructive, title: "Edit") { _, _  in
-            self.performSegue(withIdentifier: Constants.SegueIdentifiers.categoryAction, sender: CategoryAction.edit)
-        }
-        edit.backgroundColor = LedgitColor.coreYellow
+        let configuration = UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { _ in
+            let edit = UIAction(title: "Edit", image: UIImage(systemName: "pencil")) { _ in
+                self.performSegue(withIdentifier: Constants.SegueIdentifiers.categoryAction, sender: CategoryAction.edit)
+            }
 
-        let delete = UITableViewRowAction(style: .destructive, title: "Delete") { _, _ in
-            self.presenter?.remove(at: indexPath.row)
-            tableView.beginUpdates()
-            tableView.deleteRows(at: [indexPath], with: .fade)
-            tableView.endUpdates()
+            let delete = UIAction(title: "Delete", image: UIImage(systemName: "trash"), attributes: .destructive) { _ in
+                self.presenter?.remove(at: indexPath.row)
+                tableView.beginUpdates()
+                tableView.deleteRows(at: [indexPath], with: .fade)
+                tableView.endUpdates()
+            }
+
+            return UIMenu(title: "Category Options", children: [edit, delete])
         }
-        return [delete, edit]
+        return configuration
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

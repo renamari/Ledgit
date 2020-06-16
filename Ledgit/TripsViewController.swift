@@ -130,43 +130,45 @@ extension TripsViewController: UITableViewDelegate {
         performSegue(withIdentifier: Constants.SegueIdentifiers.detail, sender: selectedTrip)
     }
 
-    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+    func tableView(_ tableView: UITableView, contextMenuConfigurationForRowAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
         let selectedSection = indexPath.section
         let trip = presenter.trips[selectedSection]
 
-        let edit = UITableViewRowAction(style: .normal, title: "Edit") {  _, _ in
-            self.editingIndexPath = indexPath
-            self.performSegue(withIdentifier: Constants.SegueIdentifiers.action, sender: trip)
-        }
-
-        edit.backgroundColor = LedgitColor.coreYellow
-
-        let delete = UITableViewRowAction(style: .destructive, title: "Delete") { _, _ in
-
-            let alert = UIAlertController(title: "Warning", message: "Are you sure you want to delete this trip?", preferredStyle: .alert)
-            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-            let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { _ in
-
-                if selectedSection == 0 && UserDefaults.standard.bool(forKey: Constants.UserDefaultKeys.sampleTrip) {
-                    UserDefaults.standard.set(false, forKey: Constants.UserDefaultKeys.sampleTrip)
-                }
-
-                tableView.beginUpdates()
-                self.presenter.removeTrip(at: selectedSection)
-                tableView.deleteSections([selectedSection], with: .fade)
-
-                tableView.endUpdates()
-
+        let configuration = UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { _ in
+            let edit = UIAction(title: "Edit", image: UIImage(systemName: "pencil")) { _ in
+                self.editingIndexPath = indexPath
+                self.performSegue(withIdentifier: Constants.SegueIdentifiers.action, sender: trip)
             }
 
-            alert.addAction(cancelAction)
-            alert.addAction(deleteAction)
+            let delete = UIAction(title: "Delete", image: UIImage(systemName: "trash"), attributes: .destructive) { _ in
+                let alert = UIAlertController(title: "Warning", message: "Are you sure you want to delete this trip?", preferredStyle: .alert)
+                let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+                let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { _ in
 
-            self.present(alert, animated: true, completion: nil)
+                    if selectedSection == 0 && UserDefaults.standard.bool(forKey: Constants.UserDefaultKeys.sampleTrip) {
+                        UserDefaults.standard.set(false, forKey: Constants.UserDefaultKeys.sampleTrip)
+                    }
+
+                    tableView.beginUpdates()
+                    self.presenter.removeTrip(at: selectedSection)
+                    tableView.deleteSections([selectedSection], with: .fade)
+
+                    tableView.endUpdates()
+
+                }
+
+                alert.addAction(cancelAction)
+                alert.addAction(deleteAction)
+
+                self.present(alert, animated: true, completion: nil)
+            }
+
+            let showDeleteOnly = selectedSection == 0 && UserDefaults.standard.bool(forKey: Constants.UserDefaultKeys.sampleTrip)
+            let actions = showDeleteOnly ? [delete] : [edit, delete]
+
+            return UIMenu(title: "Trip Options", children: actions)
         }
-
-        let showDeleteOnly = selectedSection == 0 && UserDefaults.standard.bool(forKey: Constants.UserDefaultKeys.sampleTrip)
-        return showDeleteOnly ? [delete] : [delete, edit]
+        return configuration
     }
 }
 

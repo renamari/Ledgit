@@ -8,7 +8,6 @@
 
 import UIKit
 import CoreData
-import Firebase
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -16,9 +15,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-
-        // Set up Firebase
-        FirebaseApp.configure()
 
         window = UIWindow(frame: UIScreen.main.bounds)
 
@@ -83,7 +79,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, performActionFor shortcutItem: UIApplicationShortcutItem, completionHandler: @escaping (Bool) -> Void) {
         switch shortcutItem.type {
         case "AddEntryShortcut":
-            let rootViewController = application.keyWindow?.rootViewController as? UINavigationController
+            let rootViewController = application.windows.first?.rootViewController as? UINavigationController
             let tripsViewController = rootViewController?.topViewController
             let entryNavigationViewController = EntryActionNavigationController.instantiate(from: .trips)
             let entryActionViewController = entryNavigationViewController.topViewController as? EntryActionViewController

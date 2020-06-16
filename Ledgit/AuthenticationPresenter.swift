@@ -30,10 +30,10 @@ class AuthenticationPresenter {
     func authenticateUser(platform: Platform, method: AuthenticationMethod, email: String = "", password: String = "") {
         switch method {
         case .signin:
-            platform == .firebase ? manager.performFirebaseSignIn(with: email, password: password) : nil
+            break
 
         case .signup:
-            platform == .firebase ? manager.performFirebaseSignUp(with: email, password: password) : manager.performCoreDataSignUp()
+            manager.performCoreDataSignUp()
         }
     }
 }

@@ -465,7 +465,7 @@ extension EntryActionViewController: UITextFieldDelegate {
         guard let info = notification.userInfo else { return }
         guard let keyboard = info[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else { return }
         scrollView.contentInset.bottom += keyboard.height
-        scrollView.scrollIndicatorInsets.bottom += keyboard.height
+        scrollView.verticalScrollIndicatorInsets.bottom += keyboard.height
     }
 
     @objc func keyboardWillShow(notification: Notification) {
@@ -474,13 +474,13 @@ extension EntryActionViewController: UITextFieldDelegate {
         guard let keyboard = info[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else { return }
 
         scrollView.contentInset.bottom += keyboard.height
-        scrollView.scrollIndicatorInsets.bottom += keyboard.height
+        scrollView.verticalScrollIndicatorInsets.bottom += keyboard.height
         keyboardShowing = true
     }
 
     @objc func keyboardWillHide(notification: Notification) {
         scrollView.contentInset.bottom = 0
-        scrollView.scrollIndicatorInsets.bottom = 0
+        scrollView.verticalScrollIndicatorInsets.bottom = 0
         keyboardShowing = false
     }
 

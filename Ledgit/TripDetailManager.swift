@@ -201,7 +201,6 @@ extension TripDetailManager {
 
     func updateCoreData(_ entryData: NSDictionary) {
         guard let entry = LedgitEntry(dict: entryData) else {
-            LedgitAnalytics.shared.logEvent("Unable to create entry that's been updated in coreData")
             return
         }
 

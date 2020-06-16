@@ -55,13 +55,6 @@ extension String {
         return self.rangeOfCharacter(from: characterSet as CharacterSet) != nil
     }
 
-    func isNumeric() -> Bool {
-        let scanner = Scanner(string: self)
-        scanner.locale = Locale.current
-
-        return scanner.scanDecimal(nil) && scanner.isAtEnd
-    }
-
     func toDate(withFormat format: LedgitDateStyle = .full) -> Date {
         let formatter = DateFormatter()
         formatter.dateFormat = format.rawValue

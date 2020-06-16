@@ -16,11 +16,6 @@ struct Screen {
     static let minLength = min(Screen.width, Screen.height)
 }
 
-struct StatusBar {
-    static let height = UIApplication.shared.statusBarFrame.height
-    static let width = UIApplication.shared.statusBarFrame.width
-}
-
 struct Type {
     static let iphone4 = UIDevice.current.userInterfaceIdiom == .phone && Screen.maxLength < 568.0
     static let iphone5 = UIDevice.current.userInterfaceIdiom == .phone && Screen.maxLength == 568.0

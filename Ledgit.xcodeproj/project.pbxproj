@@ -24,6 +24,18 @@
 		8D2AEC1B1F4D147800227FC6 /* CityTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D2AEC1A1F4D147800227FC6 /* CityTableViewCell.swift */; };
 		8D2C37F320DF4AD60085E10B /* LedgitPromise.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D2C37F220DF4AD60085E10B /* LedgitPromise.swift */; };
 		8D39F94B1FC51B470055BA4E /* SettingsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D39F94A1FC51B470055BA4E /* SettingsManager.swift */; };
+		8D42A0CE25DDC7810042F3F9 /* NavigationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D42A0CD25DDC7810042F3F9 /* NavigationCoordinator.swift */; };
+		8D42A0DE25DDC80F0042F3F9 /* NavigationCoordinator+Navigate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D42A0DD25DDC80F0042F3F9 /* NavigationCoordinator+Navigate.swift */; };
+		8D42A0E325DDC8730042F3F9 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D42A0E225DDC8730042F3F9 /* ViewModel.swift */; };
+		8D42A0E825DE27D50042F3F9 /* InsightsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D42A0E725DE27D50042F3F9 /* InsightsCoordinator.swift */; };
+		8D42A0F125DEC7DC0042F3F9 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D42A0F025DEC7DC0042F3F9 /* SceneDelegate.swift */; };
+		8D42A0F625DEC9140042F3F9 /* SummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D42A0F525DEC9140042F3F9 /* SummaryView.swift */; };
+		8D42A0FB25DECA270042F3F9 /* InsightsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D42A0FA25DECA270042F3F9 /* InsightsView.swift */; };
+		8D42A14325DECE4F0042F3F9 /* LedgitApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D42A14225DECE4F0042F3F9 /* LedgitApp.swift */; };
+		8D42A14B25DED33F0042F3F9 /* InsightPagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D42A14A25DED33F0042F3F9 /* InsightPagePicker.swift */; };
+		8D42A15025DEDB5C0042F3F9 /* WeeklyChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D42A14F25DEDB5C0042F3F9 /* WeeklyChartView.swift */; };
+		8D42A15525DEDC9B0042F3F9 /* ColorPalette.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D42A15425DEDC9B0042F3F9 /* ColorPalette.swift */; };
+		8D42A15A25DEDE160042F3F9 /* ColorPalette.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8D42A15925DEDE160042F3F9 /* ColorPalette.xcassets */; };
 		8D4E68212228EDB3009939BE /* SummaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D4E68202228EDB3009939BE /* SummaryViewController.swift */; };
 		8D4E68232228EDBB009939BE /* CategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D4E68222228EDBB009939BE /* CategoryViewController.swift */; };
 		8D4E68252228EDC3009939BE /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D4E68242228EDC3009939BE /* HistoryViewController.swift */; };
@@ -132,6 +144,18 @@
 		8D2AEC1A1F4D147800227FC6 /* CityTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CityTableViewCell.swift; sourceTree = "<group>"; };
 		8D2C37F220DF4AD60085E10B /* LedgitPromise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LedgitPromise.swift; sourceTree = "<group>"; };
 		8D39F94A1FC51B470055BA4E /* SettingsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsManager.swift; sourceTree = "<group>"; };
+		8D42A0CD25DDC7810042F3F9 /* NavigationCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationCoordinator.swift; sourceTree = "<group>"; };
+		8D42A0DD25DDC80F0042F3F9 /* NavigationCoordinator+Navigate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NavigationCoordinator+Navigate.swift"; sourceTree = "<group>"; };
+		8D42A0E225DDC8730042F3F9 /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
+		8D42A0E725DE27D50042F3F9 /* InsightsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsightsCoordinator.swift; sourceTree = "<group>"; };
+		8D42A0F025DEC7DC0042F3F9 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		8D42A0F525DEC9140042F3F9 /* SummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryView.swift; sourceTree = "<group>"; };
+		8D42A0FA25DECA270042F3F9 /* InsightsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsightsView.swift; sourceTree = "<group>"; };
+		8D42A14225DECE4F0042F3F9 /* LedgitApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LedgitApp.swift; sourceTree = "<group>"; };
+		8D42A14A25DED33F0042F3F9 /* InsightPagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsightPagePicker.swift; sourceTree = "<group>"; };
+		8D42A14F25DEDB5C0042F3F9 /* WeeklyChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyChartView.swift; sourceTree = "<group>"; };
+		8D42A15425DEDC9B0042F3F9 /* ColorPalette.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPalette.swift; sourceTree = "<group>"; };
+		8D42A15925DEDE160042F3F9 /* ColorPalette.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = ColorPalette.xcassets; sourceTree = "<group>"; };
 		8D4E68202228EDB3009939BE /* SummaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryViewController.swift; sourceTree = "<group>"; };
 		8D4E68222228EDBB009939BE /* CategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewController.swift; sourceTree = "<group>"; };
 		8D4E68242228EDC3009939BE /* HistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
@@ -350,6 +374,44 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		8D42A0D525DDC7850042F3F9 /* Architecture */ = {
+			isa = PBXGroup;
+			children = (
+				8D42A0CD25DDC7810042F3F9 /* NavigationCoordinator.swift */,
+				8D42A0DD25DDC80F0042F3F9 /* NavigationCoordinator+Navigate.swift */,
+				8D42A0E225DDC8730042F3F9 /* ViewModel.swift */,
+			);
+			path = Architecture;
+			sourceTree = "<group>";
+		};
+		8D42A0D625DDC7A30042F3F9 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				8D42A14225DECE4F0042F3F9 /* LedgitApp.swift */,
+				8DA3B1A61F3F875B00FC31AF /* AppDelegate.swift */,
+				8D42A0F025DEC7DC0042F3F9 /* SceneDelegate.swift */,
+				8DA3B1B01F3F875B00FC31AF /* Assets.xcassets */,
+				8DE6F567201532DD0081DB6E /* Flags.xcassets */,
+				8DA3B1B21F3F875B00FC31AF /* LaunchScreen.storyboard */,
+				8DA3B1B51F3F875B00FC31AF /* Info.plist */,
+				8DA3B1D71F3F880800FC31AF /* GoogleService-Info.plist */,
+				8DA3B1AD1F3F875B00FC31AF /* Ledgit.xcdatamodeld */,
+			);
+			path = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		8D42A0EC25DEAFC20042F3F9 /* Domains */ = {
+			isa = PBXGroup;
+			children = (
+				8D42A0E725DE27D50042F3F9 /* InsightsCoordinator.swift */,
+				8D42A0F525DEC9140042F3F9 /* SummaryView.swift */,
+				8D42A0FA25DECA270042F3F9 /* InsightsView.swift */,
+				8D42A14A25DED33F0042F3F9 /* InsightPagePicker.swift */,
+				8D42A14F25DEDB5C0042F3F9 /* WeeklyChartView.swift */,
+			);
+			path = Domains;
+			sourceTree = "<group>";
+		};
 		8D4E68412230B43F009939BE /* LedgitUITests */ = {
 			isa = PBXGroup;
 			children = (
@@ -376,6 +438,8 @@
 				8DDD131B202AB0F600998AA5 /* LedgitColor.swift */,
 				8D926691204C641B00A4B5B2 /* LedgitFont.swift */,
 				8D8E5EEC207DC9F50094686D /* Double+Content.swift */,
+				8D42A15425DEDC9B0042F3F9 /* ColorPalette.swift */,
+				8D42A15925DEDE160042F3F9 /* ColorPalette.xcassets */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -405,12 +469,14 @@
 		8DA3B1A51F3F875B00FC31AF /* Ledgit */ = {
 			isa = PBXGroup;
 			children = (
+				8D42A0D625DDC7A30042F3F9 /* Supporting Files */,
+				8D42A0D525DDC7850042F3F9 /* Architecture */,
+				8D42A0EC25DEAFC20042F3F9 /* Domains */,
 				8DA3B22E1F40136C00FC31AF /* Authentication */,
 				8DC243D41F43AD8C00B3E080 /* Trips */,
 				8D2AEBC31F48912D00227FC6 /* Trip Detail */,
 				8D18DCB91F43E68F00BD5EBA /* Settings */,
 				8DA3B21C1F3FBE3500FC31AF /* Utilities */,
-				8DA3B2211F3FBF1400FC31AF /* Foundation Files */,
 			);
 			path = Ledgit;
 			sourceTree = "<group>";
@@ -435,20 +501,6 @@
 				8D2C37F120DF4A710085E10B /* Supporting Files */,
 			);
 			name = Utilities;
-			sourceTree = "<group>";
-		};
-		8DA3B2211F3FBF1400FC31AF /* Foundation Files */ = {
-			isa = PBXGroup;
-			children = (
-				8DA3B1A61F3F875B00FC31AF /* AppDelegate.swift */,
-				8DA3B1B01F3F875B00FC31AF /* Assets.xcassets */,
-				8DE6F567201532DD0081DB6E /* Flags.xcassets */,
-				8DA3B1B21F3F875B00FC31AF /* LaunchScreen.storyboard */,
-				8DA3B1B51F3F875B00FC31AF /* Info.plist */,
-				8DA3B1D71F3F880800FC31AF /* GoogleService-Info.plist */,
-				8DA3B1AD1F3F875B00FC31AF /* Ledgit.xcdatamodeld */,
-			);
-			name = "Foundation Files";
 			sourceTree = "<group>";
 		};
 		8DA3B22E1F40136C00FC31AF /* Authentication */ = {
@@ -762,6 +814,7 @@
 				8DA3B1B11F3F875B00FC31AF /* Assets.xcassets in Resources */,
 				8DA3B1AC1F3F875B00FC31AF /* Main.storyboard in Resources */,
 				8DE6F568201532DD0081DB6E /* Flags.xcassets in Resources */,
+				8D42A15A25DEDE160042F3F9 /* ColorPalette.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -880,6 +933,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8DFAE89D1FCB104C00B4734B /* TripDetailPresenter.swift in Sources */,
+				8D42A0FB25DECA270042F3F9 /* InsightsView.swift in Sources */,
 				8D9266A5204C676900A4B5B2 /* UILabel+Content.swift in Sources */,
 				8D926696204C645F00A4B5B2 /* String+Content.swift in Sources */,
 				8D39F94B1FC51B470055BA4E /* SettingsManager.swift in Sources */,
@@ -905,12 +959,17 @@
 				8D9266A92059F4FC00A4B5B2 /* LedgitAnalytics.swift in Sources */,
 				8D4E68212228EDB3009939BE /* SummaryViewController.swift in Sources */,
 				8D9266A7204C679100A4B5B2 /* UIImageView+Content.swift in Sources */,
+				8D42A14B25DED33F0042F3F9 /* InsightPagePicker.swift in Sources */,
+				8D42A15025DEDB5C0042F3F9 /* WeeklyChartView.swift in Sources */,
 				8DA3B2231F3FC00500FC31AF /* MainViewController.swift in Sources */,
+				8D42A14325DECE4F0042F3F9 /* LedgitApp.swift in Sources */,
 				8D8E5EED207DC9F50094686D /* Double+Content.swift in Sources */,
 				8D265F7C211922360017770F /* LedgitTutorial.swift in Sources */,
 				8D2AEC1B1F4D147800227FC6 /* CityTableViewCell.swift in Sources */,
 				8DA3B2271F3FC01B00FC31AF /* TutorialViewController.swift in Sources */,
+				8D42A0E825DE27D50042F3F9 /* InsightsCoordinator.swift in Sources */,
 				8DDD13362030F4FC00998AA5 /* TripBudgetInformationView.swift in Sources */,
+				8D42A0DE25DDC80F0042F3F9 /* NavigationCoordinator+Navigate.swift in Sources */,
 				8D4E68232228EDBB009939BE /* CategoryViewController.swift in Sources */,
 				8DA3B2201F3FBEF300FC31AF /* Utilities.swift in Sources */,
 				8DAC30E42311A7CE002E9C17 /* TripSelectionTableViewController.swift in Sources */,
@@ -924,8 +983,11 @@
 				8D926692204C641B00A4B5B2 /* LedgitFont.swift in Sources */,
 				8DDDD6B31F473EFA0053146B /* TripDetailViewController.swift in Sources */,
 				8D173EC31F99803400EC8527 /* AuthenticationManager.swift in Sources */,
+				8D42A0F625DEC9140042F3F9 /* SummaryView.swift in Sources */,
+				8D42A0E325DDC8730042F3F9 /* ViewModel.swift in Sources */,
 				8DA3B2251F3FC01000FC31AF /* AuthenticateViewController.swift in Sources */,
 				8D926690204C639D00A4B5B2 /* UIViewController+Content.swift in Sources */,
+				8D42A0CE25DDC7810042F3F9 /* NavigationCoordinator.swift in Sources */,
 				8D707B4A1F9D3B7F00CABA0F /* MainNavigationController.swift in Sources */,
 				8DA3B1A71F3F875B00FC31AF /* AppDelegate.swift in Sources */,
 				8DFAE89F1FCB9B1500B4734B /* CategorySelectionViewController.swift in Sources */,
@@ -936,6 +998,7 @@
 				8DA3B1AF1F3F875B00FC31AF /* Ledgit.xcdatamodeld in Sources */,
 				8DDD131C202AB0F600998AA5 /* LedgitColor.swift in Sources */,
 				8DC243DA1F43BE2B00B3E080 /* TripTableViewCell.swift in Sources */,
+				8D42A0F125DEC7DC0042F3F9 /* SceneDelegate.swift in Sources */,
 				8DB4679D1FC1F16700E44863 /* LedgitUser.swift in Sources */,
 				8D7D284B20829A5400C305FE /* LedgitError.swift in Sources */,
 				8DC243D61F43ADA400B3E080 /* TripsViewController.swift in Sources */,
@@ -944,6 +1007,7 @@
 				8D926698204C648A00A4B5B2 /* UIView+Content.swift in Sources */,
 				8DB467A11FC1F3A500E44863 /* LedgitTrip.swift in Sources */,
 				8DFAE8991FCA930000B4734B /* CategoryTableViewCell.swift in Sources */,
+				8D42A15525DEDC9B0042F3F9 /* ColorPalette.swift in Sources */,
 				8D92669C204C64CB00A4B5B2 /* UITableView+Content.swift in Sources */,
 				8DA3B2291F3FC3C600FC31AF /* Constants.swift in Sources */,
 				8D707B501F9D3F9000CABA0F /* TripsManager.swift in Sources */,
@@ -1095,7 +1159,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -1149,7 +1213,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
@@ -1165,8 +1229,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CURRENT_PROJECT_VERSION = 9;
 				DEVELOPMENT_TEAM = KD674EGM5X;
-				INFOPLIST_FILE = Ledgit/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				INFOPLIST_FILE = "Ledgit/Supporting Files/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MARKETING_VERSION = 1.5;
 				PRODUCT_BUNDLE_IDENTIFIER = com.camdendev.Ledgit;
@@ -1183,8 +1247,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CURRENT_PROJECT_VERSION = 9;
 				DEVELOPMENT_TEAM = KD674EGM5X;
-				INFOPLIST_FILE = Ledgit/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				INFOPLIST_FILE = "Ledgit/Supporting Files/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MARKETING_VERSION = 1.5;
 				PRODUCT_BUNDLE_IDENTIFIER = com.camdendev.Ledgit;
